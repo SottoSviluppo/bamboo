@@ -23,3 +23,14 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+                customers:
+                    mappings:
+                        email: ~
+                        firstName: ~
+                        lastName: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\User\Entity\Customer
+                        provider: ~
+                        listener: ~
+                        finder: ~

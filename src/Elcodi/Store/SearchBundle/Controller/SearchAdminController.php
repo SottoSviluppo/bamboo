@@ -68,6 +68,17 @@ class SearchAdminController extends Controller
             throw $this->createNotFoundException('Please, specify a query');
         }
 
-        return new Response($query);
+        $customersTmp = $this->service->searchCustomers($query);
+        $customers = array_map(function($c){
+            return [
+                'firstName' => $c->getFirstname(),
+                'lastName' => $c->getLastname(),
+                'email' => $c->getEmail()
+            ];
+        }, $customersTmp);
+
+        $html = "<pre>".print_r($customers, true)."</pre>";
+
+        return new Response($html);
     }
 }
