@@ -7,8 +7,8 @@ parameters:
     database_host: 127.0.0.1
     database_port: ~
     database_name: bamboo
-    database_user: root
-    database_password: root
+    database_user: user
+    database_password: password
 
     # Mailer
     mailer_transport: smtp

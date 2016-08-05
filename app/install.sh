@@ -26,4 +26,4 @@ case $FLAG in
 esac
 
 # Creating database schema and tables
-/usr/bin/env php app/console --no-interaction elcodi:install
+/usr/bin/env php app/console --no-interaction elcodi:install --country=IT

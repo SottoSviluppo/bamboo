@@ -1,5 +1,5 @@
 - name: install
-  apt: pkg="php5-dev" state=present
+  apt: pkg="php-dev" state=present
   when: php.pecl_packages is defined
 
 - name: install package
@@ -7,20 +7,20 @@
   register: pecl_result
   changed_when: "'already installed' not in pecl_result.stdout"
   failed_when: "pecl_result.stderr or ('ERROR' in pecl_result.stdout)"
-  with_items: php.pecl_packages
+  with_items: "{{php.pecl_packages}}"
   when: php.pecl_packages is defined
 
 - name: create extension .ini file
   template: >
     src="extension.tpl"
-    dest="/etc/php5/mods-available/{{ item }}.ini"
+    dest="/etc/php/7.0/mods-available/{{ item }}.ini"
     owner="root"
     group="root"
     mode=0644
-  with_items: php.pecl_packages
+  with_items: "{{php.pecl_packages}}"
   when: php.pecl_packages is defined
 
 - name: enable extension
-  shell: php5enmod {{ item }}
-  with_items: php.pecl_packages
+  shell: phpenmod {{ item }}
+  with_items: "{{php.pecl_packages}}"
   when: php.pecl_packages is defined

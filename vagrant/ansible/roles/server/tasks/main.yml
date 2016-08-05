@@ -1,10 +1,10 @@
 ---
 - name: update apt
-  sudo: yes
+  become: yes
   apt: update_cache=yes
 
 - name: install system packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - curl
@@ -12,20 +12,20 @@
     - python-software-properties
 
 - name: install extra packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
-  with_items: server.packages
+  with_items:  "{{server.packages}}"
   when: server.packages is defined
 
 - name: configure the timezone
-  sudo: yes
+  become: yes
   template: src=timezone.tpl dest=/etc/timezone
 
 - name: more configure the timezone
-  sudo: yes
+  become: yes
   file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
 
 - name: set default system language pack
   shell: locale-gen {{server.locale}}
-  sudo: yes
+  become: yes
 

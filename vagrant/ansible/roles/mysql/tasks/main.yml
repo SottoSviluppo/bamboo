@@ -4,20 +4,29 @@
   register: current_hostname
 
 - name: install mysql packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest
   with_items:
     - mysql-server
     - mysql-client
     - python-mysqldb
+    
 
-- name: update root password for all root accounts
-  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mysql.root_password }} login_user=root login_password={{ mysql.root_password }}
-  with_items:
-    - "{{ current_hostname.stdout | lower }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
+# Note: We do not use mysql_user for this operation, as it doesn't always update
+# the root password correctly. See: https://goo.gl/MSOejW
+# Set root password for MySQL >= 5.7.x.
+#- name: Update MySQL root password for localhost root account (5.7.x).
+#  become: yes
+#  shell: >
+#    mysql -u root -NBe
+#    'ALTER USER root@"{{ item }}" IDENTIFIED WITH mysql_native_password BY "{{ mysql.root_password }}";'
+#  with_items:
+#    - localhost
+
+- name: disable ONLY_FULL_GROUP_BY mode
+  lineinfile: dest=/etc/mysql/mysql.conf.d/mysqld.cnf state=present insertafter='[mysqld]' regexp='^;?sql_mode' line='sql_mode = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"'
+
+- service: name=mysql state=restarted
 
 - name: create databases
   mysql_db: name={{ mysql.database }} state=present login_user=root login_password={{ mysql.root_password }}
@@ -26,11 +35,6 @@
   mysql_db: name={{ mysql.database }} state=import login_user=root login_password={{ mysql.root_password }} target=/vagrant/{{ mysql.dump }}
   when: mysql.dump
 
-- name: ensure anonymous users are not in the database
-  mysql_user: name='' host={{ item }} state=absent login_user=root login_password={{ mysql.root_password }}
-  with_items:
-    - localhost
-    - "{{ current_hostname.stdout | lower }}"
-
 - name: create users
   mysql_user: name={{ mysql.user }} password={{ mysql.password }} priv={{ mysql.database }}.*:ALL state=present login_user=root login_password={{ mysql.root_password }}
+

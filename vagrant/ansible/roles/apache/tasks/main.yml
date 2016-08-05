@@ -1,6 +1,6 @@
 ---
 - name: install apache
-  sudo: yes
+  become: yes
   apt: pkg=apache2 state=latest
 
 - name: install apache modules
@@ -16,17 +16,28 @@
 - shell: apache2 -v
   register: apache_version
 
+- name: change apache user
+  lineinfile: "dest=/etc/apache2/envvars state=present regexp='^;?export APACHE_RUN_USER' line='export APACHE_RUN_USER=vagrant'"
+
+- name: change apache group
+  lineinfile: "dest=/etc/apache2/envvars state=present regexp='^;?export APACHE_RUN_GROUP' line='export APACHE_RUN_GROUP=vagrant'"
+
 - name: change default apache2.4 site
-  sudo: yes
+  become: yes
   template: src=vhost24.conf.tpl dest=/etc/apache2/sites-available/000-default.conf
   notify: restart apache
   when: apache_version.stdout.find('Apache/2.4.') != -1
 
 - name: change default apache2.2 site
-  sudo: yes
+  become: yes
   template: src=vhost22.conf.tpl dest=/etc/apache2/sites-available/default
   notify: restart apache
   when: apache_version.stdout.find('Apache/2.2.') != -1
 
 - name: remove default apache html files
-  shell: rm -rf /var/www/index.html /var/www/html/
+  file: 
+    path: "{{ item }}"
+    state: absent  
+  with_items:
+    - /var/www/index.html
+    - /var/www/html

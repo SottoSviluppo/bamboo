@@ -2,6 +2,6 @@
 # application tasks to be customized and to run after the main provision
 
 - args:
-    chdir: /var/www
+    chdir: /var/www/elcodi
   name: execute install
   shell: sh app/install.sh -f

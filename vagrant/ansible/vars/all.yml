@@ -1,19 +1,19 @@
 ---
 server:
     install: '1'
-    packages: [vim, git, imagemagick]
+    packages: [vim, git, imagemagick, build-essential]
     timezone: UTC
     locale: en_US.UTF-8
 vagrant_local:
     install: '1'
-    vm: { base_box: trusty64, hostname: bamboo.local, ip: 10.10.10.10, memory: '2048', sharedfolder: ../, useVagrantCloud: '1', syncType: nfs }
+    vm: { base_box: xenial64, hostname: bamboo.local, ip: 10.10.10.10, memory: '2048', sharedfolder: ../, useVagrantCloud: '1', syncType: nfs }
 apache:
     install: '1'
-    docroot: /var/www/web
+    docroot: /var/www/elcodi/web
     servername: bamboo.local
 mysql:
     install: '1'
-    root_password: root
+    root_password: 'root'
     database: bamboo
     user: user
     password: password
@@ -22,9 +22,9 @@ redis:
     install: '1'
     port: '6379'
 php:
-    install: '1'
-    ppa: php5-oldstable
-    packages: [php5-cli, php5-curl, php5-intl, php5-mcrypt, php5-gd, php5-mysql, php5-redis, php5-sqlite]
+    install: '1'    
+    packages: [php-cli, php-curl, php-intl, php-mcrypt, php-gd, php-mysql, php-redis, php-sqlite3]
+    pecl_packages: []
 xdebug:
     install: '1'
 composer:
