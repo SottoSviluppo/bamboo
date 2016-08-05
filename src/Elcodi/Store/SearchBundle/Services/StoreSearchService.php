@@ -30,6 +30,7 @@ class StoreSearchService implements IStoreSearchService
     public function searchCustomers($query)
     {
         $finder = $this->createFinderFor('customers');
+        return $finder->find($query);
     }
 
     private function createFinderFor($type)
