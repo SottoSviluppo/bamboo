@@ -4,3 +4,22 @@
 # You can add here your specific configuration. It is recomended
 # to add configurations here instead of changing config.yml
 #
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types: 
+                products:
+                    mappings:
+                        sku: ~
+                        name: ~
+                        shortDescription: ~
+                        description: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Product\Entity\Product
+                        provider: ~
+                        listener: ~
+                        finder: ~
