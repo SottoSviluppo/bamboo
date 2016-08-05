@@ -22,6 +22,9 @@ store_currency:
 store_page:
     resource: "@StorePageBundle/Resources/config/routing.yml"
 
+store_search:
+    resource: "@StoreSearchBundle/Resources/config/routing.yml"
+
 store_login_check:
     path:  /login_check
 

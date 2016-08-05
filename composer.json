@@ -71,7 +71,9 @@
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
 
         "sottosviluppo/elcodi": "^2.0.4",
-        "paymentsuite/paymentsuite": "^2.0.3"
+        "paymentsuite/paymentsuite": "^2.0.3",
+        "friendsofsymfony/elastica-bundle": "dev-master",
+        "ruflin/elastica": "3.1.1 as 2.99.0"
     },
     "replace": {
         "elcodi-templates/template": "self.version",
