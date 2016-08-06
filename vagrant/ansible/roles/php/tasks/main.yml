@@ -27,3 +27,5 @@
 
 - include: configure.yml
 - include: pecl.yml
+
+- service: name=apache2 state=restarted
