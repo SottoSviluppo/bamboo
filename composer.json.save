@@ -1,5 +1,4 @@
-{
-    "name": "sottosviluppo/bamboo",
+{   "name": "SottoSviluppomwsimple/bamboo",
     "description": "Bamboo, an e-commerce suite built with Elcodi",
     "keywords": [
         "elcodi",
@@ -70,7 +69,7 @@
         "mmoreram/http-headers-bundle": "1.0.0",
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
 
-        "sottosviluppo/elcodi": "^2.0.4",
+        "mwsimple/elcodi": "^2.0.2",
         "paymentsuite/paymentsuite": "^2.0.3"
     },
     "replace": {
