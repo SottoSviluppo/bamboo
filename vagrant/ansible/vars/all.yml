@@ -1,7 +1,7 @@
 ---
 server:
     install: '1'
-    packages: [vim, git, imagemagick, build-essential]
+    packages: [vim, git, imagemagick, build-essential, unzip]
     timezone: UTC
     locale: en_US.UTF-8
 vagrant_local:
