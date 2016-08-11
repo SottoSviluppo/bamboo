@@ -144,6 +144,10 @@
         </script>
 
         {% block foot_script "" %}
+        {% block other_scripts %}
+            <script src="{{ asset('bundles/elcodicommon/js/utils.js') }}"></script>
+        {% endblock other_scripts %}
+
 
         {{ elcodi_hook("store.body_bottom") }}
     </body>

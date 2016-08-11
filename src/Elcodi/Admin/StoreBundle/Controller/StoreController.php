@@ -182,6 +182,11 @@ class StoreController extends AbstractAdminController
      */
     private function saveStoreAndAddFlash(StoreInterface $store)
     {
+        // also saving address (before it was not saved)
+        $this
+            ->get('elcodi.object_manager.address')
+            ->flush($store->getAddress());
+
         $this
             ->get('elcodi.object_manager.store')
             ->flush($store);

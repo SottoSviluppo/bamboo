@@ -75,7 +75,7 @@
                 data-fc-url="{{ url('admin_category_sort_component') }}"
                 data-fc-type="nested"
                 data-fc-output="json"
-                data-fc-depth="5"
+                data-fc-depth="8"
             >
                 {% for node in paginator %}
                     {{ _self.category_tree(node.entity, node.children) }}
