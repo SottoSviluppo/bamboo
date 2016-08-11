@@ -19,7 +19,7 @@ store:
                 mobile:
                     label: Cellulare
                 name:
-                    label: 'Address name'
+                    label: 'Nome indirizzo'
                 phone:
                     label: Telefono
                 postalcode:
@@ -27,9 +27,9 @@ store:
                 province:
                     label: Provincia
                 recipientName:
-                    label: 'Recipient name'
+                    label: 'Nome destinatario'
                 recipientSurname:
-                    label: 'Recipient surname'
+                    label: 'Cognome destinatario'
                 send:
                     label: 'Salva indirizzo'
                 state:
