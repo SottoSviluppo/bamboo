@@ -58,9 +58,6 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('city', 'hidden', [
-                'required' => true,
-            ])
             ->add('name', 'text', [
                 'required' => true,
                 'label'    => 'store.address.form.fields.name.label',
@@ -80,6 +77,15 @@ class AddressType extends AbstractType
             ->add('addressMore', 'text', [
                 'required' => false,
                 'label'    => 'store.address.form.fields.addressMore.label',
+            ])
+            ->add('city', 'text', [
+                'required' => true,
+                'label'    => 'store.address.form.fields.city.label',
+            ])
+            ->add('country', 'entity', [
+                'required' => true,
+                'class' => 'Elcodi\Component\Geo\Entity\Country',
+                'label'    => 'store.address.form.fields.country.label',
             ])
             ->add('postalcode', 'text', [
                 'required' => true,

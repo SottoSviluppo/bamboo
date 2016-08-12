@@ -9,9 +9,10 @@
         <dd>{{ addressInfo.address }} {{addressInfo.addressMore }}</dd>
         <dt>{{ 'ui.address.city'|trans }}</dt>
         <dd>
-        {% for cityLocation in addressInfo.city %}
+            {{addressInfo.city}}
+{#         {% for cityLocation in addressInfo.city %}
             {{ cityLocation }}
-        {% endfor %}
+        {% endfor %} #}
         </dd>
         <dt>{{ 'ui.address.zipcode'|trans }}</dt>
         <dd>{{ addressInfo.postalCode }}</dd>
