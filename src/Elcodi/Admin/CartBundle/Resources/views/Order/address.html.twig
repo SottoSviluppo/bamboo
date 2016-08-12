@@ -8,11 +8,9 @@
         <dt>{{ 'ui.address.address'|trans }}</dt>
         <dd>{{ addressInfo.address }} {{addressInfo.addressMore }}</dd>
         <dt>{{ 'ui.address.city'|trans }}</dt>
-        <dd>
-        {% for cityLocation in addressInfo.city %}
-            {{ cityLocation }}
-        {% endfor %}
-        </dd>
+        <dd>{{addressInfo.city}}</dd>
+        <dt>{{ 'ui.address.country'|trans }}</dt>
+        <dd>{{addressInfo.country}}</dd>
         <dt>{{ 'ui.address.zipcode'|trans }}</dt>
         <dd>{{ addressInfo.postalCode }}</dd>
         <dt>{{ 'ui.address.comment'|trans }}</dt>

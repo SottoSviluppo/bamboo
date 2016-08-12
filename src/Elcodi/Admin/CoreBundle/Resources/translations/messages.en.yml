@@ -306,6 +306,16 @@ admin:
                 description: 'Set the time validity of the coupon and the status.'
                 title: Validity
         single: Coupon
+    country:
+        plural: Countries
+        single: Country
+        edit: 'Edit "%name%"'
+        field:
+            name:
+                placeholder: 'e.g. Italy'
+                title: Name
+            enabled:
+                title: 'Status'
     currency:
         error:
             disable_master_currency: 'You can not disable your master currency'
@@ -1061,6 +1071,7 @@ ui:
     address:
         address: Address
         city: City
+        country: Country
         comment: Comment
         full_name: 'Full name'
         phone: Phone

@@ -423,6 +423,17 @@ admin:
 
         single: Coupon
 
+    country:
+        plural: Nazioni
+        single: Nazione
+        edit: 'Modifica "%name%"'
+        field:
+            name:
+                placeholder: 'es. Italia'
+                title: Nome
+            enabled:
+                title: 'Status'
+
     currency:
         error:
             disable_master_currency: 'Non puoi disabilitare la valuta principale'

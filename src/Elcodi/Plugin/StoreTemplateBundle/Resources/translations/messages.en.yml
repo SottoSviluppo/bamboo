@@ -42,6 +42,8 @@ template:
                     example: 'e.g. 555 555 555'
                 name:
                     example: 'e.g. My default address'
+                city:
+                    example: 'e.g. Barcelona'
                 phone:
                     example: 'e.g. 935 555 555'
                 postalcode:

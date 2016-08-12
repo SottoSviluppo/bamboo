@@ -15,20 +15,34 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Store\GeoBundle\Form\Type;
+namespace Elcodi\Admin\GeoBundle\Form\Type;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
+
 
 /**
- * Class AddressType
+ * Class CountryType
  */
-class AddressType extends AbstractType
+class CountryType extends AbstractType
 {
-    use FactoryTrait;
+    use FactoryTrait
+    ,EntityTranslatableFormTrait
+    ;
+
+
+    /**
+     * Construct
+     *
+     */
+    public function __construct(
+    ) {
+    }
 
     /**
      * Configures the options for this type.
@@ -59,53 +73,13 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.name.label',
-            ])
-            ->add('recipientName', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.recipientName.label',
-            ])
-            ->add('recipientSurname', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.recipientSurname.label',
-            ])
-            ->add('address', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.address.label',
-            ])
-            ->add('addressMore', 'text', [
                 'required' => false,
-                'label'    => 'store.address.form.fields.addressMore.label',
             ])
-            ->add('city', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.city.label',
-            ])
-            ->add('country', 'entity', [
-                'required' => true,
-                'class' => 'Elcodi\Component\Geo\Entity\Country',
-                'label'    => 'store.address.form.fields.country.label',
-            ])
-            ->add('postalcode', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.postalcode.label',
-            ])
-            ->add('phone', 'text', [
-                'required' => true,
-                'label'    => 'store.address.form.fields.phone.label',
-            ])
-            ->add('mobile', 'text', [
+            ->add('enabled', 'checkbox', [
                 'required' => false,
-                'label'    => 'store.address.form.fields.mobile.label',
-            ])
-            ->add('comments', 'textarea', [
-                'required' => false,
-                'label'    => 'store.address.form.fields.comments.label',
-            ])
-            ->add('send', 'submit', [
-                'label' => 'store.address.form.fields.send.label',
             ]);
+
+        $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }
 
     /**
@@ -118,7 +92,7 @@ class AddressType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'store_geo_form_type_address';
+        return 'elcodi_admin_country_form_type_country';
     }
 
     /**

@@ -59,6 +59,7 @@ class AdminGeoExtension extends AbstractExtension
         return [
             'formTypes',
             'services',
+            'menu',
         ];
     }
 
