@@ -1,6 +1,6 @@
 <form class="search-form" method="GET" action="{{ path('search_frontend') }}">
     <div>
-        <input type="text" name="q" class="form-control" placeholder="Search Products">
+        <input type="text" name="q" class="form-control" value="{{ query }}" placeholder="Search Products">
         <span class="input-group-btn">
             <button class="search-btn" type="submit">
                 <i class="fa fa-search fa-lg"></i>
