@@ -1,0 +1,13 @@
+{
+    "name": "sottosviluppo/search-bundle",
+    "description": "Search bundle for elcodi ecommerce",
+    "require": {
+        "friendsofsymfony/elastica-bundle": "^3.2"
+    },
+    "authors": [
+        {
+            "name": "Alberto Mori",
+            "email": "info@morialberto.it"
+        }
+    ]
+}

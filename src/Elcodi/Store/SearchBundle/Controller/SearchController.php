@@ -17,7 +17,7 @@ use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 /**
  * Defines all the search methods on frontend
  */
-class SearchFrontendController extends Controller
+class SearchController extends Controller
 {
     use TemplateRenderTrait;
 

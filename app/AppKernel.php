@@ -139,6 +139,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\GeoBundle\AdminGeoBundle',
             'Elcodi\Admin\PaymentBundle\AdminPaymentBundle',
             'Elcodi\Admin\StoreBundle\AdminStoreBundle',
+            'Elcodi\Admin\SearchBundle\AdminSearchBundle',
 
             /**
              * Elcodi common bundle

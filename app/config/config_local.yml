@@ -17,6 +17,17 @@ fos_elastica:
                         name: ~
                         shortDescription: ~
                         description: ~
+                        variants:
+                            type: "nested"
+                            properties:
+                                sku: ~
+                                name: ~
+                                shortDescription: ~
+                                description: ~
+                        categories:
+                            type: "nested"
+                            properties:
+                                name: ~
                     persistence:
                         driver: orm
                         model: Elcodi\Component\Product\Entity\Product

@@ -1,0 +1,6 @@
+services:
+
+    elcodi_admin.admin_search:
+        class: Elcodi\Admin\SearchBundle\Services\AdminSearchService
+        arguments:
+            - '@service_container'
