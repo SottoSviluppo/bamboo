@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "66b3600b6c2830a8a5fcba11948bfd82",
-    "content-hash": "885e6307f831751606eadf62fb6cf159",
+    "hash": "85840f796443cdb6c24d0421214310cb",
+    "content-hash": "8f2544c31c5c1c7f23704c2c5b83a8d9",
     "packages": [
         {
             "name": "acasademont/i18n-routing-bundle",
@@ -476,16 +476,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1"
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/fd51907c6c76acaa8a5234822a4f901c1500afc1",
-                "reference": "fd51907c6c76acaa8a5234822a4f901c1500afc1",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/dd40b0a7fb16658cda9def9786992b8df8a49be7",
+                "reference": "dd40b0a7fb16658cda9def9786992b8df8a49be7",
                 "shasum": ""
             },
             "require": {
@@ -494,6 +494,7 @@
                 "jdorn/sql-formatter": "~1.1",
                 "php": ">=5.3.2",
                 "symfony/console": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
                 "symfony/doctrine-bridge": "~2.2|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
             },
@@ -552,7 +553,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2016-04-21 19:55:56"
+            "time": "2016-08-10 15:35:22"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1087,18 +1088,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSElasticaBundle.git",
-                "reference": "770b91635bf4e3a3306c30be1e281b5c2ca990ce"
+                "reference": "4fed947a9811eb6b471f8278a51c096f3c3b6a88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/770b91635bf4e3a3306c30be1e281b5c2ca990ce",
-                "reference": "770b91635bf4e3a3306c30be1e281b5c2ca990ce",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/4fed947a9811eb6b471f8278a51c096f3c3b6a88",
+                "reference": "4fed947a9811eb6b471f8278a51c096f3c3b6a88",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
                 "psr/log": "~1.0",
-                "ruflin/elastica": "~2.1",
+                "ruflin/elastica": "3.2.*",
                 "symfony/console": "~2.1|~3.0",
                 "symfony/form": "~2.1|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0",
@@ -1163,7 +1164,7 @@
                 "propel",
                 "search"
             ],
-            "time": "2016-08-04 15:34:19"
+            "time": "2016-08-12 07:42:13"
         },
         {
             "name": "goodby/csv",
@@ -2661,165 +2662,6 @@
             "time": "2016-07-29 03:23:52"
         },
         {
-            "name": "mwsimple/elcodi",
-            "version": "v2.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MWSimple/elcodi.git",
-                "reference": "600d09ce759c61026fc9f9b886aa09bd5b6f0807"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MWSimple/elcodi/zipball/600d09ce759c61026fc9f9b886aa09bd5b6f0807",
-                "reference": "600d09ce759c61026fc9f9b886aa09bd5b6f0807",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/common": "^2.5",
-                "doctrine/doctrine-bundle": "^1.5.0",
-                "doctrine/doctrine-cache-bundle": "^1.0",
-                "doctrine/orm": "^2.5",
-                "goodby/csv": "^1.0",
-                "guzzlehttp/guzzle": "^5.2",
-                "ircmaxell/password-compat": "^1.0",
-                "knplabs/knp-gaufrette-bundle": "^0.3.0",
-                "mmoreram/extractor": "^1.2.0",
-                "mmoreram/simple-doctrine-mapping": "^1.0",
-                "mmoreram/symfony-bundle-dependencies": "^1.1.1",
-                "ocramius/proxy-manager": "^1.0",
-                "php": "^5.4|^7.0",
-                "predis/predis": "^1.0.1",
-                "sebastian/money": "^1.5",
-                "symfony/browser-kit": "^2.7|^3.0",
-                "symfony/class-loader": "^2.7|^3.0",
-                "symfony/config": "^2.7|^3.0",
-                "symfony/console": "^2.7|^3.0",
-                "symfony/dependency-injection": "^2.7|^3.0",
-                "symfony/event-dispatcher": "^2.7|^3.0",
-                "symfony/expression-language": "^2.7|^3.0",
-                "symfony/finder": "^2.7|^3.0",
-                "symfony/form": "^2.7|^3.0",
-                "symfony/framework-bundle": "^2.7|^3.0",
-                "symfony/http-foundation": "^2.7|^3.0",
-                "symfony/http-kernel": "^2.7|^3.0",
-                "symfony/process": "^2.7|^3.0",
-                "symfony/proxy-manager-bridge": "^2.7|^3.0",
-                "symfony/routing": "^2.7|^3.0",
-                "symfony/security": "^2.7|^3.0",
-                "symfony/swiftmailer-bundle": "^2.3.8",
-                "symfony/twig-bundle": "^2.7|^3.0",
-                "symfony/validator": "^2.7|^3.0",
-                "symfony/yaml": "^2.7|^3.0",
-                "twig/twig": "^1.23"
-            },
-            "replace": {
-                "elcodi/attribute": "self.version",
-                "elcodi/attribute-bundle": "self.version",
-                "elcodi/banner": "self.version",
-                "elcodi/banner-bundle": "self.version",
-                "elcodi/cart": "self.version",
-                "elcodi/cart-bundle": "self.version",
-                "elcodi/cart-coupon": "self.version",
-                "elcodi/cart-coupon-bundle": "self.version",
-                "elcodi/cart-shipping": "self.version",
-                "elcodi/cart-shipping-bundle": "self.version",
-                "elcodi/comment": "self.version",
-                "elcodi/comment-bundle": "self.version",
-                "elcodi/core": "self.version",
-                "elcodi/core-bundle": "self.version",
-                "elcodi/coupon": "self.version",
-                "elcodi/coupon-bundle": "self.version",
-                "elcodi/currency": "self.version",
-                "elcodi/currency-bundle": "self.version",
-                "elcodi/entity-translator": "self.version",
-                "elcodi/entity-translator-bundle": "self.version",
-                "elcodi/fixtures-booster-bundle": "self.version",
-                "elcodi/geo": "self.version",
-                "elcodi/geo-bundle": "self.version",
-                "elcodi/language": "self.version",
-                "elcodi/language-bundle": "self.version",
-                "elcodi/media": "self.version",
-                "elcodi/media-bundle": "self.version",
-                "elcodi/menu": "self.version",
-                "elcodi/menu-bundle": "self.version",
-                "elcodi/metadata": "self.version",
-                "elcodi/metric": "self.version",
-                "elcodi/metric-bundle": "self.version",
-                "elcodi/newsletter": "self.version",
-                "elcodi/newsletter-bundle": "self.version",
-                "elcodi/page": "self.version",
-                "elcodi/page-bundle": "self.version",
-                "elcodi/payment": "self.version",
-                "elcodi/payment-bundle": "self.version",
-                "elcodi/plugin": "self.version",
-                "elcodi/plugin-bundle": "self.version",
-                "elcodi/product": "self.version",
-                "elcodi/product-bundle": "self.version",
-                "elcodi/rule": "self.version",
-                "elcodi/rule-bundle": "self.version",
-                "elcodi/shipping": "self.version",
-                "elcodi/shipping-bundle": "self.version",
-                "elcodi/sitemap": "self.version",
-                "elcodi/sitemap-bundle": "self.version",
-                "elcodi/state-transition-machine": "self.version",
-                "elcodi/state-transition-machine-bundle": "self.version",
-                "elcodi/store": "self.version",
-                "elcodi/store-bundle": "self.version",
-                "elcodi/tax": "self.version",
-                "elcodi/tax-bundle": "self.version",
-                "elcodi/test-common-bundle": "self.version",
-                "elcodi/user": "self.version",
-                "elcodi/user-bundle": "self.version"
-            },
-            "require-dev": {
-                "doctrine/doctrine-fixtures-bundle": "^2.2",
-                "fabpot/php-cs-fixer": "1.11",
-                "mmoreram/php-formatter": "1.1.0",
-                "phpunit/phpunit": "4.8.19"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "exclude-from-classmap": [
-                    "src/**/Tests/"
-                ],
-                "psr-4": {
-                    "Elcodi\\": "src/Elcodi"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Morera",
-                    "email": "yuhu@mmoreram.com"
-                },
-                {
-                    "name": "Aldo Chiecchia",
-                    "email": "aldo.chiecchia@befactory.es"
-                },
-                {
-                    "name": "The Awesome Elcodi Community",
-                    "homepage": "https://github.com/elcodi/elcodi/contributors"
-                }
-            ],
-            "description": "Barebones Ecommerce functionality for Symfony",
-            "keywords": [
-                "bundle",
-                "components",
-                "ecommerce",
-                "elcodi",
-                "symfony"
-            ],
-            "time": "2016-07-11 11:02:49"
-        },
-        {
             "name": "ocramius/proxy-manager",
             "version": "1.0.2",
             "source": {
@@ -3301,16 +3143,16 @@
         },
         {
             "name": "ruflin/elastica",
-            "version": "3.1.1",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ruflin/Elastica.git",
-                "reference": "571dd533f56057f2afc5f447759b09bbcc012a0d"
+                "reference": "1f3513a3f347c64296a924b1e559d203a1470b2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/571dd533f56057f2afc5f447759b09bbcc012a0d",
-                "reference": "571dd533f56057f2afc5f447759b09bbcc012a0d",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/1f3513a3f347c64296a924b1e559d203a1470b2b",
+                "reference": "1f3513a3f347c64296a924b1e559d203a1470b2b",
                 "shasum": ""
             },
             "require": {
@@ -3330,7 +3172,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1.x-dev"
+                    "dev-master": "3.2.x-dev"
                 }
             },
             "autoload": {
@@ -3354,7 +3196,7 @@
                 "client",
                 "search"
             ],
-            "time": "2016-03-18 07:56:36"
+            "time": "2016-06-15 06:16:11"
         },
         {
             "name": "sebastian/money",
@@ -3628,6 +3470,165 @@
                 "symfony"
             ],
             "time": "2016-01-21 18:29:37"
+        },
+        {
+            "name": "sottosviluppo/elcodi",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sottosviluppo/elcodi.git",
+                "reference": "d60894f5b9ec8d894403afd5865ef56c103aede6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sottosviluppo/elcodi/zipball/d60894f5b9ec8d894403afd5865ef56c103aede6",
+                "reference": "d60894f5b9ec8d894403afd5865ef56c103aede6",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.5",
+                "doctrine/doctrine-bundle": "^1.5.0",
+                "doctrine/doctrine-cache-bundle": "^1.0",
+                "doctrine/orm": "^2.5",
+                "goodby/csv": "^1.0",
+                "guzzlehttp/guzzle": "^5.2",
+                "ircmaxell/password-compat": "^1.0",
+                "knplabs/knp-gaufrette-bundle": "^0.3.0",
+                "mmoreram/extractor": "^1.2.0",
+                "mmoreram/simple-doctrine-mapping": "^1.0",
+                "mmoreram/symfony-bundle-dependencies": "^1.1.1",
+                "ocramius/proxy-manager": "^1.0",
+                "php": "^5.4|^7.0",
+                "predis/predis": "^1.0.1",
+                "sebastian/money": "^1.5",
+                "symfony/browser-kit": "^2.7|^3.0",
+                "symfony/class-loader": "^2.7|^3.0",
+                "symfony/config": "^2.7|^3.0",
+                "symfony/console": "^2.7|^3.0",
+                "symfony/dependency-injection": "^2.7|^3.0",
+                "symfony/event-dispatcher": "^2.7|^3.0",
+                "symfony/expression-language": "^2.7|^3.0",
+                "symfony/finder": "^2.7|^3.0",
+                "symfony/form": "^2.7|^3.0",
+                "symfony/framework-bundle": "^2.7|^3.0",
+                "symfony/http-foundation": "^2.7|^3.0",
+                "symfony/http-kernel": "^2.7|^3.0",
+                "symfony/process": "^2.7|^3.0",
+                "symfony/proxy-manager-bridge": "^2.7|^3.0",
+                "symfony/routing": "^2.7|^3.0",
+                "symfony/security": "^2.7|^3.0",
+                "symfony/swiftmailer-bundle": "^2.3.8",
+                "symfony/twig-bundle": "^2.7|^3.0",
+                "symfony/validator": "^2.7|^3.0",
+                "symfony/yaml": "^2.7|^3.0",
+                "twig/twig": "^1.23"
+            },
+            "replace": {
+                "elcodi/attribute": "self.version",
+                "elcodi/attribute-bundle": "self.version",
+                "elcodi/banner": "self.version",
+                "elcodi/banner-bundle": "self.version",
+                "elcodi/cart": "self.version",
+                "elcodi/cart-bundle": "self.version",
+                "elcodi/cart-coupon": "self.version",
+                "elcodi/cart-coupon-bundle": "self.version",
+                "elcodi/cart-shipping": "self.version",
+                "elcodi/cart-shipping-bundle": "self.version",
+                "elcodi/comment": "self.version",
+                "elcodi/comment-bundle": "self.version",
+                "elcodi/core": "self.version",
+                "elcodi/core-bundle": "self.version",
+                "elcodi/coupon": "self.version",
+                "elcodi/coupon-bundle": "self.version",
+                "elcodi/currency": "self.version",
+                "elcodi/currency-bundle": "self.version",
+                "elcodi/entity-translator": "self.version",
+                "elcodi/entity-translator-bundle": "self.version",
+                "elcodi/fixtures-booster-bundle": "self.version",
+                "elcodi/geo": "self.version",
+                "elcodi/geo-bundle": "self.version",
+                "elcodi/language": "self.version",
+                "elcodi/language-bundle": "self.version",
+                "elcodi/media": "self.version",
+                "elcodi/media-bundle": "self.version",
+                "elcodi/menu": "self.version",
+                "elcodi/menu-bundle": "self.version",
+                "elcodi/metadata": "self.version",
+                "elcodi/metric": "self.version",
+                "elcodi/metric-bundle": "self.version",
+                "elcodi/newsletter": "self.version",
+                "elcodi/newsletter-bundle": "self.version",
+                "elcodi/page": "self.version",
+                "elcodi/page-bundle": "self.version",
+                "elcodi/payment": "self.version",
+                "elcodi/payment-bundle": "self.version",
+                "elcodi/plugin": "self.version",
+                "elcodi/plugin-bundle": "self.version",
+                "elcodi/product": "self.version",
+                "elcodi/product-bundle": "self.version",
+                "elcodi/rule": "self.version",
+                "elcodi/rule-bundle": "self.version",
+                "elcodi/shipping": "self.version",
+                "elcodi/shipping-bundle": "self.version",
+                "elcodi/sitemap": "self.version",
+                "elcodi/sitemap-bundle": "self.version",
+                "elcodi/state-transition-machine": "self.version",
+                "elcodi/state-transition-machine-bundle": "self.version",
+                "elcodi/store": "self.version",
+                "elcodi/store-bundle": "self.version",
+                "elcodi/tax": "self.version",
+                "elcodi/tax-bundle": "self.version",
+                "elcodi/test-common-bundle": "self.version",
+                "elcodi/user": "self.version",
+                "elcodi/user-bundle": "self.version"
+            },
+            "require-dev": {
+                "doctrine/doctrine-fixtures-bundle": "^2.2",
+                "fabpot/php-cs-fixer": "1.11",
+                "mmoreram/php-formatter": "1.1.0",
+                "phpunit/phpunit": "4.8.19"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "exclude-from-classmap": [
+                    "src/**/Tests/"
+                ],
+                "psr-4": {
+                    "Elcodi\\": "src/Elcodi"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Morera",
+                    "email": "yuhu@mmoreram.com"
+                },
+                {
+                    "name": "Aldo Chiecchia",
+                    "email": "aldo.chiecchia@befactory.es"
+                },
+                {
+                    "name": "The Awesome Elcodi Community",
+                    "homepage": "https://github.com/elcodi/elcodi/contributors"
+                }
+            ],
+            "description": "Barebones Ecommerce functionality for Symfony",
+            "keywords": [
+                "bundle",
+                "components",
+                "ecommerce",
+                "elcodi",
+                "symfony"
+            ],
+            "time": "2016-08-08 12:27:04"
         },
         {
             "name": "stripe/stripe-php",
@@ -4857,7 +4858,7 @@
             "time": "2015-09-28 16:26:35"
         },
         {
-            "name": "fabpot/php-cs-fixer",
+            "name": "friendsofphp/php-cs-fixer",
             "version": "v1.4.2",
             "source": {
                 "type": "git",
@@ -4907,7 +4908,6 @@
                 }
             ],
             "description": "A script to automatically fix Symfony Coding Standard",
-            "abandoned": "friendsofphp/php-cs-fixer",
             "time": "2015-02-03 21:20:51"
         },
         {
@@ -6211,28 +6211,29 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde"
+                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde",
-                "reference": "30eed06dd6bc88410a4ff7f77b6d22f3ce13dbde",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/bb2d123231c095735130cc8f6d31385a44c7b308",
+                "reference": "bb2d123231c095735130cc8f6d31385a44c7b308",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3|^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6"
+                "phpunit/phpunit": "^4.6",
+                "sebastian/version": "^1.0.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -6256,17 +6257,10 @@
                 "check",
                 "validate"
             ],
-            "time": "2015-08-24 13:29:44"
+            "time": "2016-08-09 15:02:57"
         }
     ],
-    "aliases": [
-        {
-            "alias": "2.99.0",
-            "alias_normalized": "2.99.0.0",
-            "version": "3.1.1.0",
-            "package": "ruflin/elastica"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/elastica-bundle": 20

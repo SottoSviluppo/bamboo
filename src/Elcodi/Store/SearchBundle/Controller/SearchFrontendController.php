@@ -38,12 +38,14 @@ class SearchFrontendController extends Controller
             throw $this->createNotFoundException('Please, specify a query');
         }
 
-        $productsTmp = $this->service->searchProducts($query);
-        $products = array_map(function($p){
-            return $p->getName();
-        }, $productsTmp);
+        $products = $this->service->searchProducts($query);
 
-        $html = "<pre>".print_r($products, true)."</pre>";
-        return new Response($html);
+        return $this->renderTemplate(
+            'Pages:search-products.html.twig',
+            [
+                'query' => $query,
+                'purchasables' => $products,
+            ]
+        );
     }
 }

@@ -25,6 +25,7 @@ class StoreSearchService implements IStoreSearchService
     public function searchOrders($query)
     {
         $finder = $this->createFinderFor('orders');
+        return $finder->find($query);
     }
 
     public function searchCustomers($query)
