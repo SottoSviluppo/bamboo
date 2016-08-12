@@ -1,0 +1,37 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+{% set elcodi_context = {
+    entity_type: 'product'
+} %}
+
+
+{% block breadcrumb %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.product.plural'|trans, active: true },
+        ],
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block header_actions %}
+
+    <a href="{{ url('admin_product_new') }}" type="button" class="button-primary" data-test="new-product">
+        <i class="icon-plus"></i>
+        <span>{{ 'admin.product.new'|trans }}</span>
+    </a>
+
+{% endblock header_actions %}
+
+
+{% block content %}
+
+    {{
+        render(url('search_admin_component_products', {
+            query: query,
+        }))
+    }}
+
+{% endblock content %}

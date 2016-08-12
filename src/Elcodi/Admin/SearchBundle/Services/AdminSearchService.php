@@ -1,13 +1,13 @@
 <?php
 
-namespace Elcodi\Store\SearchBundle\Services;
+namespace Elcodi\Admin\SearchBundle\Services;
 
-use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
+use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
 /**
  * Defines all the search methods
  */
-class StoreSearchService implements IStoreSearchService
+class AdminSearchService implements IAdminSearchService
 {
     private $container;
 
@@ -19,6 +19,18 @@ class StoreSearchService implements IStoreSearchService
     public function searchProducts($query)
     {
         $finder = $this->createFinderFor('products');
+        return $finder->find($query);
+    }
+
+    public function searchOrders($query)
+    {
+        $finder = $this->createFinderFor('orders');
+        return $finder->find($query);
+    }
+
+    public function searchCustomers($query)
+    {
+        $finder = $this->createFinderFor('customers');
         return $finder->find($query);
     }
 
