@@ -15,7 +15,7 @@ use Elcodi\Component\Product\Repository\PurchasableRepository;
 use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
- * Defines all the search methods on frontend
+ * Defines all the search methods on admin
  */
 class SearchAdminController extends Controller
 {
