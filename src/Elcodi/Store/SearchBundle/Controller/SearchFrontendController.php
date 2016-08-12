@@ -44,6 +44,7 @@ class SearchFrontendController extends Controller
             'Pages:search-products.html.twig',
             [
                 'query' => $query,
+                'count' => count($products),
                 'purchasables' => $products,
             ]
         );
