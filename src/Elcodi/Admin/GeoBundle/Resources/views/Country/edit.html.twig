@@ -1,0 +1,56 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'country',
+} %}
+
+
+{% block header_actions %}
+
+	{% if country.id > 0 %}
+        <a target="_blank" href="{{ url('elcodi.route.page_render', {
+            id: country.id,
+            path: country.path
+        }) }}" class="button-primary">
+            <i class="icon-eye"></i>
+            <span>{{ 'admin.country.in_store'|trans }}</span>
+        </a>
+	{% endif %}
+
+{% endblock header_actions %}
+
+
+{% block breadcrumb %}
+
+	{% set title = 'admin.country.plural'|trans %}
+	{%
+        set header = country.id
+            ? 'admin.country.edit'|trans({ '%name%': country.title })
+            : 'admin.country.new'|trans
+    %}
+
+	{% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.communication.single'|trans, active: false },
+            { name: title, url: url('admin_country_list'), },
+            { name: header, active: true, },
+        ]
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+	{% if country.id %}
+        {{
+            render(url('admin_country_edit_component', {
+                id: country.id,
+            }))
+        }}
+	{% else %}
+        {{ render(url('admin_country_new_component')) }}
+	{% endif %}
+
+{% endblock content %}

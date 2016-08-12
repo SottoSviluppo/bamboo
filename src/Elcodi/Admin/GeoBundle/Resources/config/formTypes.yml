@@ -9,3 +9,12 @@ services:
             - [setFactory, ["@elcodi.factory.address"]]
         tags:
             - { name: form.type, alias: admin_geo_form_type_address }
+
+    elcodi_admin.Admin.country:
+        class: Elcodi\Admin\GeoBundle\Form\Type\CountryType
+        arguments:
+        calls:
+            - [setFactory, ["@elcodi.factory.country"] ]
+            - [setEntityTranslatorFormEventListener, ["@elcodi.entity_translator_form_event_listener"] ]
+        tags:
+            - { name: form.type, alias: elcodi_admin_country_form_type_country }
