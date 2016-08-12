@@ -90,117 +90,121 @@ class ProductType extends AbstractType
         ]);
     }
 
-    /**
-     * Buildform function
-     *
-     * @param FormBuilderInterface $builder the formBuilder
-     * @param array                $options the options for this form
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('name', 'text', [
-                'required'    => true,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 65,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('slug', 'text', [
-                'required' => true,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 65,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('description', 'textarea', [
-                'required' => true,
-            ])
-            ->add('showInHome', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('stock', 'hidden', [
-                'required' => true,
-            ])
-            ->add('sku', 'text', [
-                'required' => false,
-            ])
-            ->add('price', 'money_object', [
-                'required' => true,
-                'constraints' => [
-                    new MinimumMoney([
-                        'value' => 0,
-                    ]),
-                ],
-            ])
-            ->add('reducedPrice', 'money_object', [
-                'required' => false,
-                'constraints' => [
-                    new MinimumMoney([
-                        'value' => 0,
-                    ]),
-                ],
-            ])
-            ->add('imagesSort', 'text', [
-                'required' => false,
-            ])
-            ->add('enabled', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('height', 'number', [
-                'required' => false,
-            ])
-            ->add('width', 'number', [
-                'required' => false,
-            ])
-            ->add('depth', 'number', [
-                'required' => false,
-            ])
-            ->add('weight', 'number', [
-                'required' => false,
-            ])
-            ->add('metaTitle', 'text', [
-                'required' => false,
-            ])
-            ->add('metaDescription', 'text', [
-                'required' => false,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 159,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('metaKeywords', 'text', [
-                'required' => false,
-            ])
-            ->add('stock', 'number', [
-                'required' => false,
-            ])
-            ->add('manufacturer', 'entity', [
-                'class'    => $this->manufacturerNamespace,
-                'required' => false,
-                'multiple' => false,
-            ])
-            ->add('principalCategory', 'entity', [
-                'class'    => $this->categoryNamespace,
-                'required' => true,
-                'multiple' => false,
-            ])
-            ->add('images', 'entity', [
-                'class'    => $this->imageNamespace,
-                'required' => false,
-                'property' => 'id',
-                'multiple' => true,
-                'expanded' => true,
-            ]);
+	/**
+	 * Buildform function
+	 *
+	 * @param FormBuilderInterface $builder the formBuilder
+	 * @param array                $options the options for this form
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder
+			->add('name', 'text', [
+				'required' => true,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 65,
+						]
+					),
+				],
+			])
+			->add('slug', 'text', [
+				'required' => true,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 65,
+						]
+					),
+				],
+			])
+			->add('description', 'textarea', [
+				'required' => true,
+			])
+			->add('showInHome', 'checkbox', [
+				'required' => false,
+			])
+			->add('stock', 'hidden', [
+				'required' => true,
+			])
+			->add('sku', 'text', [
+				'required' => false,
+			])
+			->add('price', 'money_object', [
+				'required' => true,
+				'constraints' => [
+					new MinimumMoney([
+						'value' => 0,
+					]),
+				],
+			])
+			->add('reducedPrice', 'money_object', [
+				'required' => false,
+				'constraints' => [
+					new MinimumMoney([
+						'value' => 0,
+					]),
+				],
+			])
+			->add('imagesSort', 'text', [
+				'required' => false,
+			])
+			->add('enabled', 'checkbox', [
+				'required' => false,
+			])
+			->add('height', 'number', [
+				'required' => false,
+			])
+			->add('width', 'number', [
+				'required' => false,
+			])
+			->add('depth', 'number', [
+				'required' => false,
+			])
+			->add('weight', 'number', [
+				'required' => false,
+			])
+			->add('metaTitle', 'text', [
+				'required' => false,
+			])
+			->add('metaDescription', 'text', [
+				'required' => false,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 159,
+						]
+					),
+				],
+			])
+			->add('metaKeywords', 'text', [
+				'required' => false,
+			])
+			->add('stock', 'number', [
+				'required' => false,
+			])
+			->add('manufacturer', 'entity', [
+				'class' => $this->manufacturerNamespace,
+				'required' => false,
+				'multiple' => false,
+			])
+			->add('principalCategory', 'entity', [
+				'class' => $this->categoryNamespace,
+				'required' => true,
+				'multiple' => false,
+			])
+			->add('categories', 'entity', [
+				'class' => $this->categoryNamespace,
+				'required' => false,
+				'multiple' => true,
+			])
+			->add('images', 'entity', [
+				'class' => $this->imageNamespace,
+				'required' => false,
+				'property' => 'id',
+				'multiple' => true,
+				'expanded' => true,
+			]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }

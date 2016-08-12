@@ -164,6 +164,14 @@
                                         label_help: 'admin.product.field.main_category.placeholder'|trans,
                                     })
                                     }}
+                                    {# Altre categorie #}
+                                    <br>
+                                    {{ form_row(form.categories, {
+                                        label: 'admin.product.field.other_category.title',
+                                        label_help: 'admin.product.field.main_category.placeholder'|trans,
+                                        attr: {class: 'select2', style: "height: 200px"}
+                                        })
+                                    }}
                                     <p class="pt-s fz-default mb-n ta-r">
                                         <a href="{{ url('admin_category_new') }}" data-fc-modules="window-content">
                                             <i class="icon-plus"></i>
@@ -189,6 +197,7 @@
                         </ol>
                     </div>
                 </div>
+                 
             </div>
             <div class="ph-n pt-m mb-n">
                 <div class="box-background pv-s mb-n">
