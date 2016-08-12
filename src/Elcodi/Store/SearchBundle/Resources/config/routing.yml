@@ -1,0 +1,15 @@
+search_frontend:
+    path: /search/products
+    defaults: { _controller: StoreSearchBundle:SearchFrontend:searchProducts }
+
+search_admin_products:
+    path: /admin/search/products
+    defaults: { _controller: StoreSearchBundle:SearchAdmin:searchProducts }
+
+search_admin_orders:
+    path: /admin/search/orders
+    defaults: { _controller: StoreSearchBundle:SearchAdmin:searchOrders }
+
+search_admin_customers:
+    path: /admin/search/customers
+    defaults: { _controller: StoreSearchBundle:SearchAdmin:searchCustomers }
