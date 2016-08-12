@@ -1061,6 +1061,7 @@ ui:
     address:
         address: Address
         city: City
+        country: Country
         comment: Comment
         full_name: 'Full name'
         phone: Phone
