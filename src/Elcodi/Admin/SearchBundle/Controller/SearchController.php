@@ -42,10 +42,10 @@ class SearchController extends Controller
         //$products = $this->service->searchProducts($query);
         
         return [
-                'query' => $query,
-                /*'count' => count($products),
-                'purchasables' => $products,*/
-            ];
+            'query' => $query,
+            /*'count' => count($products),
+            'purchasables' => $products,*/
+        ];
     }
 
     public function searchOrdersAction()
@@ -60,6 +60,9 @@ class SearchController extends Controller
         return new Response($query);
     }
 
+    /**
+    * @Template("AdminSearchBundle:Search:customers.html.twig")
+    */
     public function searchCustomersAction()
     {
         $request = $this->getRequest();
@@ -69,7 +72,13 @@ class SearchController extends Controller
             throw $this->createNotFoundException('Please, specify a query');
         }
 
-        $customersTmp = $this->service->searchCustomers($query);
+        return [
+            'query' => $query,
+            /*'count' => count($products),
+            'purchasables' => $products,*/
+        ];
+
+        /*$customersTmp = $this->service->searchCustomers($query);
         $customers = array_map(function($c){
             return [
                 'firstName' => $c->getFirstname(),
@@ -80,6 +89,6 @@ class SearchController extends Controller
 
         $html = "<pre>".print_r($customers, true)."</pre>";
 
-        return new Response($html);
+        return new Response($html);*/
     }
 }
