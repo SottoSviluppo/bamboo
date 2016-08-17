@@ -47,15 +47,24 @@ class VariantType extends AbstractType
     protected $imageNamespace;
 
     /**
+     * @var string
+     *
+     * Tax namespace
+     */
+    protected $taxNamespace;
+
+
+    /**
      * Construct
      *
      * @param string $attributeValueNamespace Attribute Value namespace
      * @param string $imageNamespace          Image namespace
      */
-    public function __construct($attributeValueNamespace, $imageNamespace)
+    public function __construct($attributeValueNamespace, $imageNamespace, $taxNamespace)
     {
         $this->attributeValueNamespace = $attributeValueNamespace;
         $this->imageNamespace = $imageNamespace;
+        $this->taxNamespace = $taxNamespace;
     }
 
     /**
@@ -129,6 +138,11 @@ class VariantType extends AbstractType
                         'value' => 0,
                     ]),
                 ],
+            ])
+            ->add('tax', 'entity', [
+                'class' => $this->taxNamespace,
+                'required' => false,
+                'multiple' => false,
             ])
             ->add('enabled', 'checkbox', [
                 'required' => false,

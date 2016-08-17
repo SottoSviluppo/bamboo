@@ -39,13 +39,21 @@ class CustomerType extends AbstractType
     protected $languageNamespace;
 
     /**
+     * @var string
+     *
+     * Tax namespace
+     */
+    protected $taxNamespace;
+
+    /**
      * Construct
      *
      * @param string $languageNamespace Language Namespace
      */
-    public function __construct($languageNamespace)
+    public function __construct($languageNamespace, $taxNamespace)
     {
         $this->languageNamespace = $languageNamespace;
+        $this->taxNamespace = $taxNamespace;
     }
 
     /**
@@ -100,6 +108,11 @@ class CustomerType extends AbstractType
                 'class'    => $this->languageNamespace,
                 'property' => 'name',
                 'required' => true,
+            ])
+            ->add('tax', 'entity', [
+                'class'    => $this->taxNamespace,
+                'property' => 'name',
+                'required' => false,
             ])
             ->add('birthday', 'date', [
                 'required' => false,

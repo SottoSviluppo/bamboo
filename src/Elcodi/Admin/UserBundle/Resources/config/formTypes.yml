@@ -38,6 +38,7 @@ services:
         class: Elcodi\Admin\UserBundle\Form\Type\CustomerType
         arguments:
             - %elcodi.entity.language.class%
+            - %elcodi.entity.tax.class%
         calls:
             - [setFactory, ["@elcodi.factory.customer"]]
         tags:
