@@ -13,3 +13,7 @@ search_admin_orders:
 search_admin_customers:
     path: /search/customers
     defaults: { _controller: AdminSearchBundle:Search:searchCustomers }
+
+search_admin_component_customers:
+    path: /search/customers/component/{query}
+    defaults: { _controller: AdminSearchBundle:CustomerComponent:listComponent }
