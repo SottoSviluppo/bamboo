@@ -9,4 +9,6 @@ interface IAdminSearchService
     function searchOrders($query);
 
     function searchCustomers($query);
+
+    function searchManufacturers($query);
 }

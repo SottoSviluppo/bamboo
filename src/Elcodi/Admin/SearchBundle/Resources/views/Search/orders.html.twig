@@ -1,0 +1,28 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'order',
+} %}
+
+
+{% block breadcrumb %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.order.plural'|trans, active: true }
+        ],
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+    {{
+        render(url('search_admin_component_orders', {
+            query: query,
+        }))
+    }}
+
+{% endblock content %}

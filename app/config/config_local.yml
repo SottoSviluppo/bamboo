@@ -13,6 +13,7 @@ fos_elastica:
             types: 
                 products:
                     mappings:
+                        id: ~
                         sku: ~
                         name: ~
                         shortDescription: ~
@@ -36,12 +37,58 @@ fos_elastica:
                         finder: ~
                 customers:
                     mappings:
+                        id: ~
                         email: ~
                         firstName: ~
                         lastName: ~
                     persistence:
                         driver: orm
                         model: Elcodi\Component\User\Entity\Customer
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                orders:
+                    mappings:
+                        customer:
+                            type: object
+                            properties:
+                                email: ~
+                                firstName: ~
+                                lastName: ~
+                        orderLines:
+                            type: "nested"
+                            properties:
+                                purchasable:
+                                    type: object
+                                    properties:
+                                        sku: ~
+                                        name: ~
+                                        shortDescription: ~
+                                        description: ~
+                                        variants:
+                                            type: "nested"
+                                            properties:
+                                                sku: ~
+                                                name: ~
+                                                shortDescription: ~
+                                                description: ~
+                                        categories:
+                                            type: "nested"
+                                            properties:
+                                                name: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Cart\Entity\Order
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                manufacturers:
+                    mappings:
+                        name: ~
+                        description: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Product\Entity\Manufacturer
                         provider: ~
                         listener: ~
                         finder: ~

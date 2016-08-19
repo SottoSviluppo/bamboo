@@ -38,8 +38,6 @@ class SearchController extends Controller
         if(empty($query)){
             throw $this->createNotFoundException('Please, specify a query');
         }
-
-        //$products = $this->service->searchProducts($query);
         
         return [
             'query' => $query,
@@ -48,6 +46,9 @@ class SearchController extends Controller
         ];
     }
 
+    /**
+    * @Template("AdminSearchBundle:Search:orders.html.twig")
+    */
     public function searchOrdersAction()
     {
         $request = $this->getRequest();
@@ -57,7 +58,11 @@ class SearchController extends Controller
             throw $this->createNotFoundException('Please, specify a query');
         }
 
-        return new Response($query);
+        return [
+            'query' => $query,
+            /*'count' => count($products),
+            'purchasables' => $products,*/
+        ];
     }
 
     /**
@@ -77,18 +82,24 @@ class SearchController extends Controller
             /*'count' => count($products),
             'purchasables' => $products,*/
         ];
+    }
 
-        /*$customersTmp = $this->service->searchCustomers($query);
-        $customers = array_map(function($c){
-            return [
-                'firstName' => $c->getFirstname(),
-                'lastName' => $c->getLastname(),
-                'email' => $c->getEmail()
-            ];
-        }, $customersTmp);
+    /**
+    * @Template("AdminSearchBundle:Search:manufacturers.html.twig")
+    */
+    public function searchManufacturersAction()
+    {
+        $request = $this->getRequest();
+        $query = $request->query->get('q');
 
-        $html = "<pre>".print_r($customers, true)."</pre>";
+        if(empty($query)){
+            throw $this->createNotFoundException('Please, specify a query');
+        }
 
-        return new Response($html);*/
+        return [
+            'query' => $query,
+            /*'count' => count($products),
+            'purchasables' => $products,*/
+        ];
     }
 }
