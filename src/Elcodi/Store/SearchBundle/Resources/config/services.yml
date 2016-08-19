@@ -1,0 +1,6 @@
+services:
+
+    elcodi_store.store_search:
+        class: Elcodi\Store\SearchBundle\Services\StoreSearchService
+        arguments:
+            - '@service_container'

@@ -1,0 +1,28 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'customer',
+} %}
+
+
+{% block breadcrumb %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.customer.plural'|trans, active: true },
+        ],
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+    {{
+        render(url('search_admin_component_customers', {
+            query: query,
+        }))
+    }}
+
+{% endblock content %}

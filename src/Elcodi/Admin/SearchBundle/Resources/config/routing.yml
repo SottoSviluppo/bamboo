@@ -1,0 +1,31 @@
+search_admin_products:
+    path: /search/products
+    defaults: { _controller: AdminSearchBundle:Search:searchProducts }
+
+search_admin_component_products:
+    path: /search/products/component/{query}
+    defaults: { _controller: AdminSearchBundle:ProductComponent:listComponent }
+
+search_admin_orders:
+    path: /search/orders
+    defaults: { _controller: AdminSearchBundle:Search:searchOrders }
+
+search_admin_component_orders:
+    path: /search/orders/component/{query}
+    defaults: { _controller: AdminSearchBundle:OrderComponent:listComponent }
+
+search_admin_customers:
+    path: /search/customers
+    defaults: { _controller: AdminSearchBundle:Search:searchCustomers }
+
+search_admin_component_customers:
+    path: /search/customers/component/{query}
+    defaults: { _controller: AdminSearchBundle:CustomerComponent:listComponent }
+
+search_admin_manufacturers:
+    path: /search/manufacturers
+    defaults: { _controller: AdminSearchBundle:Search:searchManufacturers }
+
+search_admin_component_manufacturers:
+    path: /search/manufacturers/component/{query}
+    defaults: { _controller: AdminSearchBundle:ManufacturerComponent:listComponent }

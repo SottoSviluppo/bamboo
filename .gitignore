@@ -14,4 +14,5 @@
 /composer.phar
 /web/*/
 /vagrant/.vagrant
+/vagrant/Vagrantfile
 /.vscode/
