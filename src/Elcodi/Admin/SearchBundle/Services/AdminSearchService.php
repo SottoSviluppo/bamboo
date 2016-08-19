@@ -34,6 +34,12 @@ class AdminSearchService implements IAdminSearchService
         return $finder->find($query);
     }
 
+    public function searchManufacturers($query)
+    {
+        $finder = $this->createFinderFor('manufacturers');
+        return $finder->find($query);
+    }
+
     private function createFinderFor($type)
     {
         return $this->container->get('fos_elastica.finder.app.'.$type);
