@@ -1,0 +1,14 @@
+services:
+
+    #
+    # Form Types
+    #
+
+    elcodi_admin.Admin.tax:
+        class: Elcodi\Admin\TaxBundle\Form\Type\TaxType
+        arguments:
+        calls:
+            - [setFactory, ["@elcodi.factory.tax"] ]
+            # - [setEntityTranslatorFormEventListener, ["@elcodi.entity_translator_form_event_listener"] ]
+        tags:
+            - { name: form.type, alias: elcodi_admin_tax_form_type_tax }

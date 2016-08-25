@@ -1,0 +1,11 @@
+services:
+
+    #
+    # Menu builders
+    #
+    elcodi_admin.menu_builder.tax:
+        class: Elcodi\Admin\TaxBundle\Builder\MenuBuilder
+        arguments:
+            - "@elcodi.factory.menu_node"
+        tags:
+            - { name: menu.builder, menu: admin, priority: 16 }

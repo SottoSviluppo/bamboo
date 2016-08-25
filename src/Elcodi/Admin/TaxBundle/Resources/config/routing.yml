@@ -1,0 +1,3 @@
+AdminTaxBundle:
+    resource: "@AdminTaxBundle/Controller/"
+    type:     annotation

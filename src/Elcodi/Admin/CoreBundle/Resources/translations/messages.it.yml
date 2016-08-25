@@ -1292,6 +1292,8 @@ admin:
 
             useStock:
                 title: 'Attiva il controllo delle giacenze'
+            taxIncluded:
+                title: 'Tasse incluse nei prodotti'
 
         saved: 'Impostazioni salvate.'
 
@@ -1309,7 +1311,11 @@ admin:
                 title: Giacenza
 
         settings: Impostazioni
-
+  
+    tax:
+        plural: Tasse
+        single: Tassa
+  
     template:
         action:
             preview: Preview
@@ -1412,6 +1418,39 @@ admin:
                 title: Visibilità
 
         single: Variante
+
+    general:
+        edit: 'Modifica "%name%"'
+        field:
+            description:
+                title: Descrizione
+            name:
+                title: Nome
+            value:
+                title: Valore
+            status:
+                title: Abilitato
+            enabled:
+                options:
+                    active: Attivo
+                    inactive: Inattivo
+                title: Stato
+            master:
+                title: Default
+        list: 'Lista'
+        new: 'Nuovo'
+        plural: Elementi
+        saved: 'Modifiche salvate saved'
+
+        section:
+            basic:
+                description: 'Definisci il nome e una descrizione se necessario'
+                title: 'Dettagli base'
+
+            visibility:
+                description: 'Imposta questo attributo come visibile o nascosto.'
+                title: Visibilità
+        single: Elemento
 
 plugin:
     paymill:

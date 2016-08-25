@@ -15,49 +15,33 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Admin\StoreBundle\Form\Type;
+namespace Elcodi\Admin\TaxBundle\Form\Type;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\Store\StoreRoutingStrategy;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
+
 
 /**
- * Class StoreSettingsType
+ * Class TaxType
  */
-class StoreSettingsType extends AbstractType
+class TaxType extends AbstractType
 {
-    use FactoryTrait;
+    use FactoryTrait
+    ,EntityTranslatableFormTrait
+    ;
 
-    /**
-     * @var string
-     *
-     * Currency namespace
-     */
-    protected $currencyNamespace;
-
-    /**
-     * @var string
-     *
-     * Language namespace
-     */
-    protected $languageNamespace;
 
     /**
      * Construct
      *
-     * @param string $currencyNamespace Currency namespace
-     * @param string $languageNamespace Language namespace
      */
     public function __construct(
-        $currencyNamespace,
-        $languageNamespace
     ) {
-        $this->currencyNamespace = $currencyNamespace;
-        $this->languageNamespace = $languageNamespace;
     }
 
     /**
@@ -88,23 +72,20 @@ class StoreSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('useStock', 'checkbox', [
+            ->add('name', 'text', [
                 'required' => false,
             ])
-            ->add('taxIncluded', 'checkbox', [
+            ->add('description', 'text', [
                 'required' => false,
             ])
-            ->add('routingStrategy', 'choice', [
-                'choice_list' => new ArrayChoiceList([
-                    'admin.store.field.routingStrategy.prefix_except_default' => StoreRoutingStrategy::STRATEGY_PREFIX_EXCEPT_DEFAULT,
-                    'admin.store.field.routingStrategy.prefix'                => StoreRoutingStrategy::STRATEGY_PREFIX,
-                    'admin.store.field.routingStrategy.custom'                => StoreRoutingStrategy::STRATEGY_CUSTOM,
-                ]),
-                'required'    => true,
+            ->add('value', 'text', [
+                'required' => false,
             ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ]);
+
+        // $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }
 
     /**
@@ -117,7 +98,7 @@ class StoreSettingsType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'elcodi_admin_store_form_type_store_settings';
+        return 'elcodi_admin_tax_form_type_tax';
     }
 
     /**

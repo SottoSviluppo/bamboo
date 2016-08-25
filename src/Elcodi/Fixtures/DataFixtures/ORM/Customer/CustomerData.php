@@ -57,6 +57,7 @@ class CustomerData extends AbstractFixture implements DependentFixtureInterface
             ->setEmail('customer@customer.com')
             ->setFirstName('Homer')
             ->setLastName('Simpson')
+            ->setCompany(false)
             ->setGender(ElcodiUserProperties::GENDER_MALE)
             ->addAddress($homeAddress)
             ->addAddress($workAddress)
@@ -75,6 +76,7 @@ class CustomerData extends AbstractFixture implements DependentFixtureInterface
             ->setEmail('another-customer@customer.com')
             ->setFirstName('Santa')
             ->setLastName('Claus')
+            ->setCompany(false)
             ->setGender(ElcodiUserProperties::GENDER_FEMALE)
             ->setEnabled(true);
 

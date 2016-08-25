@@ -960,6 +960,8 @@ admin:
                 title: 'Multilanguage urls format'
             useStock:
                 title: 'Activate stock Control'
+            taxIncluded:
+                title: 'Tax included in product'
         saved: 'Settings saved.'
         section:
             advanced:
@@ -972,6 +974,9 @@ admin:
                 description: 'If you activate this option you will be able to setup the stock in your products.'
                 title: Stock
         settings: Settings
+    tax:
+        plural: Taxes
+        single: Tax
     template:
         action:
             preview: Preview
@@ -1046,6 +1051,38 @@ admin:
                 description: 'Set this variant as visible or hidden.'
                 title: Visibility
         single: Variant
+    general:
+        edit: 'Edit "%name%"'
+        error:
+            no_active_carrier: 'Warning! You have no active element'
+        field:
+            description:
+                title: Description
+            name:
+                title: Name
+            value:
+                title: Value
+            status:
+                title: Enabled
+            enabled:
+                options:
+                    active: Active
+                    inactive: Inactive
+                title: Status
+            master:
+                title: Master
+        list: 'List'
+        new: 'New'
+        plural: Elements
+        saved: 'Changes saved'
+        section:
+            basic:
+                description: 'Provide the name and an internal description if needed.'
+                title: 'Basic Details'
+            visibility:
+                description: 'Set this element as enabled or disabled.'
+                title: Visibility
+        single: Element
 plugin:
     paymill:
         register:
