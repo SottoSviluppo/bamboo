@@ -1,0 +1,13 @@
+.search-form{
+    padding: 0 0 1rem;
+}
+.search-form input[type="text"]{
+    padding: 0.7rem;
+    width: 65rem;
+    border: none;
+}
+.search-form .search-btn{
+    padding: 0.7rem;
+    width: 4rem;
+    margin: 0;
+}

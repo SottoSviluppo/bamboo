@@ -3,7 +3,7 @@
     {{ render(url('store_currency_nav')) }}
     {{ render(url('store_language_nav')) }}
     <div class="grid">
-        <div class="col-1-2">
+        <div class="col-1-3">
             <a href="{{ url('store_homepage') }}" class="logo">
                 {% if store.logo %}
                     <img src="{{ store.logo|resize({ height: 100, width: 300, type: 2 })  }}" />
@@ -12,7 +12,10 @@
                 {% endif %}
             </a>
         </div>
-        <div class="col-1-2">
+        <div class="col-1-3">
+            {% include "@StoreTemplate/Modules/_search-frontend.html.twig" %}
+        </div>
+        <div class="col-1-3">
             {{ render(url('store_user_nav')) }}
             {{ render(url('store_cart_nav')) }}
         </div>

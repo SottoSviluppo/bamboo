@@ -65,6 +65,7 @@ class AppKernel extends Kernel
             'Mmoreram\ControllerExtraBundle\ControllerExtraBundle',
             'Mmoreram\CacheFlushBundle\CacheFlushBundle',
             'Mmoreram\HttpHeadersBundle\HttpHeadersBundle',
+            'FOS\ElasticaBundle\FOSElasticaBundle',
 
             /**
              * Elcodi core bundles
@@ -114,6 +115,7 @@ class AppKernel extends Kernel
             'Elcodi\Store\LanguageBundle\StoreLanguageBundle',
             'Elcodi\Store\OverrideBundle\StoreOverrideBundle',
             'Elcodi\Store\FallbackBundle\StoreFallbackBundle',
+            'Elcodi\Store\SearchBundle\StoreSearchBundle',
 
             /**
              * Elcodi admin bundles
@@ -138,6 +140,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\GeoBundle\AdminGeoBundle',
             'Elcodi\Admin\PaymentBundle\AdminPaymentBundle',
             'Elcodi\Admin\StoreBundle\AdminStoreBundle',
+            'Elcodi\Admin\SearchBundle\AdminSearchBundle',
 
             /**
              * Elcodi common bundle
@@ -193,4 +196,24 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }
+
+    public function getCacheDir()
+	{
+        // return '/dev/shm/project/cache/' .  $this->environment;
+	    if (in_array($this->environment, array('dev', 'test'/*, 'prod'*/))) {
+	        return '/dev/shm/project/cache/' .  $this->environment;
+	    }
+
+	    return parent::getCacheDir();
+	}
+
+	public function getLogDir()
+	{
+	    // return '/dev/shm/project/logs';
+	    if (in_array($this->environment, array('dev', 'test'/*, 'prod'*/))) {
+	        return '/dev/shm/project/logs';
+	    }
+
+	    return parent::getLogDir();
+	}
 }

@@ -1,0 +1,17 @@
+{% extends '@StoreTemplate/Layout/_layout.html.twig' %}
+
+
+{% block title %}Search results for {{ query }}{% endblock title %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="{{ url('search_frontend', { q: query }) }}"><strong>Search results for {{ query }}</strong></a>
+    </li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    <h2>{{ count }} Product{{ (count > 1 or count == 0) ? 's' : '' }} found for &quot;{{ query }}&quot;</h2>
+	{% include '@StoreTemplate/Modules/_purchasable-list.html.twig' with {
+        'purchasables' : purchasables
+    } %}
+{% endblock content %}

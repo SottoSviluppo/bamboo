@@ -1,0 +1,3 @@
+search_frontend:
+    path: /search/products
+    defaults: { _controller: StoreSearchBundle:Search:searchProducts }
