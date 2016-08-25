@@ -53,6 +53,14 @@ class ProductType extends AbstractType
      * Image namespace
      */
     protected $imageNamespace;
+    
+    /**
+     * @var string
+     *
+     * Tax namespace
+     */
+    protected $taxNamespace;
+
 
     /**
      * Construct
@@ -64,11 +72,13 @@ class ProductType extends AbstractType
     public function __construct(
         $manufacturerNamespace,
         $categoryNamespace,
-        $imageNamespace
+        $imageNamespace,
+        $taxNamespace
     ) {
         $this->manufacturerNamespace = $manufacturerNamespace;
         $this->categoryNamespace = $categoryNamespace;
         $this->imageNamespace = $imageNamespace;
+        $this->taxNamespace = $taxNamespace;
     }
 
     /**
@@ -145,6 +155,11 @@ class ProductType extends AbstractType
 						'value' => 0,
 					]),
 				],
+			])
+			->add('tax', 'entity', [
+				'class' => $this->taxNamespace,
+				'required' => false,
+				'multiple' => false,
 			])
 			->add('imagesSort', 'text', [
 				'required' => false,

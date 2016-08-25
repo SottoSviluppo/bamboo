@@ -91,6 +91,9 @@ class StoreSettingsType extends AbstractType
             ->add('useStock', 'checkbox', [
                 'required' => false,
             ])
+            ->add('taxIncluded', 'checkbox', [
+                'required' => false,
+            ])
             ->add('routingStrategy', 'choice', [
                 'choice_list' => new ArrayChoiceList([
                     'admin.store.field.routingStrategy.prefix_except_default' => StoreRoutingStrategy::STRATEGY_PREFIX_EXCEPT_DEFAULT,

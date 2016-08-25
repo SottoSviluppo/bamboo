@@ -15,45 +15,33 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Admin\UserBundle\Form\Type;
+namespace Elcodi\Admin\TaxBundle\Form\Type;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\User\ElcodiUserProperties;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
+
 
 /**
- * Class CustomerType
+ * Class TaxType
  */
-class CustomerType extends AbstractType
+class TaxType extends AbstractType
 {
-    use FactoryTrait;
+    use FactoryTrait
+    ,EntityTranslatableFormTrait
+    ;
 
-    /**
-     * @var string
-     *
-     * Language namespace
-     */
-    protected $languageNamespace;
-
-    /**
-     * @var string
-     *
-     * Tax namespace
-     */
-    protected $taxNamespace;
 
     /**
      * Construct
      *
-     * @param string $languageNamespace Language Namespace
      */
-    public function __construct($languageNamespace, $taxNamespace)
-    {
-        $this->languageNamespace = $languageNamespace;
-        $this->taxNamespace = $taxNamespace;
+    public function __construct(
+    ) {
     }
 
     /**
@@ -84,56 +72,20 @@ class CustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('POST')
-            ->add('username', 'text', [
-                'required' => true,
-            ])
-            ->add('email', 'email', [
-                'required' => true,
-            ])
-            ->add('firstname', 'text', [
-                'required' => true,
-            ])
-            ->add('lastname', 'text', [
-                'required' => true,
-            ])
-            ->add('gender', 'choice', [
-                'choices'  => [
-                    ElcodiUserProperties::GENDER_MALE => 'admin.user.field.gender.options.male',
-                    ElcodiUserProperties::GENDER_FEMALE => 'admin.user.field.gender.options.female',
-                ],
-                'required' => true,
-            ])
-            ->add('language', 'entity', [
-                'class'    => $this->languageNamespace,
-                'property' => 'name',
-                'required' => true,
-            ])
-            ->add('tax', 'entity', [
-                'class'    => $this->taxNamespace,
-                'property' => 'name',
+            ->add('name', 'text', [
                 'required' => false,
             ])
-            ->add('birthday', 'date', [
-                'required' => false,
-                'widget'   => 'single_text',
-                'format'   => 'yyyy-MM-dd',
-            ])
-            ->add('phone', 'text', [
+            ->add('description', 'text', [
                 'required' => false,
             ])
-            ->add('identityDocument', 'text', [
-                'required' => false,
-            ])
-            ->add('guest', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('newsletter', 'checkbox', [
+            ->add('value', 'text', [
                 'required' => false,
             ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ]);
+
+        // $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }
 
     /**
@@ -146,7 +98,7 @@ class CustomerType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'elcodi_admin_user_form_type_customer';
+        return 'elcodi_admin_tax_form_type_tax';
     }
 
     /**

@@ -1,0 +1,36 @@
+{% extends 'AdminCoreBundle::Common/listComponent.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'tax',
+} %}
+
+
+{% block title 'admin.tax.list'|trans %}
+
+
+{% block no_items
+    lists.no_items(
+        'admin.tax.single'|trans,
+        'admin.tax.plural'|trans,
+        url('admin_tax_new')
+    )
+%}
+
+
+{% block table_head %}
+	{% include 'AdminTaxBundle::Tax/tableHead.html.twig' %}
+{% endblock table_head %}
+
+
+{% block table_body_row %}
+	{% include 'AdminTaxBundle::Tax/tableRow.html.twig' with {'entity': entity} %}
+{% endblock table_body_row %}
+
+
+{% block table_paginator_links %}
+
+    {% set url = 'admin_tax_list' %}
+    {{ parent() }}
+
+{% endblock table_paginator_links %}

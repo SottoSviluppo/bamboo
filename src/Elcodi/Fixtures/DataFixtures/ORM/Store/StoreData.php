@@ -45,6 +45,7 @@ class StoreData extends AbstractFixture implements DependentFixtureInterface
         $storeDirector = $this->getDirector('store');
         $address = $this->getReference('address-home');
         $language = $this->getReference('language-en');
+        $tax = $this->getReference('tax-vat-21');
         $currency = $this->getReference('currency-USD');
 
         /**
@@ -60,8 +61,10 @@ class StoreData extends AbstractFixture implements DependentFixtureInterface
             ->setTracker('123456')
             ->setTemplate('2f1614601b2241b90c05cb67bc08f1ab7ba52af0')
             ->setUseStock(true)
+            ->setTaxIncluded(false)
             ->setAddress($address)
             ->setDefaultLanguage($language)
+            ->setDefaultTax($tax)
             ->setDefaultCurrency($currency);
 
         $storeDirector->save($store);

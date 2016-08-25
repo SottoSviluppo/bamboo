@@ -71,6 +71,15 @@ class PackType extends AbstractType
      */
     protected $imageNamespace;
 
+
+    /**
+     * @var string
+     *
+     * Tax namespace
+     */
+    protected $taxNamespace;
+
+
     /**
      * Construct
      *
@@ -79,19 +88,22 @@ class PackType extends AbstractType
      * @param string                           $manufacturerNamespace   Manufacturer namespace
      * @param string                           $categoryNamespace       Category namespace
      * @param string                           $imageNamespace          Image namespace
+     * @param string                           $taxNamespace            Tax namespace
      */
     public function __construct(
         PurchasableNameResolverInterface $purchasableNameResolver,
         $purchasableNamespace,
         $manufacturerNamespace,
         $categoryNamespace,
-        $imageNamespace
+        $imageNamespace,
+        $taxNamespace
     ) {
         $this->purchasableNameResolver = $purchasableNameResolver;
         $this->purchasableNamespace = $purchasableNamespace;
         $this->manufacturerNamespace = $manufacturerNamespace;
         $this->categoryNamespace = $categoryNamespace;
         $this->imageNamespace = $imageNamespace;
+        $this->taxNamespace = $taxNamespace;
     }
 
     /**
@@ -169,6 +181,11 @@ class PackType extends AbstractType
                         'value' => 0,
                     ]),
                 ],
+            ])
+            ->add('tax', 'entity', [
+                'class' => $this->taxNamespace,
+                'required' => false,
+                'multiple' => false,
             ])
             ->add('imagesSort', 'text', [
                 'required' => false,

@@ -9,6 +9,7 @@ services:
             - %elcodi.entity.manufacturer.class%
             - %elcodi.entity.category.class%
             - %elcodi.entity.image.class%
+            - %elcodi.entity.tax.class%
         calls:
             - [setFactory, ["@elcodi.factory.product"]]
             - [setEntityTranslatorFormEventListener, ["@elcodi.entity_translator_form_event_listener"]]
@@ -20,6 +21,7 @@ services:
         arguments:
             - %elcodi.entity.attribute_value.class%
             - %elcodi.entity.image.class%
+            - %elcodi.entity.tax.class%
         calls:
             - [setFactory, ["@elcodi.factory.product_variant"]]
         tags:
@@ -33,6 +35,7 @@ services:
             - %elcodi.entity.manufacturer.class%
             - %elcodi.entity.category.class%
             - %elcodi.entity.image.class%
+            - %elcodi.entity.tax.class%
         calls:
             - [setFactory, ["@elcodi.factory.purchasable_pack"]]
             - [setEntityTranslatorFormEventListener, ["@elcodi.entity_translator_form_event_listener"]]

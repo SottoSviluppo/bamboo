@@ -128,6 +128,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\CouponBundle\AdminCouponBundle',
             'Elcodi\Admin\CurrencyBundle\AdminCurrencyBundle',
             'Elcodi\Admin\LanguageBundle\AdminLanguageBundle',
+            'Elcodi\Admin\TaxBundle\AdminTaxBundle',
             'Elcodi\Admin\MediaBundle\AdminMediaBundle',
             'Elcodi\Admin\NewsletterBundle\AdminNewsletterBundle',
             'Elcodi\Admin\ProductBundle\AdminProductBundle',
