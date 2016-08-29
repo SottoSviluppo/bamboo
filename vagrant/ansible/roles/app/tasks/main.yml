@@ -5,3 +5,7 @@
     chdir: /var/www/elcodi
   name: execute install
   shell: sh app/install.sh -f
+
+- name: vagrant cache and log permissions
+  become: yes
+  shell: chown -R vagrant:vagrant /dev/shm/project/
