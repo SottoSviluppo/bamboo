@@ -70,7 +70,7 @@
         "mmoreram/http-headers-bundle": "1.0.0",
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
 
-        "sottosviluppo/elcodi": "^2.0.4",
+        "sottosviluppo/elcodi": "dev-develop",
         
         "paymentsuite/paymentsuite": "^2.0.3",
         "friendsofsymfony/elastica-bundle": "dev-master",
