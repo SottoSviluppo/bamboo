@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85840f796443cdb6c24d0421214310cb",
-    "content-hash": "8f2544c31c5c1c7f23704c2c5b83a8d9",
+    "hash": "b1ff196ffeb594a068c664c945598cb7",
+    "content-hash": "59cdb9a8a6c6c208a8d9cfc8488db77c",
     "packages": [
         {
             "name": "acasademont/i18n-routing-bundle",
@@ -1088,38 +1088,40 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSElasticaBundle.git",
-                "reference": "4fed947a9811eb6b471f8278a51c096f3c3b6a88"
+                "reference": "d9153ad364a29fd873124f2256e9bff875edb2b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/4fed947a9811eb6b471f8278a51c096f3c3b6a88",
-                "reference": "4fed947a9811eb6b471f8278a51c096f3c3b6a88",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/d9153ad364a29fd873124f2256e9bff875edb2b8",
+                "reference": "d9153ad364a29fd873124f2256e9bff875edb2b8",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
+                "php": ">=5.5.0",
                 "psr/log": "~1.0",
                 "ruflin/elastica": "3.2.*",
-                "symfony/console": "~2.1|~3.0",
-                "symfony/form": "~2.1|~3.0",
-                "symfony/framework-bundle": "~2.3|~3.0",
-                "symfony/property-access": "~2.3|~3.0"
+                "symfony/console": "~2.7|~3.0",
+                "symfony/form": "~2.7|~3.0",
+                "symfony/framework-bundle": "~2.7|~3.0",
+                "symfony/property-access": "~2.7|~3.0"
             },
             "require-dev": {
-                "doctrine/doctrine-bundle": "~1.2",
+                "doctrine/doctrine-bundle": "~1.6",
                 "doctrine/orm": "~2.4",
                 "doctrine/phpcr-bundle": "~1.2",
                 "jackalope/jackalope-doctrine-dbal": "~1.1",
-                "jms/serializer-bundle": "@stable",
+                "jms/serializer-bundle": "~1.1",
                 "knplabs/knp-components": "~1.2",
                 "knplabs/knp-paginator-bundle": "~2.4",
                 "pagerfanta/pagerfanta": "~1.0",
-                "phpunit/phpunit": "~4.1",
+                "phpunit/phpunit": "~4.8|~5.0",
                 "propel/propel1": "1.6.*",
-                "symfony/browser-kit": "~2.3|~3.0",
-                "symfony/expression-language": "~2.4|~3.0",
+                "symfony/browser-kit": "~2.7|~3.0",
+                "symfony/dependency-injection": "~2.7|~3.0",
+                "symfony/expression-language": "~2.7|~3.0",
                 "symfony/serializer": "~2.7|~3.0",
-                "symfony/twig-bundle": "~2.3|~3.0"
+                "symfony/twig-bundle": "~2.7|~3.0",
+                "symfony/yaml": "~2.7|~3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1164,7 +1166,7 @@
                 "propel",
                 "search"
             ],
-            "time": "2016-08-12 07:42:13"
+            "time": "2016-08-25 11:56:35"
         },
         {
             "name": "goodby/csv",
@@ -1711,20 +1713,23 @@
         },
         {
             "name": "jms/cg",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/cg-library.git",
-                "reference": "0af1113c7409b8636c5244bbae10b2e0ff792e9c"
+                "reference": "2152ea2c48f746a676debb841644ae64cae27835"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/cg-library/zipball/0af1113c7409b8636c5244bbae10b2e0ff792e9c",
-                "reference": "0af1113c7409b8636c5244bbae10b2e0ff792e9c",
+                "url": "https://api.github.com/repos/schmittjoh/cg-library/zipball/2152ea2c48f746a676debb841644ae64cae27835",
+                "reference": "2152ea2c48f746a676debb841644ae64cae27835",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4.5"
             },
             "type": "library",
             "extra": {
@@ -1751,7 +1756,7 @@
             "keywords": [
                 "code generation"
             ],
-            "time": "2015-09-13 08:54:43"
+            "time": "2016-04-07 10:21:44"
         },
         {
             "name": "jms/metadata",
@@ -3143,16 +3148,16 @@
         },
         {
             "name": "ruflin/elastica",
-            "version": "3.2.1",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ruflin/Elastica.git",
-                "reference": "1f3513a3f347c64296a924b1e559d203a1470b2b"
+                "reference": "1aa1b70d0c778323cb77a46ec872475136ed8c1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/1f3513a3f347c64296a924b1e559d203a1470b2b",
-                "reference": "1f3513a3f347c64296a924b1e559d203a1470b2b",
+                "url": "https://api.github.com/repos/ruflin/Elastica/zipball/1aa1b70d0c778323cb77a46ec872475136ed8c1e",
+                "reference": "1aa1b70d0c778323cb77a46ec872475136ed8c1e",
                 "shasum": ""
             },
             "require": {
@@ -3196,7 +3201,7 @@
                 "client",
                 "search"
             ],
-            "time": "2016-06-15 06:16:11"
+            "time": "2016-08-23 13:01:58"
         },
         {
             "name": "sebastian/money",
@@ -5028,69 +5033,6 @@
             "time": "2015-11-18 18:24:09"
         },
         {
-            "name": "mmoreram/translation-server",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mmoreram/translation-server.git",
-                "reference": "05492f46072dd7dfdc951a12b6b28bb38de0fef4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mmoreram/translation-server/zipball/05492f46072dd7dfdc951a12b6b28bb38de0fef4",
-                "reference": "05492f46072dd7dfdc951a12b6b28bb38de0fef4",
-                "shasum": ""
-            },
-            "require": {
-                "elcodi/core": "^1.0.2|^2.0",
-                "php": "^5.4|^7.0",
-                "stichoza/google-translate-php": "^3.1",
-                "symfony/console": "^2.7|^3.0",
-                "symfony/event-dispatcher": "^2.7|^3.0",
-                "symfony/filesystem": "^2.7|^3.0",
-                "symfony/finder": "^2.7|^3.0",
-                "symfony/process": "^2.7|^3.0",
-                "symfony/property-access": "^2.7|^3.0",
-                "symfony/yaml": "^2.7|^3.0"
-            },
-            "require-dev": {
-                "fabpot/php-cs-fixer": "1.4.2",
-                "mmoreram/php-formatter": "1.1.0",
-                "phpunit/phpunit": "4.5.0"
-            },
-            "bin": [
-                "bin/translation-server"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Mmoreram\\TranslationServer\\": "src/TranslationServer"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Morera",
-                    "email": "yuhu@mmoreram.com"
-                }
-            ],
-            "description": "PHP translation server",
-            "keywords": [
-                "php",
-                "server",
-                "translation"
-            ],
-            "time": "2016-01-30 22:21:07"
-        },
-        {
             "name": "phpdocumentor/reflection-common",
             "version": "1.0",
             "source": {
@@ -5787,23 +5729,23 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.3.7",
+            "version": "1.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716"
+                "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/4e8f0da10ac5802913afc151413bc8c53b6c2716",
-                "reference": "4e8f0da10ac5802913afc151413bc8c53b6c2716",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/be2c607e43ce4c89ecd60e75c6a85c126e754aea",
+                "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.4"
+                "phpunit/phpunit": "^4.8 || ^5.0"
             },
             "type": "library",
             "extra": {
@@ -5833,7 +5775,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2016-05-17 03:18:57"
+            "time": "2016-08-18 05:49:44"
         },
         {
             "name": "sebastian/exporter",
@@ -6040,55 +5982,6 @@
             "description": "Library that helps with managing the version number of Git-hosted PHP projects",
             "homepage": "https://github.com/sebastianbergmann/version",
             "time": "2015-06-21 13:59:46"
-        },
-        {
-            "name": "stichoza/google-translate-php",
-            "version": "v3.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Stichoza/google-translate-php.git",
-                "reference": "8720d3004d9fa8f83aad918b29a6d43f25e5f70c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Stichoza/google-translate-php/zipball/8720d3004d9fa8f83aad918b29a6d43f25e5f70c",
-                "reference": "8720d3004d9fa8f83aad918b29a6d43f25e5f70c",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Stichoza\\GoogleTranslate\\": "src/"
-                },
-                "psr-4": {
-                    "Stichoza\\GoogleTranslate\\": "src/Stichoza/GoogleTranslate/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Levan Velijanashvili",
-                    "email": "me@stichoza.com"
-                }
-            ],
-            "description": "Free Google Translate API PHP Package",
-            "homepage": "http://github.com/Stichoza/google-translate-php",
-            "keywords": [
-                "google",
-                "php",
-                "translate"
-            ],
-            "time": "2015-06-02 19:36:34"
         },
         {
             "name": "visithor/visithor",
