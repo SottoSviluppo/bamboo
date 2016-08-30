@@ -48,30 +48,9 @@
 {% endblock prefooter %}
 
 {% block foot_script %}
+
 {{ parent() }}
+{% include "@StoreTemplate/Javascripts/registerProfile.js.twig" with { "type": "profile" } %}
 
-<script type="text/javascript">
-
-function showCorrectFields()
-{
-    var isCompany = $('#store_user_form_type_profile_full_company').is(":checked");
-    $('#store_user_form_type_profile_full_firstname').parent().toggle(!(isCompany));
-    $('#store_user_form_type_profile_full_lastname').parent().toggle(!(isCompany));
-
-    $('#store_user_form_type_profile_full_companyName').parent().toggle(isCompany);
-    $('#store_user_form_type_profile_full_vat').parent().toggle(isCompany);
-    $('#store_user_form_type_profile_full_fiscalCode').parent().toggle(isCompany);
-}
-
-$( document ).ready(function() {
-    showCorrectFields();
-});
-
-$('#store_user_form_type_profile_full_company').change(function() {
-    showCorrectFields();
-});
-
-</script>
 {% endblock foot_script %}
-
 
