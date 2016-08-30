@@ -65,7 +65,7 @@ class RegisterType extends AbstractType
                 'required' => true,
                 'label'    => 'store.user.form.fields.firstname.label',
             ])
-            ->add('lastName', 'text', [
+            ->add('lastname', 'text', [
                 'required' => true,
                 'label'    => 'store.user.form.fields.lastname.label',
             ])

@@ -62,11 +62,11 @@ class RegisterFullType extends AbstractType
         $builder
             ->setMethod('POST')
             ->add('firstname', 'text', [
-                'required' => true,
+                'required' => false,
                 'label'    => 'store.user.form.fields.firstname.label',
             ])
-            ->add('lastName', 'text', [
-                'required' => true,
+            ->add('lastname', 'text', [
+                'required' => false,
                 'label'    => 'store.user.form.fields.lastname.label',
             ])
             ->add('company', 'checkbox', [
@@ -74,15 +74,15 @@ class RegisterFullType extends AbstractType
                 'label'    => 'store.user.form.fields.company.label',
             ])
             ->add('companyName', 'text', [
-                'required' => true,
+                'required' => false,
                 'label'    => 'store.user.form.fields.company_name.label',
             ])
             ->add('vat', 'text', [
-                'required' => true,
+                'required' => false,
                 'label'    => 'store.user.form.fields.vat.label',
             ])
             ->add('fiscalCode', 'text', [
-                'required' => true,
+                'required' => false,
                 'label'    => 'store.user.form.fields.fiscal_code.label',
             ])
             ->add('email', 'email', [
