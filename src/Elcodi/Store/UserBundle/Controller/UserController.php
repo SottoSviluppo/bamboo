@@ -114,6 +114,64 @@ class UserController extends Controller
         FormView $formView,
         $isValid
     ) {
+        return $this->edit($customer, $formView, $isValid, false);
+    }
+
+    /**
+     * User profile full page
+     *
+     * @param CustomerInterface $customer Customer
+     * @param FormView          $formView Form view
+     * @param string            $isValid  Is valid
+     *
+     * @return Response Response
+     *
+     * @Security("has_role('ROLE_CUSTOMER')")
+     * @Route(
+     *      path = "/user/edit-full",
+     *      name = "store_user_edit_full",
+     *      methods = {"GET", "POST"}
+     * )
+     *
+     * @EntityAnnotation(
+     *      class = {
+     *          "factory" = "elcodi.wrapper.customer",
+     *          "method" = "get",
+     *          "static" = false
+     *      },
+     *      name = "customer",
+     * )
+     * @FormAnnotation(
+     *      class         = "store_user_form_type_profile_full",
+     *      name          = "formView",
+     *      entity        = "customer",
+     *      handleRequest = true,
+     *      validate      = "isValid"
+     * )
+     */
+    public function editFullAction(
+        CustomerInterface $customer,
+        FormView $formView,
+        $isValid
+    ) {
+        return $this->edit($customer, $formView, $isValid, true);
+    }
+
+    private function edit(
+        CustomerInterface $customer,
+        FormView $formView,
+        $isValid,
+        $full
+        )
+    {
+        $template = 'Pages:user-edit.html.twig';
+        $redirectUrl = 'store_user_edit';
+        if ($full)
+        {
+            $template = 'Pages:user-edit-full.html.twig';
+            $redirectUrl = 'store_user_edit_full';
+        }
+
         if ($isValid) {
             $this
                 ->get('elcodi.object_manager.customer')
@@ -124,12 +182,12 @@ class UserController extends Controller
             $this->addFlash('success', $message);
 
             return $this->redirect(
-                $this->generateUrl('store_user_edit')
+                $this->generateUrl($redirectUrl)
             );
         }
 
         return $this->renderTemplate(
-            'Pages:user-edit.html.twig',
+            $template,
             [
                 'form' => $formView,
             ]

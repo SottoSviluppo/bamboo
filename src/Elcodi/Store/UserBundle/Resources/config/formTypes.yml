@@ -17,12 +17,26 @@ services:
         tags:
             - { name: form.type, alias: store_user_form_type_register }
 
+    elcodi_elcodi_store.form_type.register_full:
+        class: Elcodi\Store\UserBundle\Form\Type\RegisterFullType
+        calls:
+            - [setFactory, ["@elcodi.factory.customer"]]
+        tags:
+            - { name: form.type, alias: store_user_form_type_register_full }
+
     elcodi_elcodi_store.form_type.profile:
         class: Elcodi\Store\UserBundle\Form\Type\ProfileType
         calls:
             - [setFactory, ["@elcodi.factory.customer"]]
         tags:
             - { name: form.type, alias: store_user_form_type_profile }
+
+    elcodi_elcodi_store.form_type.profile_full:
+        class: Elcodi\Store\UserBundle\Form\Type\ProfileFullType
+        calls:
+            - [setFactory, ["@elcodi.factory.customer"]]
+        tags:
+            - { name: form.type, alias: store_user_form_type_profile_full }
 
     elcodi_elcodi_store.form_type.password_remember:
         class: Elcodi\Store\UserBundle\Form\Type\PasswordRememberType

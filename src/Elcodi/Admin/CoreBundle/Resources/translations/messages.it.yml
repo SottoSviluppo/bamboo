@@ -1372,6 +1372,14 @@ admin:
 
             username:
                 title: Username
+            company:
+                title: Azienda
+            company_name:
+                title: Ragione sociale
+            vat:
+                title: Partita IVA
+            fiscal_code:
+                title: Codice fiscale
 
     variant:
         edit: 'Modifica variante "%name%"'

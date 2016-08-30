@@ -1,0 +1,22 @@
+<script type="text/javascript">
+
+function showCorrectFields()
+{
+    var isCompany = $('#store_user_form_type_{{type}}_full_company').is(":checked");
+    $('#store_user_form_type_{{type}}_full_firstname').parent().toggle(!(isCompany));
+    $('#store_user_form_type_{{type}}_full_lastname').parent().toggle(!(isCompany));
+
+    $('#store_user_form_type_{{type}}_full_companyName').parent().toggle(isCompany);
+    $('#store_user_form_type_{{type}}_full_vat').parent().toggle(isCompany);
+    $('#store_user_form_type_{{type}}_full_fiscalCode').parent().toggle(isCompany);
+}
+
+$( document ).ready(function() {
+    showCorrectFields();
+});
+
+$('#store_user_form_type_{{type}}_full_company').change(function() {
+    showCorrectFields();
+});
+
+</script>
