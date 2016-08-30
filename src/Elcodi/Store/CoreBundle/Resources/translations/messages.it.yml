@@ -1,9 +1,9 @@
 store:
     address:
-        billing: billing
+        billing: fatturazione
         delete:
             response_ok: 'Indirizzo rimosso correttamente'
-        delivery: delivery
+        delivery: spedizione
         form:
             fields:
                 address:
@@ -19,7 +19,7 @@ store:
                 mobile:
                     label: Cellulare
                 name:
-                    label: 'Nome indirizzo'
+                    label: 'Nome Indirizzo'
                 phone:
                     label: Telefono
                 postalcode:
