@@ -91,6 +91,14 @@ store:
                     label: Firstname
                 lastname:
                     label: Lastname
+                company:
+                    label: Company
+                company_name:
+                    label: Company name
+                vat:
+                    label: VAT
+                fiscal_code:
+                    label: Fiscal code
                 password:
                     label: Password
                 repeat_password:

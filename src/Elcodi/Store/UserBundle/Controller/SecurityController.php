@@ -120,6 +120,53 @@ class SecurityController extends Controller
         FormView $registerFormView,
         $isValid
     ) {
+        return $this->register($customer, $registerFormView, $isValid, 'Pages:user-register.html.twig');
+    }
+
+    /**
+     * Register page full
+     *
+     * @param CustomerInterface $customer         empty customer
+     * @param FormView          $registerFormView Register form type
+     * @param boolean           $isValid          Form submition is valid
+     *
+     * @return Response Response
+     *
+     * @Route(
+     *      path = "/register-full",
+     *      name = "store_register_full",
+     *      methods = {"GET", "POST"}
+     * )
+     *
+     * @Entity(
+     *      name     = "customer",
+     *      class    = {
+     *          "factory"  = "elcodi.factory.customer"
+     *      },
+     *      persist  = false
+     * )
+     * @AnnotationForm(
+     *      class         = "store_user_form_type_register_full",
+     *      entity        = "customer",
+     *      handleRequest = true,
+     *      name          = "registerFormView",
+     *      validate      = "isValid"
+     * )
+     */
+    public function registerFullAction(
+        CustomerInterface $customer,
+        FormView $registerFormView,
+        $isValid
+    ) {
+        return $this->register($customer, $registerFormView, $isValid, 'Pages:user-register-full.html.twig');
+    }
+
+
+    private function register(CustomerInterface $customer,
+        FormView $registerFormView,
+        $isValid,
+        $template)
+    {
         /**
          * If user is already logged, go to redirect url
          */
@@ -141,7 +188,7 @@ class SecurityController extends Controller
         }
 
         return $this->renderTemplate(
-            'Pages:user-register.html.twig',
+            $template,
             [
                 'form' => $registerFormView,
             ]

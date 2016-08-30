@@ -1018,6 +1018,14 @@ admin:
                 title: Password
             username:
                 title: Username
+            company:
+                title: Is a company
+            company_name:
+                title: Company name
+            vat:
+                title: VAT
+            fiscal_code:
+                title: Fiscal code
     variant:
         edit: 'Edit variant "%name%"'
         field:
