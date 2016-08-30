@@ -7,6 +7,7 @@
 /app/cache/*
 /app/config/parameters.yml
 /app/config/config_ignored.yml
+/app/config/enabled_bundles.yml
 /app/logs/*
 /build/
 /vendor/
