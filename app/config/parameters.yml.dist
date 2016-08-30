@@ -35,3 +35,6 @@ parameters:
     bamboo_admin_prefix: admin
     bamboo_api_prefix: api
     bamboo_store_firewall: store_area
+
+    # number of item for page with paginator
+    item_for_page: 12

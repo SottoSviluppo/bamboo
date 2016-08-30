@@ -1,0 +1,37 @@
+{% extends '@StoreTemplate/Layout/_layout.html.twig' %}
+
+{% block title %}{{ "template.store_template_bundle.category.view.category"|trans }} - {{ category.name }}{% endblock title %}
+
+{% block breadcrumb %}
+    {% if category.parent is not null %}
+        <li>
+            <a href="{{ url('store_category_purchasables_list', { slug: category.parent.slug, id: category.parent.id }) }}">{{ category.parent.name }}</a> >
+        </li>
+    {% endif %}
+    <li>
+        <a href="{{ url('store_category_purchasables_list', { slug: category.slug, id: category.id }) }}"><strong>{{ category.name }}</strong></a>
+    </li>
+{% endblock breadcrumb %}
+
+{% block content %}
+    {% for subCategory in category.subCategories %}
+        {% if subCategory.enabled %}
+                <div>
+                    <div>
+                        <div>
+                            {% set assetUrl = ['bundles/magnitemplate/img/category/', subCategory.id , '.jpg']|join  %}
+                                {% if file_exists(assetUrl) %}
+                                    <img class="img mercatino_img" src="{{ asset(assetUrl) }}" alt="{{ subCategory.name }}" />
+                                {% else %}
+                                    <img class="img mercatino_img" src="{{ asset('bundles/storetemplate/img/no_image.jpg') }}" alt="{{ subCategory.name }}" />
+                                {% endif %}
+                        </div>
+                    </div>
+                    <div>
+                        <a href="{{ url('store_category_purchasables_list', { slug: subCategory.slug, id: subCategory.id }) }}">{{ subCategory.name }}</a>
+                    </div>
+                </div>
+        {% endif %}
+    {% endfor %}
+                      
+{% endblock content %}

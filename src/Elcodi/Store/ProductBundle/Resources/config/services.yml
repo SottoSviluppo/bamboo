@@ -10,3 +10,9 @@ services:
         calls:
             - [setCache, ["@doctrine_cache.providers.elcodi_categories"]]
             - [setEncoder, ["@elcodi.json_encoder"]]
+
+    elcodi_store.twig_extension:
+        class: Elcodi\Store\ProductBundle\Twig\TwigExtension
+        tags:
+            - { name: twig.extension }
+
