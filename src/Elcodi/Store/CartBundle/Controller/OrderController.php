@@ -20,8 +20,9 @@ namespace Elcodi\Store\CartBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
@@ -33,91 +34,124 @@ use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
  *      path = "/order",
  * )
  */
-class OrderController extends Controller
-{
-    use TemplateRenderTrait;
+class OrderController extends Controller {
+	use TemplateRenderTrait;
 
-    /**
-     * Order view
-     *
-     * @param integer $id     Order id
-     * @param boolean $thanks Thanks
-     *
-     * @return Response Response
-     *
-     * @Route(
-     *      path = "/{id}",
-     *      name = "store_order_view",
-     *      requirements = {
-     *          "orderId": "\d+"
-     *      },
-     *      defaults = {
-     *          "thanks": false
-     *      },
-     *      methods = {"GET"}
-     * )
-     * @Route(
-     *      path = "/{id}/thanks",
-     *      name = "store_order_thanks",
-     *      requirements = {
-     *          "orderId": "\d+"
-     *      },
-     *      defaults = {
-     *          "thanks": true
-     *      },
-     *      methods = {"GET"}
-     * )
-     */
-    public function viewAction($id, $thanks)
-    {
-        $order = $this
-            ->get('elcodi.repository.order')
-            ->findOneBy([
-                'id'       => $id,
-                'customer' => $this->getUser(),
-            ]);
+	/**
+	 * Order view
+	 *
+	 * @param integer $id     Order id
+	 * @param boolean $thanks Thanks
+	 *
+	 * @return Response Response
+	 *
+	 * @Route(
+	 *      path = "/{id}",
+	 *      name = "store_order_view",
+	 *      requirements = {
+	 *          "orderId": "\d+"
+	 *      },
+	 *      defaults = {
+	 *          "thanks": false
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 * @Route(
+	 *      path = "/{id}/thanks",
+	 *      name = "store_order_thanks",
+	 *      requirements = {
+	 *          "orderId": "\d+"
+	 *      },
+	 *      defaults = {
+	 *          "thanks": true
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 */
+	public function viewAction($id, $thanks) {
+		$order = $this
+			->get('elcodi.repository.order')
+			->findOneBy([
+				'id' => $id,
+				'customer' => $this->getUser(),
+			]);
 
-        if (!($order instanceof OrderInterface)) {
-            throw $this->createNotFoundException('Order not found');
-        }
+		if (!($order instanceof OrderInterface)) {
+			throw $this->createNotFoundException('Order not found');
+		}
 
-        $orderCoupons = $this
-            ->get('elcodi.repository.order_coupon')
-            ->findOrderCouponsByOrder($order);
+		$orderCoupons = $this
+			->get('elcodi.repository.order_coupon')
+			->findOrderCouponsByOrder($order);
 
-        return $this->renderTemplate(
-            'Pages:order-view.html.twig',
-            [
-                'order'        => $order,
-                'orderCoupons' => $orderCoupons,
-                'thanks'       => $thanks,
-            ]
-        );
-    }
+		return $this->renderTemplate(
+			'Pages:order-view.html.twig',
+			[
+				'order' => $order,
+				'orderCoupons' => $orderCoupons,
+				'thanks' => $thanks,
+			]
+		);
+	}
 
-    /**
-     * Order list
-     *
-     * @return Response Response
-     *
-     * @Route(
-     *      path = "s",
-     *      name = "store_order_list",
-     *      methods = {"GET"}
-     * )
-     */
-    public function listAction()
-    {
-        $orders = $this
-            ->get('elcodi.wrapper.customer')
-            ->get()
-            ->getOrders();
+	/**
+	 * Order list with pagination.
+	 *
+	 * @return Response Response
+	 *
+	 * @Route(
+	 *      path = "s/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "store_order_list",
+	 *      requirements = {
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 * 			"progress" = "all"
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 *
+	 */
+	public function listAction($page, $limit, $orderByField, $orderByDirection, Request $request) {
+		//item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la vairabile $limit con un valore diverso dal default = 10
+		if ($this->container->hasParameter('item_for_page')) {
+			$limit = $this->getParameter('item_for_page');
+		}
+		//Id dell'utente loggato
+		$user = $this->get('security.context')->getToken()->getUser();
+		$customer_id = $user->getId();
 
-        return $this->renderTemplate(
-            'Pages:order-list.html.twig',
-            [
-                'orders' => $orders,
-            ]
-        );
-    }
+		//Ordini dell'utente loggato
+		$orderRepository = $this->get('elcodi.repository.order');
+		$queryBuilder = $orderRepository->createQueryBuilder('o');
+		$ordersQuery = $queryBuilder->select('o')
+			->where('o.customer = :customer_id')
+			->setParameter('customer_id', $customer_id)
+			->orderBy('o.createdAt', 'DESC');
+
+		$paginator = new Paginator($ordersQuery);
+
+		$paginator->getQuery()
+			->setFirstResult($limit * ($request->get('page') - 1)) // Offset
+			->setMaxResults($limit); // Limit
+
+		$maxPages = ceil($paginator->count() / $limit);
+
+		return $this->renderTemplate(
+			'Pages:order-list.html.twig',
+			[
+				'orders' => $paginator,
+				'currentPage' => $request->get('page'),
+				'limit' => $limit,
+				'totalPages' => $maxPages,
+			]
+		);
+
+	}
+
 }
