@@ -88,6 +88,42 @@
                         </li>
                         <li>
                             {{
+                                form_row(form.company, {
+                                    label: 'admin.user.field.company.title',
+                                    attr: {
+                                    }
+                                })
+                            }}
+                        </li>
+                        <li>
+                            {{
+                                form_row(form.companyName, {
+                                    label: 'admin.user.field.company_name.title',
+                                    attr: {
+                                    }
+                                })
+                            }}
+                        </li>
+                        <li>
+                            {{
+                                form_row(form.vat, {
+                                    label: 'admin.user.field.vat.title',
+                                    attr: {
+                                    }
+                                })
+                            }}
+                        </li>
+                        <li>
+                            {{
+                                form_row(form.fiscalCode, {
+                                    label: 'admin.user.field.fiscal_code.title',
+                                    attr: {
+                                    }
+                                })
+                            }}
+                        </li>
+                        <li>
+                            {{
                                 form_row(form.identityDocument, {
                                     label: 'admin.customer.field.identity_document.title',
                                     attr: {
@@ -99,9 +135,8 @@
                         <li>
                             {{
                                 form_row(form.tax, {
-                                    label: 'admin.customer.field.tax.title',
+                                    label: 'admin.tax.single',
                                     attr: {
-                                        placeholder: 'admin.customer.field.tax.placeholder',
                                     }
                                 })
                             }}

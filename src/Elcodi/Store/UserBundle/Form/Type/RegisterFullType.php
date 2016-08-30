@@ -15,46 +15,20 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Admin\UserBundle\Form\Type;
+namespace Elcodi\Store\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\User\ElcodiUserProperties;
 
 /**
- * Class CustomerType
+ * Class RegisterFullType
  */
-class CustomerType extends AbstractType
+class RegisterFullType extends AbstractType
 {
     use FactoryTrait;
-
-    /**
-     * @var string
-     *
-     * Language namespace
-     */
-    protected $languageNamespace;
-
-    /**
-     * @var string
-     *
-     * Tax namespace
-     */
-    protected $taxNamespace;
-
-    /**
-     * Construct
-     *
-     * @param string $languageNamespace Language Namespace
-     */
-    public function __construct($languageNamespace, $taxNamespace)
-    {
-        $this->languageNamespace = $languageNamespace;
-        $this->taxNamespace = $taxNamespace;
-    }
 
     /**
      * Configures the options for this type.
@@ -83,68 +57,50 @@ class CustomerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
             ->setMethod('POST')
-            ->add('username', 'text', [
-                'required' => true,
-            ])
-            ->add('email', 'email', [
-                'required' => true,
-            ])
             ->add('firstname', 'text', [
                 'required' => true,
+                'label'    => 'store.user.form.fields.firstname.label',
             ])
-            ->add('lastname', 'text', [
+            ->add('lastName', 'text', [
                 'required' => true,
+                'label'    => 'store.user.form.fields.lastname.label',
             ])
             ->add('company', 'checkbox', [
                 'required' => false,
+                'label'    => 'store.user.form.fields.company.label',
             ])
             ->add('companyName', 'text', [
-                'required' => false,
+                'required' => true,
+                'label'    => 'store.user.form.fields.company_name.label',
             ])
             ->add('vat', 'text', [
-                'required' => false,
+                'required' => true,
+                'label'    => 'store.user.form.fields.vat.label',
             ])
             ->add('fiscalCode', 'text', [
-                'required' => false,
+                'required' => true,
+                'label'    => 'store.user.form.fields.fiscal_code.label',
             ])
-            ->add('gender', 'choice', [
-                'choices'  => [
-                    ElcodiUserProperties::GENDER_MALE => 'admin.user.field.gender.options.male',
-                    ElcodiUserProperties::GENDER_FEMALE => 'admin.user.field.gender.options.female',
+            ->add('email', 'email', [
+                'required' => true,
+                'label'    => 'store.user.form.fields.email.label',
+            ])
+            ->add('password', 'repeated', [
+                'type'           => 'password',
+                'first_options'  => [
+                    'label' => 'store.user.form.fields.password.label',
                 ],
-                'required' => true,
+                'second_options' => [
+                    'label' => 'store.user.form.fields.repeat_password.label',
+                ],
+                'required'       => true,
             ])
-            ->add('language', 'entity', [
-                'class'    => $this->languageNamespace,
-                'property' => 'name',
-                'required' => true,
-            ])
-            ->add('tax', 'entity', [
-                'class'    => $this->taxNamespace,
-                'property' => 'name',
-                'required' => false,
-            ])
-            ->add('birthday', 'date', [
-                'required' => false,
-                'widget'   => 'single_text',
-                'format'   => 'yyyy-MM-dd',
-            ])
-            ->add('phone', 'text', [
-                'required' => false,
-            ])
-            ->add('identityDocument', 'text', [
-                'required' => false,
-            ])
-            ->add('guest', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('newsletter', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('enabled', 'checkbox', [
-                'required' => false,
+            ->add('send', 'submit', [
+                'label' => 'store.user.form.fields.send.label',
             ]);
     }
 
@@ -158,7 +114,7 @@ class CustomerType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'elcodi_admin_user_form_type_customer';
+        return 'store_user_form_type_register_full';
     }
 
     /**
