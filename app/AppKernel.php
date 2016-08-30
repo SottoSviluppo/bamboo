@@ -178,11 +178,23 @@ class AppKernel extends Kernel
             $bundles[] = 'Elcodi\Bridge\VisithorBridgeBundle\ElcodiVisithorBridgeBundle';
         }
 
+        $pluginBundles = $this->getConfiguredBundles(__DIR__.'/config/enabled_bundles.yml');
+        if (is_array($pluginBundles))
+            $bundles = array_merge($bundles, $pluginBundles);
+
         return $this
             ->getBundleInstances(
                 $this,
                 $bundles
             );
+    }
+
+    protected function getConfiguredBundles($configurationPath)
+    {
+        if (!file_exists($configurationPath))
+            return array();
+
+        return Symfony\Component\Yaml\Yaml::parse(file_get_contents($configurationPath))['enabled_bundles']; // Replace with better logic
     }
 
     /**
