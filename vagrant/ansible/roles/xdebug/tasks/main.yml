@@ -2,3 +2,18 @@
 - name: install xdebug
   become: yes
   apt: pkg=php-xdebug state=latest
+
+- name: configure apache2 php.ini for xdebug
+  lineinfile:
+    dest: /etc/php/7.0/apache2/php.ini 
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^xdebug.max_nesting_level', line: 'xdebug.max_nesting_level = 255' }
+    - { regexp: '^xdebug.default_enable', line: 'xdebug.default_enable = 1' }
+    - { regexp: '^xdebug.remote_connect_back', line: 'xdebug.remote_connect_back = 1' }
+    - { regexp: '^xdebug.remote_autostart', line: 'xdebug.remote_autostart = 1' }
+    - { regexp: '^xdebug.remote_log', line: 'xdebug.remote_log="/tmp/xdebug.log"' } 
+
+- name: restarting apache2
+  service: name=apache2 state=restarted

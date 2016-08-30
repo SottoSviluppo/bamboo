@@ -1,0 +1,30 @@
+---
+- name: checking elasticsearch installation
+  shell: 'test -f {{ elastcsearch_path }}/bin/elasticsearch && echo "yes" || echo "no"'
+  changed_when: False
+  register: installed_status
+
+- name: get elasticsearch installed version
+  shell: "{{ elastcsearch_path }}/bin/elasticsearch --version | awk {'print $2'} | sed 's/,$//'" 
+  when: installed_status.stdout == "yes"
+  register: installed_version
+
+- name: set installed variable
+  set_fact: is_installed='{{ installed_status.stdout == "yes" and installed_version.stdout == elastcsearch_version }}'
+
+- name: install java dependencies
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - openjdk-8-jdk-headless
+
+- name: install elasticsearch
+  apt: deb=https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/{{ elastcsearch_version }}/elasticsearch-{{ elastcsearch_version }}.deb
+  when: not is_installed
+
+
+- name: setup elasticsearch as a service
+  become: yes
+  shell: 'systemctl enable elasticsearch.service'
+
+- name: restart elasticsearch
+  service: name=elasticsearch state=restarted

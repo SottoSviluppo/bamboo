@@ -27,6 +27,8 @@ php:
     pecl_packages: []
 xdebug:
     install: '1'
+elasticsearch:
+    install: '1'
 composer:
     install: '1'
 

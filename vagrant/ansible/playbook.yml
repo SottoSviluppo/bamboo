@@ -11,5 +11,6 @@
     - redis
     - php
     - xdebug
+    - elasticsearch
     - composer
     - app

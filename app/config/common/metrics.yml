@@ -4,6 +4,6 @@ snc_redis:
             type: predis
             alias: metric
             options:
-                profile: 2.8
+                profile: default
             dsn: redis://localhost
             logging: false
