@@ -6,6 +6,7 @@
 <div class="white-panel">
     <div class="order-list">
         <h1>{{ 'template.store_template_bundle.order.list.orders'|trans }}</h1>
+        {% if orders|length > 0 %}
         {% for order in orders %}
         <dl class="order-item">
             <dt class="order-item-image">
@@ -36,12 +37,16 @@
             <dt class="order-item-total">{{ 'template.store_template_bundle.order.list.total'|trans }}</dt>
             <dd class="order-item-total">{{ order.amount|print_convert_money() }}</dd>
         </dl>
+        {% endfor %}
+        {% include '@StoreTemplate/Modules/_paginator.html.twig' with {'totalPages' : totalPages, 'currentPage': currentPage, 'limit': limit} %}
+
         {% else %}
             <div class="empty-page">
                 <i class="fa fa-shopping-cart fa-3x"></i>
                 <h2 class="product-title">{{ "template.store_template_bundle.order.list.no_orders"|trans}}</h2>
             </div>
-        {% endfor %}
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

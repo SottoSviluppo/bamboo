@@ -16,73 +16,50 @@
  # - separator:    Add separator if context is far from edges (default: true)
  #}
 {% spaceless %}
+{% if totalPages > 1 %}
+    {% set routeName = app.request.attributes.get('_route') %}
+    {% set catId = app.request.attributes.get('id') %}
+    {% set catSlug = app.request.attributes.get('slug') %}
 <nav class="pagination">
     <ul>
-        {% set enabled = currentPage > 1 %}
-
-        <li class="first{% if not enabled %} disabled{% endif %}">
-            {% if enabled %}<a  href="{{ url(route, { page: 1 }) }}">{% endif %}
-            <span>{{ 'store.pagination.first'|trans }}</span>
-            {% if enabled %}</a>{% endif %}
-        </li>
-
-        <li class="prev{% if not enabled %} disabled{% endif %}">
-            {% if enabled %}<a href="{{ url(route, { page: currentPage - 1 }) }}">{% endif %}
-            <span>{{ 'store.pagination.previous'|trans }}</span>
-            {% if enabled %}</a>{% endif %}
-        </li>
-
-        {% set lowerLimit = max(1, currentPage - contextPages) %}
-        {% set upperLimit = currentPage - 1 %}
-
-        {% if separator and lowerLimit > 1 %}
-            <li class="separator"></li>
-        {% endif %}
-
-        {% if lowerLimit <= upperLimit %}
-            {% for page in lowerLimit..upperLimit %}
-                <li class="page">
-                    <a href="{{ url(route, { page: page }) }}">
-                        <span>{{ page }}</span>
-                    </a>
+         {% if totalPages < limit %}
+                        {% set pageRange = totalPages %}
+                    {% else %}
+                        {% set pageRange = limit %}
+                    {% endif %}
+                    {% set j = 1 %}
+                    {% set start = 1 %}
+                    {% if currentPage > pageRange %}
+                        {% set j = currentPage %}
+                        {% set pageRange = currentPage + limit %}
+                        {% if ( totalPages - currentPage ) < limit %}
+                            {% set pageRange = currentPage + (totalPages - currentPage) %}
+                        {% endif %}
+                            {% set start = currentPage %}
+                        {% endif %}
+          {% for j in start..pageRange %}
+            {% if loop.first %}
+                <li class="first {{ currentPage == 1 ? 'disabled' }}">
+                    <a href="{{ path( routeName, {slug: catSlug, id: catId, page: currentPage-1 < 1 ? 1 : currentPage-1}) }}">«</a>
                 </li>
-            {% endfor %}
-        {% endif %}
+            {% endif %}
 
-        <li class="active">
-            <span>{{ currentPage }}</span>
-        </li>
+         <li {{ currentPage == j ? 'class="active"' }}>
+                            <a href="{{ path( routeName, {slug: catSlug, id: catId, page: j}) }}">{{ j }}</a>
+                        </li>
 
-        {% set lowerLimit = currentPage + 1 %}
-        {% set upperLimit = min(currentPage + contextPages, totalPages) %}
-
-        {% if lowerLimit <= upperLimit %}
-            {% for page in lowerLimit..upperLimit %}
-                <li class="page">
-                    <a href="{{ url(route, { page: page }) }}">
-                        <span>{{ page }}</span>
-                    </a>
-                </li>
-            {% endfor %}
-        {% endif %}
-
-        {% if separator and upperLimit < totalPages %}
-            <li class="separator"></li>
-        {% endif %}
-
-        {% set enabled = currentPage < totalPages %}
-
-        <li class="next{% if not enabled %} disabled{% endif %}">
-            {% if enabled %}<a href="{{ url(route, { page: currentPage + 1 }) }}">{% endif %}
-            <span>{{ 'store.pagination.next'|trans }}</span>
-            {% if enabled %}</a>{% endif %}
-        </li>
-
-        <li class="last{% if not enabled %} disabled{% endif %}">
-            {% if enabled %}<a href="{{ url(route, { page: totalPages }) }}">{% endif %}
-            <span>{{ 'store.pagination.last'|trans }}</span>
-            {% if enabled %}</a>{% endif %}
-        </li>
+       {% if loop.last %}
+                            {% if ( totalPages - currentPage ) > limit   %}
+                                <li>
+                                    <a id="pageContinue" href="{{ path( routeName, {slug: catSlug, id: catId, page: pageRange+1}) }}">...</a>
+                                </li>
+                            {% endif %}
+                            <li {{ currentPage == totalPages ? 'class="disabled"' }}>
+                                <a href="{{ path( routeName, {slug: catSlug, id: catId, page: currentPage+1 <= totalPages ? currentPage+1 : currentPage}) }}">»</a>
+                            </li>
+                        {% endif %}
+         {% endfor %}
     </ul>
 </nav>
+{% endif %}
 {% endspaceless %}

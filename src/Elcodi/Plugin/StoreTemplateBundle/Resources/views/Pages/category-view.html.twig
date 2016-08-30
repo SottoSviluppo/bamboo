@@ -18,4 +18,6 @@
 	{% include '@StoreTemplate/Modules/_purchasable-list.html.twig' with {
         'purchasables' : purchasables
     } %}
+      {% include '@StoreTemplate/Modules/_paginator.html.twig' with {'totalPages' : totalPages, 'currentPage': currentPage, 'limit': limit} %}
+
 {% endblock content %}

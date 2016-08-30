@@ -28,6 +28,7 @@ use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
 use Elcodi\Component\Product\Repository\CategoryRepository;
 use Elcodi\Component\Product\Repository\PurchasableRepository;
 use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * Category controller
@@ -80,12 +81,20 @@ class CategoryController extends Controller
      * @return Response Response
      *
      * @Route(
-     *      path = "category/{slug}/{id}",
+	 *      path = "category/{slug}/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
      *      name = "store_category_purchasables_list",
      *      requirements = {
      *          "slug" = "[a-zA-Z0-9-]+",
-     *          "id" = "\d+"
+     *          "id" = "\d+",
+     *          "page" = "\d*",
+	 *          "limit" = "\d*",
      *      },
+     *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
      *      methods = {"GET"}
      * )
      *
@@ -98,8 +107,12 @@ class CategoryController extends Controller
      *      }
      * )
      */
-    public function viewAction(CategoryInterface $category, $slug)
-    {
+	public function viewAction(CategoryInterface $category, $slug, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
+        //item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la vairabile $limit con un valore diverso dal default = 10
+		if ($this->container->hasParameter('item_for_page')) {
+			$limit = $this->getParameter('item_for_page');
+		}
+
         /**
          * We must check that the product slug is right. Otherwise we must
          * return a Redirection 301 to the right url
@@ -110,6 +123,10 @@ class CategoryController extends Controller
                 'slug' => $category->getSlug(),
             ], 301);
         }
+
+        if ($category->getSubCategories()->count() > 0) {
+			return $this->redirectToRoute('store_subcategories_list', array('id' => $category->getId()));
+		}
 
         /**
          * @var CategoryRepository $categoryRepository
@@ -123,16 +140,66 @@ class CategoryController extends Controller
             $categoryRepository->getChildrenCategories($category)
         );
 
-        $purchasables = $purchasableRepository->getAllFromCategories($categories);
+        $purchasablesQuery = $purchasableRepository->getAllFromCategories($categories);
+
+        $paginator = new Paginator($purchasablesQuery);
+
+		$paginator->getQuery()
+			->setFirstResult($limit * ($request->get('page') - 1)) // Offset
+			->setMaxResults($limit); // Limit
+
+		$maxPages = ceil($paginator->count() / $limit);
 
         return $this->renderTemplate(
-            'Pages:category-view.html.twig',
-            [
-                'purchasables' => $purchasables,
-                'category' => $category,
-            ]
-        );
+			'Pages:category-view.html.twig',
+			[
+				'category' => $category,
+				'purchasables' => $paginator,
+				'currentPage' => $request->get('page'),
+				'limit' => $limit,
+				'totalPages' => $maxPages,
+			]
+		);
     }
+
+    /**
+	 * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
+	 * @Route(
+	 *      path = "categories/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "store_subcategories_list",
+	 *      requirements = {
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 * @AnnotationEntity(
+	 *      class = "elcodi.entity.category.class",
+	 *      name = "category",
+	 *      mapping = {
+	 *          "id" = "~id~",
+	 *          "enabled" = true,
+	 *      }
+	 * )
+	 */
+	public function subcategoriesView(CategoryInterface $category, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
+
+		return $this->renderTemplate(
+			'Pages:subcategories-view.html.twig',
+			[
+				'category' => $category,
+
+			]
+		);
+
+	}
+
 
     /**
      * Given a request, return the current highlight-able category
