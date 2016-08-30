@@ -13,7 +13,7 @@ services:
     #
     elcodi_plugin.paypal_web_checkout.business:
         class: StdClass
-        factory:
+        factory: 
             - "@elcodi_plugin.paypal_web_checkout"
             - getFieldValue
         arguments:
@@ -22,11 +22,12 @@ services:
     #
     # Paypal services
     #
-    paymentsuite.paypal_web_checkout.form_type_builder:
-        class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutFormTypeBuilder
+    paymentsuite.paypal_web_checkout.form_type_factory:
+        class: PaymentSuite\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutFormTypeFactory
         arguments:
             - "@paymentsuite.paypal_web_checkout.url_factory"
             - "@paymentsuite.bridge"
             - "@form.factory"
-            - "@router"
             - "@elcodi_plugin.paypal_web_checkout.business"
+            - "@router"
+
