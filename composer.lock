@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b1ff196ffeb594a068c664c945598cb7",
-    "content-hash": "59cdb9a8a6c6c208a8d9cfc8488db77c",
+    "hash": "5e3ede352769a32bf124c59ea5f6c0a0",
+    "content-hash": "403f25cad35661489fe9bda93ef31f80",
     "packages": [
         {
             "name": "acasademont/i18n-routing-bundle",
@@ -1081,6 +1081,154 @@
                 "orm"
             ],
             "time": "2016-01-05 21:34:58"
+        },
+        {
+            "name": "elcodi/core",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elcodi/Core.git",
+                "reference": "bb32771a4c3c5dfc0c8a089342e74ccbd1fb5102"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elcodi/Core/zipball/bb32771a4c3c5dfc0c8a089342e74ccbd1fb5102",
+                "reference": "bb32771a4c3c5dfc0c8a089342e74ccbd1fb5102",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/cache": "^1.0",
+                "doctrine/common": "^2.5",
+                "php": "^5.4|^7.0",
+                "symfony/console": "^2.7|^3.0",
+                "symfony/dependency-injection": "^2.7|^3.0",
+                "symfony/event-dispatcher": "^2.7|^3.0",
+                "symfony/http-kernel": "^2.7|^3.0",
+                "symfony/stopwatch": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.8.19"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ],
+                "psr-4": {
+                    "Elcodi\\Component\\Core\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Morera",
+                    "email": "yuhu@mmoreram.com"
+                },
+                {
+                    "name": "Aldo Chiecchia",
+                    "email": "zimage@tiscali.it"
+                },
+                {
+                    "name": "The Awesome Elcodi Community",
+                    "homepage": "https://github.com/elcodi/Core/contributors"
+                }
+            ],
+            "description": "Elcodi Core Component",
+            "homepage": "https://github.com/elcodi/Core",
+            "keywords": [
+                "component",
+                "core",
+                "ecommerce",
+                "elcodi"
+            ],
+            "time": "2016-01-30 21:06:03"
+        },
+        {
+            "name": "elcodi/core-bundle",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elcodi/CoreBundle.git",
+                "reference": "b89ecd1934355a98ecdaae83c951d550b410f227"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elcodi/CoreBundle/zipball/b89ecd1934355a98ecdaae83c951d550b410f227",
+                "reference": "b89ecd1934355a98ecdaae83c951d550b410f227",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "^2.5",
+                "doctrine/doctrine-bundle": "^1.5.0",
+                "doctrine/orm": "^2.5",
+                "elcodi/core": "^2.0",
+                "ext-openssl": "*",
+                "guzzlehttp/guzzle": "^5.2",
+                "mmoreram/extractor": "^1.1.1",
+                "mmoreram/simple-doctrine-mapping": "^1.0",
+                "mmoreram/symfony-bundle-dependencies": "^1.1.1",
+                "php": "^5.4|^7.0",
+                "symfony/config": "^2.7|^3.0",
+                "symfony/console": "^2.7|^3.0",
+                "symfony/dependency-injection": "^2.7|^3.0",
+                "symfony/event-dispatcher": "^2.7|^3.0",
+                "symfony/http-kernel": "^2.7|^3.0",
+                "symfony/yaml": "^2.7|^3.0"
+            },
+            "require-dev": {
+                "doctrine/data-fixtures": "^1.1",
+                "elcodi/fixtures-booster-bundle": "^2.0",
+                "elcodi/test-common-bundle": "^2.0",
+                "phpunit/phpunit": "4.8.19"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ],
+                "psr-4": {
+                    "Elcodi\\Bundle\\CoreBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Morera",
+                    "email": "yuhu@mmoreram.com"
+                },
+                {
+                    "name": "Aldo Chiecchia",
+                    "email": "zimage@tiscali.it"
+                },
+                {
+                    "name": "The Awesome Elcodi Community",
+                    "homepage": "https://github.com/elcodi/CoreBundle/contributors"
+                }
+            ],
+            "description": "Elcodi Core Bundle",
+            "homepage": "https://github.com/elcodi/CoreBundle",
+            "keywords": [
+                "core",
+                "ecommerce",
+                "elcodi"
+            ],
+            "time": "2016-01-30 21:42:59"
         },
         {
             "name": "friendsofsymfony/elastica-bundle",
@@ -2253,6 +2401,61 @@
             "time": "2015-06-25 17:26:56"
         },
         {
+            "name": "mathiasverraes/money",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moneyphp/money.git",
+                "reference": "1926c54143da8eec322ae4985014cd73a98b0792"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moneyphp/money/zipball/1926c54143da8eec322ae4985014cd73a98b0792",
+                "reference": "1926c54143da8eec322ae4985014cd73a98b0792",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "Sylius/SyliusMoneyBundle": "Sylius' Symfony2 integration with Money library",
+                "TheBigBrainsCompany/TbbcMoneyBundle": "Very complete Symfony2 bundle with support for Twig, Doctrine, Forms, ...",
+                "pink-tie/money-bundle": "Pink-Tie's Symfony2 integration with Money library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Money": "lib"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathias Verraes",
+                    "email": "mathias@verraes.net"
+                }
+            ],
+            "description": "PHP implementation of Fowler's Money pattern",
+            "homepage": "http://verraes.net/2011/04/fowler-money-pattern-in-php/",
+            "keywords": [
+                "Generic Sub-domain",
+                "Value Object",
+                "money"
+            ],
+            "time": "2016-01-16 22:03:46"
+        },
+        {
             "name": "mmoreram/cache-flush-bundle",
             "version": "v0.2.1",
             "source": {
@@ -2840,83 +3043,6 @@
             "time": "2016-03-18 20:34:03"
         },
         {
-            "name": "paymentsuite/paymentsuite",
-            "version": "v2.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PaymentSuite/paymentsuite.git",
-                "reference": "ec47e7de903c1a853acf81ed4bd5e5ace3a5d03b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PaymentSuite/paymentsuite/zipball/ec47e7de903c1a853acf81ed4bd5e5ace3a5d03b",
-                "reference": "ec47e7de903c1a853acf81ed4bd5e5ace3a5d03b",
-                "shasum": ""
-            },
-            "require": {
-                "mmoreram/symfony-bundle-dependencies": "^1.0",
-                "monolog/monolog": "^1.17",
-                "php": "^5.4|^7.0",
-                "psr/log": "^1.0",
-                "stripe/stripe-php": "3.4.0",
-                "symfony/config": "^2.7|^3.0",
-                "symfony/dependency-injection": "^2.7|^3.0",
-                "symfony/finder": "^2.7|^3.0",
-                "symfony/form": "^2.7|^3.0",
-                "symfony/framework-bundle": "^2.7|^3.0",
-                "symfony/http-kernel": "^2.7|^3.0",
-                "twig/twig": "^1.23.1"
-            },
-            "replace": {
-                "paymentsuite/bankwire-bundle": "self.version",
-                "paymentsuite/free-payment-bundle": "self.version",
-                "paymentsuite/payment-core-bundle": "self.version",
-                "paymentsuite/paypal-web-checkout-bundle": "self.version",
-                "paymentsuite/redsys-bundle": "self.version",
-                "paymentsuite/stripe-bundle": "self.version"
-            },
-            "require-dev": {
-                "elcodi/fixtures-booster-bundle": "^2.0",
-                "elcodi/test-common-bundle": "^2.0",
-                "fabpot/php-cs-fixer": "1.11",
-                "mmoreram/php-formatter": "1.1.0",
-                "phpunit/phpunit": "^4.8.19"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PaymentSuite\\": "src/PaymentSuite"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marc Morera",
-                    "email": "yuhu@mmoreram.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
-                }
-            ],
-            "description": "PaymentSuite is an easy implementation for lot of Payment Methods for Symfony projects",
-            "keywords": [
-                "ecommerce",
-                "payment",
-                "paymentsuite",
-                "symfony"
-            ],
-            "time": "2016-01-30 23:03:34"
-        },
-        {
             "name": "phpcollection/phpcollection",
             "version": "0.5.0",
             "source": {
@@ -3204,53 +3330,6 @@
             "time": "2016-08-23 13:01:58"
         },
         {
-            "name": "sebastian/money",
-            "version": "v1.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sebastianbergmann/money.git",
-                "reference": "80fbed3202d7c515386d1866b4c242ba417c284f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/money/zipball/80fbed3202d7c515386d1866b4c242ba417c284f",
-                "reference": "80fbed3202d7c515386d1866b4c242ba417c284f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-intl": "*",
-                "php": "^5.4|^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.6.x-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
-                }
-            ],
-            "description": "Value Object that represents a monetary value (using a currency's smallest unit)",
-            "homepage": "http://www.github.com/sebastianbergmann/money",
-            "keywords": [
-                "money"
-            ],
-            "abandoned": "mathiasverraes/money",
-            "time": "2016-04-17 14:19:15"
-        },
-        {
             "name": "sensio/distribution-bundle",
             "version": "v3.0.36",
             "target-dir": "Sensio/Bundle/DistributionBundle",
@@ -3478,16 +3557,16 @@
         },
         {
             "name": "sottosviluppo/elcodi",
-            "version": "v2.0.4",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sottosviluppo/elcodi.git",
-                "reference": "d60894f5b9ec8d894403afd5865ef56c103aede6"
+                "reference": "0461c72cde9e1534fe87f9636cbdb90461731a20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sottosviluppo/elcodi/zipball/d60894f5b9ec8d894403afd5865ef56c103aede6",
-                "reference": "d60894f5b9ec8d894403afd5865ef56c103aede6",
+                "url": "https://api.github.com/repos/sottosviluppo/elcodi/zipball/0461c72cde9e1534fe87f9636cbdb90461731a20",
+                "reference": "0461c72cde9e1534fe87f9636cbdb90461731a20",
                 "shasum": ""
             },
             "require": {
@@ -3499,13 +3578,13 @@
                 "guzzlehttp/guzzle": "^5.2",
                 "ircmaxell/password-compat": "^1.0",
                 "knplabs/knp-gaufrette-bundle": "^0.3.0",
+                "mathiasverraes/money": "^1.3.0",
                 "mmoreram/extractor": "^1.2.0",
                 "mmoreram/simple-doctrine-mapping": "^1.0",
                 "mmoreram/symfony-bundle-dependencies": "^1.1.1",
                 "ocramius/proxy-manager": "^1.0",
                 "php": "^5.4|^7.0",
                 "predis/predis": "^1.0.1",
-                "sebastian/money": "^1.5",
                 "symfony/browser-kit": "^2.7|^3.0",
                 "symfony/class-loader": "^2.7|^3.0",
                 "symfony/config": "^2.7|^3.0",
@@ -3527,65 +3606,6 @@
                 "symfony/validator": "^2.7|^3.0",
                 "symfony/yaml": "^2.7|^3.0",
                 "twig/twig": "^1.23"
-            },
-            "replace": {
-                "elcodi/attribute": "self.version",
-                "elcodi/attribute-bundle": "self.version",
-                "elcodi/banner": "self.version",
-                "elcodi/banner-bundle": "self.version",
-                "elcodi/cart": "self.version",
-                "elcodi/cart-bundle": "self.version",
-                "elcodi/cart-coupon": "self.version",
-                "elcodi/cart-coupon-bundle": "self.version",
-                "elcodi/cart-shipping": "self.version",
-                "elcodi/cart-shipping-bundle": "self.version",
-                "elcodi/comment": "self.version",
-                "elcodi/comment-bundle": "self.version",
-                "elcodi/core": "self.version",
-                "elcodi/core-bundle": "self.version",
-                "elcodi/coupon": "self.version",
-                "elcodi/coupon-bundle": "self.version",
-                "elcodi/currency": "self.version",
-                "elcodi/currency-bundle": "self.version",
-                "elcodi/entity-translator": "self.version",
-                "elcodi/entity-translator-bundle": "self.version",
-                "elcodi/fixtures-booster-bundle": "self.version",
-                "elcodi/geo": "self.version",
-                "elcodi/geo-bundle": "self.version",
-                "elcodi/language": "self.version",
-                "elcodi/language-bundle": "self.version",
-                "elcodi/media": "self.version",
-                "elcodi/media-bundle": "self.version",
-                "elcodi/menu": "self.version",
-                "elcodi/menu-bundle": "self.version",
-                "elcodi/metadata": "self.version",
-                "elcodi/metric": "self.version",
-                "elcodi/metric-bundle": "self.version",
-                "elcodi/newsletter": "self.version",
-                "elcodi/newsletter-bundle": "self.version",
-                "elcodi/page": "self.version",
-                "elcodi/page-bundle": "self.version",
-                "elcodi/payment": "self.version",
-                "elcodi/payment-bundle": "self.version",
-                "elcodi/plugin": "self.version",
-                "elcodi/plugin-bundle": "self.version",
-                "elcodi/product": "self.version",
-                "elcodi/product-bundle": "self.version",
-                "elcodi/rule": "self.version",
-                "elcodi/rule-bundle": "self.version",
-                "elcodi/shipping": "self.version",
-                "elcodi/shipping-bundle": "self.version",
-                "elcodi/sitemap": "self.version",
-                "elcodi/sitemap-bundle": "self.version",
-                "elcodi/state-transition-machine": "self.version",
-                "elcodi/state-transition-machine-bundle": "self.version",
-                "elcodi/store": "self.version",
-                "elcodi/store-bundle": "self.version",
-                "elcodi/tax": "self.version",
-                "elcodi/tax-bundle": "self.version",
-                "elcodi/test-common-bundle": "self.version",
-                "elcodi/user": "self.version",
-                "elcodi/user-bundle": "self.version"
             },
             "require-dev": {
                 "doctrine/doctrine-fixtures-bundle": "^2.2",
@@ -3633,7 +3653,84 @@
                 "elcodi",
                 "symfony"
             ],
-            "time": "2016-08-08 12:27:04"
+            "time": "2016-08-30 12:30:02"
+        },
+        {
+            "name": "sottosviluppo/paymentsuite",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sottosviluppo/paymentsuite.git",
+                "reference": "87d8d3508cd4d4a0a3ab6fd3d2c4daa017cc422d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sottosviluppo/paymentsuite/zipball/87d8d3508cd4d4a0a3ab6fd3d2c4daa017cc422d",
+                "reference": "87d8d3508cd4d4a0a3ab6fd3d2c4daa017cc422d",
+                "shasum": ""
+            },
+            "require": {
+                "mmoreram/symfony-bundle-dependencies": "^1.0",
+                "monolog/monolog": "^1.17",
+                "php": "^5.4|^7.0",
+                "psr/log": "^1.0",
+                "stripe/stripe-php": "3.4.0",
+                "symfony/config": "^2.7|^3.0",
+                "symfony/dependency-injection": "^2.7|^3.0",
+                "symfony/finder": "^2.7|^3.0",
+                "symfony/form": "^2.7|^3.0",
+                "symfony/framework-bundle": "^2.7|^3.0",
+                "symfony/http-kernel": "^2.7|^3.0",
+                "twig/twig": "^1.23.1"
+            },
+            "replace": {
+                "paymentsuite/bankwire-bundle": "self.version",
+                "paymentsuite/free-payment-bundle": "self.version",
+                "paymentsuite/payment-core-bundle": "self.version",
+                "paymentsuite/paypal-web-checkout-bundle": "self.version",
+                "paymentsuite/redsys-bundle": "self.version",
+                "paymentsuite/stripe-bundle": "self.version"
+            },
+            "require-dev": {
+                "elcodi/fixtures-booster-bundle": "^2.0",
+                "elcodi/test-common-bundle": "^2.0",
+                "fabpot/php-cs-fixer": "1.11",
+                "mmoreram/php-formatter": "1.1.0",
+                "phpunit/phpunit": "^4.8.19"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PaymentSuite\\": "src/PaymentSuite"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marc Morera",
+                    "email": "yuhu@mmoreram.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/PaymentSuite/paymentsuite/contributors"
+                }
+            ],
+            "description": "PaymentSuite is an easy implementation for lot of Payment Methods for Symfony projects",
+            "keywords": [
+                "ecommerce",
+                "payment",
+                "paymentsuite",
+                "symfony"
+            ],
+            "time": "2016-08-30 15:26:54"
         },
         {
             "name": "stripe/stripe-php",
@@ -6156,6 +6253,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "sottosviluppo/elcodi": 20,
+        "sottosviluppo/paymentsuite": 20,
         "friendsofsymfony/elastica-bundle": 20
     },
     "prefer-stable": true,
