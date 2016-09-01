@@ -33,12 +33,23 @@ class SearchController extends Controller
     {
         $request = $this->getRequest();
         $query = $request->query->get('q');
-
         if(empty($query)){
             throw $this->createNotFoundException('Please, specify a query');
         }
 
-        $products = $this->service->searchProducts($query);
+        $categories = [];
+        $cat = $request->query->get('cat');
+        if (!empty($cat)) {
+            $categories = explode(',', $cat);
+        }
+
+        $priceRange = [];
+        $pr = $request->query->get('pr');
+        if (!empty($pr)) {
+            $priceRange = explode(',', $pr);
+        }
+
+        $products = $this->service->searchProducts($query, $categories, $priceRange);
 
         return $this->renderTemplate(
             'Pages:search-products.html.twig',

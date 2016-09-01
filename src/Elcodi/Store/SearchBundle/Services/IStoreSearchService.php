@@ -4,5 +4,5 @@ namespace Elcodi\Store\SearchBundle\Services;
 
 interface IStoreSearchService
 {
-    function searchProducts($query);
+    function searchProducts($query, $categories = array(), $priceRange = array());
 }
