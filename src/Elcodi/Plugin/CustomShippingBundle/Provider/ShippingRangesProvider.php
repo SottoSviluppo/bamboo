@@ -221,16 +221,20 @@ class ShippingRangesProvider
         CartInterface $cart,
         ShippingRangeInterface $shippingRange
     ) {
-        $deliveryAddress = $cart->getDeliveryAddress();
-        $shippingRange->getToZone()->getName();
+        //ritorna true per togliere il controllo delle zone nelle spedizioni 
+        return true;
 
-        return
-            $deliveryAddress === null ||
-            $this
-                ->zoneMatcher
-                ->isAddressContainedInZone(
-                    $deliveryAddress,
-                    $shippingRange->getToZone()
-                );
+        // Righe commentate in quanto al momento non è necessario tenere in considerazione le zone per le spedizioni
+        // $deliveryAddress = $cart->getDeliveryAddress();
+        // $shippingRange->getToZone()->getName();
+
+        // return
+        //     $deliveryAddress === null ||
+        //     $this
+        //         ->zoneMatcher
+        //         ->isAddressContainedInZone(
+        //             $deliveryAddress,
+        //             $shippingRange->getToZone()
+        //         );
     }
 }

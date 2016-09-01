@@ -98,15 +98,16 @@ class ShippingRangeType extends AbstractType
             ->add('fromPrice', 'money_object', [
                 'required' => false,
             ])
-            ->add('toPrice', 'money_object', [
-                'required' => false,
-            ])
-            ->add('toZone', 'entity', [
-                'class'    => $this->zoneNamespace,
-                'required' => true,
-                'property' => 'name',
-                'multiple' => false,
-            ]);
+             ->add('toPrice', 'money_object', [
+                 'required' => false,
+             ]);
+             //Esclusa la zona dal calcolo delle spese di spedizioni
+            // ->add('toZone', 'entity', [
+            //     'class'    => $this->zoneNamespace,
+            //     'required' => true,
+            //     'property' => 'name',
+            //     'multiple' => false,
+            // ]);
     }
 
     /**
