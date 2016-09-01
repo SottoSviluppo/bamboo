@@ -5,6 +5,11 @@
 # to add configurations here instead of changing config.yml
 #
 
+# TO ADD A THEME TO ASSETIC
+# assetic:
+#     bundles:
+#         - MyTemplateBundle
+
 fos_elastica:
     clients:
         default: { host: localhost, port: 9200 }
