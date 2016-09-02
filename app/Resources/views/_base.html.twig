@@ -146,6 +146,22 @@
         {% block foot_script "" %}
         {% block other_scripts %}
             <script src="{{ asset('bundles/elcodicommon/js/utils.js') }}"></script>
+            <script type="text/javascript">
+                function refreshCart()
+                {
+                    $.ajax({
+                        url: '{{ path("store_cart_nav") }}',
+                        type: "GET",
+                        data: { 
+                        },
+                        success: function(data) {
+                            $('.cart-nav').replaceWith(data);
+                        }
+                    }); 
+                }
+            </script>
+
+
         {% endblock other_scripts %}
 
 

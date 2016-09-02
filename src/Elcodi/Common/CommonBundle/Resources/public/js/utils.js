@@ -1,16 +1,16 @@
-function refreshCart()
-{
-	$.ajax({
-		url: '{{ path("store_cart_nav") }}',
-		type: "GET",
-		data: { 
-		},
-		success: function(data) {
-			$('.cart-nav').replaceWith(data);
-		}
-	}); 
-}
-
+// function refreshCart()
+// {
+// 	$.ajax({
+// 		// url: '{{ path("store_cart_nav") }}',
+// 		url: '/cart/nav',
+// 		type: "GET",
+// 		data: { 
+// 		},
+// 		success: function(data) {
+// 			$('.cart-nav').replaceWith(data);
+// 		}
+// 	}); 
+// }
 
 $('body').on("submit", ".ajaxform", function (e) {
 	e.preventDefault();
