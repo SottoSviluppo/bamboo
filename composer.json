@@ -72,7 +72,7 @@
 
         "sottosviluppo/elcodi": "dev-develop",
         
-        "sottosviluppo/paymentsuite": "dev-master",
+        "sottosviluppo/paymentsuite": "^2.0",
         "friendsofsymfony/elastica-bundle": "dev-master",
         "ruflin/elastica": "^3.2",
 	    "cocur/slugify": "^2.3"
