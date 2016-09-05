@@ -1,0 +1,13 @@
+services:
+
+    #
+    # Repositories
+    #
+
+    #
+    # Repository for entity page
+    #
+    elcodi.repository.social:
+        parent: elcodi.abstract_repository
+        arguments:
+            - %elcodi.entity.social.class%
