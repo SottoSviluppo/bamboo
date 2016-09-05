@@ -1,0 +1,9 @@
+elcodi_plugin:
+    stripe:
+        description: '<p>Stripe permette ai tuoi utenti di pagare usando una carta di credito.<br/> Per abilitarlo è necessario creare un Account Stripe e copiare qui la tua chiave privata e pubblica.</p><p>Non hai un account Stripe?</p> <a href=''https://dashboard.stripe.com/register'' class=''button'' target=''_blank''>Crea un nuovo account</a>'
+        field:
+            private_key:
+                label: 'Chiave privata'
+            public_key:
+                label: 'Chiave publica'
+        name: Stripe

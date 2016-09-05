@@ -1,0 +1,8 @@
+elcodi_plugin:
+    twitter:
+        description: 'Intregrazione Twitter per il tuo negozio'
+        field:
+            twitter_account:
+                label: 'Twitter account'
+                placeholder: 'e.s. jondoe'
+        name: Twitter
