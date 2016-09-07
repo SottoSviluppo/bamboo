@@ -1,0 +1,6 @@
+Admin:
+    type: Admin
+    category: payment
+    name: elcodi_Admin.social.name
+    description: elcodi_Admin.social.description
+    enabled_by_default: true

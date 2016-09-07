@@ -1,0 +1,8 @@
+# AdminSocialBundle:
+#     resource: "@AdminLanguageBundle/Controller/"
+#     type:     annotation
+
+AdminSocialBundle:
+    resource: "@AdminSocialBundle/Controller/"
+    #prefix: /%bamboo_admin_prefix%
+    type:     annotation

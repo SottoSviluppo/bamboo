@@ -183,7 +183,10 @@ class ElcodiInstallCommand extends AbstractElcodiCommand
             '--fixtures=' . $rootDir . '/../src/Elcodi/Plugin/ ' .
             '--fixtures=' . $rootDir . '/../src/Elcodi/Fixtures ' .
             '--env=test ' .
+            '--append ' .    // added to fix errors when doing install with enabled bundles
             '--no-interaction ';
+
+        // echo "a"; die();
 
         $input = new StringInput($command);
         $this

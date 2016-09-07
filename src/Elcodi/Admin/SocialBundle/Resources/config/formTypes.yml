@@ -1,0 +1,10 @@
+services:
+
+
+    elcodi_admin.form_type.social:
+        class: Elcodi\Admin\SocialBundle\Form\Type\Admin\SocialType
+        arguments:
+        calls:
+            - [setFactory, ["@elcodi.factory.social"] ]
+        tags:
+            - { name: form.type, alias: elcodi_admin_social_form_type_social }

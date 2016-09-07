@@ -1,0 +1,4 @@
+elcodi_plugin:
+  free_payment:
+    description: 'Integrazione pagamento per il tuo negozio'
+    name: 'Pagamento'

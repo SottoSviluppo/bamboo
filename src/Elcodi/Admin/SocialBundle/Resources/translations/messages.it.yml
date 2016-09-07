@@ -1,0 +1,40 @@
+admin:
+  social:
+    edit: 'Modifica "%name%"'
+    field:
+      name:
+        title: 'Nome (solo per uso interno)'
+        placeholder: ''
+      url:
+        title: 'Link'
+        placeholder: ''
+      position:
+        title: 'Posizione'
+        placeholder: ''
+      class:
+        title: 'Classe per il link (ad esempio fa-facebook-square)'
+        placeholder: ''
+      enabled:
+        title: Abilitato
+    section:
+      nontranslatable:
+        title: Dati
+        description: Dati generici del social media
+      images:
+        description: ''
+        title: Immagini
+      visibility:
+        description: ''
+        title: Visibilità
+    list: 'Lista links ai social media'
+    new: 'Nuovo link ai social media'
+    plural: Link ai social media
+    saved: 'Link al social media salvato'
+    single: Link al social media
+elcodi_Admin:
+  admin:
+    social:
+      plural: Social
+  social:
+    name: Social
+    description: 
