@@ -77,7 +77,6 @@
 
 {% block table_paginator_links %}
 
-    {% set url = 'admin_order_list' %}
-    {{ parent() }}
+    {{ knp_pagination_render(paginator) }}
 
 {% endblock table_paginator_links %}

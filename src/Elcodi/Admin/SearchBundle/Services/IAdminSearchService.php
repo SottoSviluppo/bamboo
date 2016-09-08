@@ -6,11 +6,11 @@ interface IAdminSearchService
 {
     function searchProducts($query, $page = 1, $limit = null);
 
-    function searchOrders($query);
+    function searchOrders($query, $page = 1, $limit = null);
 
-    function searchCustomers($query);
+    function searchCustomers($query, $page = 1, $limit = null);
 
-    function searchManufacturers($query);
+    function searchManufacturers($query, $page = 1, $limit = null);
 
     function getLimit();
 }
