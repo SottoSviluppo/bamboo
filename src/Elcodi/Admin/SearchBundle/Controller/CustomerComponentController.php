@@ -27,18 +27,18 @@ class CustomerComponentController extends AbstractAdminController
     /**
     * @Template("AdminSearchBundle:Search:customerListComponent.html.twig")
     */
-    public function listComponentAction($query)
+    public function listComponentAction($query, $page, $limit = null)
     {
-        $customers = $this->service->searchCustomers($query);
+        $customers = $this->service->searchCustomers($query, $page, $limit);
         return [
                 'query' => $query,
                 'paginator' => $customers,
-                'page' => 1,
-                'limit' => 100,
+                'page' => $page,
+                'limit' => $this->service->getLimit(),
                 'orderByField' => '',
                 'orderByDirection' => '',
-                'totalPages' => 1,
-                'totalElements'=> count($customers),
+                'totalPages' => ceil($customers->getTotalItemCount()/$this->service->getLimit()),
+                'totalElements'=> $customers->getTotalItemCount(),
             ];
     }
 }

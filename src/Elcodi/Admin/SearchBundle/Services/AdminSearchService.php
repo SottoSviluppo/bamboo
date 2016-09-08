@@ -39,22 +39,43 @@ class AdminSearchService implements IAdminSearchService
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
-    public function searchOrders($query)
+    public function searchOrders($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('orders');
-        return $finder->find($query);
+        
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+        $this->limit = $limit;
+
+        $adapter = $finder->createPaginatorAdapter($query);
+        return $this->paginator->paginate($adapter, $page, $limit);
     }
 
-    public function searchCustomers($query)
+    public function searchCustomers($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('customers');
-        return $finder->find($query);
+        
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+        $this->limit = $limit;
+
+        $adapter = $finder->createPaginatorAdapter($query);
+        return $this->paginator->paginate($adapter, $page, $limit);
     }
 
-    public function searchManufacturers($query)
+    public function searchManufacturers($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('manufacturers');
-        return $finder->find($query);
+        
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+        $this->limit = $limit;
+
+        $adapter = $finder->createPaginatorAdapter($query);
+        return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     public function getLimit()
