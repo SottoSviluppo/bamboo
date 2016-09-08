@@ -49,13 +49,23 @@ class SearchController extends Controller
             $priceRange = explode(',', $pr);
         }
 
-        $products = $this->service->searchProducts($query, $categories, $priceRange);
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = 20;
+        }
+
+        $products = $this->service->searchProducts($query, $page, $limit, $categories, $priceRange);
 
         return $this->renderTemplate(
             'Pages:search-products.html.twig',
             [
                 'query' => $query,
-                'count' => count($products),
+                'count' => $products->getTotalItemCount(),
                 'purchasables' => $products,
             ]
         );
