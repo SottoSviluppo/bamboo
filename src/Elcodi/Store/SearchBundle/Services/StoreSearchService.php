@@ -8,6 +8,7 @@ use Elastica\Query\MultiMatch;
 use Elastica\Query\Terms;
 use Elastica\Query\NumericRange;
 use Elastica\Query\Nested;
+use Elastica\Query\Filtered;
 
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
 
@@ -80,7 +81,9 @@ class StoreSearchService implements IStoreSearchService
     {
         $categories = new Nested();
         $categories->setPath('categories');
-        $categories->setQuery(new Match('name', $query));
+
+        $categoriesQuery = new Match('name', $query);
+        $categories->setQuery($categoriesQuery);
 
         $boolQuery->addShould($categories);
 
