@@ -19,17 +19,23 @@ class StoreSearchService implements IStoreSearchService
     private $container;
     private $prefix;
     private $paginator;
+    private $itemsPerPage;
 
-    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix)
+    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
     {
         $this->container = $container;
         $this->prefix = $prefix;
+        $this->itemsPerPage = $itemsPerPage;
 
         $this->paginator = $this->container->get('knp_paginator');
     }
 
-    public function searchProducts($query, $page = 1, $limit = 20, $categories = array(), $priceRange = array())
+    public function searchProducts($query, $page = 1, $limit = null, $categories = array(), $priceRange = array())
     {
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+
         $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
         $finder = $this->createFinderFor('products');
 

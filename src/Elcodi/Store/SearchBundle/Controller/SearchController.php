@@ -56,7 +56,7 @@ class SearchController extends Controller
         
         $limit = $request->query->get('limit');
         if (empty($limit)) {
-            $limit = 20;
+            $limit = null;
         }
 
         $products = $this->service->searchProducts($query, $page, $limit, $categories, $priceRange);
