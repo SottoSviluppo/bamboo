@@ -71,10 +71,11 @@
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
 
 
-        "sottosviluppo/elcodi": "^2.0.4",
+        "sottosviluppo/elcodi": "dev-develop",
         "paymentsuite/paymentsuite": "^2.0.3",
         "friendsofsymfony/elastica-bundle": "dev-master",
-        "ruflin/elastica": "^3.2"
+        "ruflin/elastica": "^3.2",
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
     "replace": {
         "elcodi-templates/template": "self.version",

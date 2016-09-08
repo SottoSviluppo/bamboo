@@ -18,19 +18,24 @@ class StoreSearchService implements IStoreSearchService
 {
     private $container;
     private $prefix;
+    private $paginator;
 
     function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix)
     {
         $this->container = $container;
         $this->prefix = $prefix;
+
+        $this->paginator = $this->container->get('knp_paginator');
     }
 
-    public function searchProducts($query, $categories = array(), $priceRange = array())
+    public function searchProducts($query, $page = 1, $limit = 20, $categories = array(), $priceRange = array())
     {
         $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
         $finder = $this->createFinderFor('products');
 
-        return $finder->find($productQuery);
+        $adapter = $finder->createPaginatorAdapter($productQuery);
+
+        return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     private function createFinderFor($type)
@@ -54,12 +59,10 @@ class StoreSearchService implements IStoreSearchService
 
         $this->setNestedQueriesForProduct($boolQuery, $query);
 
-        //$categories = [1];
         if (!empty($categories)) {
             $this->setCategoriesQuery($boolQuery, $categories);
         }
 
-        //$priceRange = [1000, 2000];
         if (!empty($priceRange)) {
             $this->setPriceRangeQuery($boolQuery, $priceRange);
         }
@@ -94,7 +97,7 @@ class StoreSearchService implements IStoreSearchService
         $price = new Nested();
         $price->setPath('price');
         $price->setQuery(new NumericRange('amount', $priceRange));
-        
+
         $boolQuery->addMust($price);
     }
 
@@ -102,7 +105,7 @@ class StoreSearchService implements IStoreSearchService
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
-        $categoriesQuery->setQuery(new Terms('name', $categories));
+        $categoriesQuery->setQuery(new Terms('id', $categories));
 
         $boolQuery->addMust($categoriesQuery);
     }
