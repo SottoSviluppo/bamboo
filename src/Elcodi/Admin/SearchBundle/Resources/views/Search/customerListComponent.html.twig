@@ -80,7 +80,6 @@
 
 {% block table_paginator_links %}
 
-    {% set url = 'admin_customer_list' %}
-    {{ parent() }}
+    {{ knp_pagination_render(paginator) }}
 
 {% endblock table_paginator_links %}

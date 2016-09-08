@@ -27,18 +27,18 @@ class ProductComponentController extends AbstractAdminController
     /**
     * @Template("AdminSearchBundle:Search:productListComponent.html.twig")
     */
-    public function listComponentAction($query)
+    public function listComponentAction($query, $page, $limit = null)
     {
-        $products = $this->service->searchProducts($query);
+        $products = $this->service->searchProducts($query, $page, $limit);
         return [
                 'query' => $query,
                 'paginator' => $products,
-                'page' => 1,
-                'limit' => 100,
+                'page' => $page,
+                'limit' => $this->service->getLimit(),
                 'orderByField' => '',
                 'orderByDirection' => '',
-                'totalPages' => 1,
-                'totalElements'=> count($products),
+                'totalPages' => ceil($products->getTotalItemCount()/$this->service->getLimit()),
+                'totalElements'=> $products->getTotalItemCount(),
             ];
     }
 }
