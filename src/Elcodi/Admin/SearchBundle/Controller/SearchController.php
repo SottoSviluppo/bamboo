@@ -36,13 +36,23 @@ class SearchController extends Controller
         $query = $request->query->get('q');
 
         if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
+            return $this->redirect($this->generateUrl('admin_product_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
         }
         
         return [
             'query' => $query,
-            /*'count' => count($products),
-            'purchasables' => $products,*/
+            'page' => $page,
+            'limit' => $limit
         ];
     }
 
@@ -55,13 +65,23 @@ class SearchController extends Controller
         $query = $request->query->get('q');
 
         if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
+            return $this->redirect($this->generateUrl('admin_order_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
         }
 
         return [
             'query' => $query,
-            /*'count' => count($products),
-            'purchasables' => $products,*/
+            'page' => $page,
+            'limit' => $limit
         ];
     }
 
@@ -74,11 +94,23 @@ class SearchController extends Controller
         $query = $request->query->get('q');
 
         if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
+            return $this->redirect($this->generateUrl('admin_customer_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
         }
 
         return [
             'query' => $query,
+            'page' => $page,
+            'limit' => $limit
             /*'count' => count($products),
             'purchasables' => $products,*/
         ];
@@ -93,13 +125,23 @@ class SearchController extends Controller
         $query = $request->query->get('q');
 
         if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
+            return $this->redirect($this->generateUrl('admin_manufacturer_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
         }
 
         return [
             'query' => $query,
-            /*'count' => count($products),
-            'purchasables' => $products,*/
+            'page' => $page,
+            'limit' => $limit
         ];
     }
 }

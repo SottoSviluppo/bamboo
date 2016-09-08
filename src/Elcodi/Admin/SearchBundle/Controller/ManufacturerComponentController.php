@@ -27,18 +27,18 @@ class ManufacturerComponentController extends AbstractAdminController
     /**
     * @Template("AdminSearchBundle:Search:manufacturerListComponent.html.twig")
     */
-    public function listComponentAction($query)
+    public function listComponentAction($query, $page, $limit = null)
     {
-        $manufacturers = $this->service->searchManufacturers($query);
+        $manufacturers = $this->service->searchManufacturers($query, $page, $limit);
         return [
                 'query' => $query,
                 'paginator' => $manufacturers,
-                'page' => 1,
-                'limit' => 100,
+                'page' => $page,
+                'limit' => $this->service->getLimit(),
                 'orderByField' => '',
                 'orderByDirection' => '',
-                'totalPages' => 1,
-                'totalElements'=> count($manufacturers),
+                'totalPages' => ceil($manufacturers->getTotalItemCount()/$this->service->getLimit()),
+                'totalElements'=> $manufacturers->getTotalItemCount(),
             ];
     }
 }
