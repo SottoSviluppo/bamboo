@@ -10,16 +10,33 @@ use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 class AdminSearchService implements IAdminSearchService
 {
     private $container;
+    private $prefix;
+    private $itemsPerPage;
+    private $paginator;
 
-    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    private $limit;
+
+    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
     {
         $this->container = $container;
+        $this->prefix = $prefix;
+        $this->itemsPerPage = $itemsPerPage;
+        $this->limit = $this->itemsPerPage;
+
+        $this->paginator = $this->container->get('knp_paginator');
     }
 
-    public function searchProducts($query)
+    public function searchProducts($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('products');
-        return $finder->find($query);
+
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+        $this->limit = $limit;
+
+        $adapter = $finder->createPaginatorAdapter($query);
+        return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     public function searchOrders($query)
@@ -38,6 +55,11 @@ class AdminSearchService implements IAdminSearchService
     {
         $finder = $this->createFinderFor('manufacturers');
         return $finder->find($query);
+    }
+
+    public function getLimit()
+    {
+        return $this->limit;
     }
 
     private function createFinderFor($type)

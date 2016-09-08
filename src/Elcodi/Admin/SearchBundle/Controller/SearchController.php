@@ -36,11 +36,23 @@ class SearchController extends Controller
         $query = $request->query->get('q');
 
         if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
+            return $this->redirect($this->generateUrl('admin_product_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
         }
         
         return [
             'query' => $query,
+            'page' => $page,
+            'limit' => $limit
             /*'count' => count($products),
             'purchasables' => $products,*/
         ];
@@ -77,8 +89,20 @@ class SearchController extends Controller
             throw $this->createNotFoundException('Please, specify a query');
         }
 
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
+        }
+
         return [
             'query' => $query,
+            'page' => $page,
+            'limit' => $limit
             /*'count' => count($products),
             'purchasables' => $products,*/
         ];

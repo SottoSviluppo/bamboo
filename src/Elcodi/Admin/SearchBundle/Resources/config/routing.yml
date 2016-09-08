@@ -3,8 +3,8 @@ search_admin_products:
     defaults: { _controller: AdminSearchBundle:Search:searchProducts }
 
 search_admin_component_products:
-    path: /search/products/component/{query}
-    defaults: { _controller: AdminSearchBundle:ProductComponent:listComponent }
+    path: /search/products/component/{query}/{page}/{limit}
+    defaults: { _controller: AdminSearchBundle:ProductComponent:listComponent, limit: null }
 
 search_admin_orders:
     path: /search/orders
