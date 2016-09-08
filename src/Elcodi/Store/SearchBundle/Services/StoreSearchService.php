@@ -37,10 +37,11 @@ class StoreSearchService implements IStoreSearchService
             $limit = $this->itemsPerPage;
         }
 
-        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
         $finder = $this->createFinderFor('products');
 
-        $adapter = $finder->createPaginatorAdapter($productQuery);
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        //$productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
+        //$adapter = $finder->createPaginatorAdapter($productQuery);
 
         return $this->paginator->paginate($adapter, $page, $limit);
     }
