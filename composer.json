@@ -75,7 +75,8 @@
         "sottosviluppo/paymentsuite": "^2.0",
         "friendsofsymfony/elastica-bundle": "dev-master",
         "ruflin/elastica": "^3.2",
-	    "cocur/slugify": "^2.3"
+        "cocur/slugify": "^2.3",
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
     "replace": {
         "elcodi-templates/template": "self.version",

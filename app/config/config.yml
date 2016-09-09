@@ -217,3 +217,97 @@ store_core:
 store_page:
     blog:
         posts_per_page: 5
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            index_name: app_%elcodi.core.bamboo.cache_prefix%
+            types: 
+                products:
+                    mappings:
+                        id: ~
+                        sku: ~
+                        name: ~
+                        shortDescription: ~
+                        description: ~
+                        price: 
+                            type: "object"
+                            properties:
+                                amount: ~
+                        variants:
+                            type: "nested"
+                            properties:
+                                sku: ~
+                                name: ~
+                                shortDescription: ~
+                                description: ~
+                        categories:
+                            type: "nested"
+                            properties:
+                                id: ~
+                                name: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Product\Entity\Product
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                customers:
+                    mappings:
+                        id: ~
+                        email: ~
+                        firstName: ~
+                        lastName: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\User\Entity\Customer
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                orders:
+                    mappings:
+                        customer:
+                            type: object
+                            properties:
+                                email: ~
+                                firstName: ~
+                                lastName: ~
+                        orderLines:
+                            type: "nested"
+                            properties:
+                                purchasable:
+                                    type: object
+                                    properties:
+                                        sku: ~
+                                        name: ~
+                                        shortDescription: ~
+                                        description: ~
+                                        variants:
+                                            type: "nested"
+                                            properties:
+                                                sku: ~
+                                                name: ~
+                                                shortDescription: ~
+                                                description: ~
+                                        categories:
+                                            type: "nested"
+                                            properties:
+                                                name: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Cart\Entity\Order
+                        provider: ~
+                        listener: ~
+                        finder: ~
+                manufacturers:
+                    mappings:
+                        name: ~
+                        description: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Product\Entity\Manufacturer
+                        provider: ~
+                        listener: ~
+                        finder: ~

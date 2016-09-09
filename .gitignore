@@ -17,6 +17,7 @@
 /vagrant/.vagrant
 /vagrant/Vagrantfile
 /.vscode/
+composer.lock
 
 src/Elcodi/Plugin/*
 !src/Elcodi/Plugin/BankwireBundle/
