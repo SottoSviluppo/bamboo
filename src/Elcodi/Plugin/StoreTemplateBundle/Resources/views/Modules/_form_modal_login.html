@@ -1,0 +1,65 @@
+{# Modale per il login con il relativo codice ajax #}
+<form id="bamboo_ajax_login" action="#" class="p-40">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="email">{{ 'template.tonki_template_bundle.login.email'|trans }}</label>
+        <input type="email" class="form-control" id="store_user_form_type_login_email" name="store_user_form_type_login[email]">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="password">{{ 'template.tonki_template_bundle.login.password'|trans }}</label>
+        <span><a href="{{ url('store_password_remember') }}">{{ 'template.tonki_template_bundle.login.forgot'|trans }}</a></span>
+        <input type="password" class="form-control" id="store_user_form_type_login_password" name="store_user_form_type_login[password]" placeholder="">
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="store_user_form_type_login__token" name="store_user_form_type_login[_token]" value="{{ csrf_token('authenticate') }}" />
+  <div class="text-center">
+    <button type="submit" id="store_user_form_type_login_send" name="store_user_form_type_login[send]" class="btn btn-default chooseImgBtn uppercase">{{ 'template.tonki_template_bundle.login.send'|trans }}</button>
+  </div>
+  <div class="text-center ">
+    <button type="submit" class="btn btn-default chooseImgBtn btn-facebook mt-20">{{ 'template.tonki_template_bundle.login.facebook'|trans }}</button>
+  </div>
+</form>
+
+<script>
+  $(document).ready(function(){
+    $('#store_user_form_type_login_send').click(function(e){
+      e.preventDefault();
+      $.ajax({
+        type        : 'POST',
+        url         : "login_check", 
+        data: {
+          "store_user_form_type_login[email]": $('#store_user_form_type_login_email').val(),
+          "store_user_form_type_login[password]": $('#store_user_form_type_login_password').val(),
+          _remember_me: false,
+          "store_user_form_type_login[_token]": $('#store_user_form_type_login__token').val()
+        },
+        success     : function(data, status, object) {
+          window.location.reload(false);
+          // console.log(data);
+          // if (!data.success) 
+          // {
+
+          //   $('.error').html(data.message);
+          //   $('.error').show();
+          // }
+          // else
+           // window.location.reload(false);
+        },
+        error: function(data, status, object){
+          alert('errore');
+        // {% for flashMessage in app.session.flashbag.get('error') %}
+        // {{ flashMessage }}
+        // {% endfor %}
+        // $('.error').html("Errore nel server");
+        // $('.error').show();
+      }
+    });
+    });
+  });
+</script>
