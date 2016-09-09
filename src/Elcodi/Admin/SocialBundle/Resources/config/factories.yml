@@ -1,0 +1,14 @@
+services:
+
+    #
+    # Factories
+    #
+
+    #
+    # Factory for entity page
+    #
+    elcodi.factory.social:
+        class: Elcodi\Admin\SocialBundle\Factory\SocialFactory
+        calls:
+            - [setEntityNamespace, [Elcodi\Admin\SocialBundle\Entity\Social] ]
+            - [setDateTimeFactory, ["@elcodi.factory.datetime"] ]

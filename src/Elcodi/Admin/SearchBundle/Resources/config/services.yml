@@ -4,3 +4,5 @@ services:
         class: Elcodi\Admin\SearchBundle\Services\AdminSearchService
         arguments:
             - '@service_container'
+            - '%elcodi.core.bamboo.cache_prefix%'
+            - '%item_for_page%'

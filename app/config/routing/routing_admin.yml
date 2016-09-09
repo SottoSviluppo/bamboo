@@ -58,6 +58,9 @@ admin_store:
 admin_search:
     resource: "@AdminSearchBundle/Resources/config/routing.yml"
 
+admin_social:
+    resource: "@AdminSocialBundle/Resources/config/routing.yml"
+
 admin_login_check:
     path:  /login_check
 

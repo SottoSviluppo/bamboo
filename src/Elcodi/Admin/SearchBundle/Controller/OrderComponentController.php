@@ -27,18 +27,18 @@ class OrderComponentController extends AbstractAdminController
     /**
     * @Template("AdminSearchBundle:Search:orderListComponent.html.twig")
     */
-    public function listComponentAction($query)
+    public function listComponentAction($query, $page, $limit = null)
     {
-        $orders = $this->service->searchOrders($query);
+        $orders = $this->service->searchOrders($query, $page, $limit);
         return [
                 'query' => $query,
                 'paginator' => $orders,
-                'page' => 1,
-                'limit' => 100,
+                'page' => $page,
+                'limit' => $this->service->getLimit(),
                 'orderByField' => '',
                 'orderByDirection' => '',
-                'totalPages' => 1,
-                'totalElements'=> count($orders),
+                'totalPages' => ceil($orders->getTotalItemCount()/$this->service->getLimit()),
+                'totalElements'=> $orders->getTotalItemCount(),
             ];
     }
 }

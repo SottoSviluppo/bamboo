@@ -66,6 +66,7 @@ class AppKernel extends Kernel
             'Mmoreram\CacheFlushBundle\CacheFlushBundle',
             'Mmoreram\HttpHeadersBundle\HttpHeadersBundle',
             'FOS\ElasticaBundle\FOSElasticaBundle',
+            'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle',
 
             /**
              * Elcodi core bundles
@@ -141,6 +142,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\PaymentBundle\AdminPaymentBundle',
             'Elcodi\Admin\StoreBundle\AdminStoreBundle',
             'Elcodi\Admin\SearchBundle\AdminSearchBundle',
+            'Elcodi\Admin\SocialBundle\AdminSocialBundle',
 
             /**
              * Elcodi common bundle

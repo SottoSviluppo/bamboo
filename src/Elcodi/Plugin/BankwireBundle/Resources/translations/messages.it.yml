@@ -1,0 +1,4 @@
+elcodi_plugin:
+    bankwire:
+        description: 'Pagamento tramite bonifico bancario'
+        name: 'Bonifico bancario'
