@@ -39,3 +39,6 @@ parameters:
     elcodi.core.bamboo.cache_prefix: bamboostore01
     # number of item for page with paginator
     item_for_page: 12
+
+    # eventual pattern prefix for multitenant administration (use '/..' for a two letter folder)
+    bamboo_admin_pattern_prefix: ''
