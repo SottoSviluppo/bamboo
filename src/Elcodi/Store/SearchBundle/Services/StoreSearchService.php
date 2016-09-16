@@ -55,15 +55,18 @@ class StoreSearchService implements IStoreSearchService
     {
         $boolQuery = new BoolQuery();
 
+        $fieldsBoolQuery = new BoolQuery();
+
         $fieldQuery = new MultiMatch();
         $fieldQuery->setQuery($query);
         $fieldQuery->setFields([
            'name', 'sku', 'shortDescription', 'description' 
         ]);
 
-        $boolQuery->addShould($fieldQuery);
+        $fieldsBoolQuery->addShould($fieldQuery);
+        $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
 
-        $this->setNestedQueriesForProduct($boolQuery, $query);
+        $boolQuery->addMust($fieldsBoolQuery);
 
         if (!empty($categories)) {
             $this->setCategoriesQuery($boolQuery, $categories);
@@ -108,7 +111,11 @@ class StoreSearchService implements IStoreSearchService
     {
         $price = new Nested();
         $price->setPath('price');
-        $price->setQuery(new NumericRange('amount', $priceRange));
+
+        $priceBool = new BoolQuery();
+        $priceBool->addMust(new NumericRange('price.amount', $priceRange));
+
+        $price->setQuery($priceBool);
 
         $boolQuery->addMust($price);
     }
@@ -117,7 +124,10 @@ class StoreSearchService implements IStoreSearchService
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
-        $categoriesQuery->setQuery(new Terms('id', $categories));
+        
+        $categoriesBool = new BoolQuery();
+        $categoriesBool->addMust(new Terms('categories.id', $categories));
+        $categoriesQuery->setQuery($categoriesBool);
 
         $boolQuery->addMust($categoriesQuery);
     }
