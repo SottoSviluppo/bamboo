@@ -7,7 +7,7 @@ use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Terms;
 use Elastica\Query\Term;
-use Elastica\Query\NumericRange;
+use Elastica\Query\Range;
 use Elastica\Query\Nested;
 
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
@@ -114,7 +114,11 @@ class StoreSearchService implements IStoreSearchService
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        
+        $priceQuery = new Range('price.amount', [
+            'gte' => $priceRange[0],
+            'lte' => $priceRange[1]
+        ]);
+        $boolQuery->addMust($priceQuery);
     }
 
     private function setCategoriesQuery(BoolQuery $boolQuery, array $categories)
