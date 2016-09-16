@@ -33,7 +33,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        $menu
+        /*$menu
             ->findSubnodeByName('admin.communication.single')
                 ->addSubnode(
 	                $this
@@ -48,6 +48,6 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
 	                    ])
                         ->setPriority(-32)
 	            )
-        ;
+        ;*/
     }
 }

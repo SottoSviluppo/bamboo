@@ -39,9 +39,9 @@ class StoreSearchService implements IStoreSearchService
 
         $finder = $this->createFinderFor('products');
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
-        //$productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
-        //$adapter = $finder->createPaginatorAdapter($productQuery);
+        //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
+        $adapter = $finder->createPaginatorAdapter($productQuery);
 
         return $this->paginator->paginate($adapter, $page, $limit);
     }
@@ -60,10 +60,8 @@ class StoreSearchService implements IStoreSearchService
         $fieldQuery->setFields([
            'name', 'sku', 'shortDescription', 'description' 
         ]);
-        $fieldQuery->setOperator();
-        $fieldQuery->setType('best_fields');
 
-        $boolQuery->addMust($fieldQuery);
+        $boolQuery->addShould($fieldQuery);
 
         $this->setNestedQueriesForProduct($boolQuery, $query);
 
@@ -83,7 +81,8 @@ class StoreSearchService implements IStoreSearchService
         $categories = new Nested();
         $categories->setPath('categories');
 
-        $categoriesQuery = new Match('name', $query);
+        $categoriesQuery = new BoolQuery();
+        $categoriesQuery->addShould(new Match('categories.name', $query));
         $categories->setQuery($categoriesQuery);
 
         $boolQuery->addShould($categories);
@@ -97,7 +96,10 @@ class StoreSearchService implements IStoreSearchService
         ]);
         $variantsQuery->setOperator();
         $variantsQuery->setType('best_fields');
-        $variants->setQuery($variantsQuery);
+
+        $variantsBool = new BoolQuery();
+        $variantsBool->addShould($variantsQuery);
+        $variants->setQuery($variantsBool);
 
         $boolQuery->addShould($variants);
     }
