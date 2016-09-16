@@ -55,19 +55,21 @@ class StoreSearchService implements IStoreSearchService
     {
         $boolQuery = new BoolQuery();
 
-        $fieldsBoolQuery = new BoolQuery();
+        if (!empty($query)) {
+            $fieldsBoolQuery = new BoolQuery();
 
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-           'name', 'sku', 'shortDescription', 'description' 
-        ]);
+            $fieldQuery = new MultiMatch();
+            $fieldQuery->setQuery($query);
+            $fieldQuery->setFields([
+                'name', 'sku', 'shortDescription', 'description' 
+            ]);
 
-        $fieldsBoolQuery->addShould($fieldQuery);
-        $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
+            $fieldsBoolQuery->addShould($fieldQuery);
+            $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
 
-        $boolQuery->addMust($fieldsBoolQuery);
-
+            $boolQuery->addMust($fieldsBoolQuery);
+        }
+        
         if (!empty($categories)) {
             $this->setCategoriesQuery($boolQuery, $categories);
         }
@@ -97,8 +99,6 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery->setFields([
            'name', 'sku', 'shortDescription', 'description' 
         ]);
-        $variantsQuery->setOperator();
-        $variantsQuery->setType('best_fields');
 
         $variantsBool = new BoolQuery();
         $variantsBool->addShould($variantsQuery);
@@ -109,15 +109,7 @@ class StoreSearchService implements IStoreSearchService
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        $price = new Nested();
-        $price->setPath('price');
-
-        $priceBool = new BoolQuery();
-        $priceBool->addMust(new NumericRange('price.amount', $priceRange));
-
-        $price->setQuery($priceBool);
-
-        $boolQuery->addMust($price);
+        
     }
 
     private function setCategoriesQuery(BoolQuery $boolQuery, array $categories)

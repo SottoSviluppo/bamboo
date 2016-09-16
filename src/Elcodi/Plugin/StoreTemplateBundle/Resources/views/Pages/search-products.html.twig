@@ -1,16 +1,18 @@
 {% extends '@StoreTemplate/Layout/_layout.html.twig' %}
 
 
-{% block title %}Search results for {{ query }}{% endblock title %}
+{% block title %}Search results {% if query %}for {{ query }}{% endif %}{% endblock title %}
 
 {% block breadcrumb %}
     <li>
-        <a href="{{ url('search_frontend', { q: query }) }}"><strong>Search results for {{ query }}</strong></a>
+        <a href="{{ url('search_frontend', { q: query }) }}"><strong>Search results {% if query %}for {{ query }}{% endif %}</strong></a>
     </li>
 {% endblock breadcrumb %}
 
 {% block content %}
-    <h2>{{ count }} Product{{ (count > 1 or count == 0) ? 's' : '' }} found for &quot;{{ query }}&quot;</h2>
+    <h2>
+        {{ count }} Product{{ (count > 1 or count == 0) ? 's' : '' }} found {% if query %}for &quot;{{ query }}&quot;{% endif %}
+    </h2>
 	{% include '@StoreTemplate/Modules/_purchasable-list.html.twig' with {
         'purchasables' : purchasables
     } %}
