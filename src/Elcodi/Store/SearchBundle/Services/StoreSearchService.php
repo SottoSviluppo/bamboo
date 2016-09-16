@@ -6,9 +6,9 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Terms;
+use Elastica\Query\Term;
 use Elastica\Query\NumericRange;
 use Elastica\Query\Nested;
-use Elastica\Query\Filtered;
 
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
 
@@ -55,6 +55,10 @@ class StoreSearchService implements IStoreSearchService
     {
         $boolQuery = new BoolQuery();
 
+        $enableQuery = new Term();
+        $enableQuery->setTerm('enabled', true);
+        $boolQuery->addFilter($enableQuery);
+
         if (!empty($query)) {
             $fieldsBoolQuery = new BoolQuery();
 
@@ -88,6 +92,7 @@ class StoreSearchService implements IStoreSearchService
 
         $categoriesQuery = new BoolQuery();
         $categoriesQuery->addShould(new Match('categories.name', $query));
+
         $categories->setQuery($categoriesQuery);
 
         $boolQuery->addShould($categories);
@@ -97,7 +102,7 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery = new MultiMatch();
         $variantsQuery->setQuery($query);
         $variantsQuery->setFields([
-           'name', 'sku', 'shortDescription', 'description' 
+           'variants.name', 'variants.sku', 'variants.shortDescription', 'variants.description' 
         ]);
 
         $variantsBool = new BoolQuery();
@@ -119,6 +124,11 @@ class StoreSearchService implements IStoreSearchService
         
         $categoriesBool = new BoolQuery();
         $categoriesBool->addMust(new Terms('categories.id', $categories));
+
+        $enableQuery = new Term();
+        $enableQuery->setTerm('categories.enabled', true);
+        $categoriesBool->addFilter($enableQuery);
+
         $categoriesQuery->setQuery($categoriesBool);
 
         $boolQuery->addMust($categoriesQuery);
