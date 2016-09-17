@@ -114,10 +114,19 @@ class StoreSearchService implements IStoreSearchService
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        $priceQuery = new Range('price.amount', [
-            'gte' => $priceRange[0],
-            'lte' => $priceRange[1]
-        ]);
+        $priceRange = array_map(function($item){
+            return floatval($item)*100.00;
+        }, $priceRange);
+
+        $range = [
+            'gte' => $priceRange[0]
+        ];
+
+        if (count($priceRange) > 1) {
+            $range['lte'] = $priceRange[1];
+        }
+
+        $priceQuery = new Range('price.amount', $range);
         $boolQuery->addMust($priceQuery);
     }
 
