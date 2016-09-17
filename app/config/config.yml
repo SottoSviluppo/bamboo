@@ -232,6 +232,7 @@ fos_elastica:
                         name: ~
                         shortDescription: ~
                         description: ~
+                        enabled: ~
                         price: 
                             type: "object"
                             properties:
@@ -243,11 +244,13 @@ fos_elastica:
                                 name: ~
                                 shortDescription: ~
                                 description: ~
+                                enabled: ~
                         categories:
                             type: "nested"
                             properties:
                                 id: ~
                                 name: ~
+                                enabled: ~
                     persistence:
                         driver: orm
                         model: Elcodi\Component\Product\Entity\Product
