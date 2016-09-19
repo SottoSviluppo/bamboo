@@ -33,9 +33,6 @@ class SearchController extends Controller
     {
         $request = $this->getRequest();
         $query = $request->query->get('q');
-        if(empty($query)){
-            throw $this->createNotFoundException('Please, specify a query');
-        }
 
         $categories = [];
         $cat = $request->query->get('cat');

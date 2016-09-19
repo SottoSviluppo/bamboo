@@ -35,7 +35,7 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter($query);
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
@@ -48,7 +48,7 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter($query);
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
@@ -61,7 +61,7 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter($query);
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
@@ -74,7 +74,7 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter($query);
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
