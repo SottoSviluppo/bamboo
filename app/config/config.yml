@@ -287,13 +287,13 @@ fos_elastica:
                                         name: ~
                                         shortDescription: ~
                                         description: ~
-                                        variants:
-                                            type: "nested"
-                                            properties:
-                                                sku: ~
-                                                name: ~
-                                                shortDescription: ~
-                                                description: ~
+                                        # variants:
+                                        #     type: "nested"
+                                        #     properties:
+                                        #         sku: ~
+                                        #         name: ~
+                                        #         shortDescription: ~
+                                        #         description: ~
                                         categories:
                                             type: "nested"
                                             properties:
