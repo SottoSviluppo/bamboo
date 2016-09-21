@@ -3,15 +3,15 @@ security:
 
         # admin
         admin_login_area:
-            path: ^/%bamboo_admin_prefix%/login.*
+            path: ^%bamboo_admin_pattern_prefix%/%bamboo_admin_prefix%/login.*
             roles: IS_AUTHENTICATED_ANONYMOUSLY
 
         admin_password_area:
-            path: ^/%bamboo_admin_prefix%/password.*
+            path: ^%bamboo_admin_pattern_prefix%/%bamboo_admin_prefix%/password.*
             roles: IS_AUTHENTICATED_ANONYMOUSLY
 
         admin_public_area:
-            path: ^/%bamboo_admin_prefix%/.*
+            path: ^%bamboo_admin_pattern_prefix%/%bamboo_admin_prefix%/.*
             roles: ROLE_ADMIN
 
         # store

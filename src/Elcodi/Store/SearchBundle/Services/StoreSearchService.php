@@ -6,9 +6,9 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Terms;
-use Elastica\Query\NumericRange;
+use Elastica\Query\Term;
+use Elastica\Query\Range;
 use Elastica\Query\Nested;
-use Elastica\Query\Filtered;
 
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
 
@@ -37,9 +37,10 @@ class StoreSearchService implements IStoreSearchService
             $limit = $this->itemsPerPage;
         }
 
-        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
         $finder = $this->createFinderFor('products');
 
+        //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
         $adapter = $finder->createPaginatorAdapter($productQuery);
 
         return $this->paginator->paginate($adapter, $page, $limit);
@@ -54,18 +55,25 @@ class StoreSearchService implements IStoreSearchService
     {
         $boolQuery = new BoolQuery();
 
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-           'name', 'sku', 'shortDescription', 'description' 
-        ]);
-        $fieldQuery->setOperator();
-        $fieldQuery->setType('best_fields');
+        $enableQuery = new Term();
+        $enableQuery->setTerm('enabled', true);
+        $boolQuery->addFilter($enableQuery);
 
-        $boolQuery->addMust($fieldQuery);
+        if (!empty($query)) {
+            $fieldsBoolQuery = new BoolQuery();
 
-        $this->setNestedQueriesForProduct($boolQuery, $query);
+            $fieldQuery = new MultiMatch();
+            $fieldQuery->setQuery($query);
+            $fieldQuery->setFields([
+                'name', 'sku', 'shortDescription', 'description' 
+            ]);
 
+            $fieldsBoolQuery->addShould($fieldQuery);
+            $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
+
+            $boolQuery->addMust($fieldsBoolQuery);
+        }
+        
         if (!empty($categories)) {
             $this->setCategoriesQuery($boolQuery, $categories);
         }
@@ -82,7 +90,9 @@ class StoreSearchService implements IStoreSearchService
         $categories = new Nested();
         $categories->setPath('categories');
 
-        $categoriesQuery = new Match('name', $query);
+        $categoriesQuery = new BoolQuery();
+        $categoriesQuery->addShould(new Match('categories.name', $query));
+
         $categories->setQuery($categoriesQuery);
 
         $boolQuery->addShould($categories);
@@ -92,29 +102,47 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery = new MultiMatch();
         $variantsQuery->setQuery($query);
         $variantsQuery->setFields([
-           'name', 'sku', 'shortDescription', 'description' 
+           'variants.name', 'variants.sku', 'variants.shortDescription', 'variants.description' 
         ]);
-        $variantsQuery->setOperator();
-        $variantsQuery->setType('best_fields');
-        $variants->setQuery($variantsQuery);
+
+        $variantsBool = new BoolQuery();
+        $variantsBool->addShould($variantsQuery);
+        $variants->setQuery($variantsBool);
 
         $boolQuery->addShould($variants);
     }
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        $price = new Nested();
-        $price->setPath('price');
-        $price->setQuery(new NumericRange('amount', $priceRange));
+        $priceRange = array_map(function($item){
+            return floatval($item)*100.00;
+        }, $priceRange);
 
-        $boolQuery->addMust($price);
+        $range = [
+            'gte' => $priceRange[0]
+        ];
+
+        if (count($priceRange) > 1) {
+            $range['lte'] = $priceRange[1];
+        }
+
+        $priceQuery = new Range('price.amount', $range);
+        $boolQuery->addMust($priceQuery);
     }
 
     private function setCategoriesQuery(BoolQuery $boolQuery, array $categories)
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
-        $categoriesQuery->setQuery(new Terms('id', $categories));
+        
+        $categoriesBool = new BoolQuery();
+        $categoriesBool->addMust(new Terms('categories.id', $categories));
+
+        $enableQuery = new Term();
+        $enableQuery->setTerm('categories.enabled', true);
+        $categoriesBool->addFilter($enableQuery);
+
+        $categoriesQuery->setQuery($categoriesBool);
 
         $boolQuery->addMust($categoriesQuery);
     }
