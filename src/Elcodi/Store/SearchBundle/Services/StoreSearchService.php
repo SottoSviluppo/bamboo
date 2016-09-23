@@ -119,11 +119,11 @@ class StoreSearchService implements IStoreSearchService
         }, $priceRange);
 
         $range = [
-            'gte' => $priceRange[0]
+            'from' => $priceRange[0]
         ];
 
         if (count($priceRange) > 1) {
-            $range['lte'] = $priceRange[1];
+            $range['to'] = $priceRange[1];
         }
 
         $priceQuery = new Range('price.amount', $range);

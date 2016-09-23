@@ -236,7 +236,7 @@ fos_elastica:
                         price: 
                             type: "object"
                             properties:
-                                amount: ~
+                                amount: { type: integer }
                         variants:
                             type: "nested"
                             properties:
