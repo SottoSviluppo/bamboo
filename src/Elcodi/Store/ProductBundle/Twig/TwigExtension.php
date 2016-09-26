@@ -3,7 +3,7 @@
 namespace Elcodi\Store\ProductBundle\Twig;
 
 use Twig_Extension;
-use Twig_Function_Function;
+use Twig_SimpleFunction;
 
 class TwigExtension extends Twig_Extension {
 
@@ -14,7 +14,7 @@ class TwigExtension extends Twig_Extension {
 	 */
 	public function getFunctions() {
 		return array(
-			'file_exists' => new Twig_Function_Function('file_exists'),
+			new Twig_SimpleFunction('file_exists', array($this->getName(), 'file_exists')),
 		);
 	}
 
