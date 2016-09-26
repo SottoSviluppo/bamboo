@@ -62,7 +62,7 @@ Elcodi\Plugin\CustomShippingBundle\Entity\ShippingRange:
             joinColumn:
                 name: to_zone_id
                 referencedColumnName: id
-                nullable: false
+                nullable: true
         priceCurrency:
             targetEntity: Elcodi\Component\Currency\Entity\Interfaces\CurrencyInterface
             joinColumn:
