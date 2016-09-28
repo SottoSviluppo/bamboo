@@ -124,6 +124,73 @@ class SecurityController extends Controller
     }
 
     /**
+     * Register page
+     *
+     * @param CustomerInterface $customer         empty customer
+     * @param FormView          $registerFormView Register form type
+     * @param boolean           $isValid          Form submition is valid
+     *
+     * @return Response Response
+     *
+     * @Route(
+     *      path = "/register_block",
+     *      name = "store_register_block",
+     *      methods = {"GET", "POST"}
+     * )
+     *
+     * @Entity(
+     *      name     = "customer",
+     *      class    = {
+     *          "factory"  = "elcodi.factory.customer"
+     *      },
+     *      persist  = false
+     * )
+     * @AnnotationForm(
+     *      class         = "store_user_form_type_register",
+     *      entity        = "customer",
+     *      handleRequest = true,
+     *      name          = "registerFormView",
+     *      validate      = "isValid"
+     * )
+     */
+    public function registerBlockAction(
+        CustomerInterface $customer,
+        FormView $registerFormView,
+        $isValid
+    ) {
+        /**
+         * If user is already logged, go to redirect url
+         */
+        $authorizationChecker = $this->get('security.authorization_checker');
+        if ($authorizationChecker->isGranted('ROLE_CUSTOMER')) {
+            return $this->renderTemplate(
+                'Pages:user-register-block.html.twig',
+                [
+                    'form' => $registerFormView,
+                ]
+            );
+        }
+
+        if ($isValid) {
+            $customerManager = $this->get('elcodi.object_manager.customer');
+            $customerManager->persist($customer);
+            $customerManager->flush($customer);
+
+            $this
+                ->get('elcodi.manager.customer')
+                ->register($customer);
+
+            return $this->redirectToRoute('store_homepage');
+        }
+        return $this->renderTemplate(
+            'Pages:user-register-block.html.twig',
+            [
+                'form' => $registerFormView,
+            ]
+        );
+    }
+
+    /**
      * Register page full
      *
      * @param CustomerInterface $customer         empty customer
@@ -186,7 +253,6 @@ class SecurityController extends Controller
 
             return $this->redirectToRoute('store_homepage');
         }
-
         return $this->renderTemplate(
             $template,
             [
