@@ -35,21 +35,21 @@ class ShippingApplianceEventListener
      *
      * Cart Event Dispatcher
      */
-    private $cartEventDispatcher;
+    protected $cartEventDispatcher;
 
     /**
      * @var ShippingWrapper
      *
      * Shipping Wrapper
      */
-    private $shippingWrapper;
+    protected $shippingWrapper;
 
     /**
      * @var ShippingResolver
      *
      * Shipping method resolver
      */
-    private $shippingResolver;
+    protected $shippingResolver;
 
     /**
      * Construct
