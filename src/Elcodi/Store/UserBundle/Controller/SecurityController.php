@@ -163,12 +163,10 @@ class SecurityController extends Controller
          */
         $authorizationChecker = $this->get('security.authorization_checker');
         if ($authorizationChecker->isGranted('ROLE_CUSTOMER')) {
-            return $this->renderTemplate(
-                'Pages:user-register-block.html.twig',
-                [
-                    'form' => $registerFormView,
-                ]
-            );
+            return $this->getJson(array(
+                'success' => true,
+                'message' => 'Utente già loggato'
+                ));
         }
 
         if ($isValid) {
@@ -180,14 +178,35 @@ class SecurityController extends Controller
                 ->get('elcodi.manager.customer')
                 ->register($customer);
 
-            return $this->redirectToRoute('store_homepage');
+            return $this->getJson(array(
+                'success' => true,
+                'message' => 'Utente registrato con successo'
+                ));
         }
-        return $this->renderTemplate(
-            'Pages:user-register-block.html.twig',
-            [
-                'form' => $registerFormView,
-            ]
-        );
+        $request = $this->get('request');
+        if ( $request->isXmlHttpRequest() ) {
+            return $this->getJson(array(
+                'success' => false,
+                'message' => 'Errore generico'
+                ));
+        }
+        else
+        {
+            return $this->renderTemplate(
+                'Pages:user-register-block.html.twig',
+                [
+                    'form' => $registerFormView,
+                ]
+            );
+        }
+
+    }
+
+    protected function getJson($array)
+    {
+        $response = new \Symfony\Component\HttpFoundation\JsonResponse($array);
+        $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
+        return $response;
     }
 
     /**
