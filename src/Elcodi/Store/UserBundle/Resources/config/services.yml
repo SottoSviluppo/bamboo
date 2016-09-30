@@ -1,0 +1,7 @@
+services:
+    elcodi.security.authentication_handler:
+        class: Elcodi\Store\UserBundle\Handlers\AuthenticationHandler
+        public: false
+        arguments:
+            - @router
+            - @session

@@ -59,6 +59,7 @@ class StoreUserExtension extends AbstractExtension
         return [
             'formTypes',
             'eventListeners',
+            'services',
         ];
     }
 

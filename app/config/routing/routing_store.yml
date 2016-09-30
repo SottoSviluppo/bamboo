@@ -39,11 +39,11 @@ store_languages:
 
 store_hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
+    prefix:   /loginhwi
 
 store_hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix:   /login
+    prefix:   /loginhwi
 
 store_github_login:
     path: /login/check-github
