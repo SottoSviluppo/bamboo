@@ -29,6 +29,10 @@ class OrderComponentController extends AbstractAdminController
     */
     public function listComponentAction($query, $page, $limit, $dateFrom = null, $dateTo = null)
     {
+        if ($query === "_") {
+            $query = null;
+        }
+
         $dateRange = [];
         if (!empty($dateFrom)) {
             $dateRange['from'] = $dateFrom;

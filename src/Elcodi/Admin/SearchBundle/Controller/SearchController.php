@@ -64,6 +64,10 @@ class SearchController extends Controller
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
+        if (empty($query)) {
+            $query = "_";
+        }
+
         $page = $request->query->get('page');
         if (empty($page)) {
             $page = 1;
