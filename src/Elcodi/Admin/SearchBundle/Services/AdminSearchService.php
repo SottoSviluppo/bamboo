@@ -161,12 +161,14 @@ class AdminSearchService implements IAdminSearchService
     {
         $range = [];
         if (!empty($dateRange['from'])) {
-            $range['gte'] = $dateRange['from']; //DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
+            $range['gte'] = DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
         }
 
         if (!empty($dateRange['to'])) {
-            $range['lte'] = $dateRange['to']; //DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
+            $range['lte'] = DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
         }
+
+        $range['format'] = 'yyyy-MM-dd HH:mm:ss';
 
         $dateQuery = new Range('createdAt', $range);
         $boolQuery->addMust($dateQuery);
