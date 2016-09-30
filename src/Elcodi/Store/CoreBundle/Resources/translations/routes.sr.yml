@@ -27,7 +27,7 @@ store_login: /ulaz
 store_order_list: /moje-narudzbine
 store_order_view: '/narudzbina/{id}'
 store_order_view_thanks: '/narudzbina/{id}/thanks'
-store_password_recover: /lozinka/povrati
+store_password_recover: /lozinka/povrati/{hash}
 store_password_recover_sent: /lozinka/poslata
 store_password_remember: /lozinka/zapamti
 store_product_view: '/artikal/{slug}/{id}'

@@ -27,7 +27,7 @@ store_login: /entrar
 store_order_list: /les-meves-comandes
 store_order_view: '/comanda/{id}'
 store_order_view_thanks: '/comanda/{id}/gracies'
-store_password_recover: /contrasenya/recuperar
+store_password_recover: /contrasenya/recuperar/{hash}
 store_password_recover_sent: /contrasenya/enviat
 store_password_remember: /contrasenya/recordar
 store_product_view: '/producte/{slug}/{id}'

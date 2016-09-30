@@ -28,7 +28,7 @@ store_order_list: /my-orders
 store_order_view: '/order/{id}'
 store_order_view_thanks: '/order/{id}/thanks'
 store_pack_view: '/pack/{slug}/{id}'
-store_password_recover: /password/recover
+store_password_recover: /password/recover/{hash}
 store_password_recover_sent: /password/sent
 store_password_remember: /password/remember
 store_product_view: '/product/{slug}/{id}'

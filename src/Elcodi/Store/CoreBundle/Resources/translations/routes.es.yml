@@ -27,7 +27,7 @@ store_login: /entrar
 store_order_list: /mis-pedidos
 store_order_view: '/pedido/{id}'
 store_order_view_thanks: '/pedido/{id}/gracias'
-store_password_recover: /contrasena/recuperar
+store_password_recover: /contrasena/recuperar/{hash}
 store_password_recover_sent: /contrasena/enviado
 store_password_remember: /contrasena/recordar
 store_product_view: '/producto/{slug}/{id}'

@@ -28,7 +28,7 @@ store_login: /login
 store_order_list: /mes-commandes
 store_order_view: '/commande/{id}'
 store_order_view_thanks: '/commande/{id}/merci'
-store_password_recover: /mot-de-passe/recuperer
+store_password_recover: /mot-de-passe/recuperer/{hash}
 store_password_recover_sent: /mot-de-passe/envoye
 store_password_remember: /mot-de-passe/rappeler
 store_product_view: '/produit/{slug}/{id}'

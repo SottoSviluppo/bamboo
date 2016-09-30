@@ -151,9 +151,12 @@ class PasswordController extends Controller
                 $this
                     ->get('elcodi.manager.password')
                     ->recoverPassword($customer, $hash, $password);
-
-                return $this->redirectToRoute('store_homepage');
             }
+            else
+            {           
+                $this->addFlash('error', 'Customer not found');
+            }
+            return $this->redirectToRoute('store_homepage');
         }
 
         return $this->renderTemplate(
