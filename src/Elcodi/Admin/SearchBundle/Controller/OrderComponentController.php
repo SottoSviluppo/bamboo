@@ -27,9 +27,9 @@ class OrderComponentController extends AbstractAdminController
     /**
     * @Template("AdminSearchBundle:Search:orderListComponent.html.twig")
     */
-    public function listComponentAction($query, $page, $limit = null)
+    public function listComponentAction($query, $page, $limit = null, array $dateRange = array())
     {
-        $orders = $this->service->searchOrders($query, $page, $limit);
+        $orders = $this->service->searchOrders($query, $page, $limit, $dateRange);
         return [
                 'query' => $query,
                 'paginator' => $orders,

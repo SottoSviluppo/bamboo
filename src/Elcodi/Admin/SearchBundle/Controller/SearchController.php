@@ -78,10 +78,17 @@ class SearchController extends Controller
             $limit = null;
         }
 
+        $dr = $request->query->get('dr');
+        $dateRange = [];
+        if (!empty($dr)) {
+            $dateRange = explode(',', $dr);
+        }
+
         return [
             'query' => $query,
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
+            'dateRange' => $dateRange
         ];
     }
 
