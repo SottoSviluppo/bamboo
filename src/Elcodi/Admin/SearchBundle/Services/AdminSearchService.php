@@ -2,6 +2,13 @@
 
 namespace Elcodi\Admin\SearchBundle\Services;
 
+use Elastica\Query\BoolQuery;
+use Elastica\Query\Match;
+use Elastica\Query\MultiMatch;
+use Elastica\Query\Range;
+use Elastica\Query\Nested;
+use DateTime;
+
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
 /**
@@ -39,7 +46,7 @@ class AdminSearchService implements IAdminSearchService
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
-    public function searchOrders($query, $page = 1, $limit = null)
+    public function searchOrders($query, $page = 1, $limit = null, array $dateRange = array())
     {
         $finder = $this->createFinderFor('orders');
         
@@ -48,7 +55,10 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $orderQuery = $this->createQueryForOrder($query, $dateRange);
+        $adapter = $finder->createPaginatorAdapter($orderQuery);
+
+        //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
@@ -86,5 +96,81 @@ class AdminSearchService implements IAdminSearchService
     private function createFinderFor($type)
     {
         return $this->container->get('fos_elastica.finder.app.'.$type);
+    }
+
+    private function createQueryForOrder($query, array $dateRange = array())
+    {
+        $boolQuery = new BoolQuery();
+
+        if (!empty($query)) {
+            // creo la query per la stringa
+            $fieldsBoolQuery = new BoolQuery();
+
+            $fieldQuery = new MultiMatch();
+            $fieldQuery->setQuery($query);
+            $fieldQuery->setFields([
+                'customer.email', 'customer.firstName', 'customer.lastName' 
+            ]);
+
+            $fieldsBoolQuery->addShould($fieldQuery);
+            $this->setNestedQueryForOrder($fieldsBoolQuery, $query);
+            
+            $boolQuery->addMust($fieldsBoolQuery);
+        }
+
+        if (!empty($dateRange)) {
+            $this->setDateRangeQuery($boolQuery, $dateRange);
+        }
+
+        return $boolQuery;
+    }
+
+    private function setNestedQueryForOrder(BoolQuery $boolQuery, $query)
+    {
+        $orderItems = new Nested();
+        $orderItems->setPath('orderLines');
+        
+        $products = new BoolQuery();
+
+        $fieldsBoolQuery = new BoolQuery();
+        $fieldQuery = new MultiMatch();
+        $fieldQuery->setQuery($query);
+        $fieldQuery->setFields([
+            'orderLines.purchasable.name', 'orderLines.purchasable.sku', 'orderLines.purchasable.shortDescription', 'orderLines.purchasable.description' 
+        ]);
+
+        $fieldsBoolQuery->addShould($fieldQuery);
+
+        $categories = new Nested();
+        $categories->setPath('orderLines.purchasable.categories');
+
+        $categoriesQuery = new BoolQuery();
+        $categoriesQuery->addShould(new Match('orderLines.purchasable.categories.name', $query));
+
+        $categories->setQuery($categoriesQuery);
+
+        $fieldsBoolQuery->addShould($categories);
+
+        $products->addMust($fieldsBoolQuery);
+        
+        $orderItems->setQuery($products);
+        $boolQuery->addShould($orderItems);
+    }
+
+    private function setDateRangeQuery(BoolQuery $boolQuery, array $dateRange)
+    {
+        $range = [];
+        if (!empty($dateRange['from'])) {
+            $range['gte'] = DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
+        }
+
+        if (!empty($dateRange['to'])) {
+            $range['lte'] = DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
+        }
+
+        $range['format'] = 'yyyy-MM-dd HH:mm:ss';
+
+        $dateQuery = new Range('createdAt', $range);
+        $boolQuery->addMust($dateQuery);
     }
 }

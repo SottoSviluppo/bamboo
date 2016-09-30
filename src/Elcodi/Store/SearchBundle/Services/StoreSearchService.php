@@ -45,7 +45,7 @@ class StoreSearchService implements IStoreSearchService
         $this->defaultCurrency = $this->container->get('elcodi.wrapper.default_currency')->get();
     }
 
-    public function searchProducts($query, $page = 1, $limit = null, $categories = array(), $priceRange = array())
+    public function searchProducts($query, $page = 1, $limit = null, array $categories = array(), array $priceRange = array())
     {
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
@@ -65,7 +65,7 @@ class StoreSearchService implements IStoreSearchService
         return $this->container->get('fos_elastica.finder.app.'.$type);
     }
 
-    private function createQueryForProducts($query, $categories = array(), $priceRange = array())
+    private function createQueryForProducts($query, array $categories = array(), array $priceRange = array())
     {
         $boolQuery = new BoolQuery();
 

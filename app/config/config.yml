@@ -275,6 +275,7 @@ fos_elastica:
                         finder: ~
                 orders:
                     mappings:
+                        createdAt: { type: date }
                         customer:
                             type: object
                             properties:

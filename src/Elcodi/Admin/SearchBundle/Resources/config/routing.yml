@@ -11,8 +11,8 @@ search_admin_orders:
     defaults: { _controller: AdminSearchBundle:Search:searchOrders }
 
 search_admin_component_orders:
-    path: /search/orders/component/{query}/{page}/{limit}
-    defaults: { _controller: AdminSearchBundle:OrderComponent:listComponent, limit: null }
+    path: /search/orders/component/{query}/{page}/{limit}/{dateFrom}/{dateTo}
+    defaults: { _controller: AdminSearchBundle:OrderComponent:listComponent, dateFrom: null, dateTo: null }
 
 search_admin_customers:
     path: /search/customers
