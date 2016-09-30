@@ -34,6 +34,7 @@ store:
                     label: 'Salva indirizzo'
                 state:
                     label: Regione
+                
         save:
             response_ok: 'Indirizzo salvato'
         select_address_type: 'Select a %1 address'
@@ -105,6 +106,10 @@ store:
                     label: 'Conferma password'
                 send:
                     label: Invia
+                country:
+                    label: Nazione
+                confirm_email:
+                    label: 'Conferma Email'
         profile:
             save:
                 message_ok: 'Profilo salvato'

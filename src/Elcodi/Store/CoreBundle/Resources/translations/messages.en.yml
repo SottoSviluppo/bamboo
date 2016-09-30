@@ -34,6 +34,7 @@ store:
                     label: 'Save address'
                 state:
                     label: State
+
         save:
             response_ok: 'Address saved'
         select_address_type: 'Select a %1 address'
@@ -105,6 +106,10 @@ store:
                     label: 'Repeat password'
                 send:
                     label: Save
+                country:
+                    label: Country
+                confirm_email:
+                    label: 'Confirm Email'
         profile:
             save:
                 message_ok: 'Profile saved'

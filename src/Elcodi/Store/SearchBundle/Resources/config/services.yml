@@ -6,3 +6,4 @@ services:
             - '@service_container'
             - '%elcodi.core.bamboo.cache_prefix%'
             - '%item_for_page%'
+            - '@elcodi.converter.currency'
