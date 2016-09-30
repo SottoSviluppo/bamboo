@@ -64,10 +64,6 @@ class SearchController extends Controller
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
-        if(empty($query)){
-            return $this->redirect($this->generateUrl('admin_order_list'));
-        }
-
         $page = $request->query->get('page');
         if (empty($page)) {
             $page = 1;
@@ -75,20 +71,18 @@ class SearchController extends Controller
         
         $limit = $request->query->get('limit');
         if (empty($limit)) {
-            $limit = null;
+            $limit = $this->getParameter('item_for_page');
         }
 
-        $dr = $request->query->get('dr');
-        $dateRange = [];
-        if (!empty($dr)) {
-            $dateRange = explode(',', $dr);
-        }
+        $dateFrom = $request->query->get('datefrom');
+        $dateTo = $request->query->get('dateto');
 
         return [
             'query' => $query,
             'page' => $page,
             'limit' => $limit,
-            'dateRange' => $dateRange
+            'dateFrom' => $dateFrom,
+            'dateTo' => $dateTo
         ];
     }
 

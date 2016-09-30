@@ -7,6 +7,7 @@ use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Range;
 use Elastica\Query\Nested;
+use DateTime;
 
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
@@ -118,7 +119,7 @@ class AdminSearchService implements IAdminSearchService
         }
 
         if (!empty($dateRange)) {
-            // creo la query per il range di date
+            $this->setDateRangeQuery($boolQuery, $dateRange);
         }
 
         return $boolQuery;
@@ -154,5 +155,20 @@ class AdminSearchService implements IAdminSearchService
         
         $orderItems->setQuery($products);
         $boolQuery->addShould($orderItems);
+    }
+
+    private function setDateRangeQuery(BoolQuery $boolQuery, array $dateRange)
+    {
+        $range = [];
+        if (!empty($dateRange['from'])) {
+            $range['gte'] = $dateRange['from']; //DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
+        }
+
+        if (!empty($dateRange['to'])) {
+            $range['lte'] = $dateRange['to']; //DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
+        }
+
+        $dateQuery = new Range('createdAt', $range);
+        $boolQuery->addMust($dateQuery);
     }
 }
