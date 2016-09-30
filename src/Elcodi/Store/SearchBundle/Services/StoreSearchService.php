@@ -9,6 +9,8 @@ use Elastica\Query\Terms;
 use Elastica\Query\Term;
 use Elastica\Query\Range;
 use Elastica\Query\Nested;
+use Elcodi\Component\Currency\Services\CurrencyConverter;
+use Elcodi\Component\Currency\Entity\Money;
 
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
 
@@ -21,14 +23,26 @@ class StoreSearchService implements IStoreSearchService
     private $prefix;
     private $paginator;
     private $itemsPerPage;
+    private $currencyConverter;
+    private $currencyRepository;
+    private $currentCurrency;
+    private $defaultCurrency;
 
-    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
-    {
+    function __construct(
+        \Symfony\Component\DependencyInjection\ContainerInterface $container, 
+        $prefix, 
+        $itemsPerPage, 
+        CurrencyConverter $currencyConverter
+    ) {
         $this->container = $container;
         $this->prefix = $prefix;
         $this->itemsPerPage = $itemsPerPage;
+        $this->currencyConverter = $currencyConverter;
 
         $this->paginator = $this->container->get('knp_paginator');
+        $this->currencyRepository = $this->container->get('elcodi.repository.currency');
+        $this->currentCurrency = $this->container->get('elcodi.wrapper.currency')->get();
+        $this->defaultCurrency = $this->container->get('elcodi.wrapper.default_currency')->get();
     }
 
     public function searchProducts($query, $page = 1, $limit = null, $categories = array(), $priceRange = array())
@@ -114,9 +128,11 @@ class StoreSearchService implements IStoreSearchService
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        $priceRange = array_map(function($item){
-            $item = floatval($item)*100;
-            return intval($item);
+        $priceRange = array_map(function($item) {
+            $item = floatval($item);
+            $money = $this->currencyConverter->convertMoney(Money::create($item*100, $this->currentCurrency), $this->defaultCurrency);
+
+            return $money->getAmount();
         }, $priceRange);
 
         $range = [
