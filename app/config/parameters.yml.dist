@@ -42,3 +42,7 @@ parameters:
 
     # eventual pattern prefix for multitenant administration (use '/..' for a two letter folder)
     bamboo_admin_pattern_prefix: ''
+
+    # number of item for the carousel
+    carousel_item: 18
+
