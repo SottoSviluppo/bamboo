@@ -75,9 +75,7 @@ class CountryType extends AbstractType
             ->add('name', 'text', [
                 'required' => false,
             ])
-            ->add('enabled', 'checkbox', [
-                'required' => false,
-            ]);
+        ;
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }

@@ -3,13 +3,6 @@
             <strong>{{ entity.name|truncate(20, '…') }}</strong>
         </a>
     </td>
-    <td>
-        {% if entity.enabled %}
-            <span class="label label-ok">{{ 'ui.label.enabled'|trans }}</span>
-        {% else %}
-            <span class="label">{{ 'ui.label.disabled'|trans }}</span>
-        {% endif %}
-    </td>
 
     {% include '@AdminCore/Tables/actions.html.twig' with {
         entity: entity,

@@ -27,7 +27,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
 use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
 
 use Elcodi\Component\Geo\Entity\Interfaces\CountryInterface;
@@ -177,68 +176,6 @@ class CountryController extends AbstractAdminController
             'country' => $country,
             'form'     => $form->createView(),
         ];
-    }
-
-    /**
-     * Enable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to enable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/enable",
-     *      name = "admin_country_enable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.country.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function enableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        return parent::enableAction(
-            $request,
-            $entity
-        );
-    }
-
-    /**
-     * Disable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to disable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/disable",
-     *      name = "admin_country_disable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.country.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function disableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        return parent::disableAction(
-            $request,
-            $entity
-        );
     }
 
     /**
