@@ -427,13 +427,17 @@ admin:
         plural: Nazioni
         single: Nazione
         edit: 'Modifica "%name%"'
+        new: 'Aggiungi una nuova nazione'
         field:
             name:
                 placeholder: 'es. Italia'
                 title: Nome
             enabled:
                 title: 'Status'
-
+        section:
+            translatable:
+                title: 'Nazione'
+                description: 'Aggiungi una nuova nazione'
     currency:
         error:
             disable_master_currency: 'Non puoi disabilitare la valuta principale'
@@ -893,18 +897,14 @@ admin:
         field:
             depth:
                 title: 'Profondità (in cm)'
-
             description:
                 placeholder: 'e.g. Questo fantastico prodotto è proprio ciò che stavi cercando'
                 title: Descrizione
-
             enabled:
                 options:
                     active: Attivo
                     inactive: Disattivo
-
                 title: Visibilità
-
             height:
                 title: 'Altezza (in cm)'
 
@@ -915,9 +915,11 @@ admin:
                 title: 'Mostra in homepage'
 
             main_category:
-                placeholder: 'e.g. Computers, handbags...'
+                placeholder: 'e.g. Computers, borse...'
                 title: Categoria
-
+            other_category:
+                title: 'Altre categorie'
+                placeholder: 'e.s. Computers, borse...'
             manufacturer:
                 placeholder: 'e.g. Apple, Disney...'
                 title: Produttore

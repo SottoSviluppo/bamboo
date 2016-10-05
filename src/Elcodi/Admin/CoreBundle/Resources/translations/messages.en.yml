@@ -310,12 +310,17 @@ admin:
         plural: Countries
         single: Country
         edit: 'Edit "%name%"'
+        new: 'Add new country'
         field:
             name:
                 placeholder: 'e.g. Italy'
                 title: Name
             enabled:
                 title: 'Status'
+        section:
+            translatable:
+                title: 'Country'
+                description: 'Add a new country'
     currency:
         error:
             disable_master_currency: 'You can not disable your master currency'
@@ -685,6 +690,9 @@ admin:
             main_category:
                 placeholder: 'e.g. Computers, handbags...'
                 title: Category
+            other_category:
+                title: 'Other categorie'
+                placeholder: 'e.g. Computers, handbags...'
             manufacturer:
                 placeholder: 'e.g. Apple, Disney...'
                 title: Manufacturer
