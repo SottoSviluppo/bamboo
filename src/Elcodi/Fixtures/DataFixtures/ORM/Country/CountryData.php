@@ -37,8 +37,7 @@ class CountryData extends AbstractFixture
         $spain = $this
             ->getFactory('country')
             ->create()
-            ->setName('Spain')
-            ->setEnabled(true);
+            ->setName('Spain');
 
         $manager->persist($spain);
         $this->addReference('spain', $spain);
@@ -46,8 +45,7 @@ class CountryData extends AbstractFixture
         $italy = $this
             ->getFactory('country')
             ->create()
-            ->setName('Italy')
-            ->setEnabled(true);
+            ->setName('Italy');
 
         $manager->persist($italy);
         $this->addReference('italy', $italy);
