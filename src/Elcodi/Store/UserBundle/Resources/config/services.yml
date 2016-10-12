@@ -1,7 +1,15 @@
 services:
-    elcodi.security.authentication_handler:
-        class: Elcodi\Store\UserBundle\Handlers\AuthenticationHandler
+    elcodi.security.failure_authentication_handler:
+        class: Elcodi\Store\UserBundle\Handlers\FailureAuthenticationHandler
         public: false
         arguments:
             - @router
             - @session
+
+    # elcodi.security.success_authentication_handler:
+    #     class: Elcodi\Store\UserBundle\Handlers\SuccessAuthenticationHandler
+    #     public: false
+    #     arguments:
+    #         - '@security.http_utils'
+    #         - @session
+

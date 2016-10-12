@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
  
-class AuthenticationHandler implements /*AuthenticationSuccessHandlerInterface,*/ AuthenticationFailureHandlerInterface
+class FailureAuthenticationHandler implements AuthenticationFailureHandlerInterface
 {
 	private $router;
 	private $session;
@@ -30,43 +30,6 @@ class AuthenticationHandler implements /*AuthenticationSuccessHandlerInterface,*
 		$this->router  = $router;
 		$this->session = $session;
 	}
- 
-	/**
-	 * onAuthenticationSuccess
- 	 *
-	 * @author 	Joe Sexton <joe@webtipblog.com>
-	 * @param 	Request $request
-	 * @param 	TokenInterface $token
-	 * @return 	Response
-	 */
-	// public function onAuthenticationSuccess( Request $request, TokenInterface $token )
-	// {
-	// 	// if AJAX login
-	// 	if ( $request->isXmlHttpRequest() ) {
- 
-	// 		$array = array( 'success' => true ); // data to return via JSON
-	// 		$response = new Response( json_encode( $array ) );
-	// 		$response->headers->set( 'Content-Type', 'application/json' );
- 
-	// 		return $response;
- 
-	// 	// if form login 
-	// 	} else {
- 
-	// 		if ( $this->session->get('_security.main.target_path' ) ) {
- 
-	// 			$url = $this->session->get( '_security.main.target_path' );
- 
-	// 		} else {
- 
-	// 			$url = $this->router->generate( 'home_page' );
- 
-	// 		} // end if
- 
-	// 		return new RedirectResponse( $url );
- 
-	// 	}
-	// }
  
 	/**
 	 * onAuthenticationFailure
