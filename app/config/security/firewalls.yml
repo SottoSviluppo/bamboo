@@ -38,7 +38,7 @@ security:
                 check_path: store_login_check
                 username_parameter: store_user_form_type_login[email]
                 password_parameter: store_user_form_type_login[password]
-                # success_handler: elcodi.security.success_authentication_handler
+                success_handler: elcodi.security.success_authentication_handler
                 failure_handler: elcodi.security.failure_authentication_handler
             logout:
                 path:   store_logout
