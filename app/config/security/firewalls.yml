@@ -42,7 +42,8 @@ security:
                 failure_handler: elcodi.security.failure_authentication_handler
             logout:
                 path:   store_logout
-                target: store_homepage
+                # target: store_homepage
+                success_handler: elcodi.security.logout_success_handler
                 invalidate_session: false
             oauth:
                 login_path: store_login
