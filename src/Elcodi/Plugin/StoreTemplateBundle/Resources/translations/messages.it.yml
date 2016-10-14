@@ -1,0 +1,208 @@
+store:
+    pagination:
+        first: Prima
+        last: Ultima
+        next: Prossima
+        previous: Precedente
+template:
+    store_template_bundle:
+        address:
+            edit:
+                add_new_address: 'Aggiungi nuovo indirizzo'
+                edit_address: 'Modifica indirizzo'
+            item:
+                actions: Azioni
+                address: Indirizzo
+                address_name: Nome indirizzo
+                billing: Fatturazione
+                city: Città
+                comment: Commenti
+                country: Nazione
+                delivery: Spedizione
+                edit: Modifica
+                fullname: 'Nome completo'
+                phone_and_mobile: 'Telefono / Cellulare'
+                postal_code: 'CAP'
+                province: Provincia
+                remove: Rimuovi
+                state: Stato
+            list:
+                add_new_address: 'Aggiungi nuovo indirizzo'
+                addresses: Indirizzi
+                no_addresses: 'Non ci sono indirizzi'
+            new:
+                address:
+                    example: 'es. Via Mazzini 56'
+                address_more:
+                    example: 'es. ACME s.r.l.'
+                cancel: Annulla
+                comments:
+                    example: 'es. Primo piano'
+                mobile:
+                    example: 'es. 340 555 555'
+                name:
+                    example: 'es. Il mio indirizzo di casa'
+                city:
+                    example: 'es. Milano'
+                phone:
+                    example: 'es. 02 555 555'
+                postalcode:
+                    example: 'es. 20100'
+                recipient:
+                    example_name: 'es. Marco'
+                    example_surname: 'es. Rossi'
+        blog:
+            post:
+                list:
+                    blog_posts: 'Articoli del blog'
+                    next_posts: 'Prossimi articoli'
+                    previous_posts: 'Articoli precedenti'
+                    read_more: 'Leggi altro'
+                view:
+                    last_post: 'Ultimo articolo'
+                    read_more: 'Leggi altro'
+        cart:
+            item:
+                image: Immagine
+                item: Element
+                price: Prezzo
+                remove: Rimuovi
+                total: Totale
+                units: Unità
+            nav:
+                amount: Importo
+                items: Elementi
+            view:
+                checkout: Checkout
+                checkout_title: 'Controlla i tuoi acquisti'
+                continue_shopping: 'Continua gli acquisti'
+                empty_basket: 'Svuota carrello'
+                title: 'Il tuo carrello'
+                total: Totale
+                update_basket: 'Aggiorna il carrello'
+                your_cart_is_empty: 'Il tuo carrello è vuoto'
+        category:
+            nav:
+                new: Nuova
+            view:
+                category: Categoria
+        checkout:
+            address:
+                add_new_address: 'Aggiungi nuovo indirizzo'
+                payment: Pagamentos
+                select_address: 'Scegli gli indirizzi di spedizione e di fatturazione'
+            back: Indietro
+            layout:
+                total: Totale
+                your_cart: 'Il tuo carrello'
+            payment:
+                back: Indietro
+                bankwire: 'Bonifico bancario'
+                continue: Continua
+                credit_debit_card: 'Carta di credito/debito'
+                payment_method: 'Metodo di pagamento'
+                paypal: Paypal
+                set_shipping_payment: 'Seleziona spedizione e pagamento'
+                shipping_carrier_method: 'Metodo di spedizione'
+                try_again: 'Per favore riprova.'
+        coupon:
+            item:
+                coupon: Coupon
+                description: Descrizione
+                remove: Rimuovi
+                total: Totale
+                units: Unità
+                value: Valore
+        footer:
+            follow_us: 'Seguici'
+            latest_news: 'Ultime novità'
+            more: Altro
+            quick_links: 'Links rapidi'
+        header:
+            menu: Menu
+        order:
+            coupon:
+                coupon: Coupon
+                description: Descrizione
+                total: Totale
+                units: Unità
+                values: Valori
+            item:
+                image: Immagine
+                item: Elemento
+                price: Prezzo
+                total: Totale
+                units: Unità
+            list:
+                date: Data
+                image: Immagine
+                no_orders: 'Non ci sono ordini'
+                number_of_order: 'Nnumero di ordine'
+                order_number: 'Ordine #'
+                orders: Ordini
+                payment_state: 'Stato del pagamento'
+                shipping_state: 'Stato della spedizione'
+                total: Totale
+            view:
+                congratulations: CONGRATULAZIONI!
+                continue_shopping: 'Continua gli acquisti'
+                order: Ordine
+                shipping: 'Spedizione:'
+                status: 'Stato:'
+                thanks: ' Grazie per il tuo ordine! Faremo in modo di consegnartelo il prima possibile.'
+                total: Totale
+        payment:
+            credit_card_numbers: 'Numero carta di credito'
+            credit_card_owner: 'Carta di credito intestata a'
+            month: Mese
+            security_code: 'Codice di sicurezza'
+            year: Anno
+        product:
+            also_like: 'Potrebbero anche piacerti...'
+            item:
+                offer: Offerta
+            list:
+                no_products_in_category: 'Ci dispiace, non sono presenti prodotti in questa categoria'
+            view_item:
+                add_to_cart: 'Aggiungi al carrello'
+                delivery: Consegna
+                description: Descrizione
+                in_stock: 'Questo oggetto è in magazzino e pronto per esser spedito!'
+                no_stock: 'Non in magazzino'
+                not_available: 'Questo oggetto non è attualmente disponibile'
+                offer: Offerta
+                product: Prodotto
+                stock: Magazzino
+                usually_dispatched_24_hours: 'Normalmente spedito entro 24 ore'
+        purchasable_pack:
+            view_item:
+                purchasable_pack: Pacchetto
+        shipping:
+            carrier: Corriere
+            costs_will_be_calculated_after_address: 'Dopo che avrai inserito i tuoi indirizzi, i costi di spedizione saranno calcolati.'
+            costs_will_be_calculated_after_login: 'Dopo che avrai effettuato il login ed inserito i tuoi indirizzi, i costi di spedizione saranno calcolati.'
+            from: da
+            no_shipping_matching: 'Nessun match tra le spedizioni. Per favore contattaci prima di concludere l''acquisto'
+        user:
+            edit:
+                profile: Profilo
+            home:
+                dashboard: Dashboard
+                my_addresses: 'I miei indirizzi'
+                my_orders: 'I miei ordini'
+                profile: Profilo
+            login:
+                create_new_account: 'Crea nuovo account'
+                forgot_your_password: 'Hai perso la tua password?'
+                login_with_account: 'Login con il tuo account'
+                login_with_social: 'Login con i tuoi account social'
+                unregistered: 'Non registrato?'
+            nav:
+                create_new_account: 'Crea nuovo account'
+                login: Login
+                logout: Logout
+            password:
+                password_sent: 'Password inviata'
+                password_sent_text: 'Ti abbiamo mandato un email con tutte le informazioni per recuperare la tua password.'
+                recover_password: 'Recupera password'
+                register: Registrati
