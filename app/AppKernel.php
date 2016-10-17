@@ -75,6 +75,7 @@ class AppKernel extends Kernel
             'Elcodi\Bundle\LanguageBundle\ElcodiLanguageBundle',
             'Elcodi\Bundle\CartBundle\ElcodiCartBundle',
             'Elcodi\Bundle\CartCouponBundle\ElcodiCartCouponBundle',
+            'Elcodi\Bundle\TaxBundle\ElcodiTaxBundle',
             'Elcodi\Bundle\CouponBundle\ElcodiCouponBundle',
             'Elcodi\Bundle\BannerBundle\ElcodiBannerBundle',
             'Elcodi\Bundle\CurrencyBundle\ElcodiCurrencyBundle',
@@ -86,7 +87,6 @@ class AppKernel extends Kernel
             'Elcodi\Bundle\RuleBundle\ElcodiRuleBundle',
             'Elcodi\Bundle\NewsletterBundle\ElcodiNewsletterBundle',
             'Elcodi\Bundle\MenuBundle\ElcodiMenuBundle',
-            'Elcodi\Bundle\TaxBundle\ElcodiTaxBundle',
             'Elcodi\Bundle\EntityTranslatorBundle\ElcodiEntityTranslatorBundle',
             'Elcodi\Bundle\StateTransitionMachineBundle\ElcodiStateTransitionMachineBundle',
             'Elcodi\Bundle\PageBundle\ElcodiPageBundle',
@@ -180,9 +180,10 @@ class AppKernel extends Kernel
             $bundles[] = 'Elcodi\Bridge\VisithorBridgeBundle\ElcodiVisithorBridgeBundle';
         }
 
-        $pluginBundles = $this->getConfiguredBundles(__DIR__.'/config/enabled_bundles.yml');
-        if (is_array($pluginBundles))
+        $pluginBundles = $this->getConfiguredBundles(__DIR__ . '/config/enabled_bundles.yml');
+        if (is_array($pluginBundles)) {
             $bundles = array_merge($bundles, $pluginBundles);
+        }
 
         return $this
             ->getBundleInstances(
@@ -193,8 +194,9 @@ class AppKernel extends Kernel
 
     protected function getConfiguredBundles($configurationPath)
     {
-        if (!file_exists($configurationPath))
+        if (!file_exists($configurationPath)) {
             return array();
+        }
 
         return Symfony\Component\Yaml\Yaml::parse(file_get_contents($configurationPath))['enabled_bundles']; // Replace with better logic
     }
@@ -212,22 +214,22 @@ class AppKernel extends Kernel
     }
 
     public function getCacheDir()
-	{
+    {
         // return '/dev/shm/project/cache/' .  $this->environment;
-	    if (in_array($this->environment, array('dev', 'test'/*, 'prod'*/))) {
-	        return '/dev/shm/project/cache/' .  $this->environment;
-	    }
+        if (in_array($this->environment, array('dev', 'test' /*, 'prod'*/))) {
+            return '/dev/shm/project/cache/' . $this->environment;
+        }
 
-	    return parent::getCacheDir();
-	}
+        return parent::getCacheDir();
+    }
 
-	public function getLogDir()
-	{
-	    // return '/dev/shm/project/logs';
-	    if (in_array($this->environment, array('dev', 'test'/*, 'prod'*/))) {
-	        return '/dev/shm/project/logs';
-	    }
+    public function getLogDir()
+    {
+        // return '/dev/shm/project/logs';
+        if (in_array($this->environment, array('dev', 'test' /*, 'prod'*/))) {
+            return '/dev/shm/project/logs';
+        }
 
-	    return parent::getLogDir();
-	}
+        return parent::getLogDir();
+    }
 }

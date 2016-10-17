@@ -6,10 +6,17 @@ services:
             - @router
             - @session
 
-    # elcodi.security.success_authentication_handler:
-    #     class: Elcodi\Store\UserBundle\Handlers\SuccessAuthenticationHandler
-    #     public: false
-    #     arguments:
-    #         - '@security.http_utils'
-    #         - @session
+    elcodi.security.success_authentication_handler:
+        class: Elcodi\Store\UserBundle\Handlers\SuccessAuthenticationHandler
+        public: false
+        arguments:
+            - '@security.http_utils'
+            # - [ options ]
+
+    elcodi.security.logout_success_handler:
+        class: Elcodi\Store\UserBundle\Handlers\LogoutSuccessHandler
+        public: false
+        arguments:
+            - '@security.http_utils'
+            # - [ options ]
 
