@@ -44,3 +44,13 @@ elcodi_entity_translator:
             alias: country
             fields:
                 name: ~
+        Elcodi\Component\Currency\Entity\Interfaces\CurrencyInterface:
+            alias: currency
+            idGetter: getIso
+            fields:
+                name: ~
+        Elcodi\Component\Language\Entity\Interfaces\LanguageInterface:
+            alias: language
+            idGetter: getIso
+            fields:
+                name: ~
