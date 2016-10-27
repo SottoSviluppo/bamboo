@@ -27,17 +27,20 @@ class StoreSearchService implements IStoreSearchService
     private $currencyRepository;
     private $currentCurrency;
     private $defaultCurrency;
+    private $categoryDefaultConnector;
 
     function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container, 
         $prefix, 
         $itemsPerPage, 
-        CurrencyConverter $currencyConverter
+        CurrencyConverter $currencyConverter,
+        $categoryDefaultConnector
     ) {
         $this->container = $container;
         $this->prefix = $prefix;
         $this->itemsPerPage = $itemsPerPage;
         $this->currencyConverter = $currencyConverter;
+        $this->categoryDefaultConnector = $categoryDefaultConnector;
 
         $this->paginator = $this->container->get('knp_paginator');
         $this->currencyRepository = $this->container->get('elcodi.repository.currency');
@@ -45,16 +48,20 @@ class StoreSearchService implements IStoreSearchService
         $this->defaultCurrency = $this->container->get('elcodi.wrapper.default_currency')->get();
     }
 
-    public function searchProducts($query, $page = 1, $limit = null, array $categories = array(), array $priceRange = array())
+    public function searchProducts($query, $page = 1, $limit = null, array $categories = array(), array $priceRange = array(), $categoryConnector = null)
     {
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
         }
 
+        if (empty($categoryConnector)) {
+            $categoryConnector = $this->categoryDefaultConnector;
+        }
+
         $finder = $this->createFinderFor('products');
 
         //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
-        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange);
+        $productQuery = $this->createQueryForProducts($query, $categories, $priceRange, $categoryConnector);
         $adapter = $finder->createPaginatorAdapter($productQuery);
 
         return $this->paginator->paginate($adapter, $page, $limit);
@@ -65,7 +72,7 @@ class StoreSearchService implements IStoreSearchService
         return $this->container->get('fos_elastica.finder.app.'.$type);
     }
 
-    private function createQueryForProducts($query, array $categories = array(), array $priceRange = array())
+    private function createQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector)
     {
         $boolQuery = new BoolQuery();
 
@@ -89,7 +96,7 @@ class StoreSearchService implements IStoreSearchService
         }
         
         if (!empty($categories)) {
-            $this->setCategoriesQuery($boolQuery, $categories);
+            $this->setCategoriesQuery($boolQuery, $categories, $categoryConnector);
         }
 
         if (!empty($priceRange)) {
@@ -147,13 +154,22 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addMust($priceQuery);
     }
 
-    private function setCategoriesQuery(BoolQuery $boolQuery, array $categories)
+    private function setCategoriesQuery(BoolQuery $boolQuery, array $categories, $categoryConnector)
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
         
         $categoriesBool = new BoolQuery();
-        $categoriesBool->addMust(new Terms('categories.id', $categories));
+        if ($categoryConnector == 'or') {
+            $categoriesBool->addFilter(new Terms('categories.id', $categories));
+        }
+        elseif ($categoryConnector == 'and') {
+            foreach ($categories as $category) {
+                $categoryId = new Term();
+                $categoryId->setTerm('categories.id', $category);
+                $categoriesBool->addFilter($categoryId);
+            }
+        }
 
         $enableQuery = new Term();
         $enableQuery->setTerm('categories.enabled', true);

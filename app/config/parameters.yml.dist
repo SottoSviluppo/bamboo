@@ -46,3 +46,6 @@ parameters:
     # number of item for the carousel
     carousel_item: 18
 
+    # defines the default connector for the category filter (values: 'or' / 'and')
+    category_default_connector: 'or'
+

@@ -7,3 +7,4 @@ services:
             - '%elcodi.core.bamboo.cache_prefix%'
             - '%item_for_page%'
             - '@elcodi.converter.currency'
+            - '%category_default_connector%'

@@ -56,7 +56,12 @@ class SearchController extends Controller
             $limit = null;
         }
 
-        $products = $this->service->searchProducts($query, $page, $limit, $categories, $priceRange);
+        $categoryConnector = $request->query->get('catcn');
+        if (empty($categoryConnector)) {
+            $categoryConnector = null;
+        }
+
+        $products = $this->service->searchProducts($query, $page, $limit, $categories, $priceRange, $categoryConnector);
 
         return $this->renderTemplate(
             'Pages:search-products.html.twig',
