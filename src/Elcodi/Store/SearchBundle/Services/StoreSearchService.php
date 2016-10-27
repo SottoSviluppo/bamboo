@@ -9,6 +9,7 @@ use Elastica\Query\Terms;
 use Elastica\Query\Term;
 use Elastica\Query\Range;
 use Elastica\Query\Nested;
+use Elastica\Query\HasChild;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Component\Currency\Entity\Money;
 
@@ -161,13 +162,21 @@ class StoreSearchService implements IStoreSearchService
         
         $categoriesBool = new BoolQuery();
         if ($categoryConnector == 'or') {
-            $categoriesBool->addFilter(new Terms('categories.id', $categories));
+            $categoriesBool->addMust(new Terms('categories.id', $categories));
         }
         elseif ($categoryConnector == 'and') {
             foreach ($categories as $category) {
+                $categoryIdNested = new Nested();
+                $categoryIdNested->setPath('categories');
+
+                $categoryIdBool = new BoolQuery();
+
                 $categoryId = new Term();
                 $categoryId->setTerm('categories.id', $category);
-                $categoriesBool->addFilter($categoryId);
+                $categoryIdBool->addMust($categoryId);
+
+                $categoryIdNested->setQuery($categoryIdBool);
+                $boolQuery->addMust($categoryIdNested);
             }
         }
 
