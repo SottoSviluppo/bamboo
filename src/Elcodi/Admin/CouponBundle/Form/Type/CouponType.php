@@ -17,12 +17,11 @@
 
 namespace Elcodi\Admin\CouponBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\Coupon\ElcodiCouponTypes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\Coupon\ElcodiCouponTypes;
 
 /**
  * Class CouponType
@@ -84,15 +83,15 @@ class CouponType extends AbstractType
             ])
             ->add('type', 'choice', [
                 'required' => true,
-                'choices'  => [
-                    ElcodiCouponTypes::TYPE_AMOUNT  => 'admin.coupon.field.type.options.fixed',
+                'choices' => [
+                    ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
                     ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
                 ],
             ])
             ->add('enforcement', 'choice', [
                 'required' => true,
-                'choices'  => [
-                    ElcodiCouponTypes::ENFORCEMENT_MANUAL    => 'admin.coupon.field.enforcement.options.manual',
+                'choices' => [
+                    ElcodiCouponTypes::ENFORCEMENT_MANUAL => 'admin.coupon.field.enforcement.options.manual',
                     ElcodiCouponTypes::ENFORCEMENT_AUTOMATIC => 'admin.coupon.field.enforcement.options.automatic',
                 ],
             ])
@@ -117,24 +116,27 @@ class CouponType extends AbstractType
             ->add('stackable', 'checkbox', [
                 'required' => false,
             ])
+            ->add('color', 'text', [
+                'required' => false,
+            ])
             ->add('rule', 'entity', [
-                'class'       => $this->ruleNamespace,
-                'required'    => false,
-                'property'    => 'name',
+                'class' => $this->ruleNamespace,
+                'required' => false,
+                'property' => 'name',
                 'placeholder' => true,
-                'empty_data'  => null,
+                'empty_data' => null,
             ])
             ->add('validFrom', 'datetime', [
-                'date_widget'  => 'single_text',
-                'date_format'  => 'yyyy-MM-dd',
-                'time_widget'  => 'single_text',
-                'required'     => false,
+                'date_widget' => 'single_text',
+                'date_format' => 'yyyy-MM-dd',
+                'time_widget' => 'single_text',
+                'required' => false,
             ])
             ->add('validTo', 'datetime', [
-                'date_widget'  => 'single_text',
-                'date_format'  => 'yyyy-MM-dd',
-                'time_widget'  => 'single_text',
-                'required'     => false,
+                'date_widget' => 'single_text',
+                'date_format' => 'yyyy-MM-dd',
+                'time_widget' => 'single_text',
+                'required' => false,
             ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
