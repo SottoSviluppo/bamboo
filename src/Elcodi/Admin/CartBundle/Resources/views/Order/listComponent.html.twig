@@ -56,7 +56,7 @@
         {% include 'AdminCartBundle:Order:date.html.twig' with { date: entity.createdAt } %}
     </td>
     <td>
-        {% if entity.customer is null %}
+        {% if entity.customer is not null %}
             <a href="{{ url('admin_customer_edit', { id: entity.customer.id }) }}">
                 {{ entity.customer }}
             </a>
