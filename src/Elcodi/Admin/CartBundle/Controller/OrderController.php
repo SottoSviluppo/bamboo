@@ -17,15 +17,14 @@
 
 namespace Elcodi\Admin\CartBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
+use Elcodi\Component\StateTransitionMachine\Entity\Interfaces\StateLineInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
-use Elcodi\Component\StateTransitionMachine\Entity\Interfaces\StateLineInterface;
 
 /**
  * Class Controller for Order
@@ -73,9 +72,9 @@ class OrderController extends AbstractAdminController
         $orderByDirection
     ) {
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -138,24 +137,28 @@ class OrderController extends AbstractAdminController
 
         usort($allStates, function (StateLineInterface $a, StateLineInterface $b) {
             return $a->getCreatedAt() == $b->getCreatedAt()
-                ? $a->getId() > $b->getId()
-                : $a->getCreatedAt() > $b->getCreatedAt();
+            ? $a->getId() > $b->getId()
+            : $a->getCreatedAt() > $b->getCreatedAt();
         });
 
         $addressFormatter = $this->get('elcodi.formatter.address');
-        $deliveryAddress  = $order->getDeliveryAddress();
-        $deliveryInfo     = $addressFormatter->toArray($deliveryAddress);
+        $deliveryAddress = $order->getDeliveryAddress();
+        $deliveryInfo = $addressFormatter->toArray($deliveryAddress);
 
-        $billingAddress   = $order->getBillingAddress();
-        $billingInfo      = $addressFormatter->toArray($billingAddress);
+        $billingAddress = $order->getBillingAddress();
+        if ($billingAddress == null) {
+            $billingInfo = 'No billing address';
+        } else {
+            $billingInfo = $addressFormatter->toArray($billingAddress);
+        }
 
         return [
-            'order'                   => $order,
-            'nextPaymentTransitions'  => $nextPaymentTransitions,
+            'order' => $order,
+            'nextPaymentTransitions' => $nextPaymentTransitions,
             'nextShippingTransitions' => $nextShippingTransitions,
-            'allStates'               => $allStates,
-            'deliveryInfo'            => $deliveryInfo,
-            'billingInfo'             => $billingInfo,
+            'allStates' => $allStates,
+            'deliveryInfo' => $deliveryInfo,
+            'billingInfo' => $billingInfo,
         ];
     }
 
