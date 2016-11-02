@@ -391,6 +391,9 @@ admin:
 
             valid_to:
                 title: A
+            color:
+                title: Colore
+                placeholder: "Inserisci il colore e.s. #5BF25C"
 
         list: 'Lista dei coupon'
         new: 'Nuovo coupon'
