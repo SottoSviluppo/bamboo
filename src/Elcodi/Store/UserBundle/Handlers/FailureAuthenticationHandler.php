@@ -54,7 +54,7 @@ class FailureAuthenticationHandler implements AuthenticationFailureHandlerInterf
             // set authentication exception to session
             $request->getSession()->set(SecurityContextInterface::AUTHENTICATION_ERROR, $exception);
 
-            return new RedirectResponse($this->router->generate('login_route'));
+            return new RedirectResponse($this->router->generate('store_login'));
         }
     }
 }
