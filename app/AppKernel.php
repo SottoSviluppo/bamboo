@@ -99,6 +99,7 @@ class AppKernel extends Kernel
             'Elcodi\Bundle\SitemapBundle\ElcodiSitemapBundle',
             'Elcodi\Bundle\PaymentBundle\ElcodiPaymentBundle',
             'Elcodi\Bundle\StoreBundle\ElcodiStoreBundle',
+            'Elcodi\Bundle\PermissionsBundle\ElcodiPermissionsBundle',
 
             /**
              * Elcodi store bundle
