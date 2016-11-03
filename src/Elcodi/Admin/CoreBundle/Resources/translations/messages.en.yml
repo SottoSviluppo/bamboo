@@ -283,6 +283,9 @@ admin:
                 title: From
             valid_to:
                 title: To
+            color:
+                title: Color
+                placeholder: "Insert color e.g. #5BF25C"
         list: 'Coupon list'
         new: 'New coupon'
         plural: Coupons
