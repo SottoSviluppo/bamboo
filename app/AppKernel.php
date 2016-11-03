@@ -144,6 +144,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\StoreBundle\AdminStoreBundle',
             'Elcodi\Admin\SearchBundle\AdminSearchBundle',
             'Elcodi\Admin\SocialBundle\AdminSocialBundle',
+            'Elcodi\Admin\PermissionsBundle\AdminPermissionsBundle',
 
             /**
              * Elcodi common bundle

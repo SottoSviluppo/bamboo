@@ -1,0 +1,6 @@
+admin_permissions_list:
+    path: /permissions/{page}/{limit}/{orderByField}/{orderByDirection}
+    defaults: { _controller: AdminPermissionsBundle:Permissions:list, page: 1, limit: 50, orderByField: id, orderByDirection: DESC }
+    requirements:
+        page: \d*
+        limit: \d*
