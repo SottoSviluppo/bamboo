@@ -49,7 +49,7 @@ store:
                 code:
                     label: 'Coupon Code'
     error:
-        page_not_found: 'So, you''ve discovered our secret plans to take on the world.'
+        page_not_found: 'Page not found'
         page_not_found_title: 'Page not found'
         store_is_disabled: 'This store is currently disabled'
         store_is_under_construction: 'This store is under construction'
