@@ -8,6 +8,12 @@ services:
         arguments:
             - "Elcodi\\Plugin\\PaypalWebCheckoutBundle\\ElcodiPaypalWebCheckoutBundle"
 
+    elcodi_plugin.paypal_web_checkout.getter:
+        class: Elcodi\Plugin\PaypalWebCheckoutBundle\Services\PaypalWebCheckoutGetter
+        arguments:
+            - "@router"
+            - "@elcodi_plugin.paypal_web_checkout"
+
     #
     # Plugin fields
     #

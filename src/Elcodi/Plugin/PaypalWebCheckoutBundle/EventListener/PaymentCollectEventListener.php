@@ -17,70 +17,27 @@
 
 namespace Elcodi\Plugin\PaypalWebCheckoutBundle\EventListener;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-use Elcodi\Component\Payment\Entity\PaymentMethod;
 use Elcodi\Component\Payment\Event\PaymentCollectionEvent;
 use Elcodi\Component\Plugin\Entity\Plugin;
 
-/**
- * Class PaymentCollectEventListener
- */
 class PaymentCollectEventListener
 {
-    /**
-     * @var UrlGeneratorInterface
-     *
-     * Router
-     */
-    protected $router;
+    protected $paymentGetter;
 
-    /**
-     * @var Plugin
-     *
-     * Plugin
-     */
-    protected $plugin;
-
-    /**
-     * Construct
-     *
-     * @param UrlGeneratorInterface $router Router
-     * @param Plugin                $plugin Plugin
-     */
     public function __construct(
-        UrlGeneratorInterface $router,
-        Plugin $plugin
+        $paymentGetter
     ) {
-        $this->router = $router;
-        $this->plugin = $plugin;
+        $this->paymentGetter = $paymentGetter;
     }
 
     /**
-     * Add PayPal payment method
-     *
      * @param PaymentCollectionEvent $event Event
      */
-    public function addPaypalPaymentMethod(PaymentCollectionEvent $event)
+    public function addPaypalWebCheckoutPaymentMethod(PaymentCollectionEvent $event)
     {
-        if ($this
-            ->plugin
-            ->isUsable([
-                'business',
-            ])
-        ) {
-            $paypal = new PaymentMethod(
-                $this
-                    ->plugin
-                    ->getHash(),
-                'elcodi_plugin.paypal_web_checkout.name',
-                'elcodi_plugin.paypal_web_checkout.description',
-                $this
-                    ->router
-                    ->generate('paymentsuite_paypal_web_checkout_execute')
-            );
-
-            $event->addPaymentMethod($paypal);
+        $paymentMethod = $this->paymentGetter->getPaymentMethod();
+        if ($paymentMethod != null) {
+            $event->addPaymentMethod($paymentMethod);
         }
     }
 }
