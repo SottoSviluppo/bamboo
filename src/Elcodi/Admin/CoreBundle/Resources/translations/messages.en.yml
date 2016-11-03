@@ -602,6 +602,7 @@ admin:
             id: 'Order #%id%'
             status: Status
             total: Total
+            payment_method: 'Payment method'
         from_user: '%name%''s orders'
         list: 'Order list'
         new: 'New order'

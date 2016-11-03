@@ -163,6 +163,12 @@
                     {# TODO: Extract carrier_name from the shown order #}
                     {{ order.shippingMethod.carrierName }} ( {{ order.shippingAmount|print_money }} )
                 </div>
+                <hr class="mb-n"/>
+                <div class="box-none pb-n">
+                    <h3 class="fw-n">{{ 'admin.order.field.payment_method'|trans }}</h3>
+                    <i class="icon-credit-card"></i>
+                    {{ order.paymentMethod.name|trans }}
+                </div>
             </div>
         </div>
     </div>
