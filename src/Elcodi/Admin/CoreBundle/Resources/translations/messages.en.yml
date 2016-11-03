@@ -667,6 +667,22 @@ admin:
         section:
             settings: Settings
         single: App
+
+    permissions:
+        edit: 'Edit "%name%"'
+
+        field:
+            name:
+                title: 'Name'
+            user:
+                title: 'User'
+
+        list: 'Permissions list'
+        new: 'New Permission group'
+        plural: Permissions
+        saved: 'Permissions saved'
+        single: Permissions
+
     product:
         edit: 'Edit "%name%"'
         error:

@@ -21,8 +21,17 @@ class PermissionsController extends AbstractAdminController
     * @Template
     * @Method({"GET"})
     */
-    public function listAction()
-    {
-
+    public function listAction(
+        $page,
+        $limit,
+        $orderByField,
+        $orderByDirection  
+    ) {
+        return [
+            'page'             => $page,
+            'limit'            => $limit,
+            'orderByField'     => $orderByField,
+            'orderByDirection' => $orderByDirection,
+        ];
     }
 }

@@ -20,7 +20,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                 $this
                     ->menuNodeFactory
                     ->create()
-                    ->setName('Permissions')
+                    ->setName('admin.permissions.plural')
                     ->setCode('key')
                     ->setUrl('admin_permissions_list')
                     ->setTag('settings')

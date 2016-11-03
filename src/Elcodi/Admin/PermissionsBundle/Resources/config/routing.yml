@@ -4,3 +4,9 @@ admin_permissions_list:
     requirements:
         page: \d*
         limit: \d*
+admin_permissions_list_component:
+    path: /permissions/component/{page}/{limit}/{orderByField}/{orderByDirection}
+    defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:listComponent, page: 1, limit: 50, orderByField: id, orderByDirection: DESC }
+    requirements:
+        page: \d*
+        limit: \d*

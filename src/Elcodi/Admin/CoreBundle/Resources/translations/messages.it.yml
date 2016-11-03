@@ -889,6 +889,21 @@ admin:
 
         single: App
 
+    permissions:
+        edit: 'Modifica "%name%"'
+
+        field:
+            name:
+                title: 'Nome'
+            user:
+                title: 'Utente'
+
+        list: 'Lista dei permessi'
+        new: 'Nuovo gruppo di permessi'
+        plural: Permessi
+        saved: 'Permessi salvati'
+        single: Permessi
+
     product:
         edit: 'Modifica "%name%"'
 
