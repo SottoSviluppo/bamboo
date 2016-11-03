@@ -17,10 +17,9 @@
 
 namespace Elcodi\Bridge\PaymentSuiteBridgeBundle\EventListener;
 
-use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
-
 use Elcodi\Component\Cart\Transformer\CartOrderTransformer;
 use Elcodi\Component\Cart\Wrapper\CartWrapper;
+use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 /**
  * Class CartPaidEventListener

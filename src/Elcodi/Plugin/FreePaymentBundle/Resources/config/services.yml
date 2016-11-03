@@ -7,3 +7,9 @@ services:
         parent: elcodi.abstract_plugin
         arguments:
             - "Elcodi\\Plugin\\FreePaymentBundle\\ElcodiFreePaymentBundle"
+
+    elcodi_plugin.free_payment.getter:
+        class: Elcodi\Plugin\FreePaymentBundle\Services\FreePaymentGetter
+        arguments:
+            - "@router"
+            - "@elcodi_plugin.free_payment"

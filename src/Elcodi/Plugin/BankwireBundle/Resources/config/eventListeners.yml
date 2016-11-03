@@ -6,7 +6,6 @@ services:
     elcodi_plugin.bankwire.event_listener.payment_collect:
         class: Elcodi\Plugin\BankwireBundle\EventListener\PaymentCollectEventListener
         arguments:
-            - "@router"
-            - "@elcodi_plugin.bankwire"
+            - "@elcodi_plugin.bankwire.getter"
         tags:
-            - { name: kernel.event_listener, event: payment.collect, method: addFreePaymentPaymentMethod }
+            - { name: kernel.event_listener, event: payment.collect, method: addBankwirePaymentMethod }

@@ -17,43 +17,17 @@
 
 namespace Elcodi\Plugin\FreePaymentBundle\EventListener;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-use Elcodi\Component\Payment\Entity\PaymentMethod;
 use Elcodi\Component\Payment\Event\PaymentCollectionEvent;
 use Elcodi\Component\Plugin\Entity\Plugin;
 
-/**
- * Class PaymentCollectEventListener
- */
 class PaymentCollectEventListener
 {
-    /**
-     * @var UrlGeneratorInterface
-     *
-     * Router
-     */
-    protected $router;
+    protected $paymentGetter;
 
-    /**
-     * @var Plugin
-     *
-     * Plugin
-     */
-    protected $plugin;
-
-    /**
-     * Construct
-     *
-     * @param UrlGeneratorInterface $router Router
-     * @param Plugin                $plugin Plugin
-     */
     public function __construct(
-        UrlGeneratorInterface $router,
-        Plugin $plugin
+        $paymentGetter
     ) {
-        $this->router = $router;
-        $this->plugin = $plugin;
+        $this->paymentGetter = $paymentGetter;
     }
 
     /**
@@ -63,22 +37,9 @@ class PaymentCollectEventListener
      */
     public function addFreePaymentPaymentMethod(PaymentCollectionEvent $event)
     {
-        if ($this
-            ->plugin
-            ->isUsable()
-        ) {
-            $freePayment = new PaymentMethod(
-                $this
-                    ->plugin
-                    ->getHash(),
-                'elcodi_plugin.free_payment.name',
-                'elcodi_plugin.free_payment.description',
-                $this
-                    ->router
-                    ->generate('paymentsuite_freepayment_execute')
-            );
-
-            $event->addPaymentMethod($freePayment);
+        $paymentMethod = $this->paymentGetter->getPaymentMethod();
+        if ($paymentMethod != null) {
+            $event->addPaymentMethod($paymentMethod);
         }
     }
 }

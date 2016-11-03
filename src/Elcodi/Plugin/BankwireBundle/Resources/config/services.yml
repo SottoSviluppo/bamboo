@@ -7,3 +7,9 @@ services:
         parent: elcodi.abstract_plugin
         arguments:
             - "Elcodi\\Plugin\\BankwireBundle\\ElcodiBankwireBundle"
+
+    elcodi_plugin.bankwire.getter:
+        class: Elcodi\Plugin\BankwireBundle\Services\BankwireGetter
+        arguments:
+            - "@router"
+            - "@elcodi_plugin.bankwire"

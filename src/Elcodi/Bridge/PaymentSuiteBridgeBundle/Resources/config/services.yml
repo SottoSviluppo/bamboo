@@ -10,3 +10,11 @@ services:
             - "@elcodi.wrapper.cart"
             - "@elcodi.converter.currency"
             - "@elcodi.name_resolver.purchasable"
+
+    paymentsuite.order.payment_setter:
+        class: Elcodi\Bridge\PaymentSuiteBridgeBundle\Services\OrderPaymentSetter
+        arguments:
+            - "@service_container"
+            - "@paymentsuite.bridge"
+            - "@elcodi.director.order"
+
