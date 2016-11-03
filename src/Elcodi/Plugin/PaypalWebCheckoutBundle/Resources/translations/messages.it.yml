@@ -1,0 +1,8 @@
+elcodi_plugin:
+    paypal_web_checkout:
+        description: '<p>Paypal consente ai tuoi utenti di pagare usando il loro account paypal. Per abilitarlo hai bisogno di un Account Paypal e inserirlo qui.</p><p>Non hai un account Paypal?</p> <a href=''https://www.paypal.com/webapps/mpp/merchant'' class=''button'' target=''_blank''>Crea un nuovo account</a>'
+        field:
+            business:
+                label: 'Paypal account'
+                placeholder: john@doo.com
+        name: 'Paypal Web Checkout'

@@ -32,4 +32,4 @@ src/Elcodi/Plugin/*
 !src/Elcodi/Plugin/StoreTemplateBundle/
 !src/Elcodi/Plugin/StripeBundle/
 !src/Elcodi/Plugin/TwitterBundle/
-
+!src/Elcodi/Plugin/PaypalWebCheckoutBundle/
