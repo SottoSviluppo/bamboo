@@ -1133,6 +1133,9 @@ ui:
         full_name: 'Full name'
         phone: Phone
         zipcode: Zipcode
+    customer:
+        fiscal_code: Fiscal code
+        vat: VAT
     confirm:
         delete: 'Are you sure you want to delete it?'
     date:

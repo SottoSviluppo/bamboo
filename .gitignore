@@ -9,6 +9,7 @@
 /app/config/config_ignored.yml
 /app/config/enabled_bundles.yml
 /app/logs/*
+/app/Resources/uploads/
 /build/
 /vendor/
 /bin/

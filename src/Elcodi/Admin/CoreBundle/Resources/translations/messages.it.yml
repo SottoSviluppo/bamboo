@@ -1502,6 +1502,10 @@ ui:
         phone: Telefono
         zipcode: CAP
 
+    customer:
+        fiscal_code: Codice fiscale
+        vat: Partita IVA
+
     confirm:
         delete: 'Sei sicuro di volerlo eliminare?'
 
