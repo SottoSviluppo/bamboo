@@ -32,10 +32,14 @@
 {% block table_body_row %}
 
     <td>
-        {{ entity.name }}
+        <a href="{{ url('admin_permissions_edit', { id: entity.id }) }}">
+            <strong>{{ entity.name }}</strong>
+        </a>
     </td>
     <td>
-        {{ entity.adminUser.name }}
+        <a href="{{ url('admin_permissions_edit', { id: entity.id }) }}">
+            <strong>{{ entity.adminUser.name }}</strong>
+        </a>
     </td>
 
     {% include '@AdminCore/Tables/actions.html.twig' with {

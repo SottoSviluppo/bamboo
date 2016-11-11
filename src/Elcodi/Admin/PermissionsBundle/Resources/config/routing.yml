@@ -12,7 +12,7 @@ admin_permissions_list_component:
         limit: \d*
 
 admin_permissions_new:
-    path: /permissions/new
+    path: /permission/new
     defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
     methods: [GET]
 admin_permissions_new_component:
@@ -25,23 +25,23 @@ admin_permissions_save:
     methods: [POST]
 
 admin_permissions_edit:
-    path: /permissions/{id}
+    path: /permission/{id}
     defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
     requirements:
         id: \d+
     methods: [GET]
 admin_permissions_edit_component:
-    path: /permissions/{id}/edit/component
+    path: /permission/{id}/edit/component
     defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:editComponent }
     methods: [GET]
 admin_permissions_update:
-    path: /permissions/{id}/update
+    path: /permission/{id}/update
     defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
     requirements:
         id: \d+
     methods: [POST]
 
 admin_permission_group_delete:
-    path: /permissions/{id}/delete
+    path: /permission/{id}/delete
     defaults: { _controller: AdminPermissionsBundle:Permissions:delete }
     methods: [GET, POST]
