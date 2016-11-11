@@ -39,7 +39,7 @@ class AdminPermissionsExtension extends AbstractExtension
     public function getConfigFiles(array $config)
     {
         return [
-            //'formTypes',
+            'formTypes',
             ///'eventListeners',
             //'services',
             //'validator',

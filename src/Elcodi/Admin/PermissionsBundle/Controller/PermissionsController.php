@@ -34,4 +34,64 @@ class PermissionsController extends AbstractAdminController
             'orderByDirection' => $orderByDirection,
         ];
     }
+
+    /**
+     * @Template
+     * @EntityAnnotation(
+     *      class = {
+     *          "factory" = "elcodi.factory.permission_group",
+     *      },
+     *      mapping = {
+     *          "id" = "~id~"
+     *      },
+     *      mappingFallback = true,
+     *      name = "permissionGroup",
+     *      persist = true
+     * )
+     * @FormAnnotation(
+     *      class = "elcodi_admin_permissions_form_type_permission_group",
+     *      name  = "form",
+     *      entity = "permission_group",
+     *      handleRequest = true,
+     *      validate = "isValid"
+     * )
+    */
+    public function editAction(
+        FormInterface $form,
+        AbstractPermissionGroupInterface $permissionGroup,
+        $isValid
+    ) {
+        if ($isValid) {
+            $this->flush($permissionGroup);
+
+            $this->addFlash('success', 'admin.permissions.saved');
+
+            return $this->redirectToRoute('admin_permissions_list');
+        }
+
+        return [
+            'permissionGroup' => $permissionGroup,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @EntityAnnotation(
+     *      class = "elcodi.entity.permission_group.class",
+     *      mapping = {
+     *          "id" = "~id~"
+     *      }
+     * )
+    */
+    public function deleteAction(
+        Request $request,
+        $entity,
+        $redirectPath = null
+    ) {
+        return parent::deleteAction(
+            $request,
+            $entity,
+            $this->generateUrl('admin_permissions_list')
+        );
+    }
 }

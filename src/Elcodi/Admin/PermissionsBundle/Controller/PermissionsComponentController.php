@@ -47,4 +47,33 @@ class PermissionsComponentController extends AbstractAdminController
             'totalElements'    => $paginatorAttributes->getTotalElements(),
         ];
     }
+
+    /**
+     * @Template("AdminPermissionsBundle:Permissions:editComponent.html.twig")
+     *
+     * @EntityAnnotation(
+     *      class = {
+     *          "factory" = "elcodi.factory.permission_group",
+     *      },
+     *      name = "permissionGroup",
+     *      mapping = {
+     *          "id": "~id~",
+     *      },
+     *      mappingFallback = true,
+     * )
+     * @FormAnnotation(
+     *      class = "elcodi_admin_permissions_form_type_permission_group",
+     *      name  = "formView",
+     *      entity = "permission_group"
+     * )
+    */
+    public function editComponentAction(
+        AbstractPermissionGroupInterface $permissionGroup,
+        FormView $formView
+    ) {
+        return [
+            'permissionGroup' => $permissionGroup,
+            'form'   => $formView,
+        ];
+    }
 }
