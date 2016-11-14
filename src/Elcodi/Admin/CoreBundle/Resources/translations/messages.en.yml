@@ -778,6 +778,8 @@ admin:
             no_manufacturer: 'Warning! This pack has no associated manufacturer'
             price_negative: 'Warning! The price can not be negative'
         field:
+            barcode:
+                title: Barcode
             depth:
                 title: 'Depth (in cm)'
             description:
