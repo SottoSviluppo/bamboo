@@ -17,11 +17,11 @@
 
 namespace Elcodi\Store\PageBundle\Twig;
 
-use Twig_Extension;
-use Twig_SimpleFunction;
-
 use Elcodi\Component\Page\ElcodiPageTypes;
 use Elcodi\Component\Page\Repository\PageRepository;
+use Twig_Extension;
+use Twig_SimpleFilter;
+use Twig_SimpleFunction;
 
 /**
  * Class PageExtension
@@ -57,6 +57,15 @@ class PageExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('elcodi_footer_pages', [$this, 'getFooterPages']),
             new Twig_SimpleFunction('elcodi_blog_pages', [$this, 'getBlogPages']),
+
+        ];
+    }
+
+    public function getFilters()
+    {
+        return [
+            new Twig_SimpleFilter('url_to_link', [$this, 'urlToLink']),
+
         ];
     }
 
@@ -71,7 +80,7 @@ class PageExtension extends Twig_Extension
             ->pageRepository
             ->findBy([
                 'enabled' => true,
-                'type'    => ElcodiPageTypes::TYPE_REGULAR,
+                'type' => ElcodiPageTypes::TYPE_REGULAR,
             ]);
     }
 
@@ -102,5 +111,23 @@ class PageExtension extends Twig_Extension
     public function getName()
     {
         return 'store_page_extension';
+    }
+
+    public function urlToLink($value)
+    {
+        // [url=../../../bundles/user_file_uploads/manuale_sito_tonki.pdf]Listino n. 1[/url]
+        // preg_match("/\[url=([^\]]*)\]/", $value, $matches);
+        // $url = $matches[1];
+        // $url = str_replace("bundles/", "", $url);
+
+        $pattern = "/\[url=([^\]]*)\].*/";
+        $replacement = '<a href="$1" target="_blank">scarica</a>';
+        $links = preg_replace($pattern, $replacement, $value);
+
+        $links = str_replace("bundles/", "", $links);
+        // preg_match("/\]([^\[]*)\[/", $value, $matches);
+        // $text = $matches[1];
+
+        return $links;
     }
 }
