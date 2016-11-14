@@ -115,18 +115,12 @@ class PageExtension extends Twig_Extension
 
     public function urlToLink($value)
     {
-        // [url=../../../bundles/user_file_uploads/manuale_sito_tonki.pdf]Listino n. 1[/url]
-        // preg_match("/\[url=([^\]]*)\]/", $value, $matches);
-        // $url = $matches[1];
-        // $url = str_replace("bundles/", "", $url);
 
-        $pattern = "/\[url=([^\]]*)\].*/";
-        $replacement = '<a href="$1" target="_blank">scarica</a>';
+        $pattern = "/\[url=([^\]]*)\]([^\[]*)\[.*/";
+        $replacement = '<a href="$1" target="_blank">$2</a>';
         $links = preg_replace($pattern, $replacement, $value);
 
         $links = str_replace("bundles/", "", $links);
-        // preg_match("/\]([^\[]*)\[/", $value, $matches);
-        // $text = $matches[1];
 
         return $links;
     }
