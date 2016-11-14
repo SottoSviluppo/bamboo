@@ -898,6 +898,8 @@ admin:
             price_negative: 'Attenzione! Il prezzo non può essere negativo'
 
         field:
+            barcode:
+                title: Codice a barre
             depth:
                 title: 'Profondità (in cm)'
             description:
