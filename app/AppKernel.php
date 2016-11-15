@@ -67,6 +67,7 @@ class AppKernel extends Kernel
             'Mmoreram\HttpHeadersBundle\HttpHeadersBundle',
             'FOS\ElasticaBundle\FOSElasticaBundle',
             'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle',
+            'Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle',
 
             /**
              * Elcodi core bundles
