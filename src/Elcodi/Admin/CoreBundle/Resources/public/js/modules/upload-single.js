@@ -1,4 +1,6 @@
 FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/plupload/js/plupload.full.min.js','modal' ], function () {
+	var imageType = 'images';
+
 	return {
 		modal:  TinyCore.Module.instantiate( 'modal' ),
 		onStart: function () {
@@ -47,11 +49,11 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				oOption.value = nId;
 				oOption.innerHTML = nId;
 
-			} else if ($('#elcodi_admin_product_form_type_' + formType + '_images_' + nId , oContainer).length === 0) {
+			} else if ($('#elcodi_admin_product_form_type_' + formType + '_' + imageType + '_' + nId , oContainer).length === 0) {
 
 				oOption = document.createElement('input');
 				oOption.type = 'checkbox';
-				oOption.name = formType + '[images][]';
+				oOption.name = formType + '[' + imageType + '][]';
 				oOption.id = formType + '_' + nId;
 
 			}
@@ -140,6 +142,7 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 								}
 							} else {
 								if (oResponse.status === 'ok') {
+									imageType = oTarget.getAttribute('image-type');
 									self.addImageToGallery( oContainer, oResponse.response.id  );
 									self.updateImage( oContainer, sName, sUrlView, sUrlDelete);
 								}

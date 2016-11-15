@@ -124,10 +124,17 @@
 
         {% include "@AdminMedia/Module/_image-single-form-field.html.twig" with {
             sectionTitle: 'admin.category.section.images.title',
-            sectionDescription: 'admin.category.section.images.description',
             image: category.images.0,
             imageForm: form.images,
             imageName : 'images',
+            formType: 'elcodi_admin_product_form_type_category'
+        } %}
+
+        {% include "@AdminMedia/Module/_image-single-form-field.html.twig" with {
+            sectionTitle: 'admin.category.section.icons.title',
+            image: category.icons.0,
+            imageForm: form.icons,
+            imageName : 'icons',
             formType: 'elcodi_admin_product_form_type_category'
         } %}
 

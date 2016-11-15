@@ -288,6 +288,9 @@ admin:
             root:
                 title: 'Categoria base'
 
+            css_class:
+                title: Classe CSS
+
             slug:
                 customize: 'Personalizza slug'
                 placeholder: 'e.g. my/awesome/category'
@@ -315,6 +318,16 @@ admin:
                     2: 'Fai click su una categoria per eliminarla.'
 
                 title: 'Ordina e Modifica'
+
+            visualization:
+                title: Visualizzazione
+                description: Dati relativi alla visualizzazione della categoria
+
+            images:
+                title: 'Immagine associata'
+
+            icons:
+                title: 'Icona associata'
 
             visibility:
                 description: 'Imposta questa categoria come visibile o invisibile.'
