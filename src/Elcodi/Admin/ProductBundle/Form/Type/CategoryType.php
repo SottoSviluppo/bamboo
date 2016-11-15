@@ -17,14 +17,13 @@
 
 namespace Elcodi\Admin\ProductBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
+use Elcodi\Component\Product\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
-use Elcodi\Component\Product\Repository\CategoryRepository;
 
 /**
  * Class CategoryType
@@ -32,6 +31,14 @@ use Elcodi\Component\Product\Repository\CategoryRepository;
 class CategoryType extends AbstractType
 {
     use EntityTranslatableFormTrait, FactoryTrait;
+
+    protected $imageNamespace;
+
+    public function __construct(
+        $imageNamespace
+    ) {
+        $this->imageNamespace = $imageNamespace;
+    }
 
     /**
      * Configures the options for this type.
@@ -92,6 +99,9 @@ class CategoryType extends AbstractType
             ->add('root', 'checkbox', [
                 'required' => false,
             ])
+            ->add('cssClass', 'text', [
+                'required' => false,
+            ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ])
@@ -111,11 +121,21 @@ class CategoryType extends AbstractType
             ->add('metaKeywords', 'text', [
                 'required' => false,
             ])
+            ->add('imagesSort', 'text', [
+                'required' => false,
+            ])
+            ->add('images', 'entity', [
+                'class' => $this->imageNamespace,
+                'required' => false,
+                'property' => 'id',
+                'multiple' => true,
+                'expanded' => true,
+            ])
             ->add('parent', 'entity', [
-                'class'         => $categoryNamespace,
+                'class' => $categoryNamespace,
                 'query_builder' => $this->getAvailableCategories($currentCategoryId),
-                'required'      => true,
-                'multiple'      => false,
+                'required' => true,
+                'multiple' => false,
             ]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
