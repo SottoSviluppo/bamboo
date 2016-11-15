@@ -764,6 +764,9 @@ admin:
             stock:
                 description: 'Configure the stock for your product. Each order will reduce this number.'
                 title: Stock
+            other_data:
+                description: ''
+                title: Other product data
             variants:
                 description: 'Variants are diferent versions of this product (color, size... ). Variants can have different prices or other attributes.'
                 title: Variants

@@ -1017,6 +1017,10 @@ admin:
             stock:
                 description: 'Configura la giacenza del prodotto. Ogni ordine ricevuto diminuirà la giacenza di 1.'
                 title: Giacenza
+            
+            other_data:
+                description: ''
+                title: Altri dati di prodotto
 
             variants:
                 description: 'Le varianti sono diverse versioni del prodotto (colore, taglia...). Le varianti possono avere un prezzo o attributi diversi.'
