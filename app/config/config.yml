@@ -329,7 +329,14 @@ stfalcon_tinymce:
     language: %locale%
     theme:
         # Simple theme: same as default theme
-        simple: ~
+        simple: 
+            plugins:
+                 - "alphamanager advlist autolink lists link image charmap hr anchor pagebreak"
+                 - "searchreplace code fullscreen"
+                 - "media nonbreaking table "
+                 - "template paste textcolor"
+            toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image| code"                 
+            menubar: true
         # Advanced theme with almost all enabled plugins
         advanced:
              plugins:
@@ -345,6 +352,6 @@ stfalcon_tinymce:
                  - {title: 'Test template 2', content: 'Test 2'}
         # BBCode tag compatible theme (see http://www.bbcode.org/reference.php)
         bbcode:
-             plugins: ["bbcode, alphamanager, image, media, table, code, link, preview"]
+             plugins: ["bbcode, alphamanager, image, media,table, code, link, preview"]
              menubar: true
              toolbar1: "insertfile, bold,italic,underline,undo,redo,link,unlink,removeformat,cleanup,code,preview"

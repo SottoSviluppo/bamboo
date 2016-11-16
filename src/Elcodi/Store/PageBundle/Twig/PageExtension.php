@@ -20,7 +20,6 @@ namespace Elcodi\Store\PageBundle\Twig;
 use Elcodi\Component\Page\ElcodiPageTypes;
 use Elcodi\Component\Page\Repository\PageRepository;
 use Twig_Extension;
-use Twig_SimpleFilter;
 use Twig_SimpleFunction;
 
 /**
@@ -57,14 +56,6 @@ class PageExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('elcodi_footer_pages', [$this, 'getFooterPages']),
             new Twig_SimpleFunction('elcodi_blog_pages', [$this, 'getBlogPages']),
-
-        ];
-    }
-
-    public function getFilters()
-    {
-        return [
-            new Twig_SimpleFilter('url_to_link', [$this, 'urlToLink']),
 
         ];
     }
@@ -113,15 +104,4 @@ class PageExtension extends Twig_Extension
         return 'store_page_extension';
     }
 
-    public function urlToLink($value)
-    {
-
-        $pattern = "/\[url=([^\]]*)\]([^\[]*)\[.*/";
-        $replacement = '<a href="$1" target="_blank">$2</a>';
-        $links = preg_replace($pattern, $replacement, $value);
-
-        $links = str_replace("bundles/", "", $links);
-
-        return $links;
-    }
 }
