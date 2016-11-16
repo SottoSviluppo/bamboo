@@ -129,14 +129,14 @@ class CategoryType extends AbstractType
                 'required' => false,
                 'property' => 'id',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('icons', 'entity', [
                 'class' => $this->imageNamespace,
                 'required' => false,
                 'property' => 'id',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('parent', 'entity', [
                 'class' => $categoryNamespace,

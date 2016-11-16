@@ -44,11 +44,16 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				oOption;
 
 			if (oContainer.nodeName === 'SELECT') {
+				for (var i = oContainer.childNodes.length - 1; i >= 0; i--) {
+					var child = oContainer.childNodes[i];
+					child.removeAttribute("selected");
+				}
+
 				oOption = document.createElement('option');
 				oOption.id = formType + '_' + nId;
 				oOption.value = nId;
 				oOption.innerHTML = nId;
-
+				oOption.setAttribute('selected', "selected");
 			} else if ($('#elcodi_admin_product_form_type_' + formType + '_' + imageType + '_' + nId , oContainer).length === 0) {
 
 				oOption = document.createElement('input');
