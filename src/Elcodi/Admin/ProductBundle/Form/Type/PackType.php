@@ -17,17 +17,16 @@
 
 namespace Elcodi\Admin\ProductBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints;
-
 use Elcodi\Admin\ProductBundle\Validation\MinimumMoney;
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Elcodi\Component\Product\ElcodiProductStock;
 use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
 use Elcodi\Component\Product\NameResolver\Interfaces\PurchasableNameResolverInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 /**
  * Class PackType
@@ -71,14 +70,12 @@ class PackType extends AbstractType
      */
     protected $imageNamespace;
 
-
     /**
      * @var string
      *
      * Tax namespace
      */
     protected $taxNamespace;
-
 
     /**
      * Construct
@@ -135,7 +132,7 @@ class PackType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'required'    => true,
+                'required' => true,
                 'constraints' => [
                     new Constraints\Length(
                         [
@@ -145,7 +142,7 @@ class PackType extends AbstractType
                 ],
             ])
             ->add('slug', 'text', [
-                'required'    => true,
+                'required' => true,
                 'constraints' => [
                     new Constraints\Length(
                         [
@@ -167,7 +164,7 @@ class PackType extends AbstractType
                 'required' => false,
             ])
             ->add('price', 'money_object', [
-                'required'    => true,
+                'required' => true,
                 'constraints' => [
                     new MinimumMoney([
                         'value' => 0,
@@ -175,7 +172,7 @@ class PackType extends AbstractType
                 ],
             ])
             ->add('reducedPrice', 'money_object', [
-                'required'    => false,
+                'required' => false,
                 'constraints' => [
                     new MinimumMoney([
                         'value' => 0,
@@ -209,7 +206,7 @@ class PackType extends AbstractType
                 'required' => false,
             ])
             ->add('metaDescription', 'text', [
-                'required'    => false,
+                'required' => false,
                 'constraints' => [
                     new Constraints\Length(
                         [
@@ -222,42 +219,42 @@ class PackType extends AbstractType
                 'required' => false,
             ])
             ->add('stockType', 'choice', [
-                'choices'           => [
+                'choices' => [
                     'admin.purchasable_pack.field.stock_type.specific_stock' => ElcodiProductStock::SPECIFIC_STOCK,
-                    'admin.purchasable_pack.field.stock_type.inherit_stock'  => ElcodiProductStock::INHERIT_STOCK,
+                    'admin.purchasable_pack.field.stock_type.inherit_stock' => ElcodiProductStock::INHERIT_STOCK,
                 ],
                 'choices_as_values' => true,
-                'required'          => true,
+                'required' => true,
             ])
             ->add('stock', 'number', [
                 'required' => false,
             ])
             ->add('manufacturer', 'entity', [
-                'class'    => $this->manufacturerNamespace,
+                'class' => $this->manufacturerNamespace,
                 'required' => false,
                 'multiple' => false,
             ])
             ->add('principalCategory', 'entity', [
-                'class'    => $this->categoryNamespace,
+                'class' => $this->categoryNamespace,
                 'required' => true,
                 'multiple' => false,
             ])
             ->add('purchasables', 'entity', [
-                'class'        => $this->purchasableNamespace,
-                'required'     => false,
+                'class' => $this->purchasableNamespace,
+                'required' => false,
                 'choice_label' => function (PurchasableInterface $purchasable) {
                     return $this
                         ->purchasableNameResolver
                         ->resolveName($purchasable);
                 },
-                'multiple'     => true,
+                'multiple' => true,
             ])
             ->add('images', 'entity', [
-                'class'    => $this->imageNamespace,
+                'class' => $this->imageNamespace,
                 'required' => false,
                 'property' => 'id',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
