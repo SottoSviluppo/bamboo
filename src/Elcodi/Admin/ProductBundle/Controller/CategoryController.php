@@ -129,7 +129,7 @@ class CategoryController extends AbstractAdminController
                 ->getImages()
                 ->first();
 
-            if ($firstImage !== null) {
+            if ($firstImage instanceof ImageInterface) {
                 $category->setPrincipalImage($firstImage);
             }
 

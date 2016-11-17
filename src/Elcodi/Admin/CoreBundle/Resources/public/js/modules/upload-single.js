@@ -44,10 +44,7 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				oOption;
 
 			if (oContainer.nodeName === 'SELECT') {
-				for (var i = oContainer.childNodes.length - 1; i >= 0; i--) {
-					var child = oContainer.childNodes[i];
-					child.removeAttribute("selected");
-				}
+				self.removeSelected(oContainer);
 
 				oOption = document.createElement('option');
 				oOption.id = formType + '_' + nId;
@@ -67,6 +64,12 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 			$(oContainer).append(oOption);
 
 			self.updateSelect( oContainer, nId, oContainer.nodeName );
+		},
+		removeSelected: function(oContainer) {
+			for (var i = oContainer.childNodes.length - 1; i >= 0; i--) {
+				var child = oContainer.childNodes[i];
+				child.removeAttribute("selected");
+			}
 		},
 		autoBind: function( oTarget ) {
 
@@ -182,7 +185,8 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				var oTarget = this;
 
 					if (oContainer.nodeName === 'SELECT') {
-						$('option:first', oContainer).prop('selected', true);
+						self.removeSelected(oContainer);
+						// $('option:first', oContainer).prop('selected', true);
 						oTarget.style.display = 'none';
 						document.getElementById(sName + '-image').style.display = 'none';
 						self.updateSelect(oContainer);
