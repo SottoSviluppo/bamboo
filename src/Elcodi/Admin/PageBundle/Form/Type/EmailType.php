@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\PageBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Elcodi\Component\Page\ElcodiPageTypes;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class EmailType
@@ -62,15 +61,18 @@ class EmailType extends AbstractType
         $builder
             ->add('title', 'text', [
                 'required' => true,
-                'label'    => 'title',
+                'label' => 'title',
             ])
             ->add('type', 'hidden', [
                 'required' => true,
-                'data'     => ElcodiPageTypes::TYPE_EMAIL,
+                'data' => ElcodiPageTypes::TYPE_EMAIL,
             ])
             ->add('content', 'textarea', [
                 'required' => true,
-                'label'    => 'content',
+                'label' => 'content',
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());

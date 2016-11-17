@@ -129,6 +129,9 @@ class ProductType extends AbstractType
             ])
             ->add('description', 'textarea', [
                 'required' => true,
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('barcode', 'text', [
                 'required' => false,

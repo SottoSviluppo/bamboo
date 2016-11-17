@@ -98,6 +98,9 @@ class ManufacturerType extends AbstractType
             ])
             ->add('description', 'textarea', [
                 'required' => false,
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('imagesSort', 'text', [
                 'required' => false,

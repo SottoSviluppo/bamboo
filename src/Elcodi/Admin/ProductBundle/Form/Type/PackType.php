@@ -153,6 +153,9 @@ class PackType extends AbstractType
             ])
             ->add('description', 'textarea', [
                 'required' => true,
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('showInHome', 'checkbox', [
                 'required' => false,

@@ -33,5 +33,5 @@
     {% else %}
         {{ render(url('admin_manufacturer_new_component')) }}
     {% endif %}
-
+{{ tinymce_init( {alphamanager: {'skin': 'business','openLastDir': false }} ) }}
 {% endblock content %}

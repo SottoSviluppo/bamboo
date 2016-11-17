@@ -3,7 +3,6 @@
 
 {% form_theme form 'AdminCoreBundle::Forms/fields.html.twig' %}
 
-
     {% set elcodi_context = {
     entity_type: 'page',
 } %}
@@ -48,8 +47,7 @@
                                 <a data-fc-modules="toggle" href="#slug-{{ language }}" class="fz-default"><i class="icon-plus-circle"></i> {{ 'admin.page.field.path.customize'|trans }}</a>
                             </div>
                             <div id="slug-{{ language }}" class="ph-n pt-m mb-n hidden">
-                                {{
-                                form_row(form.path["#{language}_path"], {
+                                {{ form_row(form.path["#{language}_path"], {
                                 label: false,
                                 attr: {
                                 placeholder: 'admin.page.field.path.placeholder',
@@ -61,35 +59,18 @@
                 </div>
             </li>
             <li>
-                                        {# {{
-                                            form_row(form.content["#{language}_content"], {
-                                                label: 'admin.page.field.content.title',
-                                                attr: {
-                                                    placeholder: 'admin.page.field.content.placeholder',
-                                                    'data-fc-modules': 'wysiwyg',
-                                                    'data-fc-fullscreen': 'false',
-                                                    'data-fc-text-html': 'admin.UI.show_code'|trans,
-                                                    'data-fc-text-visual': 'admin.UI.show_visual'|trans,
-                                                    'data-fc-text-help': 'ui.editor.help'|trans,
-                                                }
-                                            })
-                                        }} #}
-                                        {{
-                                        form_row(form.content["#{language}_content"],{
-                                        label: 'admin.page.field.content.title',
-                                        attr:{
-                                        placeholder: 'admin.page.field.content.placeholder',
-                                        class: 'tinymce',
-                                        'data-theme':'simple'
-                                    }
-                                })
-                            }}
-                        </li>
-                    </ol>
-                </div>
-            </section>
-        {% endfor %}
+                {{ form_row(form.content["#{language}_content"],{
+                label: 'admin.page.field.content.title',
+                attr:{
+                placeholder: 'admin.page.field.content.placeholder',
+                class: 'tinymce',
+                'data-theme':'simple'}}) }}
+            </li>
+        </ol>
     </div>
+</section>
+{% endfor %}
+</div>
 </div>
 </div>
 
