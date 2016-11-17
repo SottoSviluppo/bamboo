@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Elcodi\Component\User\Entity\AdminUser;
 
@@ -45,7 +46,7 @@ class PermissionGroupType extends AbstractType
             ->add('name', 'text', [
                 'required' => true
             ])
-            ->add('user', 'entity', [
+            ->add('adminUser', 'entity', [
                 'class' => 'Elcodi\Component\User\Entity\AdminUser',
                 'choice_label' => 'email'
             ])

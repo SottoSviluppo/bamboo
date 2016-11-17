@@ -51,7 +51,7 @@ class PermissionsController extends AbstractAdminController
      * @FormAnnotation(
      *      class = "elcodi_admin_permissions_form_type_permission_group",
      *      name  = "form",
-     *      entity = "permission_group",
+     *      entity = "permissionGroup",
      *      handleRequest = true,
      *      validate = "isValid"
      * )

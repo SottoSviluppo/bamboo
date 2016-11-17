@@ -10,7 +10,7 @@
 
     {% set title = 'admin.permissions.plural'|trans %}
 
-    {% if coupon.id %}
+    {% if permissionGroup.id %}
         {% set header = 'admin.permissions.edit'|trans({ '%name%': permissionGroup.name }) %}
     {% else %}
         {% set header = 'admin.permissions.new'|trans %}

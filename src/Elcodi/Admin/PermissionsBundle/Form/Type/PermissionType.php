@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Elcodi\Component\Permissions\Entity\Permission;
 
 class PermissionType extends AbstractType
 {
@@ -17,19 +18,15 @@ class PermissionType extends AbstractType
      *
      * @param OptionsResolver $resolver The resolver for the options.
      */
-    /*public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'empty_data' => function () {
-                $this
-                    ->factory
-                    ->create();
+                return new Permission();
             },
-            'data_class' => $this
-                ->factory
-                ->getEntityNamespace(),
+            'data_class' => 'Elcodi\Component\Permissions\Entity\Permission',
         ]);
-    }*/
+    }
     
     /**
      * Buildform function
@@ -47,19 +44,19 @@ class PermissionType extends AbstractType
                     'order' => 'Orders'
                 ]
             ])
-            ->add('can_read', 'checkbox', [
+            ->add('canRead', 'checkbox', [
                 'label' => 'admin.permissions.field.canRead.title',
                 'required' => false
             ])
-            ->add('can_create', 'checkbox', [
+            ->add('canCreate', 'checkbox', [
                 'label' => 'admin.permissions.field.canCreate.title',
                 'required' => false
             ])
-            ->add('can_update', 'checkbox', [
+            ->add('canUpdate', 'checkbox', [
                 'label' => 'admin.permissions.field.canUpdate.title',
                 'required' => false
             ])
-            ->add('can_delete', 'checkbox', [
+            ->add('canDelete', 'checkbox', [
                 'label' => 'admin.permissions.field.canDelete.title',
                 'required' => false
             ]);

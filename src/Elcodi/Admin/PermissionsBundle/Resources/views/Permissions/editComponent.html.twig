@@ -39,7 +39,7 @@
                         </li>
                         <li>
                             {{
-                                form_row(form.user, {
+                                form_row(form.adminUser, {
                                     label: 'admin.permissions.field.user.title'
                                 })
                             }}
@@ -101,7 +101,7 @@
         (function($){
             var $collectionHolder = $('ol.permissions');;
 
-            var $addPermissionLink = $('<a href="#" class="add_permission_link">Add permission</a>');
+            var $addPermissionLink = $('<a href="#" class="add_permission_link"><i class="icon-plus-circle"></i> Add permission</a>');
             var $newLinkLi = $('<li></li>').append($addPermissionLink);
 
             $collectionHolder.append($newLinkLi);

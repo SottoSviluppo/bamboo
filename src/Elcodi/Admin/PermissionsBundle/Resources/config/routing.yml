@@ -16,11 +16,11 @@ admin_permissions_new:
     defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
     methods: [GET]
 admin_permissions_new_component:
-    path: /permissions/new/component
+    path: /permission/new/component
     defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:editComponent }
     methods: [GET]
 admin_permissions_save:
-    path: /permissions/new/update
+    path: /permission/new/update
     defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
     methods: [POST]
 
