@@ -64,7 +64,7 @@ class PermissionsComponentController extends AbstractAdminController
      * @FormAnnotation(
      *      class = "elcodi_admin_permissions_form_type_permission_group",
      *      name  = "formView",
-     *      entity = "permission_group"
+     *      entity = "permissionGroup"
      * )
     */
     public function editComponentAction(

@@ -38,7 +38,7 @@
     </td>
     <td>
         <a href="{{ url('admin_permissions_edit', { id: entity.id }) }}">
-            <strong>{{ entity.adminUser.name }}</strong>
+            <strong>{{ "#{entity.adminUser.firstname} #{entity.adminUser.lastname}" }}</strong>
         </a>
     </td>
 
