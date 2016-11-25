@@ -53,6 +53,7 @@ class PermissionGroupType extends AbstractType
             ->add('permissions', 'collection', [
                 'type' => new PermissionType(),
                 'allow_add' => true,
+                'prototype' => true
             ]);
     }
 

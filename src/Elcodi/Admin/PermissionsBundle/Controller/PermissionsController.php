@@ -62,6 +62,9 @@ class PermissionsController extends AbstractAdminController
         $isValid
     ) {
         if ($isValid) {
+            $permissions = $permissionGroup->getPermissions();
+            $permissionGroup->setPermissions($permissions);
+
             $this->flush($permissionGroup);
 
             $this->addFlash('success', 'admin.permissions.saved');
