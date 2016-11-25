@@ -168,19 +168,19 @@ class ShippingRangesProvider
         $shippingRangeToPrice = $shippingRange->getToPrice();
 
         return
-            $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
+        $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
             (
-                $this
-                    ->currencyConverter
-                    ->convertMoney($shippingRangeFromPrice, $cartPriceCurrency)
-                    ->compareTo($cartPrice) <= 0
-            ) &&
+            $this
+                ->currencyConverter
+                ->convertMoney($shippingRangeFromPrice, $cartPriceCurrency)
+                ->compareTo($cartPrice) <= 0
+        ) &&
             (
-                $this
-                    ->currencyConverter
-                    ->convertMoney($shippingRangeToPrice, $cartPriceCurrency)
-                    ->compareTo($cartPrice) > 0
-            );
+            $this
+                ->currencyConverter
+                ->convertMoney($shippingRangeToPrice, $cartPriceCurrency)
+                ->compareTo($cartPrice) > 0
+        );
     }
 
     /**
@@ -199,14 +199,22 @@ class ShippingRangesProvider
         $cartRangeFromWeight = $shippingRange->getFromWeight();
         $cartRangeToWeight = $shippingRange->getToWeight();
 
+        // special case 0-0, no weight
+        if ($cartWeight == 0 &&
+            $cartRangeFromWeight == 0 &&
+            $cartRangeToWeight == 0
+        ) {
+            return true;
+        }
+
         return
-            $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
-            is_numeric($cartRangeFromWeight) &&
-            is_numeric($cartRangeToWeight) &&
-            $cartRangeFromWeight >= 0 &&
-            $cartRangeToWeight >= 0 &&
-            $cartWeight >= $cartRangeFromWeight &&
-            $cartWeight < $cartRangeToWeight;
+        $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
+        is_numeric($cartRangeFromWeight) &&
+        is_numeric($cartRangeToWeight) &&
+        $cartRangeFromWeight >= 0 &&
+        $cartRangeToWeight >= 0 &&
+        $cartWeight >= $cartRangeFromWeight &&
+        $cartWeight < $cartRangeToWeight;
     }
 
     /**
@@ -221,7 +229,7 @@ class ShippingRangesProvider
         CartInterface $cart,
         ShippingRangeInterface $shippingRange
     ) {
-        //ritorna true per togliere il controllo delle zone nelle spedizioni 
+        //ritorna true per togliere il controllo delle zone nelle spedizioni
         return true;
 
         // Righe commentate in quanto al momento non è necessario tenere in considerazione le zone per le spedizioni
