@@ -41,35 +41,21 @@
                                     }}
                                 </li>
                                 <li>
-                                       {#  {{
-                                            form_row(form.content["#{language}_content"], {
-                                                label: 'admin.mailing.field.content.title',
-                                                attr: {
-                                                    placeholder: 'admin.mailing.field.content.placeholder',
-                                                    'data-fc-modules': 'wysiwyg',
-                                                    'data-fc-fullscreen': 'false',
-                                                    'data-fc-text-html': 'admin.UI.show_code'|trans,
-                                                    'data-fc-text-visual': 'admin.UI.show_visual'|trans,
-                                                    'data-fc-text-help': 'ui.editor.help'|trans,
-                                                }
-                                            })
-                                        }} #}
-
-                                        {{ form_row(form.content["#{language}_content"],{
-                                        label: 'admin.mailing.field.content.title',
-                                        attr:{
-                                        placeholder: 'admin.mailing.field.content.placeholder',
-                                        class: 'tinymce',
-                                        'data-theme':'simple'}}) 
-                                    }}
-                                </li>
-                            </ol>
-                        </div>
-                    </section>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+                                  {{ form_row(form.content["#{language}_content"],{
+                                  label: 'admin.mailing.field.content.title',
+                                  attr:{
+                                  placeholder: 'admin.mailing.field.content.placeholder',
+                                  class: 'tinymce',
+                                  'data-theme':'simple'}}) 
+                              }}
+                          </li>
+                      </ol>
+                  </div>
+              </section>
+          {% endfor %}
+      </div>
+  </div>
+</div>
 </fieldset>
 
 <div class="grid fixed-bottom animated fade-in-up">

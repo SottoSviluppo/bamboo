@@ -140,12 +140,19 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "@clearCache"
         ],
         "test": [
             "bin/behat",
             "bin/phpunit -c app",
             "app/console -n visithor:go --format=pretty --env=test"
+        ],
+        "clearCache": [
+            "wget -O alphamanager.zip 'http://js.plus/downloads/alphamanager/tinymce'",
+            "unzip -o alphamanager.zip -d vendor/stfalcon/tinymce-bundle/Stfalcon/Bundle/TinymceBundle/Resources/public/vendor/tinymce/plugins/",
+            "rm alphamanager.zip",
+            "rm -rf app/cache/*"
         ]
     },
     "autoload": {
