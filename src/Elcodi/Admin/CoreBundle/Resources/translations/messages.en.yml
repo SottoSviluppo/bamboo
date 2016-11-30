@@ -621,6 +621,7 @@ admin:
             refund: Refund
             return: Return
             pay: Pay
+        generate_document: 'Generate document'
     page:
         edit: 'Edit "%name%"'
         error:

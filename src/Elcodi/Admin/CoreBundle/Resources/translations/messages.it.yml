@@ -822,7 +822,7 @@ admin:
             refund: Rimborso
             return: Reso
             pay: Paga
-
+        generate_document: 'Genera documento'
     page:
         edit: 'Modifica "%name%"'
 
