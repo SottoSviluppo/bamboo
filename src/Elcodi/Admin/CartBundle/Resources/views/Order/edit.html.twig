@@ -156,6 +156,19 @@
                         addressInfo: billingInfo,
                     } %}
                 {% endif %}
+                <div class="box-none pb-n">
+                    <dl class="list">
+                        {% if order.customer.fiscalCode|length > 0 %}
+                            <dt>{{ 'ui.customer.fiscal_code'|trans }}</dt>
+                            <dd>{{ order.customer.fiscalCode }}</dd>
+                        {% endif %}
+                        {% if order.customer.vat|length > 0 %}
+                            <dt>{{ 'ui.customer.vat'|trans }}</dt>
+                            <dd>{{ order.customer.vat }}</dd>
+                        {% endif %}
+                    </dl>
+                </div>
+
                 <hr class="mb-n"/>
                 <div class="box-none pb-n">
                     <h3 class="fw-n">{{ 'admin.order.field.carrier'|trans }}</h3>

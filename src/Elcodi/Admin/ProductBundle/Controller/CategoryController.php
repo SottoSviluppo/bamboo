@@ -17,6 +17,9 @@
 
 namespace Elcodi\Admin\ProductBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,10 +27,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 
 /**
  * Class Controller for Category
@@ -126,6 +125,14 @@ class CategoryController extends AbstractAdminController
         Request $request
     ) {
         if ($isValid) {
+            $firstImage = $category
+                ->getImages()
+                ->first();
+
+            if ($firstImage instanceof ImageInterface) {
+                $category->setPrincipalImage($firstImage);
+            }
+
             $this->flush($category);
 
             $this->addFlash('success', 'admin.category.saved');
@@ -144,7 +151,7 @@ class CategoryController extends AbstractAdminController
 
         return [
             'category' => $category,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

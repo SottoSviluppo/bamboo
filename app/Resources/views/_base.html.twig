@@ -156,7 +156,9 @@
                         data: { 
                         },
                         success: function(data) {
-                            $('.cart-nav').replaceWith(data);
+                            $('.cart-nav-refresh').each(function() {
+                                $(this).replaceWith(data);  
+                            }); 
                         }
                     }); 
                 }

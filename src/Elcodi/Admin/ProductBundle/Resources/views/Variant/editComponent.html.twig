@@ -96,6 +96,7 @@
                                 {{ form_row(form.reducedPrice, { label: 'admin.variant.field.reduced_price.title' }) }}
                             </li>
                             <li class="col-1-3">
+                                TASSSSSSE
                                 {{ form_row(form.tax, { label: 'admin.tax.single' }) }}
                             </li>
                         </ol>
@@ -124,6 +125,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="grid">
+                <div class="col-1-3">
+                    <div class="box-none">
+                        <h3 class="fw-n">{{ 'admin.product.section.other_data.title'|trans }}</h3>
+                        <p>{{ 'admin.product.section.other_data.description'|trans }}</p>
+                    </div>
+                </div>
+                <div class="col-2-3">
+                    <div class="box pb-n">
+                        <ol>
+                            <li>
+                                {{
+                                    form_row(form.barcode, {
+                                        label: 'admin.product.field.barcode.title',
+                                        attr: {
+                                    }
+                                    })
+                                }}
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
             <div class="grid">
                 <div class="col-1-3">
                     <div class="box-none">

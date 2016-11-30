@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\ProductBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Elcodi\Admin\ProductBundle\Validation\MinimumMoney;
 use Elcodi\Component\Attribute\Repository\ValueRepository;
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ProductType
@@ -52,7 +51,6 @@ class VariantType extends AbstractType
      * Tax namespace
      */
     protected $taxNamespace;
-
 
     /**
      * Construct
@@ -96,28 +94,31 @@ class VariantType extends AbstractType
     {
         $builder
             ->add('options', 'entity', [
-                'class'         => $this->attributeValueNamespace,
-                'required'      => true,
-                'multiple'      => true,
-                'group_by'      => 'attribute.name',
+                'class' => $this->attributeValueNamespace,
+                'required' => true,
+                'multiple' => true,
+                'group_by' => 'attribute.name',
                 'query_builder' => function (ValueRepository $valueRepository) {
                     return $valueRepository
                         ->createQueryBuilder('v')
                         ->join('v.attribute', 'a');
                 },
-                'property'      => 'value',
+                'property' => 'value',
             ])
             ->add('imagesSort', 'text', [
                 'required' => false,
             ])
             ->add('images', 'entity', [
-                'class'    => $this->imageNamespace,
+                'class' => $this->imageNamespace,
                 'required' => false,
                 'property' => 'id',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('stock', 'number', [
+                'required' => false,
+            ])
+            ->add('barcode', 'text', [
                 'required' => false,
             ])
             ->add('sku', 'text', [

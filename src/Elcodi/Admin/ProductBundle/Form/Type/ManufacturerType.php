@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\ProductBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 
 /**
  * Class ManufacturerType
@@ -99,16 +98,19 @@ class ManufacturerType extends AbstractType
             ])
             ->add('description', 'textarea', [
                 'required' => false,
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('imagesSort', 'text', [
                 'required' => false,
             ])
             ->add('images', 'entity', [
-                'class'    => $this->imageNamespace,
+                'class' => $this->imageNamespace,
                 'required' => false,
                 'property' => 'id',
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ])
             ->add('metaTitle', 'text', [
                 'required' => false,

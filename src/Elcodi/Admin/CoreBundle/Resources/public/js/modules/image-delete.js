@@ -20,7 +20,6 @@ FrontendCore.define('image-delete', [], function () {
 			var self = this;
 
 			$(oTarget).on('click', function (event) {
-
 				var sClassName = event.target.className + ' ' + $(event.target).closest('a').attr('class');
 
 				if (sClassName.indexOf('icon-trash-o') !== -1) {

@@ -17,14 +17,13 @@
 
 namespace Elcodi\Admin\PageBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
+use Elcodi\Component\Page\ElcodiPageTypes;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
-use Elcodi\Component\Page\ElcodiPageTypes;
 
 /**
  * Class PageType
@@ -86,10 +85,13 @@ class PageType extends AbstractType
             ])
             ->add('type', 'hidden', [
                 'required' => true,
-                'data'     => ElcodiPageTypes::TYPE_REGULAR,
+                'data' => ElcodiPageTypes::TYPE_REGULAR,
             ])
             ->add('content', 'textarea', [
                 'required' => true,
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('metaTitle', 'text', [
                 'required' => false,

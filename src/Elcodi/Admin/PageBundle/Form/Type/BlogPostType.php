@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\PageBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Elcodi\Component\Page\ElcodiPageTypes;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class BlogPostType
@@ -62,41 +61,44 @@ class BlogPostType extends AbstractType
         $builder
             ->add('title', 'text', [
                 'required' => true,
-                'label'    => 'title',
+                'label' => 'title',
             ])
             ->add('path', 'text', [
                 'required' => true,
-                'label'    => 'path',
+                'label' => 'path',
             ])
             ->add('type', 'hidden', [
                 'required' => true,
-                'data'     => ElcodiPageTypes::TYPE_BLOG_POST,
+                'data' => ElcodiPageTypes::TYPE_BLOG_POST,
             ])
             ->add('content', 'textarea', [
                 'required' => true,
-                'label'    => 'content',
+                'label' => 'content',
+                'attr' => array(
+                    'class' => 'tinymce',
+                ),
             ])
             ->add('publicationDate', 'date', [
                 'required' => true,
-                'widget'   => 'single_text',
-                'format'   => 'yyyy-MM-dd',
-                'label'    => 'Publication Date',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Publication Date',
             ])
             ->add('metaTitle', 'text', [
                 'required' => false,
-                'label'    => 'Metatitle',
+                'label' => 'Metatitle',
             ])
             ->add('metaDescription', 'text', [
                 'required' => false,
-                'label'    => 'Metadescription',
+                'label' => 'Metadescription',
             ])
             ->add('metaKeywords', 'text', [
                 'required' => false,
-                'label'    => 'Metakeywords',
+                'label' => 'Metakeywords',
             ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
-                'label'    => 'enabled',
+                'label' => 'enabled',
             ]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());

@@ -1,4 +1,6 @@
 FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/plupload/js/plupload.full.min.js','modal' ], function () {
+	var imageType = 'images';
+
 	return {
 		modal:  TinyCore.Module.instantiate( 'modal' ),
 		onStart: function () {
@@ -42,16 +44,18 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				oOption;
 
 			if (oContainer.nodeName === 'SELECT') {
+				self.removeSelected(oContainer);
+
 				oOption = document.createElement('option');
 				oOption.id = formType + '_' + nId;
 				oOption.value = nId;
 				oOption.innerHTML = nId;
-
-			} else if ($('#elcodi_admin_product_form_type_' + formType + '_images_' + nId , oContainer).length === 0) {
+				oOption.setAttribute('selected', "selected");
+			} else if ($('#elcodi_admin_product_form_type_' + formType + '_' + imageType + '_' + nId , oContainer).length === 0) {
 
 				oOption = document.createElement('input');
 				oOption.type = 'checkbox';
-				oOption.name = formType + '[images][]';
+				oOption.name = formType + '[' + imageType + '][]';
 				oOption.id = formType + '_' + nId;
 
 			}
@@ -60,6 +64,12 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 			$(oContainer).append(oOption);
 
 			self.updateSelect( oContainer, nId, oContainer.nodeName );
+		},
+		removeSelected: function(oContainer) {
+			for (var i = oContainer.childNodes.length - 1; i >= 0; i--) {
+				var child = oContainer.childNodes[i];
+				child.removeAttribute("selected");
+			}
 		},
 		autoBind: function( oTarget ) {
 
@@ -140,6 +150,7 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 								}
 							} else {
 								if (oResponse.status === 'ok') {
+									imageType = oTarget.getAttribute('image-type');
 									self.addImageToGallery( oContainer, oResponse.response.id  );
 									self.updateImage( oContainer, sName, sUrlView, sUrlDelete);
 								}
@@ -174,7 +185,8 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 				var oTarget = this;
 
 					if (oContainer.nodeName === 'SELECT') {
-						$('option:first', oContainer).prop('selected', true);
+						self.removeSelected(oContainer);
+						// $('option:first', oContainer).prop('selected', true);
 						oTarget.style.display = 'none';
 						document.getElementById(sName + '-image').style.display = 'none';
 						self.updateSelect(oContainer);

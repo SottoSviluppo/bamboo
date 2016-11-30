@@ -17,11 +17,10 @@
 
 namespace Elcodi\Store\PageBundle\Twig;
 
-use Twig_Extension;
-use Twig_SimpleFunction;
-
 use Elcodi\Component\Page\ElcodiPageTypes;
 use Elcodi\Component\Page\Repository\PageRepository;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Class PageExtension
@@ -57,6 +56,7 @@ class PageExtension extends Twig_Extension
         return [
             new Twig_SimpleFunction('elcodi_footer_pages', [$this, 'getFooterPages']),
             new Twig_SimpleFunction('elcodi_blog_pages', [$this, 'getBlogPages']),
+
         ];
     }
 
@@ -71,7 +71,7 @@ class PageExtension extends Twig_Extension
             ->pageRepository
             ->findBy([
                 'enabled' => true,
-                'type'    => ElcodiPageTypes::TYPE_REGULAR,
+                'type' => ElcodiPageTypes::TYPE_REGULAR,
             ]);
     }
 
@@ -103,4 +103,5 @@ class PageExtension extends Twig_Extension
     {
         return 'store_page_extension';
     }
+
 }

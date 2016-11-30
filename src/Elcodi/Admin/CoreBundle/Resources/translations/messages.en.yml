@@ -208,6 +208,8 @@ admin:
                 title: Parent
             root:
                 title: 'Root Category'
+            css_class:
+                title: CSS Class
             slug:
                 customize: 'Customize slug'
                 placeholder: 'e.g. my/awesome/category'
@@ -230,6 +232,13 @@ admin:
                     - 'Click a category to edit.'
                     - 'Click the trash to delete a category.'
                 title: 'Order & Edit'
+            visualization:
+                title: Visualization
+                description: Data on category visualization
+            images:
+                title: 'Associated image'
+            icons:
+                title: 'Associated icon'
             visibility:
                 description: 'Set this category as visible or hidden.'
                 title: Visibility
@@ -756,6 +765,9 @@ admin:
             stock:
                 description: 'Configure the stock for your product. Each order will reduce this number.'
                 title: Stock
+            other_data:
+                description: ''
+                title: Other product data
             variants:
                 description: 'Variants are diferent versions of this product (color, size... ). Variants can have different prices or other attributes.'
                 title: Variants
@@ -779,6 +791,8 @@ admin:
             no_manufacturer: 'Warning! This pack has no associated manufacturer'
             price_negative: 'Warning! The price can not be negative'
         field:
+            barcode:
+                title: Barcode
             depth:
                 title: 'Depth (in cm)'
             description:
@@ -1134,6 +1148,9 @@ ui:
         full_name: 'Full name'
         phone: Phone
         zipcode: Zipcode
+    customer:
+        fiscal_code: Fiscal code
+        vat: VAT
     confirm:
         delete: 'Are you sure you want to delete it?'
     date:
