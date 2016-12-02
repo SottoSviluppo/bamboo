@@ -49,3 +49,30 @@ parameters:
     # defines the default connector for the category filter (values: 'or' / 'and')
     category_default_connector: 'or'
 
+    # defines the list of permission resources available
+    permissions_list:
+        product: 'Products'
+        category: 'Categories'
+        order: 'Orders'
+        customer: 'Customers'
+        attribute: 'Attributes'
+        banner: 'Banner'
+        bannerZone: 'Banner Zone'
+        coupon: 'Coupons'
+        currency: 'Currency'
+        country: 'Countries'
+        location: 'Locations'
+        language: 'Languages'
+        image: 'Images'
+        metric: 'Metrics'
+        newsletter: 'Newsletter'
+        page: 'Pages'
+        plugin: 'Plugins'
+        manufacturer: 'Manufacturers'
+        pack: 'Packs'
+        rule: 'Rules'
+        store: 'Store'
+        tax: 'Taxes'
+        template: 'Template'
+        user: 'Users'
+

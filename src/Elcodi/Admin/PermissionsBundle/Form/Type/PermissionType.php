@@ -13,6 +13,13 @@ class PermissionType extends AbstractType
 {
     use FactoryTrait;
 
+    private $permissions;
+
+    function __construct($permissions)
+    {
+        $this->permissions = $permissions;
+    }
+
     /**
      * Configures the options for this type.
      *
@@ -38,11 +45,7 @@ class PermissionType extends AbstractType
     {
         $builder
             ->add('resource', 'choice', [
-                'choices' => [
-                    'product' => 'Products',
-                    'category' => 'Categories',
-                    'order' => 'Orders'
-                ]
+                'choices' => $this->permissions
             ])
             ->add('canRead', 'checkbox', [
                 'label' => 'admin.permissions.field.canRead.title',

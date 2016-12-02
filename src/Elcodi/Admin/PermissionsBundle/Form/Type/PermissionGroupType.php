@@ -15,6 +15,13 @@ class PermissionGroupType extends AbstractType
 {
     use FactoryTrait;
 
+    private $permissions;
+
+    function __construct($permissions)
+    {
+        $this->permissions = $permissions;
+    }
+
     /**
      * Configures the options for this type.
      *
@@ -51,7 +58,7 @@ class PermissionGroupType extends AbstractType
                 'choice_label' => 'email'
             ])
             ->add('permissions', 'collection', [
-                'type' => new PermissionType(),
+                'type' => new PermissionType($this->permissions),
                 'allow_add' => true,
                 'prototype' => true
             ]);
