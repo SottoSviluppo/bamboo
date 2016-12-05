@@ -17,11 +17,10 @@
 
 namespace Elcodi\Admin\StoreBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 
 /**
  * Class StoreAddressType
@@ -65,9 +64,9 @@ class StoreAddressType extends AbstractType
                 'required' => false,
             ])
             ->add('isCompany', 'choice', [
-                'choices'  => [
+                'choices' => [
                     false => 'admin.address.field.isCompany.value.individual',
-                    true  => 'admin.address.field.isCompany.value.company',
+                    true => 'admin.address.field.isCompany.value.company',
                 ],
                 'expanded' => true,
                 'multiple' => false,
@@ -76,6 +75,8 @@ class StoreAddressType extends AbstractType
             ->add('cif', 'text', [
                 'required' => true,
             ])
+            ->add('vat', 'text')
+            ->add('fiscal_code', 'text')
             ->add('send', 'submit');
     }
 

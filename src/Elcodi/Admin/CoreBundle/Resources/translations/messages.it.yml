@@ -63,7 +63,12 @@ admin:
             recipient_surname:
                 placeholder: 'e.g. Doe'
                 title: 'Cognome (opzionale se è una compagnia)'
-
+            vat:
+                placeholder: 'Partita IVA'
+                title: 'Partita IVA'
+            fiscal_code:
+                placeholder: 'Codice Fiscale'
+                title: 'Codice fiscale'
             save: 'Salva indirizzo'
 
             state:

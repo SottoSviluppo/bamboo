@@ -84,6 +84,30 @@
                     }}
                 </li>
             </ol>
+             <ol class="grid">
+                <li class="col-1-2">
+                <div class="pr-l">
+                    {{
+                        form_row(form.vat, {
+                            label: 'admin.address.field.vat.title',
+                            attr: {
+                                placeholder: 'admin.address.field.vat.placeholder',
+                            }
+                        })
+                    }}
+            </div>
+                </li>
+                 <li class="col-1-2">
+                    {{
+                        form_row(form.fiscal_code, {
+                            label: 'admin.address.field.fiscal_code.title',
+                            attr: {
+                                placeholder: 'admin.address.field.fiscal_code.placeholder',
+                            }
+                        })
+                    }}
+                </li>
+            </ol>
             <ol>
                 <li>
                     {{
@@ -178,6 +202,7 @@
                     }}
                 </li>
             </ol>
+           
         </div>
         <div class="grid fixed-bottom animated fade-in-up ta-c">
             {{
