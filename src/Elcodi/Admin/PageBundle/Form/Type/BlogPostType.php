@@ -71,12 +71,10 @@ class BlogPostType extends AbstractType
                 'required' => true,
                 'data' => ElcodiPageTypes::TYPE_BLOG_POST,
             ])
-            ->add('content', 'textarea', [
+            ->add('content', 'ckeditor', [
                 'required' => true,
                 'label' => 'content',
-                'attr' => array(
-                    'class' => 'tinymce',
-                ),
+                'config_name' => 'my_config',
             ])
             ->add('publicationDate', 'date', [
                 'required' => true,

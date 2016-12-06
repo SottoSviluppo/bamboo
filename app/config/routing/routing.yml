@@ -56,3 +56,7 @@ elcodi_custom_routes:
     resource: "routing_local.yml"
     options:
         i18n: false
+
+ElendevRoxyFilemanBundle:
+    resource: "@ElendevRoxyFilemanBundle/Resources/config/routing.yml"
+    prefix:   /elendev-roxyfileman

@@ -96,11 +96,9 @@ class ManufacturerType extends AbstractType
                     ),
                 ],
             ])
-            ->add('description', 'textarea', [
+            ->add('description', 'ckeditor', [
                 'required' => false,
-                'attr' => array(
-                    'class' => 'tinymce',
-                ),
+                'config_name' => 'my_config',
             ])
             ->add('imagesSort', 'text', [
                 'required' => false,

@@ -87,11 +87,9 @@ class PageType extends AbstractType
                 'required' => true,
                 'data' => ElcodiPageTypes::TYPE_REGULAR,
             ])
-            ->add('content', 'textarea', [
+            ->add('content', 'ckeditor', [
                 'required' => true,
-                'attr' => array(
-                    'class' => 'tinymce',
-                ),
+                'config_name' => 'my_config',
             ])
             ->add('metaTitle', 'text', [
                 'required' => false,

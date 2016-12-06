@@ -67,12 +67,10 @@ class EmailType extends AbstractType
                 'required' => true,
                 'data' => ElcodiPageTypes::TYPE_EMAIL,
             ])
-            ->add('content', 'textarea', [
+            ->add('content', 'ckeditor', [
                 'required' => true,
                 'label' => 'content',
-                'attr' => array(
-                    'class' => 'tinymce',
-                ),
+                'config_name' => 'my_config',
             ]);
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());

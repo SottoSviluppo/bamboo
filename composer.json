@@ -78,8 +78,9 @@
         "cocur/slugify": "^2.3",
         "knplabs/knp-paginator-bundle": "^2.5",
         "phpoffice/phpexcel": "~1.8.1",
-        "stfalcon/tinymce-bundle" : "1.0",
-        "tecnickcom/TCPDF": "dev-master"
+        "tecnickcom/TCPDF": "dev-master",
+        "egeloen/ckeditor-bundle" : "dev-master",
+        "elendev/roxyfileman-bundle": "~1.0"
     },
     "replace": {
         "elcodi-templates/template": "self.version",
@@ -141,19 +142,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "@installAlphaManager"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ],
         "test": [
             "bin/behat",
             "bin/phpunit -c app",
             "app/console -n visithor:go --format=pretty --env=test"
-        ],
-        "installAlphaManager": [
-            "wget -O alphamanager.zip 'http://js.plus/downloads/alphamanager/tinymce'",
-            "unzip -o alphamanager.zip -d vendor/stfalcon/tinymce-bundle/Stfalcon/Bundle/TinymceBundle/Resources/public/vendor/tinymce/plugins/",
-            "rm alphamanager.zip",
-            "rm -rf app/cache/*"
         ]
     },
     "autoload": {

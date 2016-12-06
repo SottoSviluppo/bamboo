@@ -64,17 +64,16 @@
                 {{ form_row(form.content["#{language}_content"],{
                 label: 'admin.blog_post.field.content.title',
                 attr:{
-                placeholder: 'admin.blog_post.field.content.placeholder',
-                class: 'tinymce',
-                'data-theme':'simple'}}) }}
-            </li>
-            <li>
-                {{
-                form_row(form.publicationDate, {
-                label: 'admin.blog_post.field.publication_date.title',
-            })
-        }}
-    </li>
+                placeholder: 'admin.blog_post.field.content.placeholder'
+            }}) }}
+        </li>
+        <li>
+            {{
+            form_row(form.publicationDate, {
+            label: 'admin.blog_post.field.publication_date.title',
+        })
+    }}
+</li>
 </ol>
 </div>
 </section>

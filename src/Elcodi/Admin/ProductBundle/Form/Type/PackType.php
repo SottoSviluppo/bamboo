@@ -151,11 +151,9 @@ class PackType extends AbstractType
                     ),
                 ],
             ])
-            ->add('description', 'textarea', [
+            ->add('description', 'ckeditor', [
                 'required' => true,
-                'attr' => array(
-                    'class' => 'tinymce',
-                ),
+                'config_name' => 'my_config',
             ])
             ->add('showInHome', 'checkbox', [
                 'required' => false,
