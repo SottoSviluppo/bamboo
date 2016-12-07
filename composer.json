@@ -135,7 +135,8 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "@ckeditorDir"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -143,18 +144,20 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "@CkeditorInstall"
+            "@ckeditorInstall"
         ],
         "test": [
             "bin/behat",
             "bin/phpunit -c app",
             "app/console -n visithor:go --format=pretty --env=test"
         ],
-        "CkeditorInstall":[
-            "mkdir web/ckeditor_uploads",
+        "ckeditorInstall":[
             "app/console cache:clear --env=prod --no-warmup",
             "app/console assets:install --env=prod",
             "app/console assetic:dump --env=prod"
+        ],
+        "ckeditorDir": [
+            "mkdir web/ckeditor_uploads"
         ]
     },
     "autoload": {
