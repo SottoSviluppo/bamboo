@@ -38,6 +38,8 @@ use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
  */
 class CategoryController extends AbstractAdminController
 {
+    private $resource = "category";
+
     /**
      * List elements of certain entity type.
      *
@@ -55,6 +57,10 @@ class CategoryController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+        
         return [];
     }
 

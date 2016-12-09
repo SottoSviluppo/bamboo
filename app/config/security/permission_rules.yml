@@ -1,9 +1,9 @@
-security:
+parameters:
     permissions:
         Elcodi\Admin\AttributeBundle\Controller\AttributeController: ['attribute']
-        Elcodi\Admin\BannerBundle\Controller\BannerController: ['banner'],
+        Elcodi\Admin\BannerBundle\Controller\BannerController: ['banner']
         Elcodi\Admin\BannerBundle\Controller\BannerZoneController: ['bannerZone']
-        Elcodi\Admin\CartBundle\Controller\OrderController: ['order'],
+        Elcodi\Admin\CartBundle\Controller\OrderController: ['order']
         Elcodi\Admin\CartBundle\Controller\CustomerOrderController: ['order']
         Elcodi\Admin\CouponBundle\Controller\CouponController: ['coupon']
         Elcodi\Admin\CurrencyBundle\Controller\CurrencyController: ['currency']

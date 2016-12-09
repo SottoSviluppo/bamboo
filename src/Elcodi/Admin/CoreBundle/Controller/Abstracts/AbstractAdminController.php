@@ -274,6 +274,92 @@ class AbstractAdminController extends Controller {
 			->trans($string);
 	}
 
+	protected function getControllerName()
+	{
+		return get_class($this);
+	}
+
+	protected function getPermissionsForController()
+	{
+		$controllerName = $this->getControllerName();
+		$permissions = $this->getParameter('permissions');
+
+		return $permissions[$controllerName];
+	}
+
+	protected function getPermissionRepository()
+	{
+		return $this->get('elcodi.repository.permission_group');
+	}
+
+	protected function canRead($resource)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		if (empty($permissions) or !in_array($resource, $permissions)) {
+			return true;
+		}
+
+		return $repository->canReadEntity($resource, $user);
+	}
+
+	protected function canCreate($resource)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+			return true;
+		}
+
+		return $repository->canReadEntity($resource, $user);
+	}
+
+	protected function canUpdate($resource)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+			return true;
+		}
+
+		return $repository->canUpdateEntity($resource, $user);
+	}
+
+	protected function canDelete($resource)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+			return true;
+		}
+
+		return $repository->canDeleteEntity($resource, $user);
+	}
+
 	/**
 	 * Private controller helpers
 	 *

@@ -40,6 +40,8 @@ use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
  */
 class AttributeController extends AbstractAdminController
 {
+    private $resource = 'attribute';
+
     /**
      * List elements of certain entity type.
      *
@@ -76,6 +78,10 @@ class AttributeController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -151,6 +157,17 @@ class AttributeController extends AbstractAdminController
         AttributeInterface $attribute,
         $isValid
     ) {
+        if ($attribute->id) {
+            if (!$this->canUpdate($this->resource)) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        else {
+            if (!$this->canCreate($this->resource)) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+
         if ($isValid) {
             $values = explode(',', $request
                 ->request
@@ -196,6 +213,9 @@ class AttributeController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
         return parent::enableAction(
             $request,
             $entity
@@ -227,6 +247,10 @@ class AttributeController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -260,6 +284,10 @@ class AttributeController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::deleteAction(
             $request,
             $entity,
