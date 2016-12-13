@@ -22,9 +22,12 @@ class OrderPaymentSetter
     {
         $paymentGetter = $this->container->get($getterName);
         $paymentMethod = $paymentGetter->getPaymentMethod();
-        $order = $this->orderDirector->find($this->paymentBridge->getOrderId());
-        $order->setPaymentMethod($paymentMethod);
-        $this->orderDirector->save($order);
+
+        if ($paymentMethod !== null) {
+            $order = $this->orderDirector->find($this->paymentBridge->getOrderId());
+            $order->setPaymentMethod($paymentMethod);
+            $this->orderDirector->save($order);
+        }
     }
 
 }
