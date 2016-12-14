@@ -637,6 +637,7 @@ admin:
             return: Return
             pay: Pay
         generate_document: 'Generate document'
+        open_document: 'Open PDF'
     page:
         edit: 'Edit "%name%"'
         error:

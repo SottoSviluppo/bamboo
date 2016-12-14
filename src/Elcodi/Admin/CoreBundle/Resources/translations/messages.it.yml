@@ -841,6 +841,7 @@ admin:
             return: Reso
             pay: Paga
         generate_document: 'Genera documento'
+        open_document: 'Apri PDF'
     page:
         edit: 'Modifica "%name%"'
 
