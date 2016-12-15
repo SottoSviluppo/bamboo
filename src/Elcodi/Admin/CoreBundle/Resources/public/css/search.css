@@ -6,8 +6,12 @@
     width: 65rem;
     border: none;
 }
+.search-form input[type="date"]{
+	padding: 0.5rem;
+	border: none;
+}
 .search-form .search-btn{
-    padding: 0.7rem;
+    padding: 0.6rem;
     width: 4rem;
     margin: 0;
 }

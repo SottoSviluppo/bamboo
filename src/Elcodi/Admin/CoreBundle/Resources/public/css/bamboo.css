@@ -1,0 +1,20 @@
+.current{
+	display: block;
+	padding: 0.4em;
+	line-height: 100%;
+	min-width: 1.6em;
+	margin-bottom: 0.4em;
+	text-decoration: none;
+	font-weight: normal;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	-ms-border-radius: 1px;
+	-o-border-radius: 1px;
+	border-radius: 1px;
+	color: #fff;
+	background-color: #6cc;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #6cc;
+	min-height: 1rem;
+}

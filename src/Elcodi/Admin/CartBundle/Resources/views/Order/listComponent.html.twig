@@ -18,8 +18,8 @@
     <form class="search-form" method="GET" action="{{ path('search_admin_orders') }}">
         <div>
             <input type="text" name="q" class="form-control" value="{{ query }}" placeholder="Search Orders" style="width:40rem;">
-            <input type="date" name="datefrom" class="form-control" placeholder="From" title="From" style="padding:0.7rem; border:none;" value="{{ dateRange['from'] }}" />
-            <input type="date" name="dateto" class="form-control" placeholder="To" title="To" style="padding:0.7rem; border:none;" value="{{ dateRange['to'] }}" />
+            <input type="date" name="datefrom" class="form-control" placeholder="From" title="From" value="{{ dateRange['from'] }}" />
+            <input type="date" name="dateto" class="form-control" placeholder="To" title="To" value="{{ dateRange['to'] }}" />
             <span class="input-group-btn">
                 <button class="search-btn button-primary" type="submit">
                     <i class="icon-search"></i>
