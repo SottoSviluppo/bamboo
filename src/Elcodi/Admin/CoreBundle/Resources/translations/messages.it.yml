@@ -908,6 +908,40 @@ admin:
 
         single: App
 
+    permissions:
+        edit: 'Modifica "%name%"'
+
+        field:
+            name:
+                title: 'Nome'
+            user:
+                title: 'Utente'
+            resource:
+                title: 'Risorsa'
+            canRead:
+                title: 'Lettura'
+            canCreate:
+                title: 'Creazione'
+            canUpdate:
+                title: 'Aggiornamento'
+            canDelete:
+                title: 'Cancellazione'
+
+        list: 'Lista dei permessi'
+        new: 'Nuovo gruppo di permessi'
+        plural: Permessi
+        saved: 'Permessi salvati'
+        single: Permessi
+        section:
+            basic:
+                description:
+                    - 'Imposta il nome del gruppo di permessi'
+                    - 'Scegli utente a cui applicare i permessi.'
+                title: 'Informazioni di base'
+            permission:
+                description: 'Scegli la risorsa e imposta i permessi'
+                title: 'Imposta i permessi'
+
     product:
         edit: 'Modifica "%name%"'
 

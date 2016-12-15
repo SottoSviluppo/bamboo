@@ -59,6 +59,10 @@ class PluginController extends AbstractAdminController
      */
     public function listAction($category = null)
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $criteria = [
             'type' => PluginTypes::TYPE_PLUGIN,
         ];
@@ -101,6 +105,10 @@ class PluginController extends AbstractAdminController
         Request $request,
         $pluginHash
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         /**
          * @var Plugin $plugin
          */
@@ -165,6 +173,10 @@ class PluginController extends AbstractAdminController
         Request $request,
         $pluginHash
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         /**
          * @var Plugin $plugin
          */

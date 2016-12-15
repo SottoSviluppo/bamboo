@@ -75,6 +75,10 @@ class AdminUserController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -148,6 +152,16 @@ class AdminUserController extends AbstractAdminController
         AdminUserInterface $adminUser,
         $isValid
     ) {
+        if ($adminUser->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
         if ($isValid) {
             // change user password
             if ($form->get('password')->getData()) {
@@ -202,6 +216,10 @@ class AdminUserController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $entity
@@ -233,6 +251,10 @@ class AdminUserController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($this->isSameUser($entity)) {
             $this->denyWithMessage(
                 'admin.admin_user.error.cant_disable_yourself'
@@ -272,6 +294,10 @@ class AdminUserController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($this->isSameUser($entity)) {
             $this->denyWithMessage(
                 'admin.admin_user.error.cant_delete_yourself'

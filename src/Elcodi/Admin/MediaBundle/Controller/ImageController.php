@@ -55,6 +55,10 @@ class ImageController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -83,6 +87,10 @@ class ImageController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+        
         return parent::enableAction(
             $request,
             $entity
@@ -114,6 +122,10 @@ class ImageController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -147,6 +159,10 @@ class ImageController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $redirectPathParam = $request
             ->query
             ->get('redirect-path');
@@ -177,6 +193,10 @@ class ImageController extends AbstractAdminController
      */
     public function uploadAction()
     {
+        if (!$this->canCreate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $jsonResponse = $this
             ->forward('elcodi.controller.image_upload:uploadAction')
             ->getContent();

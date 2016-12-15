@@ -101,6 +101,7 @@ class AppKernel extends Kernel
             'Elcodi\Bundle\SitemapBundle\ElcodiSitemapBundle',
             'Elcodi\Bundle\PaymentBundle\ElcodiPaymentBundle',
             'Elcodi\Bundle\StoreBundle\ElcodiStoreBundle',
+            'Elcodi\Bundle\PermissionsBundle\ElcodiPermissionsBundle',
 
             /**
              * Elcodi store bundle
@@ -145,6 +146,7 @@ class AppKernel extends Kernel
             'Elcodi\Admin\StoreBundle\AdminStoreBundle',
             'Elcodi\Admin\SearchBundle\AdminSearchBundle',
             'Elcodi\Admin\SocialBundle\AdminSocialBundle',
+            'Elcodi\Admin\PermissionsBundle\AdminPermissionsBundle',
 
             /**
              * Elcodi common bundle

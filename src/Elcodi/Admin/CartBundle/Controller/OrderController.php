@@ -71,6 +71,10 @@ class OrderController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page' => $page,
             'limit' => $limit,
@@ -106,6 +110,10 @@ class OrderController extends AbstractAdminController
      */
     public function editAction(OrderInterface $order)
     {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $nextPaymentTransitions = $this
             ->get('elcodi.order.payment_states_machine')
             ->getAvailableStates(
@@ -193,6 +201,10 @@ class OrderController extends AbstractAdminController
         OrderInterface $order,
         $transition
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $stateLineStack = $this
             ->get('elcodi.order_payment_states_machine_manager')
             ->transition(
@@ -239,6 +251,10 @@ class OrderController extends AbstractAdminController
         OrderInterface $order,
         $transition
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $stateLineStack = $this
             ->get('elcodi.order_shipping_states_machine_manager')
             ->transition(

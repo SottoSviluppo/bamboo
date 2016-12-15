@@ -1,0 +1,39 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'permission_group'
+} %}
+
+{% block breadcrumb %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.permissions.plural'|trans, active: true, active: true },
+        ],
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block header_actions %}
+
+    <a href="{{ url('admin_permissions_new') }}" type="button" class="button-primary" data-test="new-permissions">
+        <i class="icon-plus"></i>
+        <span>{{ 'admin.permissions.new'|trans }}</span>
+    </a>
+
+{% endblock header_actions %}
+
+{% block content %}
+
+    {{
+        render(url('admin_permissions_list_component', {
+            page: page,
+            limit: limit,
+            orderByField: orderByField,
+            orderByDirection: orderByDirection
+        }))
+    }}
+
+{% endblock content %}

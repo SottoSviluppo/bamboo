@@ -1,0 +1,18 @@
+services:
+
+    #
+    # Form Types
+    #
+    elcodi_admin.form_type.permission_group:
+        class: Elcodi\Admin\PermissionsBundle\Form\Type\PermissionGroupType
+        arguments:
+            - '%permissions_list%'
+        calls:
+            - [setFactory, ["@elcodi.factory.permission_group"]]
+        tags:
+            - { name: form.type, alias: elcodi_admin_permissions_form_type_permission_group }
+
+    elcodi_admin.form_type.permission:
+        class: Elcodi\Admin\PermissionsBundle\Form\Type\PermissionType
+        tags:
+            - { name: form.type, alias: elcodi_admin_permissions_form_type_permission }

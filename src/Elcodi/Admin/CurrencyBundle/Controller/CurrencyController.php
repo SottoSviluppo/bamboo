@@ -33,6 +33,8 @@ use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
  */
 class CurrencyController extends AbstractAdminController
 {
+    private $resource = "currency";
+
     /**
      * Nav for currency group
      *
@@ -47,6 +49,10 @@ class CurrencyController extends AbstractAdminController
      */
     public function navAction()
     {
+        if (!$this->canRead($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -67,6 +73,10 @@ class CurrencyController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -96,6 +106,10 @@ class CurrencyController extends AbstractAdminController
     public function enableCurrencyAction(
         CurrencyInterface $currency
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         $this->enableEntity($currency);
@@ -129,6 +143,10 @@ class CurrencyController extends AbstractAdminController
     public function disableCurrencyAction(
         CurrencyInterface $currency
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         /**
@@ -186,6 +204,10 @@ class CurrencyController extends AbstractAdminController
         StoreInterface $store,
         CurrencyInterface $currency
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
         if (!$currency->isEnabled()) {
             throw new HttpException(

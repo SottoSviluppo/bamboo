@@ -274,6 +274,152 @@ class AbstractAdminController extends Controller {
 			->trans($string);
 	}
 
+	protected function getControllerName()
+	{
+		return get_class($this);
+	}
+
+	protected function getPermissionsForController()
+	{
+		$controllerName = $this->getControllerName();
+		$permissions = $this->getParameter('permissions');
+
+		return $permissions[$controllerName];
+	}
+
+	protected function getPermissionRepository()
+	{
+		return $this->get('elcodi.repository.permission_group');
+	}
+
+	protected function canRead($resource=null)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+
+		if (empty($permissions)) {
+			return true;
+		}
+
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canReadEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canReadEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	protected function canCreate($resource=null)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		
+		if (empty($permissions)) {
+			return true;
+		}
+
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canCreateEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canCreateEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	protected function canUpdate($resource=null)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		
+		if (empty($permissions)) {
+			return true;
+		}
+
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canUpdateEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canUpdateEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	protected function canDelete($resource=null)
+	{
+		$repository = $this->getPermissionRepository();
+
+		$user = $this->getUser();
+		if (empty($user)) {
+			return true;
+		}
+
+		$permissions = $this->getPermissionsForController();
+		
+		if (empty($permissions)) {
+			return true;
+		}
+
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canDeleteEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canDeleteEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * Private controller helpers
 	 *

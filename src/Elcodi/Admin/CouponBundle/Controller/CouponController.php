@@ -75,6 +75,10 @@ class CouponController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -146,6 +150,17 @@ class CouponController extends AbstractAdminController
         CouponInterface $coupon,
         $isValid
     ) {
+        if ($coupon->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+
         if ($isValid) {
             $this->flush($coupon);
 
@@ -185,6 +200,10 @@ class CouponController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $entity
@@ -216,6 +235,10 @@ class CouponController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -249,6 +272,10 @@ class CouponController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::deleteAction(
             $request,
             $entity,

@@ -124,6 +124,16 @@ class VariantController extends AbstractAdminController
         VariantInterface $variant,
         $isValid
     ) {
+        if ($variant->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
         if ($isValid) {
             $firstImage = $variant
                 ->getSortedImages()
@@ -201,6 +211,10 @@ class VariantController extends AbstractAdminController
         Request $request,
         EnabledInterface $variant
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $variant
@@ -232,6 +246,10 @@ class VariantController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -273,6 +291,10 @@ class VariantController extends AbstractAdminController
         $variant,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         /**
          * @var ProductInterface $product
          * @var VariantInterface $variant

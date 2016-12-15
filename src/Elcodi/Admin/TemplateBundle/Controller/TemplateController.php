@@ -51,6 +51,10 @@ class TemplateController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         /**
          * @var Plugin[] $templates
          */
@@ -100,6 +104,10 @@ class TemplateController extends AbstractAdminController
         StoreInterface $store,
         $hash
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         /**
          * @var Plugin $plugin
          */

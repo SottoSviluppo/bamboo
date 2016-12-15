@@ -73,6 +73,10 @@ class BlogPostController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -146,6 +150,16 @@ class BlogPostController extends AbstractAdminController
         PageInterface $blogPost,
         $isValid
     ) {
+        if ($blogPost->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
         if ($isValid) {
             $this->flush($blogPost);
 
@@ -192,6 +206,10 @@ class BlogPostController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::deleteAction(
             $request,
             $entity,

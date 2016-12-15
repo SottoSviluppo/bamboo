@@ -1,0 +1,47 @@
+admin_permissions_list:
+    path: /permissions/{page}/{limit}/{orderByField}/{orderByDirection}
+    defaults: { _controller: AdminPermissionsBundle:Permissions:list, page: 1, limit: 50, orderByField: id, orderByDirection: DESC }
+    requirements:
+        page: \d*
+        limit: \d*
+admin_permissions_list_component:
+    path: /permissions/component/{page}/{limit}/{orderByField}/{orderByDirection}
+    defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:listComponent, page: 1, limit: 50, orderByField: id, orderByDirection: DESC }
+    requirements:
+        page: \d*
+        limit: \d*
+
+admin_permissions_new:
+    path: /permission/new
+    defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
+    methods: [GET]
+admin_permissions_new_component:
+    path: /permission/new/component
+    defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:editComponent }
+    methods: [GET]
+admin_permissions_save:
+    path: /permission/new/update
+    defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
+    methods: [POST]
+
+admin_permissions_edit:
+    path: /permission/{id}
+    defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
+    requirements:
+        id: \d+
+    methods: [GET]
+admin_permissions_edit_component:
+    path: /permission/{id}/edit/component
+    defaults: { _controller: AdminPermissionsBundle:PermissionsComponent:editComponent }
+    methods: [GET]
+admin_permissions_update:
+    path: /permission/{id}/update
+    defaults: { _controller: AdminPermissionsBundle:Permissions:edit }
+    requirements:
+        id: \d+
+    methods: [POST]
+
+admin_permission_group_delete:
+    path: /permission/{id}/delete
+    defaults: { _controller: AdminPermissionsBundle:Permissions:delete }
+    methods: [GET, POST]

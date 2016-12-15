@@ -59,6 +59,10 @@ class LocationController extends Controller
     public function showCitySelectorAction(
         $locationId
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $citySelectorBuilder = $this->get(
             'elcodi_admin.form.location_selector_builder'
         );

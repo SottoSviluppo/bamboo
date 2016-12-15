@@ -76,6 +76,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -106,6 +110,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
      */
     public function viewAction($id)
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'id' => $id,
         ];
@@ -128,6 +136,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
      */
     public function newAction()
     {
+        if (!$this->canCreate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -167,6 +179,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         FormInterface $form,
         $isValid
     ) {
+        if (!$this->canCreate()) {
+            throw $this->createAccessDeniedException();
+        }
+        
         if ($isValid) {
             $this
                 ->get('elcodi.object_manager.newsletter_subscription')
@@ -197,6 +213,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
      */
     public function editAction($id)
     {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'id' => $id,
         ];
@@ -238,6 +258,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         FormInterface $form,
         $isValid
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($isValid) {
             $this
                 ->get('elcodi.object_manager.newsletter_subscription')
@@ -275,6 +299,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $entity
@@ -307,6 +335,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -341,6 +373,10 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::deleteAction(
             $request,
             $entity,

@@ -1,0 +1,142 @@
+{% extends 'AdminCoreBundle::Common/formComponent.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'permission_group',
+} %}
+
+
+{% form_theme form 'AdminCoreBundle::Forms/fields.html.twig' %}
+
+
+{% block content %}
+
+    {% set formAction =
+        permissionGroup.id
+            ? url('admin_permissions_update', { id: permissionGroup.id })
+            : url('admin_permissions_save')
+     %}
+
+    {{ form_start(form, { action: formAction }) }}
+    <fieldset data-fc-modules="form-permissions">
+        <div class="grid">
+            <div class="col-1-3">
+                <div class="box-none">
+                    <h3 class="fw-n">{{ 'admin.permissions.section.basic.title'|trans }}</h3>
+                    <p>{{ 'admin.permissions.section.basic.description.0'|trans }}</p>
+                    <p>{{ 'admin.permissions.section.basic.description.1'|trans }}</p>
+                </div>
+            </div>
+            <div class="col-2-3">
+                <div class="box">
+                    <ol>
+                        <li>
+                            {{
+                                form_row(form.name, {
+                                    label: 'admin.permissions.field.name.title'
+                                })
+                            }}
+                        </li>
+                        <li>
+                            {{
+                                form_row(form.adminUser, {
+                                    label: 'admin.permissions.field.user.title'
+                                })
+                            }}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-1-3">
+                <div class="box-none">
+                    <h3 class="fw-n">{{ 'admin.permissions.section.permission.title'|trans }}</h3>
+                    <p>{{ 'admin.permissions.section.permission.description'|trans }}</p>
+                </div>
+            </div>
+            <div class="col-2-3">
+                <div class="box">
+                    <ol class="permissions" data-prototype="{{ form_widget(form.permissions.vars.prototype)|e('html_attr') }}">
+                        {% for permission in form.permissions %}
+                            <li>
+                                <div>
+                                    {{ 
+                                        form_row(permission.resource, {
+                                            label: 'admin.permissions.field.resource.title'
+                                        }) 
+                                    }}
+                                </div>
+                                <div>
+                                    {{ form_row(permission.canRead) }}
+                                </div>
+                                <div>
+                                    {{ form_row(permission.canCreate) }}
+                                </div>
+                                <div>
+                                    {{ form_row(permission.canUpdate) }}
+                                </div>
+                                <div>
+                                    {{ form_row(permission.canDelete) }}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="grid fixed-bottom animated fade-in-up">
+            <div class="col-1-3">
+                &nbsp;
+            </div>
+            <div class="col-2-3">
+                <button type="submit" class="button-primary button-fat pv-s mr-l">{{ 'ui.forms.save'|trans }}</button>
+                <a href="{{ path('admin_permissions_list') }}" id="cancel-button">{{ 'ui.forms.cancel'|trans }}</a>
+            </div>
+        </div>
+    </fieldset>
+    {{ form_end(form) }}
+
+    <script type="text/javascript">
+        (function($){
+            var $collectionHolder = $('ol.permissions');;
+
+            var $addPermissionLink = $('<a href="#" class="add_permission_link"><i class="icon-plus-circle"></i> Add permission</a>');
+            var $newLinkLi = $('<li></li>').append($addPermissionLink);
+
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addPermissionLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addPermissionForm($collectionHolder, $newLinkLi);
+            });
+
+            function addPermissionForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+            }
+        }(jQuery))
+    </script>
+
+{% endblock content %}
