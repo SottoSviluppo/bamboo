@@ -19,6 +19,7 @@ namespace Elcodi\Admin\ProductBundle\Controller;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
 use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
