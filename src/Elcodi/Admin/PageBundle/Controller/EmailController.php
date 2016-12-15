@@ -53,6 +53,10 @@ class EmailController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -110,6 +114,17 @@ class EmailController extends AbstractAdminController
         PageInterface $email,
         $isValid
     ) {
+        if ($email->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
+
         if ($isValid) {
             $this->flush($email);
 

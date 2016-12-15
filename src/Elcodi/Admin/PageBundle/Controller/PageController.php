@@ -75,6 +75,10 @@ class PageController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -148,6 +152,16 @@ class PageController extends AbstractAdminController
         PageInterface $page,
         $isValid
     ) {
+        if ($page->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
         if ($isValid) {
             $this->flush($page);
 
@@ -193,6 +207,10 @@ class PageController extends AbstractAdminController
         Request $request,
         EnabledInterface $page
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         try {
             $this->canBeDeactivated($page);
         } catch (AccessDeniedException $exception) {
@@ -231,6 +249,10 @@ class PageController extends AbstractAdminController
         Request $request,
         EnabledInterface $page
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         try {
             $this->canBeDeactivated($page);
         } catch (AccessDeniedException $exception) {
@@ -270,6 +292,10 @@ class PageController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         try {
             $this->canBeDeactivated($entity);
         } catch (AccessDeniedException $exception) {

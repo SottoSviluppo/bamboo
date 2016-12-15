@@ -33,7 +33,7 @@ use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
  * )
  */
 class CustomerOrderController extends AbstractAdminController
-{
+{   
     /**
      * List elements of orders for a customer
      *
@@ -81,6 +81,10 @@ class CustomerOrderController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'customer'         => $customer,
             'page'             => $page,

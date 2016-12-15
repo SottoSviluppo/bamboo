@@ -292,7 +292,7 @@ class AbstractAdminController extends Controller {
 		return $this->get('elcodi.repository.permission_group');
 	}
 
-	protected function canRead($resource)
+	protected function canRead($resource=null)
 	{
 		$repository = $this->getPermissionRepository();
 
@@ -302,14 +302,29 @@ class AbstractAdminController extends Controller {
 		}
 
 		$permissions = $this->getPermissionsForController();
-		if (empty($permissions) or !in_array($resource, $permissions)) {
+
+		if (empty($permissions)) {
 			return true;
 		}
 
-		return $repository->canReadEntity($resource, $user);
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canReadEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canReadEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	protected function canCreate($resource)
+	protected function canCreate($resource=null)
 	{
 		$repository = $this->getPermissionRepository();
 
@@ -319,14 +334,29 @@ class AbstractAdminController extends Controller {
 		}
 
 		$permissions = $this->getPermissionsForController();
-		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+		
+		if (empty($permissions)) {
 			return true;
 		}
 
-		return $repository->canReadEntity($resource, $user);
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canCreateEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canCreateEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	protected function canUpdate($resource)
+	protected function canUpdate($resource=null)
 	{
 		$repository = $this->getPermissionRepository();
 
@@ -336,14 +366,29 @@ class AbstractAdminController extends Controller {
 		}
 
 		$permissions = $this->getPermissionsForController();
-		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+		
+		if (empty($permissions)) {
 			return true;
 		}
 
-		return $repository->canUpdateEntity($resource, $user);
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canUpdateEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canUpdateEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	protected function canDelete($resource)
+	protected function canDelete($resource=null)
 	{
 		$repository = $this->getPermissionRepository();
 
@@ -353,11 +398,26 @@ class AbstractAdminController extends Controller {
 		}
 
 		$permissions = $this->getPermissionsForController();
-		if (empty($permissions) or !array_key_exists($resource, $permissions)) {
+		
+		if (empty($permissions)) {
 			return true;
 		}
 
-		return $repository->canDeleteEntity($resource, $user);
+		if (!empty($resource)) {
+			if (!in_array($resource, $permissions)) {
+				return true;
+			}
+
+			return $repository->canDeleteEntity($resource, $user);
+		}
+
+		foreach ($permissions as $p) {
+			if (!$repository->canDeleteEntity($p, $user)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	/**

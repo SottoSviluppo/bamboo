@@ -76,6 +76,10 @@ class ProductController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -157,6 +161,16 @@ class ProductController extends AbstractAdminController
         ProductInterface $product,
         $isValid
     ) {
+        if ($product->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+        
         if ($isValid) {
             $firstImage = $product
                 ->getSortedImages()
@@ -209,6 +223,10 @@ class ProductController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $entity
@@ -240,6 +258,10 @@ class ProductController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -273,6 +295,10 @@ class ProductController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::deleteAction(
             $request,
             $entity,

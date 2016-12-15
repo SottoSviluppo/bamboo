@@ -13,11 +13,12 @@ use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
 use Elcodi\Component\Product\Repository\CategoryRepository;
 use Elcodi\Component\Product\Repository\PurchasableRepository;
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 
 /**
  * Defines all the search methods on admin
  */
-class SearchController extends Controller
+class SearchController extends AbstractAdminController
 {
     private $service;
 
@@ -32,6 +33,10 @@ class SearchController extends Controller
     */
     public function searchProductsAction()
     {
+        if (!$this->canRead('product')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
@@ -61,6 +66,10 @@ class SearchController extends Controller
     */
     public function searchOrdersAction()
     {
+        if (!$this->canRead('order')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
@@ -95,6 +104,10 @@ class SearchController extends Controller
     */
     public function searchCustomersAction()
     {
+        if (!$this->canRead('customer')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
@@ -126,6 +139,10 @@ class SearchController extends Controller
     */
     public function searchManufacturersAction()
     {
+        if (!$this->canRead('manufacturer')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $request = $this->getRequest();
         $query = $request->query->get('q');
 

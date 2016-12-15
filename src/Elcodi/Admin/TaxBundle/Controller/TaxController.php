@@ -61,6 +61,10 @@ class TaxController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -132,6 +136,16 @@ class TaxController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
+        if ($tax->id) {
+            if (!$this->canUpdate()) {
+                throw $this->createAccessDeniedException();
+            }
+        } else {
+            if (!$this->canCreate()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
+
         if ($isValid) {
 
             $this->flush($tax);
@@ -184,6 +198,10 @@ class TaxController extends AbstractAdminController
     public function enableTaxAction(
         TaxInterface $tax
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         $this->enableEntity($tax);
@@ -218,6 +236,10 @@ class TaxController extends AbstractAdminController
     public function disableTaxAction(
         TaxInterface $tax
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         /**
@@ -276,6 +298,10 @@ class TaxController extends AbstractAdminController
         StoreInterface $store,
         TaxInterface $tax
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
         if (!$tax->isEnabled()) {
             throw new HttpException(

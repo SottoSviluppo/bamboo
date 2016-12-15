@@ -79,6 +79,10 @@ class BannerZoneController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -170,6 +174,10 @@ class BannerZoneController extends AbstractAdminController
      */
     public function viewAction($id)
     {
+        if (!$this->canRead()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'id' => $id,
         ];
@@ -228,6 +236,10 @@ class BannerZoneController extends AbstractAdminController
      */
     public function newAction()
     {
+        if (!$this->canCreate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -302,6 +314,10 @@ class BannerZoneController extends AbstractAdminController
         FormInterface $form,
         $isValid
     ) {
+        if (!$this->canCreate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($isValid) {
             $this
                 ->get('elcodi.object_manager.banner_zone')
@@ -332,6 +348,10 @@ class BannerZoneController extends AbstractAdminController
      */
     public function editAction($id)
     {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [
             'id' => $id,
         ];
@@ -413,6 +433,10 @@ class BannerZoneController extends AbstractAdminController
         FormInterface $form,
         $isValid
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         if ($isValid) {
             $this
                 ->get('elcodi.object_manager.banner_zone')
@@ -449,6 +473,10 @@ class BannerZoneController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::enableAction(
             $request,
             $entity
@@ -480,6 +508,10 @@ class BannerZoneController extends AbstractAdminController
         Request $request,
         EnabledInterface $entity
     ) {
+        if (!$this->canUpdate()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return parent::disableAction(
             $request,
             $entity
@@ -513,6 +545,10 @@ class BannerZoneController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            throw $this->createAccessDeniedException();
+        }
+        
         return parent::deleteAction(
             $request,
             $entity,

@@ -37,6 +37,7 @@ use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
  */
 class LanguageController extends AbstractAdminController
 {
+    private $resource = "language";
 
     /**
      * List elements of certain entity type.
@@ -55,6 +56,10 @@ class LanguageController extends AbstractAdminController
      */
     public function listAction()
     {
+        if (!$this->canRead($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         return [];
     }
 
@@ -84,6 +89,10 @@ class LanguageController extends AbstractAdminController
     public function enableLanguageAction(
         LanguageInterface $language
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         $this->enableEntity($language);
@@ -118,6 +127,10 @@ class LanguageController extends AbstractAdminController
     public function disableLanguageAction(
         LanguageInterface $language
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
 
         /**
@@ -176,6 +189,10 @@ class LanguageController extends AbstractAdminController
         StoreInterface $store,
         LanguageInterface $language
     ) {
+        if (!$this->canUpdate($this->resource)) {
+            throw $this->createAccessDeniedException();
+        }
+
         $translator = $this->get('translator');
         if (!$language->isEnabled()) {
             throw new HttpException(
