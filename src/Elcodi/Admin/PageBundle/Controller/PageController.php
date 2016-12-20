@@ -17,6 +17,9 @@
 
 namespace Elcodi\Admin\PageBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,10 +28,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 
 /**
  * Class Controller for Page
@@ -80,9 +79,9 @@ class PageController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -152,7 +151,7 @@ class PageController extends AbstractAdminController
         PageInterface $page,
         $isValid
     ) {
-        if ($page->id) {
+        if ($page->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -161,7 +160,7 @@ class PageController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             $this->flush($page);
 

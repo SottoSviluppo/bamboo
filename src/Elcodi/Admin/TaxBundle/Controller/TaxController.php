@@ -17,22 +17,19 @@
 
 namespace Elcodi\Admin\TaxBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
+use Elcodi\Component\Tax\Entity\Interfaces\TaxInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
-
 use Mmoreram\ControllerExtraBundle\Annotation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Tax\Entity\Interfaces\TaxInterface;
-use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class Controller for Tax
@@ -67,7 +64,6 @@ class TaxController extends AbstractAdminController
 
         return [];
     }
-
 
     /**
      * Edit and Saves tax
@@ -136,7 +132,7 @@ class TaxController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
-        if ($tax->id) {
+        if ($tax->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -167,10 +163,9 @@ class TaxController extends AbstractAdminController
 
         return [
             'tax' => $tax,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
-
 
     /**
      * Enable entity

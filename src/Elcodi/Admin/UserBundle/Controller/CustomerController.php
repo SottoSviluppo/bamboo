@@ -17,6 +17,9 @@
 
 namespace Elcodi\Admin\UserBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,10 +27,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
 
 /**
  * Class Controller for Customer
@@ -79,9 +78,9 @@ class CustomerController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -159,7 +158,7 @@ class CustomerController extends AbstractAdminController
         CustomerInterface $customer,
         $isValid
     ) {
-        if ($customer->id) {
+        if ($customer->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -168,7 +167,7 @@ class CustomerController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             $this->flush($customer);
 
@@ -184,7 +183,7 @@ class CustomerController extends AbstractAdminController
 
         return [
             'customer' => $customer,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

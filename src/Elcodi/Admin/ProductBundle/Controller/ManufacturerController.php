@@ -17,6 +17,10 @@
 
 namespace Elcodi\Admin\ProductBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
+use Elcodi\Component\Product\Entity\Interfaces\ManufacturerInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,11 +29,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
-use Elcodi\Component\Product\Entity\Interfaces\ManufacturerInterface;
 
 /**
  * Class Controller for Manufacturer
@@ -83,9 +82,9 @@ class ManufacturerController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -157,7 +156,7 @@ class ManufacturerController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
-        if ($manufacturer->id) {
+        if ($manufacturer->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -166,7 +165,6 @@ class ManufacturerController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
 
         if ($isValid) {
             $firstImage = $manufacturer
@@ -196,7 +194,7 @@ class ManufacturerController extends AbstractAdminController
 
         return [
             'manufacturer' => $manufacturer,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

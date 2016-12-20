@@ -17,6 +17,8 @@
 
 namespace Elcodi\Admin\PageBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,9 +26,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 
 /**
  * Class Controller for Blog Post
@@ -78,9 +77,9 @@ class BlogPostController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -150,7 +149,7 @@ class BlogPostController extends AbstractAdminController
         PageInterface $blogPost,
         $isValid
     ) {
-        if ($blogPost->id) {
+        if ($blogPost->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -159,7 +158,7 @@ class BlogPostController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             $this->flush($blogPost);
 
@@ -175,7 +174,7 @@ class BlogPostController extends AbstractAdminController
 
         return [
             'blog_post' => $blogPost,
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

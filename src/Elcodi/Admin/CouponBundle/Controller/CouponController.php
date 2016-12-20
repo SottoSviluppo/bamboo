@@ -17,6 +17,9 @@
 
 namespace Elcodi\Admin\CouponBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Coupon\Entity\Interfaces\CouponInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,10 +27,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Coupon\Entity\Interfaces\CouponInterface;
 
 /**
  * Class Controller for Coupon
@@ -80,9 +79,9 @@ class CouponController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -150,12 +149,11 @@ class CouponController extends AbstractAdminController
         CouponInterface $coupon,
         $isValid
     ) {
-        if ($coupon->id) {
+        if ($coupon->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
-        }
-        else {
+        } else {
             if (!$this->canCreate()) {
                 throw $this->createAccessDeniedException();
             }

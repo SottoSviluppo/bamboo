@@ -17,14 +17,13 @@
 
 namespace Elcodi\Store\UserBundle\Controller;
 
+use Elcodi\Component\User\Entity\Abstracts\AbstractUser;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as AnnotationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
-
-use Elcodi\Component\User\Entity\Abstracts\AbstractUser;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Class PasswordController
@@ -151,9 +150,7 @@ class PasswordController extends Controller
                 $this
                     ->get('elcodi.manager.password')
                     ->recoverPassword($customer, $hash, $password);
-            }
-            else
-            {           
+            } else {
                 $this->addFlash('error', 'Customer not found');
             }
             return $this->redirectToRoute('store_homepage');

@@ -17,15 +17,14 @@
 
 namespace Elcodi\Admin\PageBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 
 /**
  * Class Controller for Email
@@ -114,7 +113,7 @@ class EmailController extends AbstractAdminController
         PageInterface $email,
         $isValid
     ) {
-        if ($email->id) {
+        if ($email->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -123,7 +122,6 @@ class EmailController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
 
         if ($isValid) {
             $this->flush($email);
@@ -135,7 +133,7 @@ class EmailController extends AbstractAdminController
 
         return [
             'email' => $email,
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 }

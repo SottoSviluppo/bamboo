@@ -17,6 +17,8 @@
 
 namespace Elcodi\Admin\GeoBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Geo\Entity\Interfaces\CountryInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,11 +27,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
-
-use Elcodi\Component\Geo\Entity\Interfaces\CountryInterface;
 
 /**
  * Class Controller for Country
@@ -83,9 +80,9 @@ class CountryController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -157,7 +154,7 @@ class CountryController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
-        if ($country->id) {
+        if ($country->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -166,7 +163,7 @@ class CountryController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
 
             $this->flush($country);
@@ -188,7 +185,7 @@ class CountryController extends AbstractAdminController
 
         return [
             'country' => $country,
-            'form'     => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

@@ -17,6 +17,13 @@
 
 namespace Elcodi\Admin\ProductBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Attribute\Entity\Interfaces\AttributeInterface;
+use Elcodi\Component\Attribute\Entity\Interfaces\ValueInterface;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
+use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
+use Elcodi\Component\Product\Entity\Interfaces\VariantInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,14 +32,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Attribute\Entity\Interfaces\AttributeInterface;
-use Elcodi\Component\Attribute\Entity\Interfaces\ValueInterface;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
-use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
-use Elcodi\Component\Product\Entity\Interfaces\VariantInterface;
 
 /**
  * Class Controller for Variant
@@ -124,7 +123,7 @@ class VariantController extends AbstractAdminController
         VariantInterface $variant,
         $isValid
     ) {
-        if ($variant->id) {
+        if ($variant->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -133,7 +132,7 @@ class VariantController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             $firstImage = $variant
                 ->getSortedImages()
@@ -174,14 +173,14 @@ class VariantController extends AbstractAdminController
             $this->addFlash('success', 'admin.variant.saved');
 
             return $this->redirectToRoute('admin_product_edit', [
-                'id'        => $product->getId(),
+                'id' => $product->getId(),
             ]);
         }
 
         return [
             'product' => $product,
             'variant' => $variant,
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

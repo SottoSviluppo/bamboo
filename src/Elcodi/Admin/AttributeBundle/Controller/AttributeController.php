@@ -17,6 +17,10 @@
 
 namespace Elcodi\Admin\AttributeBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Attribute\Entity\Interfaces\AttributeInterface;
+use Elcodi\Component\Attribute\Entity\Interfaces\ValueInterface;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,11 +29,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Attribute\Entity\Interfaces\AttributeInterface;
-use Elcodi\Component\Attribute\Entity\Interfaces\ValueInterface;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
 
 /**
  * Class Controller for Attribute
@@ -83,9 +82,9 @@ class AttributeController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -157,12 +156,11 @@ class AttributeController extends AbstractAdminController
         AttributeInterface $attribute,
         $isValid
     ) {
-        if ($attribute->id) {
+        if ($attribute->getId()) {
             if (!$this->canUpdate($this->resource)) {
                 throw $this->createAccessDeniedException();
             }
-        }
-        else {
+        } else {
             if (!$this->canCreate($this->resource)) {
                 throw $this->createAccessDeniedException();
             }
@@ -170,8 +168,8 @@ class AttributeController extends AbstractAdminController
 
         if ($isValid) {
             $values = explode(',', $request
-                ->request
-                ->get('values'));
+                    ->request
+                    ->get('values'));
 
             $this->evaluateAttributeValues($attribute, $values);
 
@@ -184,7 +182,7 @@ class AttributeController extends AbstractAdminController
 
         return [
             'attribute' => $attribute,
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

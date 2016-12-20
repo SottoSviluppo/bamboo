@@ -17,6 +17,10 @@
 
 namespace Elcodi\Admin\ProductBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
+use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -25,11 +29,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
-use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
 
 /**
  * Class Controller for Product
@@ -81,9 +80,9 @@ class ProductController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -161,7 +160,7 @@ class ProductController extends AbstractAdminController
         ProductInterface $product,
         $isValid
     ) {
-        if ($product->id) {
+        if ($product->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -170,7 +169,7 @@ class ProductController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             $firstImage = $product
                 ->getSortedImages()
@@ -194,7 +193,7 @@ class ProductController extends AbstractAdminController
 
         return [
             'product' => $product,
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 

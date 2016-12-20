@@ -58,7 +58,7 @@ class CategoryController extends AbstractAdminController
         if (!$this->canRead()) {
             throw $this->createAccessDeniedException();
         }
-        
+
         return [];
     }
 
@@ -129,7 +129,7 @@ class CategoryController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
-        if ($category->id) {
+        if ($category->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -138,7 +138,6 @@ class CategoryController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
 
         if ($isValid) {
             $firstImage = $category

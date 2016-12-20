@@ -17,6 +17,9 @@
 
 namespace Elcodi\Admin\UserBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
+use Elcodi\Component\User\Entity\Interfaces\AdminUserInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,10 +28,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\User\Entity\Interfaces\AdminUserInterface;
 
 /**
  * Class UserController
@@ -80,9 +79,9 @@ class AdminUserController extends AbstractAdminController
         }
 
         return [
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }
@@ -152,7 +151,7 @@ class AdminUserController extends AbstractAdminController
         AdminUserInterface $adminUser,
         $isValid
     ) {
-        if ($adminUser->id) {
+        if ($adminUser->getId()) {
             if (!$this->canUpdate()) {
                 throw $this->createAccessDeniedException();
             }
@@ -161,7 +160,7 @@ class AdminUserController extends AbstractAdminController
                 throw $this->createAccessDeniedException();
             }
         }
-        
+
         if ($isValid) {
             // change user password
             if ($form->get('password')->getData()) {
@@ -187,7 +186,7 @@ class AdminUserController extends AbstractAdminController
 
         return [
             'adminUser' => $adminUser,
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
         ];
     }
 
