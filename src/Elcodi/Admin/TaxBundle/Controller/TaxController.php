@@ -62,7 +62,8 @@ class TaxController extends AbstractAdminController
     public function listAction()
     {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [];
@@ -138,11 +139,13 @@ class TaxController extends AbstractAdminController
     ) {
         if ($tax->id) {
             if (!$this->canUpdate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         } else {
             if (!$this->canCreate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
 
@@ -199,7 +202,8 @@ class TaxController extends AbstractAdminController
         TaxInterface $tax
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -237,7 +241,8 @@ class TaxController extends AbstractAdminController
         TaxInterface $tax
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -299,7 +304,8 @@ class TaxController extends AbstractAdminController
         TaxInterface $tax
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');

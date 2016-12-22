@@ -57,7 +57,8 @@ class LanguageController extends AbstractAdminController
     public function listAction()
     {
         if (!$this->canRead($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [];
@@ -90,7 +91,8 @@ class LanguageController extends AbstractAdminController
         LanguageInterface $language
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -128,7 +130,8 @@ class LanguageController extends AbstractAdminController
         LanguageInterface $language
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -190,7 +193,8 @@ class LanguageController extends AbstractAdminController
         LanguageInterface $language
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');

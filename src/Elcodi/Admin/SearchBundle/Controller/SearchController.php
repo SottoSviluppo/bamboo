@@ -34,7 +34,8 @@ class SearchController extends AbstractAdminController
     public function searchProductsAction()
     {
         if (!$this->canRead('product')) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $request = $this->getRequest();
@@ -67,7 +68,8 @@ class SearchController extends AbstractAdminController
     public function searchOrdersAction()
     {
         if (!$this->canRead('order')) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $request = $this->getRequest();
@@ -105,7 +107,8 @@ class SearchController extends AbstractAdminController
     public function searchCustomersAction()
     {
         if (!$this->canRead('customer')) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $request = $this->getRequest();
@@ -140,7 +143,8 @@ class SearchController extends AbstractAdminController
     public function searchManufacturersAction()
     {
         if (!$this->canRead('manufacturer')) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $request = $this->getRequest();

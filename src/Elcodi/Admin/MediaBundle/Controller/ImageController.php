@@ -56,7 +56,8 @@ class ImageController extends AbstractAdminController
     public function listAction()
     {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [];
@@ -88,7 +89,8 @@ class ImageController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
         
         return parent::enableAction(
@@ -123,7 +125,8 @@ class ImageController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::disableAction(
@@ -160,7 +163,8 @@ class ImageController extends AbstractAdminController
         $redirectPath = null
     ) {
         if (!$this->canDelete()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $redirectPathParam = $request
@@ -194,7 +198,8 @@ class ImageController extends AbstractAdminController
     public function uploadAction()
     {
         if (!$this->canCreate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $jsonResponse = $this
