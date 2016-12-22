@@ -5,7 +5,7 @@
         <div class="box-lighten" data-fc-modules="center-box" data-fc-width="{% block center_width %}500{% endblock %}" data-fc-height="{% block center_height %}400{% endblock %}">
             {% block container %}
                 <div class="box-primary">
-                    <h2 class="mb-n c-background">{% block title_container %}<i class="icon-lock"></i> Bamboo Admin {% endblock title_container %}</h2>
+                    <h2 class="mb-n c-background">{% block title_container %}<i class="icon-lock"></i> {{ store.name }} {% endblock title_container %}</h2>
                 </div>
                 {% block content '' %}
             {% endblock container %}
