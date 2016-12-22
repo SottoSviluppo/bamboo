@@ -59,34 +59,29 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        if ($this->hasAnyPermissions()) {
-            $menu
-                ->addSubnode(
-                    $this
-                        ->menuNodeFactory
-                        ->create()
-                        ->setName('admin.order.plural')
-                        ->setCode('shopping-cart')
-                        ->setUrl('admin_order_list')
-                        ->setTag('order')
-                        ->setPriority(16)
-                        ->setActiveUrls([
-                            'admin_order_edit',
-                            'admin_customer_order_list',
-                            'admin_customer_order_list',
-                        ])
-                );
-        }
-    }
+        $node = $this
+                    ->menuNodeFactory
+                    ->create()
+                    ->setName('admin.order.plural');
+                    
+        if ($this->permissions['canRead']) {
+            $node
+                ->setCode('shopping-cart')
+                ->setUrl('admin_order_list')
+                ->setTag('order')
+                ->setPriority(16);
 
-    private function hasAnyPermissions()
-    {
-        foreach ($this->permissions as $key => $value) {
-            if ($value) {
-                return true;
+            $activeUrls = [
+                'admin_customer_order_list',
+                'admin_customer_order_list',
+            ];
+
+            if ($this->permissions['canUpdate']) {
+                $activeUrls[] = 'admin_order_edit';
             }
+            
+            $menu
+                ->addSubnode($node->setActiveUrls($activeUrls));
         }
-
-        return false;
     }
 }

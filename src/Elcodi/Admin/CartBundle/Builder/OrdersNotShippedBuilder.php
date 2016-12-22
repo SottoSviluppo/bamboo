@@ -79,9 +79,10 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
     public function build(MenuInterface $menu)
     {
         if ($this->permissions['canRead']) {
-            $menu
-                ->findSubnodeByName('admin.order.plural')
-                ->setWarnings($this->getNonShippedOrdersCount());
+            $subnode = $menu->findSubnodeByName('admin.order.plural');
+            if (!empty($subnode)) {
+                $subnode->setWarnings($this->getNonShippedOrdersCount());
+            }
         }
     }
 

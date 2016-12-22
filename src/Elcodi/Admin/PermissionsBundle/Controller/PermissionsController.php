@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Process;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Permissions\Entity\Interfaces\AbstractPermissionInterface;
@@ -66,6 +67,7 @@ class PermissionsController extends AbstractAdminController
             $permissionGroup->setPermissions($permissions);
 
             $this->flush($permissionGroup);
+            $this->flushRedisCache();
 
             $this->addFlash('success', 'admin.permissions.saved');
 
@@ -96,5 +98,15 @@ class PermissionsController extends AbstractAdminController
             $entity,
             $this->generateUrl('admin_permissions_list')
         );
+    }
+
+    private function flushRedisCache()
+    {
+        try {
+            $process = new Process('redis-cli flushall');
+            $process->run();
+        } catch (\Exception $e) {
+
+        }
     }
 }
