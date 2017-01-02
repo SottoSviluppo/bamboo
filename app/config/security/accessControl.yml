@@ -13,8 +13,13 @@ security:
         admin_public_area:
             path: ^%bamboo_admin_pattern_prefix%/%bamboo_admin_prefix%/.*
             roles: ROLE_ADMIN
-
+        
         # store
+        public_area_login:
+           path: ^/login$
+           roles: IS_AUTHENTICATED_ANONYMOUSLY
         public_area:
             path: ^/.*
-            roles: IS_AUTHENTICATED_ANONYMOUSLY
+            roles: %store_access_role%
+
+

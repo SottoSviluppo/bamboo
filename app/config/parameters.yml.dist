@@ -76,3 +76,5 @@ parameters:
         template: 'Template'
         user: 'Users'
 
+    store_access_role: IS_AUTHENTICATED_FULLY
+
