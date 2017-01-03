@@ -18,6 +18,9 @@ security:
         public_area_login:
            path: ^/login$
            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        public_area_register:
+           path: ^/registrazione$
+           roles: IS_AUTHENTICATED_ANONYMOUSLY
         public_area:
             path: ^/.*
             roles: %store_access_role%
