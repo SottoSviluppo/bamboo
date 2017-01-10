@@ -11,6 +11,10 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Permissions\Entity\Interfaces\AbstractPermissionInterface;
@@ -83,8 +87,13 @@ class PermissionsController extends AbstractAdminController
             $permissions = $permissionGroup->getPermissions();
             $permissionGroup->setPermissions($permissions);
 
+            foreach ($permissionGroup->getPermissions() as $p) {
+                if (!$p->getCanRead() && !$p->getCanCreate() && !$p->getCanUpdate() && !$p->getCanDelete()) {
+                    $permissionGroup->removePermission($p);
+                }
+            }
+
             $this->flush($permissionGroup);
-            $this->flushCache();
             $this->flushRedisCache();
 
             $this->addFlash('success', 'admin.permissions.saved');
@@ -126,10 +135,23 @@ class PermissionsController extends AbstractAdminController
     private function flushRedisCache()
     {
         try {
-            $process = new Process('./app/clear');
-            $process->run();
-        } catch (\Exception $e) {
+            $kernel = $this->get('kernel');
+            $application = new Application($kernel);
+            $application->setAutoExit(false);
 
+            $input = new ArrayInput(array(
+                'command' => 'redis:flushall',
+                '--client' => 'metric',
+                '-n' => true
+            ));
+
+            $output = new BufferedOutput();
+            $application->run($input, $output);
+
+            $content = $output->fetch();
+
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
         }
     }
 }
