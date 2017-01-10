@@ -47,7 +47,9 @@ class SetupPermissionsCommand extends AbstractElcodiCommand
             $permissionGroupFactory = $this->container->get('elcodi.factory.permission_group');
             $permissionGroupManager = $this->container->get('elcodi.object_manager.permission_group');
 
-            $adminUser = $adminUserRepository->findOneByEmail('admin@admin.com');
+            $adminUser = $adminUserRepository->findOneBy([
+                'id' => 1
+            ]);
             if ($adminUser != null) {
                 $permissionGroup = $permissionGroupFactory
                                                         ->create()

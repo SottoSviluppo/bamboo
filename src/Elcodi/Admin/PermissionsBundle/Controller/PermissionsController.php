@@ -125,11 +125,15 @@ class PermissionsController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
         
-        return parent::deleteAction(
+        $view = parent::deleteAction(
             $request,
             $entity,
             $this->generateUrl('admin_permissions_list')
         );
+
+        $this->flushRedisCache();
+
+        return $view;
     }
 
     private function flushRedisCache()
