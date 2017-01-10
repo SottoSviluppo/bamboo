@@ -77,7 +77,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $orderByDirection
     ) {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -111,7 +112,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
     public function viewAction($id)
     {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -137,7 +139,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
     public function newAction()
     {
         if (!$this->canCreate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [];
@@ -180,7 +183,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $isValid
     ) {
         if (!$this->canCreate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
         
         if ($isValid) {
@@ -214,7 +218,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
     public function editAction($id)
     {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -259,7 +264,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $isValid
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         if ($isValid) {
@@ -300,7 +306,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::enableAction(
@@ -336,7 +343,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::disableAction(
@@ -374,7 +382,8 @@ class NewsletterSubscriptionController extends AbstractAdminController
         $redirectPath = null
     ) {
         if (!$this->canDelete()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::deleteAction(

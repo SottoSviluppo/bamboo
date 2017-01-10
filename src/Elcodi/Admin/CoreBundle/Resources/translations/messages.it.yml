@@ -941,6 +941,7 @@ admin:
             permission:
                 description: 'Scegli la risorsa e imposta i permessi'
                 title: 'Imposta i permessi'
+        error: 'Non hai i permessi per visualizzare la risorsa'
 
     product:
         edit: 'Modifica "%name%"'

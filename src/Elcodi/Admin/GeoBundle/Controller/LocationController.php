@@ -60,7 +60,8 @@ class LocationController extends Controller
         $locationId
     ) {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $citySelectorBuilder = $this->get(

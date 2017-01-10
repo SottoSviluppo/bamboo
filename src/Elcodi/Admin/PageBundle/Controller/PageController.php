@@ -75,7 +75,8 @@ class PageController extends AbstractAdminController
         $orderByDirection
     ) {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -153,11 +154,13 @@ class PageController extends AbstractAdminController
     ) {
         if ($page->getId()) {
             if (!$this->canUpdate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         } else {
             if (!$this->canUpdate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
 
@@ -207,7 +210,8 @@ class PageController extends AbstractAdminController
         EnabledInterface $page
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         try {
@@ -249,7 +253,8 @@ class PageController extends AbstractAdminController
         EnabledInterface $page
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         try {
@@ -292,7 +297,8 @@ class PageController extends AbstractAdminController
         $redirectPath = null
     ) {
         if (!$this->canDelete()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         try {

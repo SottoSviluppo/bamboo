@@ -74,7 +74,8 @@ class CustomerController extends AbstractAdminController
         $orderByDirection
     ) {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -160,11 +161,13 @@ class CustomerController extends AbstractAdminController
     ) {
         if ($customer->getId()) {
             if (!$this->canUpdate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         } else {
             if (!$this->canCreate()) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
 
@@ -213,7 +216,8 @@ class CustomerController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::enableAction(
@@ -248,7 +252,8 @@ class CustomerController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::disableAction(
@@ -285,7 +290,8 @@ class CustomerController extends AbstractAdminController
         $redirectPath = null
     ) {
         if (!$this->canDelete()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::deleteAction(

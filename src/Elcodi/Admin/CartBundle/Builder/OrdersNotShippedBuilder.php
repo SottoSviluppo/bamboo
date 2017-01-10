@@ -22,6 +22,7 @@ use Elcodi\Component\Menu\Builder\Abstracts\AbstractMenuBuilder;
 use Elcodi\Component\Menu\Builder\Interfaces\MenuBuilderInterface;
 use Elcodi\Component\Menu\Entity\Menu\Interfaces\MenuInterface;
 use Elcodi\Component\Menu\Factory\NodeFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class OrdersNotShippedBuilder
@@ -35,6 +36,16 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
      */
     protected $orderRepository;
 
+    private $permissionsRepository;
+    private $currentUser;
+    private $resource = "order";
+    private $permissions = [
+        'canRead' => false,
+        'canCreate' => false,
+        'canUpdate' => false,
+        'canDelete' => false
+    ];
+
     /**
      * Construct
      *
@@ -43,11 +54,21 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
      */
     public function __construct(
         NodeFactory $menuNodeFactory,
-        OrderRepository $orderRepository
+        OrderRepository $orderRepository,
+        ContainerInterface $container
     ) {
         parent::__construct($menuNodeFactory);
 
         $this->orderRepository = $orderRepository;
+        $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
+        $this->currentUser = $container->get('security.token_storage')->getToken()->getUser();
+
+        $this->permissions = [
+            'canRead' => $this->permissionsRepository->canReadEntity($this->resource, $this->currentUser),
+            'canCreate' => $this->permissionsRepository->canCreateEntity($this->resource, $this->currentUser),
+            'canUpdate' => $this->permissionsRepository->canUpdateEntity($this->resource, $this->currentUser),
+            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser)
+        ];
     }
 
     /**
@@ -57,9 +78,12 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
      */
     public function build(MenuInterface $menu)
     {
-        $menu
-            ->findSubnodeByName('admin.order.plural')
-            ->setWarnings($this->getNonShippedOrdersCount());
+        if ($this->permissions['canRead']) {
+            $subnode = $menu->findSubnodeByName('admin.order.plural');
+            if (!empty($subnode)) {
+                $subnode->setWarnings($this->getNonShippedOrdersCount());
+            }
+        }
     }
 
     /**
