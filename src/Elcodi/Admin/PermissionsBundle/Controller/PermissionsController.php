@@ -28,6 +28,11 @@ class PermissionsController extends AbstractAdminController
         $orderByField,
         $orderByDirection  
     ) {
+        if (!$this->canRead()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+        
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -62,11 +67,24 @@ class PermissionsController extends AbstractAdminController
         AbstractPermissionGroupInterface $permissionGroup,
         $isValid
     ) {
+        if ($permissionGroup->getId()) {
+            if (!$this->canUpdate()) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        } else {
+            if (!$this->canUpdate()) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        }
+
         if ($isValid) {
             $permissions = $permissionGroup->getPermissions();
             $permissionGroup->setPermissions($permissions);
 
             $this->flush($permissionGroup);
+            $this->flushCache();
             $this->flushRedisCache();
 
             $this->addFlash('success', 'admin.permissions.saved');
@@ -93,6 +111,11 @@ class PermissionsController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
+        if (!$this->canDelete()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+        
         return parent::deleteAction(
             $request,
             $entity,
@@ -103,7 +126,7 @@ class PermissionsController extends AbstractAdminController
     private function flushRedisCache()
     {
         try {
-            $process = new Process('redis-cli flushall');
+            $process = new Process('./app/clear');
             $process->run();
         } catch (\Exception $e) {
 

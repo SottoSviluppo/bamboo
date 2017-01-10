@@ -1,0 +1,9 @@
+services:
+
+    #
+    # Commands
+    #
+    elcodi.command.setup_permissions:
+        class: Elcodi\Admin\PermissionsBundle\Command\SetupPermissionsCommand
+        tags:
+            - { name: console.command }
