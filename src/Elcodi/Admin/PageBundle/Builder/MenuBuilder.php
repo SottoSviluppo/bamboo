@@ -79,7 +79,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                                 ->setName('admin.mailing.plural')
                                 ->setCode('envelope-o');
 
-            if ($this->permisssions['canRead']) {
+            if ($this->permissions['canRead']) {
                 $emailActiveUrls[] = 'admin_email_list';
 
                 $pageNode->setUrl('admin_page_list');
