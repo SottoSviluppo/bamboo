@@ -22,7 +22,6 @@ class Version20161103104958 extends AbstractMigration
         $this->addSql('CREATE TABLE permission_groups (id INT AUTO_INCREMENT NOT NULL, admin_id INT DEFAULT NULL, name VARCHAR(255) DEFAULT NULL, INDEX IDX_39B79E9B642B8210 (admin_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE permissions ADD CONSTRAINT FK_2DEDCC6FB6C0CF1 FOREIGN KEY (permission_group_id) REFERENCES permission_groups (id)');
         $this->addSql('ALTER TABLE permission_groups ADD CONSTRAINT FK_39B79E9B642B8210 FOREIGN KEY (admin_id) REFERENCES admin_user (id) ON DELETE SET NULL');
-        $this->addSql('DROP TABLE external_reference');
     }
 
     /**
