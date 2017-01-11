@@ -78,7 +78,8 @@ class AttributeController extends AbstractAdminController
         $orderByDirection
     ) {
         if (!$this->canRead($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [
@@ -158,11 +159,13 @@ class AttributeController extends AbstractAdminController
     ) {
         if ($attribute->getId()) {
             if (!$this->canUpdate($this->resource)) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         } else {
             if (!$this->canCreate($this->resource)) {
-                throw $this->createAccessDeniedException();
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
 
@@ -212,7 +215,8 @@ class AttributeController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
         return parent::enableAction(
             $request,
@@ -246,7 +250,8 @@ class AttributeController extends AbstractAdminController
         EnabledInterface $entity
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::disableAction(
@@ -283,7 +288,8 @@ class AttributeController extends AbstractAdminController
         $redirectPath = null
     ) {
         if (!$this->canDelete($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return parent::deleteAction(

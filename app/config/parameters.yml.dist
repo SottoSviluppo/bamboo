@@ -75,6 +75,7 @@ parameters:
         tax: 'Taxes'
         template: 'Template'
         user: 'Users'
+        permissions: Permissions
 
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 

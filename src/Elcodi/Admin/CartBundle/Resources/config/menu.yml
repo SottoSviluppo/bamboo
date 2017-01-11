@@ -7,6 +7,7 @@ services:
         class: Elcodi\Admin\CartBundle\Builder\MenuBuilder
         arguments:
             - "@elcodi.factory.menu_node"
+            - "@service_container"
         tags:
             - { name: menu.builder, menu: admin, priority: 32 }
 
@@ -15,5 +16,6 @@ services:
         arguments:
             - "@elcodi.factory.menu_node"
             - "@elcodi.repository.order"
+            - "@service_container"
         tags:
             - { name: menu.builder, menu: admin, stage: after_cache }

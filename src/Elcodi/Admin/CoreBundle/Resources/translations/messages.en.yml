@@ -719,6 +719,7 @@ admin:
             permission:
                 description: 'Choose the resource and set the permissions'
                 title: 'Set the permissions'
+        error: 'You do not have the permissions to view this resource'
 
     product:
         edit: 'Edit "%name%"'

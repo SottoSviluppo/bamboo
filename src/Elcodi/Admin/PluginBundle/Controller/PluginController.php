@@ -60,7 +60,8 @@ class PluginController extends AbstractAdminController
     public function listAction($category = null)
     {
         if (!$this->canRead()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $criteria = [
@@ -106,7 +107,8 @@ class PluginController extends AbstractAdminController
         $pluginHash
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         /**
@@ -174,7 +176,8 @@ class PluginController extends AbstractAdminController
         $pluginHash
     ) {
         if (!$this->canUpdate()) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         /**

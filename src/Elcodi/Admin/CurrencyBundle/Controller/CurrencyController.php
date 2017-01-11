@@ -49,10 +49,6 @@ class CurrencyController extends AbstractAdminController
      */
     public function navAction()
     {
-        if (!$this->canRead($this->resource)) {
-            throw $this->createAccessDeniedException();
-        }
-
         return [];
     }
 
@@ -74,7 +70,8 @@ class CurrencyController extends AbstractAdminController
     public function listAction()
     {
         if (!$this->canRead($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         return [];
@@ -107,7 +104,8 @@ class CurrencyController extends AbstractAdminController
         CurrencyInterface $currency
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -144,7 +142,8 @@ class CurrencyController extends AbstractAdminController
         CurrencyInterface $currency
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');
@@ -205,7 +204,8 @@ class CurrencyController extends AbstractAdminController
         CurrencyInterface $currency
     ) {
         if (!$this->canUpdate($this->resource)) {
-            throw $this->createAccessDeniedException();
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
         $translator = $this->get('translator');

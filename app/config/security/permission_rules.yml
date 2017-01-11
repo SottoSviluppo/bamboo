@@ -30,3 +30,4 @@ parameters:
         Elcodi\Admin\TemplateBundle\Controller\TemplateController: ['template']
         Elcodi\Admin\UserBundle\Controller\AdminUserController: ['user']
         Elcodi\Admin\UserBundle\Controller\CustomerController: ['customer']
+        Elcodi\Admin\PermissionsBundle\Controller\PermissionsController: ['permissions']

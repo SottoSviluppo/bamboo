@@ -10,6 +10,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Permissions\Entity\Interfaces\AbstractPermissionInterface;
@@ -27,6 +32,11 @@ class PermissionsController extends AbstractAdminController
         $orderByField,
         $orderByDirection  
     ) {
+        if (!$this->canRead()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+        
         return [
             'page'             => $page,
             'limit'            => $limit,
@@ -61,11 +71,30 @@ class PermissionsController extends AbstractAdminController
         AbstractPermissionGroupInterface $permissionGroup,
         $isValid
     ) {
+        if ($permissionGroup->getId()) {
+            if (!$this->canUpdate()) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        } else {
+            if (!$this->canUpdate()) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        }
+
         if ($isValid) {
             $permissions = $permissionGroup->getPermissions();
             $permissionGroup->setPermissions($permissions);
 
+            foreach ($permissionGroup->getPermissions() as $p) {
+                if (!$p->getCanRead() && !$p->getCanCreate() && !$p->getCanUpdate() && !$p->getCanDelete()) {
+                    $permissionGroup->removePermission($p);
+                }
+            }
+
             $this->flush($permissionGroup);
+            $this->flushRedisCache();
 
             $this->addFlash('success', 'admin.permissions.saved');
 
@@ -91,10 +120,42 @@ class PermissionsController extends AbstractAdminController
         $entity,
         $redirectPath = null
     ) {
-        return parent::deleteAction(
+        if (!$this->canDelete()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+        
+        $view = parent::deleteAction(
             $request,
             $entity,
             $this->generateUrl('admin_permissions_list')
         );
+
+        $this->flushRedisCache();
+
+        return $view;
+    }
+
+    private function flushRedisCache()
+    {
+        try {
+            $kernel = $this->get('kernel');
+            $application = new Application($kernel);
+            $application->setAutoExit(false);
+
+            $input = new ArrayInput(array(
+                'command' => 'redis:flushall',
+                '--client' => 'metric',
+                '-n' => true
+            ));
+
+            $output = new BufferedOutput();
+            $application->run($input, $output);
+
+            $content = $output->fetch();
+
+        } catch (\Exception $e) {
+            $msg = $e->getMessage();
+        }
     }
 }

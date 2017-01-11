@@ -643,6 +643,42 @@ admin:
         section:
             settings: Configuración
         single: Complemento
+
+    permissions:
+        edit: 'Edit "%name%"'
+
+        field:
+            name:
+                title: 'Name'
+            user:
+                title: 'User'
+            resource:
+                title: 'Resource'
+            canRead:
+                title: 'Can Read'
+            canCreate:
+                title: 'Can Create'
+            canUpdate:
+                title: 'Can Update'
+            canDelete:
+                title: 'Can Delete'
+
+        list: 'Permissions list'
+        new: 'New Permission group'
+        plural: Permissions
+        saved: 'Permissions saved'
+        single: Permissions
+        section:
+            basic:
+                description:
+                    - 'Set the permission group name'
+                    - 'Choose the admin user to which apply the rules.'
+                title: 'Basic Data'
+            permission:
+                description: 'Choose the resource and set the permissions'
+                title: 'Set the permissions'
+        error: 'You do not have the permissions to view this resource'
+    
     product:
         edit: 'Editar "%name%"'
         error:
