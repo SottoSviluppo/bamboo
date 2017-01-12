@@ -1,0 +1,27 @@
+{% extends '@StoreTemplate/Layout/_layout.html.twig' %}
+
+{% block title %}{{ "template.store_template_bundle.category.view.all_categories"|trans }}{% endblock title %}
+
+
+    {% block content %}
+        {% for category in categories %}
+            {% if category.enabled %}
+                <div>
+                    <div>
+                        <div>
+                            {% if category.principalImage %}
+                                <img class="img" src="{{ category.principalImage|resize({'width': 206,'height': 206,'type': 3})}}" alt="{{ category.name }}" />
+                            {% else %}
+                                <img class="img" src="{{ asset('bundles/storetemplate/img/no_image.jpg') }}" width="206" height="206" />
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div>
+                        <a href="{{ url('store_category_purchasables_list', { slug: category.slug, id: category.id }) }}">{{ category.name }}</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% endblock content %}

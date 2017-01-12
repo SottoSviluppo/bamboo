@@ -59,10 +59,10 @@ class LocationController extends Controller
     public function showCitySelectorAction(
         $locationId
     ) {
-        if (!$this->canRead()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+        // if (!$this->canRead()) {
+        //     $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+        //     return $this->redirect($this->generateUrl('admin_homepage'));
+        // }
 
         $citySelectorBuilder = $this->get(
             'elcodi_admin.form.location_selector_builder'
@@ -74,7 +74,7 @@ class LocationController extends Controller
         );
 
         return [
-            'selects'         => $selects,
+            'selects' => $selects,
             'maxLocationType' => $this->maxLocationType,
         ];
     }
