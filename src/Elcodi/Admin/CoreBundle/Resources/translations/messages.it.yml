@@ -1022,6 +1022,8 @@ admin:
 
             width:
                 title: 'Larghezza (in cm)'
+            private:
+                title: Privato
 
         in_store: Visualizza
 
@@ -1359,6 +1361,8 @@ admin:
                 title: 'Attiva il controllo delle giacenze'
             taxIncluded:
                 title: 'Tasse incluse nei prodotti'
+            privateProduct:
+                title: 'I prodotti nuovi sono privati'
 
         saved: 'Impostazioni salvate.'
 

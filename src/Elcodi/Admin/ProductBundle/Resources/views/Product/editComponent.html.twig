@@ -402,20 +402,13 @@ redirect_path: product.id
         <div class="box mb-n pb-n">
             <ol class="grid pt-m">
                 <li class="col-1-1">
-                    {{
-                    form_row(form.showInHome, {
-                    label: 'admin.product.field.in_home.title'
-                })
-            }}
-            {{
-            form_row(form.enabled, {
-            label: 'admin.product.field.enabled.title',
-        })
-    }}
-</li>
-</ol>
-</div>
-</div>
+                    {{ form_row(form.showInHome, { label: 'admin.product.field.in_home.title' })}}
+                    {{ form_row(form.enabled, { label: 'admin.product.field.enabled.title' })}}
+                    {{ form_row(form.private, { label: 'admin.product.field.private.title' })}}
+                </li>
+            </ol>
+        </div>
+    </div>
 </div>
 </fieldset>
 <div class="grid fixed-bottom animated fade-in-up">

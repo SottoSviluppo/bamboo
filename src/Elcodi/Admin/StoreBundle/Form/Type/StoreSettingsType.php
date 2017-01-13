@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\StoreBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\Store\StoreRoutingStrategy;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\Store\StoreRoutingStrategy;
 
 /**
  * Class StoreSettingsType
@@ -97,12 +96,15 @@ class StoreSettingsType extends AbstractType
             ->add('routingStrategy', 'choice', [
                 'choice_list' => new ArrayChoiceList([
                     'admin.store.field.routingStrategy.prefix_except_default' => StoreRoutingStrategy::STRATEGY_PREFIX_EXCEPT_DEFAULT,
-                    'admin.store.field.routingStrategy.prefix'                => StoreRoutingStrategy::STRATEGY_PREFIX,
-                    'admin.store.field.routingStrategy.custom'                => StoreRoutingStrategy::STRATEGY_CUSTOM,
+                    'admin.store.field.routingStrategy.prefix' => StoreRoutingStrategy::STRATEGY_PREFIX,
+                    'admin.store.field.routingStrategy.custom' => StoreRoutingStrategy::STRATEGY_CUSTOM,
                 ]),
-                'required'    => true,
+                'required' => true,
             ])
             ->add('enabled', 'checkbox', [
+                'required' => false,
+            ])
+            ->add('privateProduct', 'checkbox', [
                 'required' => false,
             ]);
     }

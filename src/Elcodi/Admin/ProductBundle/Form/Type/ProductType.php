@@ -170,6 +170,9 @@ class ProductType extends AbstractType
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ])
+            ->add('private', 'checkbox', [
+                'required' => false,
+            ])
             ->add('height', 'number', [
                 'required' => false,
             ])

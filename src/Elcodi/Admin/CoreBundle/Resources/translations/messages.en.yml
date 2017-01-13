@@ -781,6 +781,8 @@ admin:
                 title: 'Weight (in g)'
             width:
                 title: 'Width (in cm)'
+            private:
+                title: Private
         in_store: View
         info:
             variants_before_saving: 'You will be able to add variants after saving the product'
@@ -1032,6 +1034,8 @@ admin:
                 title: 'Activate stock Control'
             taxIncluded:
                 title: 'Tax included in product'
+            privateProduct:
+                title: 'New products are private'
         saved: 'Settings saved.'
         section:
             advanced:
