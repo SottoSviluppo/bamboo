@@ -59,7 +59,7 @@ class PluginController extends AbstractAdminController
      */
     public function listAction($category = null)
     {
-        if (!$this->canRead()) {
+        if (!$this->canViewAppStore()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -106,7 +106,7 @@ class PluginController extends AbstractAdminController
         Request $request,
         $pluginHash
     ) {
-        if (!$this->canUpdate()) {
+        if (!$this->canViewAppStore()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -175,7 +175,7 @@ class PluginController extends AbstractAdminController
         Request $request,
         $pluginHash
     ) {
-        if (!$this->canUpdate()) {
+        if (!$this->canViewAppStore()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }

@@ -67,6 +67,11 @@ class StoreController extends AbstractAdminController
      */
     public function settingsAction(Form $storeSettingsType)
     {
+        if (!$this->canViewStore()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
         if ($storeSettingsType->isValid()) {
             $this
                 ->saveStoreAndAddFlash(
@@ -113,6 +118,11 @@ class StoreController extends AbstractAdminController
      */
     public function addressAction(Form $storeAddressType)
     {
+        if (!$this->canViewStore()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
         if ($storeAddressType->isValid()) {
             $this
                 ->saveStoreAndAddFlash(
@@ -159,6 +169,11 @@ class StoreController extends AbstractAdminController
      */
     public function corporateAction(Form $storeCorporateType)
     {
+        if (!$this->canViewStore()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+        
         if ($storeCorporateType->isValid()) {
             $this
                 ->saveStoreAndAddFlash(
