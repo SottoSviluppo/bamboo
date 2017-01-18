@@ -132,6 +132,10 @@ class StoreSearchService implements IStoreSearchService
         $variants->setQuery($variantsBool);
 
         $boolQuery->addShould($variants);
+
+        $manufacturers = new BoolQuery();
+        $manufacturers->addShould(new Match('manufacturer.name', $query));
+        $boolQuery->addShould($manufacturers);
     }
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
