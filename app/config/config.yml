@@ -255,6 +255,10 @@ fos_elastica:
                                 id: ~
                                 name: ~
                                 enabled: ~
+                        manufacturer:
+                            type: "object"
+                            properties:
+                                name: ~
                     persistence:
                         driver: orm
                         model: Elcodi\Component\Product\Entity\Product
