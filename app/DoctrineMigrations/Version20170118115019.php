@@ -19,7 +19,6 @@ class Version20170118115019 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE customer ADD salt VARCHAR(255) DEFAULT NULL');
-        $this->addSql('ALTER TABLE permission_groups ADD view_store TINYINT(1) NOT NULL, ADD view_shipping TINYINT(1) NOT NULL, ADD view_app_store TINYINT(1) NOT NULL');
     }
 
     /**
