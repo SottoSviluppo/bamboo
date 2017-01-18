@@ -108,7 +108,7 @@ class CategoryController extends Controller
      */
     public function viewAction(CategoryInterface $category, $slug, $id, $page, $limit, $orderByField, $orderByDirection, Request $request)
     {
-        //item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la vairabile $limit con un valore diverso dal default = 10
+        //item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la variabile $limit con un valore diverso dal default = 10
         if ($this->container->hasParameter('item_for_page')) {
             $limit = $this->getParameter('item_for_page');
         }
@@ -222,7 +222,6 @@ class CategoryController extends Controller
      */
     public function getAllRootCategoriesAction($page, $limit, $orderByField, $orderByDirection, Request $request)
     {
-
         $categoryRepository = $this->get('elcodi.repository.category');
         $categories = $categoryRepository->findBy(array('root' => true, 'enabled' => true));
         return $this->renderTemplate(
