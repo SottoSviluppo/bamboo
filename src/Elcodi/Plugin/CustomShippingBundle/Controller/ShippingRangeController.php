@@ -110,6 +110,11 @@ class ShippingRangeController extends AbstractAdminController {
 		ShippingRangeInterface $shippingRange,
 		$isValid
 	) {
+		if (!$this->canViewShipping()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
 		if ($isValid) {
 			// \Doctrine\Common\Util\Debug::dump('pippo');die();
 			/**
@@ -165,6 +170,11 @@ class ShippingRangeController extends AbstractAdminController {
 		$entity,
 		$redirectPath = null
 	) {
+		if (!$this->canViewShipping()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
 		/**
 		 * @var ShippingRangeInterface $entity
 		 */

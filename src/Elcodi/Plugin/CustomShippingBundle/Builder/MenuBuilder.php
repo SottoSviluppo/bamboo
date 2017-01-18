@@ -33,20 +33,22 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        $menu
-            ->findSubnodeByName('plugin_type.shipping')
-            ->addSubnode(
-                $this
-                    ->menuNodeFactory
-                    ->create()
-                    ->setName('admin.menu.custom_shipping')
-                    ->setUrl('admin_carrier_list')
-                    ->setActiveUrls([
-                        'admin_carrier_edit',
-                        'admin_carrier_new',
-                        'admin_shipping_range_edit',
-                        'admin_shipping_range_new',
-                    ])
-            );
+        $shippingNode = $menu->findSubnodeByName('plugin_type.shipping');
+        if ($shippingNode != null) {
+            $shippingNode
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('admin.menu.custom_shipping')
+                        ->setUrl('admin_carrier_list')
+                        ->setActiveUrls([
+                            'admin_carrier_edit',
+                            'admin_carrier_new',
+                            'admin_shipping_range_edit',
+                            'admin_shipping_range_new',
+                        ])
+                );
+        }
     }
 }

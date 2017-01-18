@@ -57,6 +57,18 @@ class PermissionGroupType extends AbstractType
                 'class' => 'Elcodi\Component\User\Entity\AdminUser',
                 'choice_label' => 'email'
             ])
+            ->add('viewStore', 'checkbox', [
+                'label'    => 'admin.permissions.field.viewStore.title',
+                'required' => false
+            ])
+            ->add('viewShipping', 'checkbox', [
+                'label'    => 'admin.permissions.field.viewShipping.title',
+                'required' => false
+            ])
+            ->add('viewAppStore', 'checkbox', [
+                'label'    => 'admin.permissions.field.viewAppStore.title',
+                'required' => false
+            ])
             ->add('permissions', 'collection', [
                 'type' => new PermissionType($this->permissions),
                 'allow_add' => true,
