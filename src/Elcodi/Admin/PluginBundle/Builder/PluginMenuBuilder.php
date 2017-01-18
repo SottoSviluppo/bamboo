@@ -22,6 +22,7 @@ use Elcodi\Component\Menu\Entity\Menu\Interfaces\MenuInterface;
 use Elcodi\Component\Menu\Entity\Menu\Interfaces\NodeInterface;
 use Elcodi\Component\Menu\Factory\NodeFactory;
 use Elcodi\Component\Plugin\Entity\Plugin;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class PluginMenuBuilder
@@ -42,6 +43,11 @@ class PluginMenuBuilder implements MenuBuilderInterface
      */
     protected $enabledPlugins;
 
+    private $permissionsRepository;
+    private $currentUser;
+
+    private $canViewAppStore;
+
     /**
      * Constructor
      *
@@ -50,10 +56,16 @@ class PluginMenuBuilder implements MenuBuilderInterface
      */
     public function __construct(
         NodeFactory $menuNodeFactory,
-        array $enabledPlugins
+        array $enabledPlugins,
+        ContainerInterface $container
     ) {
         $this->menuNodeFactory = $menuNodeFactory;
         $this->enabledPlugins = $enabledPlugins;
+
+        $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
+        $this->currentUser = $container->get('security.token_storage')->getToken()->getUser();
+
+        $this->canViewAppStore = $this->permissionsRepository->canViewAppStore($this->currentUser);
     }
 
     /**
@@ -63,24 +75,26 @@ class PluginMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        $visiblePlugins = $this->filterVisiblePlugins();
+        if ($this->canViewAppStore) {
+            $visiblePlugins = $this->filterVisiblePlugins();
 
-        $this
-            ->buildByPluginCategory(
-                $menu->findSubnodeByName('plugin_type.payment'),
-                $visiblePlugins,
-                'payment'
-            )
-            ->buildByPluginCategory(
-                $menu->findSubnodeByName('plugin_type.shipping'),
-                $visiblePlugins,
-                'shipping'
-            )
-            ->buildByPluginCategory(
-                $menu->findSubnodeByName('plugin_type.social'),
-                $visiblePlugins,
-                'social'
-            );
+            $this
+                ->buildByPluginCategory(
+                    $menu->findSubnodeByName('plugin_type.payment'),
+                    $visiblePlugins,
+                    'payment'
+                )
+                ->buildByPluginCategory(
+                    $menu->findSubnodeByName('plugin_type.shipping'),
+                    $visiblePlugins,
+                    'shipping'
+                )
+                ->buildByPluginCategory(
+                    $menu->findSubnodeByName('plugin_type.social'),
+                    $visiblePlugins,
+                    'social'
+                );
+        }
     }
 
     /**
@@ -97,27 +111,29 @@ class PluginMenuBuilder implements MenuBuilderInterface
         array $plugins,
         $pluginCategory
     ) {
-        foreach ($plugins as $plugin) {
-            if ($plugin->getCategory() !== $pluginCategory) {
-                continue;
+        if ($this->canViewAppStore) {
+            foreach ($plugins as $plugin) {
+                if ($plugin->getCategory() !== $pluginCategory) {
+                    continue;
+                }
+
+                $node = $this
+                    ->menuNodeFactory
+                    ->create()
+                    ->setName($plugin->getConfigurationValue('name'))
+                    ->setCode($plugin->getConfigurationValue('fa_icon'))
+                    ->setUrl([
+                        'admin_plugin_configure', [
+                            'pluginHash' => $plugin->getHash(),
+                        ],
+                    ])
+                    ->setEnabled(true);
+
+                $parentNode->addSubnode($node);
             }
 
-            $node = $this
-                ->menuNodeFactory
-                ->create()
-                ->setName($plugin->getConfigurationValue('name'))
-                ->setCode($plugin->getConfigurationValue('fa_icon'))
-                ->setUrl([
-                    'admin_plugin_configure', [
-                        'pluginHash' => $plugin->getHash(),
-                    ],
-                ])
-                ->setEnabled(true);
-
-            $parentNode->addSubnode($node);
+            return $this;
         }
-
-        return $this;
     }
 
     /**

@@ -51,7 +51,7 @@ class TemplateController extends AbstractAdminController
      */
     public function listAction()
     {
-        if (!$this->canRead()) {
+        if (!$this->canViewStore()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -105,7 +105,7 @@ class TemplateController extends AbstractAdminController
         StoreInterface $store,
         $hash
     ) {
-        if (!$this->canUpdate()) {
+        if (!$this->canViewStore()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }

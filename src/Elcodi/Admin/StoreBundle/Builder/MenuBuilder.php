@@ -30,13 +30,8 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
 {
     private $permissionsRepository;
     private $currentUser;
-    private $resource = "store";
-    private $permissions = [
-        'canRead' => false,
-        'canCreate' => false,
-        'canUpdate' => false,
-        'canDelete' => false
-    ];
+
+    private $canViewStore;
 
     function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
     {
@@ -44,12 +39,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
         $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
         $this->currentUser = $container->get('security.token_storage')->getToken()->getUser();
 
-        $this->permissions = [
-            'canRead' => $this->permissionsRepository->canReadEntity($this->resource, $this->currentUser),
-            'canCreate' => $this->permissionsRepository->canCreateEntity($this->resource, $this->currentUser),
-            'canUpdate' => $this->permissionsRepository->canUpdateEntity($this->resource, $this->currentUser),
-            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser)
-        ];
+        $this->canViewStore = $this->permissionsRepository->canViewStore($this->currentUser);
     }
 
     /**
@@ -59,7 +49,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        if ($this->permissions['canRead'] || $this->permissions['canUpdate']) {
+        if ($this->canViewStore) {
             $menu
                 ->findSubnodeByName('admin.settings.plural')
                 ->addSubnode(

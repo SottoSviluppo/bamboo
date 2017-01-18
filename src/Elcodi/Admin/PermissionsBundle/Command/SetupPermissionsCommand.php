@@ -54,7 +54,10 @@ class SetupPermissionsCommand extends AbstractElcodiCommand
                 $permissionGroup = $permissionGroupFactory
                                                         ->create()
                                                         ->setName('Full permissions')
-                                                        ->setAdminUser($adminUser);
+                                                        ->setAdminUser($adminUser)
+                                                        ->setViewStore(true)
+                                                        ->setViewShipping(true)
+                                                        ->setViewAppStore(true);
 
                 $resources = $this->container->getParameter('permissions_list');
                 foreach ($resources as $key => $value) {

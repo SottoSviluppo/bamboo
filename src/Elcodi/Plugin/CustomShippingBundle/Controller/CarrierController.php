@@ -52,6 +52,11 @@ class CarrierController extends AbstractAdminController {
 	 * @Method({"GET"})
 	 */
 	public function listAction() {
+		if (!$this->canViewShipping()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
 		$enabledCarriers = $this
 			->get('elcodi.repository.carrier')
 			->findBy([
@@ -128,6 +133,11 @@ class CarrierController extends AbstractAdminController {
 		CarrierInterface $carrier,
 		$isValid
 	) {
+		if (!$this->canViewShipping()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
 		if ($isValid) {
 			$this->flush($carrier);
 
@@ -174,6 +184,11 @@ class CarrierController extends AbstractAdminController {
 		$entity,
 		$redirectPath = null
 	) {
+		if (!$this->canViewShipping()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
 		return parent::deleteAction(
 			$request,
 			$entity,

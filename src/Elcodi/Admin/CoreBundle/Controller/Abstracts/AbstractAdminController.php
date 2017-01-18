@@ -420,6 +420,30 @@ class AbstractAdminController extends Controller {
 		return true;
 	}
 
+	protected function canViewStore()
+	{
+		$repository = $this->getPermissionRepository();
+		$user = $this->getUser();
+
+		return $repository->canViewStore($user);
+	}
+
+	protected function canViewShipping()
+	{
+		$repository = $this->getPermissionRepository();
+		$user = $this->getUser();
+
+		return $repository->canViewShipping($user);
+	}
+
+	protected function canViewAppStore()
+	{
+		$repository = $this->getPermissionRepository();
+		$user = $this->getUser();
+
+		return $repository->canViewAppStore($user);
+	}
+
 	/**
 	 * Private controller helpers
 	 *

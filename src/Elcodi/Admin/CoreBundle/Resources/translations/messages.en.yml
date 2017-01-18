@@ -704,6 +704,12 @@ admin:
                 title: 'Can Update'
             canDelete:
                 title: 'Can Delete'
+            viewStore:
+                title: 'Can view store'
+            viewShipping:
+                title: 'Can view Shipping methods'
+            viewAppStore:
+                title: 'Can view App store'
 
         list: 'Permissions list'
         new: 'New Permission group'
@@ -716,6 +722,9 @@ admin:
                     - 'Set the permission group name'
                     - 'Choose the admin user to which apply the rules.'
                 title: 'Basic Data'
+            permissionBasic:
+                title: 'Basic permissions'
+                description: 'Set the basic permissions'
             permission:
                 description: 'Choose the resource and set the permissions'
                 title: 'Set the permissions'

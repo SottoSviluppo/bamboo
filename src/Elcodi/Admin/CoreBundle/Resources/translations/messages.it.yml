@@ -926,6 +926,12 @@ admin:
                 title: 'Aggiornamento'
             canDelete:
                 title: 'Cancellazione'
+            viewStore:
+                title: 'Gestisce lo store'
+            viewShipping:
+                title: 'Gestisce i metodi di spedizione'
+            viewAppStore:
+                title: 'Gestisce App store'
 
         list: 'Lista dei permessi'
         new: 'Nuovo gruppo di permessi'
@@ -938,6 +944,9 @@ admin:
                     - 'Imposta il nome del gruppo di permessi'
                     - 'Scegli utente a cui applicare i permessi.'
                 title: 'Informazioni di base'
+            permissionBasic:
+                title: 'Permessi di base'
+                description: 'Imposta i permessi di base'
             permission:
                 description: 'Scegli la risorsa e imposta i permessi'
                 title: 'Imposta i permessi'
