@@ -14,6 +14,9 @@
     bootstrap                   = "app/bootstrap.php.cache" >
 
     <testsuites>
+        <testsuite name="Elcodi Test Suite">
+            <directory>vendor/sottosviluppo/elcodi/src/Elcodi/*/*/Tests</directory>
+        </testsuite>
         <testsuite name="Bamboo Test Suite">
             <directory>src/Elcodi/*/*Bundle/Tests</directory>
         </testsuite>
