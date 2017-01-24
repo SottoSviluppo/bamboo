@@ -829,8 +829,9 @@ admin:
         notes: Note
         plural: Ordini
         single: Ordine
+        states:
+            title: Stato
         to_user: 'Vai al cliente'
-
         transition:
             cancel: Cancellato
             delivered: Consegnato
