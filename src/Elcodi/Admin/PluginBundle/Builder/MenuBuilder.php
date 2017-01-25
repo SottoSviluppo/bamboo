@@ -33,7 +33,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
 
     private $canViewAppStore;
 
-    function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
+    public function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
     {
         parent::__construct($menuNodeFactory);
         $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
@@ -49,19 +49,19 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        if ($this->canViewAppStore) {
-            $pluginNode = $this
-                            ->menuNodeFactory
-                            ->create()
-                            ->setName('admin.plugin.plural')
-                            ->setCode('puzzle-piece')
-                            ->setUrl('admin_plugin_list')
-                            ->setPriority(-30)
-                            ->setTag('settings')
-                            ->setActiveUrls([
-                                'admin_plugin_configure',
-                            ]);
+        $pluginNode = $this
+            ->menuNodeFactory
+            ->create()
+            ->setName('admin.plugin.plural')
+            ->setCode('puzzle-piece')
+            ->setUrl('admin_plugin_list')
+            ->setPriority(-30)
+            ->setTag('settings')
+            ->setActiveUrls([
+                'admin_plugin_configure',
+            ]);
 
+        if ($this->canViewAppStore) {
             $pluginNode->addSubnode(
                 $this
                     ->menuNodeFactory
@@ -70,18 +70,18 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                     ->setUrl('admin_plugin_list')
                     ->setPriority(9999)
             );
-
-            $menu
-                ->addSubnode($pluginNode)
-                ->addSubnode(
-                    $this
-                        ->menuNodeFactory
-                        ->create()
-                        ->setName('plugin_type.social')
-                        ->setCode('share-alt')
-                        ->setTag('settings')
-                        ->setPriority(32)
-                );
         }
+
+        $menu
+            ->addSubnode($pluginNode)
+            ->addSubnode(
+                $this
+                    ->menuNodeFactory
+                    ->create()
+                    ->setName('plugin_type.social')
+                    ->setCode('share-alt')
+                    ->setTag('settings')
+                    ->setPriority(32)
+            );
     }
 }
