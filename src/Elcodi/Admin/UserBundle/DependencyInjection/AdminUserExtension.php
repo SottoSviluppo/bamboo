@@ -60,6 +60,7 @@ class AdminUserExtension extends AbstractExtension
             'formTypes',
             'services',
             'menu',
+            'commands',
         ];
     }
 

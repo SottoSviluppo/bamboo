@@ -1,0 +1,9 @@
+services:
+
+    #
+    # Commands
+    #
+    elcodi.command.create_admin:
+        class: Elcodi\Admin\UserBundle\Command\AdminCommand
+        tags:
+            - { name: console.command }
