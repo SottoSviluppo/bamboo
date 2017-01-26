@@ -51,9 +51,16 @@ class SetupPermissionsCommand extends AbstractElcodiCommand
 
             if ($adminUser != null) {
                 $this->printMessage($output, 'Permissions setup', 'Set permissions to ' . $defaultEmail);
+                $userFullName = trim($adminUser->getFirstname().' '.$adminUser->getLastname());
+                if (empty($userFullName)) {
+                    $userFullName = $defaultEmail;
+                }
+
+                $name = 'Full permissions - '.$userFullName;
+
                 $permissionGroup = $permissionGroupFactory
                     ->create()
-                    ->setName('Full permissions')
+                    ->setName($name)
                     ->setAdminUser($adminUser)
                     ->setViewStore(true)
                     ->setViewShipping(true)
