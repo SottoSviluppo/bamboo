@@ -79,3 +79,5 @@ parameters:
 
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 
+    partial_sku_match: false
+

@@ -10,6 +10,7 @@ use Elastica\Query\Term;
 use Elastica\Query\Range;
 use Elastica\Query\Nested;
 use Elastica\Query\HasChild;
+use Elastica\Query\Wildcard;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Component\Currency\Entity\Money;
 
@@ -29,19 +30,22 @@ class StoreSearchService implements IStoreSearchService
     private $currentCurrency;
     private $defaultCurrency;
     private $categoryDefaultConnector;
+    private $partialSkuMatch;
 
     function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container, 
         $prefix, 
         $itemsPerPage, 
         CurrencyConverter $currencyConverter,
-        $categoryDefaultConnector
+        $categoryDefaultConnector,
+        $partialSkuMatch
     ) {
         $this->container = $container;
         $this->prefix = $prefix;
         $this->itemsPerPage = $itemsPerPage;
         $this->currencyConverter = $currencyConverter;
         $this->categoryDefaultConnector = $categoryDefaultConnector;
+        $this->partialSkuMatch = $partialSkuMatch;
 
         $this->paginator = $this->container->get('knp_paginator');
         $this->currencyRepository = $this->container->get('elcodi.repository.currency');
@@ -87,10 +91,18 @@ class StoreSearchService implements IStoreSearchService
             $fieldQuery = new MultiMatch();
             $fieldQuery->setQuery($query);
             $fieldQuery->setFields([
-                'name', 'sku', 'shortDescription', 'description' 
+                'name', 'shortDescription', 'description' 
             ]);
 
             $fieldsBoolQuery->addShould($fieldQuery);
+
+            $skuQuery = new Match('sku', $query);
+            if ($this->partialSkuMatch) {
+                $skuQuery = new Wildcard('sku', '*'.$query.'*');
+            }
+
+            $fieldsBoolQuery->addShould($skuQuery);
+
             $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
 
             $boolQuery->addMust($fieldsBoolQuery);
@@ -124,11 +136,18 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery = new MultiMatch();
         $variantsQuery->setQuery($query);
         $variantsQuery->setFields([
-           'variants.name', 'variants.sku', 'variants.shortDescription', 'variants.description' 
+           'variants.name', 'variants.shortDescription', 'variants.description' 
         ]);
 
         $variantsBool = new BoolQuery();
         $variantsBool->addShould($variantsQuery);
+
+        $variantsSkuQuery = new Match('variants.sku', $query);
+        if ($this->partialSkuMatch) {
+            $variantsSkuQuery = new Wildcard('variants.sku', '*'.$query.'*');
+        }
+        $variantsBool->addShould($variantsSkuQuery);
+
         $variants->setQuery($variantsBool);
 
         $boolQuery->addShould($variants);
