@@ -25,7 +25,7 @@ class OrderComponentController extends AbstractAdminController
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:orderListComponent.html.twig")
+    * @Template("AdminCartBundle:Order:listComponent.html.twig")
     */
     public function listComponentAction($query, $page, $limit, $dateFrom = null, $dateTo = null)
     {

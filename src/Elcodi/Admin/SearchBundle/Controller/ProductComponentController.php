@@ -25,7 +25,7 @@ class ProductComponentController extends AbstractAdminController
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:productListComponent.html.twig")
+    * @Template("AdminProductBundle:Product:listComponent.html.twig")
     */
     public function listComponentAction($query, $page, $limit = null)
     {

@@ -25,7 +25,7 @@ class ManufacturerComponentController extends AbstractAdminController
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:manufacturerListComponent.html.twig")
+    * @Template("AdminProductBundle:Manufacturer:listComponent.html.twig")
     */
     public function listComponentAction($query, $page, $limit = null)
     {
