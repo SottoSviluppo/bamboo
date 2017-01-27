@@ -232,7 +232,9 @@ fos_elastica:
                 products:
                     mappings:
                         id: ~
-                        sku: ~
+                        sku: 
+                            type: "string"
+                            index: "not_analyzed"
                         name: ~
                         shortDescription: ~
                         description: ~
