@@ -12,7 +12,7 @@ doctrine_cache:
         # Menus cache
         #
         elcodi_menus:
-            type: predis
+            type: array
             namespace: %elcodi.core.bamboo.cache_prefix%menus
 
         #

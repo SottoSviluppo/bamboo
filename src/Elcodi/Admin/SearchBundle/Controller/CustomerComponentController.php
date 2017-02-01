@@ -25,7 +25,7 @@ class CustomerComponentController extends AbstractAdminController
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:customerListComponent.html.twig")
+    * @Template("AdminUserBundle:Customer:listComponent.html.twig")
     */
     public function listComponentAction($query, $page, $limit = null)
     {
