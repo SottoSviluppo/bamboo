@@ -67,6 +67,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                         ->create()
                         ->setName('admin.coupon.plural')
                         ->setCode('gift')
+                        ->setTag('catalog')
                         ->setPriority(32);
 
             if ($this->permissions['canRead']) {
