@@ -128,7 +128,7 @@ class StoreSearchService implements IStoreSearchService
         $categories->setPath('categories');
 
         $categoriesQuery = new BoolQuery();
-        $categoriesQuery->addShould(new Match('categories.name', $query));
+        $categoriesQuery->addShould(new Wildcard('categories.name', '*'.$query.'*'));
 
         $categories->setQuery($categoriesQuery);
 
