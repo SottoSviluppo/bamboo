@@ -79,6 +79,7 @@ parameters:
 
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 
-    partial_sku_match: false
+    product_partial_search: false
+    category_partial_search: true
     # if set TRUE indicate that FreePayment is used to create an order
     create_order_with_freepayment: false
