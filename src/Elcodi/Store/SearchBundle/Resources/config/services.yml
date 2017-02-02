@@ -8,4 +8,5 @@ services:
             - '%item_for_page%'
             - '@elcodi.converter.currency'
             - '%category_default_connector%'
-            - '%partial_sku_match%'
+            - '%product_partial_search%'
+            - '%category_partial_search%'
