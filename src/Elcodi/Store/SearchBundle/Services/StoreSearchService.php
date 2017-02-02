@@ -88,10 +88,13 @@ class StoreSearchService implements IStoreSearchService
         if (!empty($query)) {
             $fieldsBoolQuery = new BoolQuery();
 
+            $nameQuery = new Wildcard('name', '*'.$query.'*');
+            $fieldsBoolQuery->addShould($nameQuery);
+
             $fieldQuery = new MultiMatch();
             $fieldQuery->setQuery($query);
             $fieldQuery->setFields([
-                'name', 'shortDescription', 'description' 
+                'shortDescription', 'description' 
             ]);
 
             $fieldsBoolQuery->addShould($fieldQuery);
@@ -136,11 +139,14 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery = new MultiMatch();
         $variantsQuery->setQuery($query);
         $variantsQuery->setFields([
-           'variants.name', 'variants.shortDescription', 'variants.description' 
+           'variants.shortDescription', 'variants.description' 
         ]);
 
         $variantsBool = new BoolQuery();
         $variantsBool->addShould($variantsQuery);
+
+        $variantNameQuery = new Wildcard('variants.name', '*'.$query.'*');
+        $variantsBool->addShould($variantNameQuery);
 
         $variantsSkuQuery = new Match('variants.sku', $query);
         if ($this->partialSkuMatch) {
@@ -153,7 +159,7 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addShould($variants);
 
         $manufacturers = new BoolQuery();
-        $manufacturers->addShould(new Match('manufacturer.name', $query));
+        $manufacturers->addShould(new Wildcard('manufacturer.name', '*'.$query.'*'));
         $boolQuery->addShould($manufacturers);
     }
 
