@@ -66,7 +66,9 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                         ->menuNodeFactory
                         ->create()
                         ->setName('admin.coupon.plural')
-                        ->setCode('gift');
+                        ->setCode('gift')
+                        ->setTag('catalog')
+                        ->setPriority(32);
 
             if ($this->permissions['canRead']) {
                 $node->setUrl('admin_coupon_list');
@@ -75,7 +77,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                 $node->setUrl('admin_coupon_new');
             }
 
-            if ($this->permissions['canRead']) {
+            if ($this->permissions['canCreate']) {
                 $activeUrls[] = 'admin_coupon_new';
             }
             if ($this->permissions['canUpdate']) {
