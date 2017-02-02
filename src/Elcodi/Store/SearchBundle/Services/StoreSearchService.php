@@ -30,7 +30,8 @@ class StoreSearchService implements IStoreSearchService
     private $currentCurrency;
     private $defaultCurrency;
     private $categoryDefaultConnector;
-    private $partialSkuMatch;
+    private $productPartialSearch;
+    private $categoryPartialSearch;
 
     function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container, 
@@ -38,14 +39,16 @@ class StoreSearchService implements IStoreSearchService
         $itemsPerPage, 
         CurrencyConverter $currencyConverter,
         $categoryDefaultConnector,
-        $partialSkuMatch
+        $productPartialSearch,
+        $categoryPartialSearch
     ) {
         $this->container = $container;
         $this->prefix = $prefix;
         $this->itemsPerPage = $itemsPerPage;
         $this->currencyConverter = $currencyConverter;
         $this->categoryDefaultConnector = $categoryDefaultConnector;
-        $this->partialSkuMatch = $partialSkuMatch;
+        $this->productPartialSearch = $productPartialSearch;
+        $this->categoryPartialSearch = $categoryPartialSearch;
 
         $this->paginator = $this->container->get('knp_paginator');
         $this->currencyRepository = $this->container->get('elcodi.repository.currency');
@@ -88,7 +91,10 @@ class StoreSearchService implements IStoreSearchService
         if (!empty($query)) {
             $fieldsBoolQuery = new BoolQuery();
 
-            $nameQuery = new Wildcard('name', '*'.$query.'*');
+            $nameQuery = new Match('name', $query);
+            if ($this->productPartialSearch) {
+                $nameQuery = new Wildcard('name', '*'.$query.'*');
+            }
             $fieldsBoolQuery->addShould($nameQuery);
 
             $fieldQuery = new MultiMatch();
@@ -100,7 +106,7 @@ class StoreSearchService implements IStoreSearchService
             $fieldsBoolQuery->addShould($fieldQuery);
 
             $skuQuery = new Match('sku', $query);
-            if ($this->partialSkuMatch) {
+            if ($this->productPartialSearch) {
                 $skuQuery = new Wildcard('sku', '*'.$query.'*');
             }
 
@@ -128,7 +134,12 @@ class StoreSearchService implements IStoreSearchService
         $categories->setPath('categories');
 
         $categoriesQuery = new BoolQuery();
-        $categoriesQuery->addShould(new Wildcard('categories.name', '*'.$query.'*'));
+
+        $categoryNameQuery = new Wildcard('categories.name', '*'.$query.'*');
+        if (!$this->categoryPartialSearch) {
+            $categoryNameQuery = new Match('categories.name', $query);
+        }
+        $categoriesQuery->addShould($categoryNameQuery);
 
         $categories->setQuery($categoriesQuery);
 
@@ -145,11 +156,14 @@ class StoreSearchService implements IStoreSearchService
         $variantsBool = new BoolQuery();
         $variantsBool->addShould($variantsQuery);
 
-        $variantNameQuery = new Wildcard('variants.name', '*'.$query.'*');
+        $variantNameQuery = new Match('variants.name', $query);
+        if ($this->productPartialSearch) {
+            $variantNameQuery = new Wildcard('variants.name', '*'.$query.'*');
+        }
         $variantsBool->addShould($variantNameQuery);
 
         $variantsSkuQuery = new Match('variants.sku', $query);
-        if ($this->partialSkuMatch) {
+        if ($this->productPartialSearch) {
             $variantsSkuQuery = new Wildcard('variants.sku', '*'.$query.'*');
         }
         $variantsBool->addShould($variantsSkuQuery);
@@ -159,7 +173,11 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addShould($variants);
 
         $manufacturers = new BoolQuery();
-        $manufacturers->addShould(new Wildcard('manufacturer.name', '*'.$query.'*'));
+        $manufacturerNameQuery = new Wildcard('manufacturer.name', '*'.$query.'*');
+        if (!$this->categoryPartialSearch) {
+            $manufacturerNameQuery = new Match('manufacturer.name', $query);
+        }
+        $manufacturers->addShould($manufacturerNameQuery);
         $boolQuery->addShould($manufacturers);
     }
 
