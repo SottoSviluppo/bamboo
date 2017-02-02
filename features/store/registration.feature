@@ -12,7 +12,7 @@ Feature: Store registration
     Given I am on "/register"
     When I fill in the following:
       | store_user_form_type_register_firstname       | John              |
-      | store_user_form_type_register_lastName        | Doe               |
+      | store_user_form_type_register_lastname        | Doe               |
       | store_user_form_type_register_email           | john-doe@mail.com |
       | store_user_form_type_register_password_first  | 1234              |
       | store_user_form_type_register_password_second | 1234              |
