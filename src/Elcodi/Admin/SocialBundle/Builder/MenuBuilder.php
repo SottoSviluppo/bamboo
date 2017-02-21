@@ -33,21 +33,21 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
      */
     public function build(MenuInterface $menu)
     {
-        /*$menu
+        $menu
             ->findSubnodeByName('admin.communication.single')
-                ->addSubnode(
-	                $this
-	                    ->menuNodeFactory
-	                    ->create()
-	                    ->setName('admin.social.plural')
-	                    ->setCode('file-text-o')
-	                    ->setUrl('admin_social_list')
-	                    ->setActiveUrls([
-	                        'admin_social_edit',
-	                        'admin_social_new',
-	                    ])
-                        ->setPriority(-32)
-	            )
-        ;*/
+            ->addSubnode(
+                $this
+                    ->menuNodeFactory
+                    ->create()
+                    ->setName('admin.social.plural')
+                    ->setCode('file-text-o')
+                    ->setUrl('admin_social_list')
+                    ->setActiveUrls([
+                        'admin_social_edit',
+                        'admin_social_new',
+                    ])
+                    ->setPriority(-32)
+            )
+        ;
     }
 }
