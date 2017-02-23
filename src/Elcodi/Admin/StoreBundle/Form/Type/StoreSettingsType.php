@@ -104,7 +104,7 @@ class StoreSettingsType extends AbstractType
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ])
-            ->add('privateProduct', 'checkbox', [
+            ->add('privateProductOnCreation', 'checkbox', [
                 'required' => false,
             ]);
     }
