@@ -17,13 +17,12 @@
 
 namespace Elcodi\Store\PageBundle\EventListener\Abstracts;
 
-use Swift_Mailer;
-use Twig_Environment;
-
 use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 use Elcodi\Component\Page\Repository\PageRepository;
 use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
 use Elcodi\Store\CoreBundle\Services\TemplateLocator;
+use Swift_Mailer;
+use Twig_Environment;
 
 /**
  * Class AbstractEmailSenderEventListener
@@ -88,7 +87,7 @@ abstract class AbstractEmailSenderEventListener
      * @param array  $context       Context
      * @param string $receiverEmail Receiver email
      */
-    protected function sendEmail($emailName, array $context, $receiverEmail)
+    protected function sendEmail($emailName, array $context, $receiverEmail, $bcc = false)
     {
         $page = $this
             ->pageRepository
@@ -115,6 +114,10 @@ abstract class AbstractEmailSenderEventListener
                 ->setFrom($this->store->getEmail())
                 ->setTo($receiverEmail)
                 ->setBody($resolvedPage, 'text/html');
+
+            if ($bcc) {
+                $message->setBcc($this->store->getEmail());
+            }
 
             $this
                 ->mailer
