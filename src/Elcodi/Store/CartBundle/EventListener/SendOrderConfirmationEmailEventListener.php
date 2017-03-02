@@ -38,10 +38,10 @@ class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventLi
         $this->sendEmail(
             'order_confirmation',
             [
-                'order'    => $order,
+                'order' => $order,
                 'customer' => $customer,
             ],
-            $customer->getEmail()
+            $customer->getEmail(), true
         );
     }
 }
