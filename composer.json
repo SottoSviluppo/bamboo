@@ -73,8 +73,8 @@
         "sottosviluppo/elcodi": "dev-develop",
 
         "sottosviluppo/paymentsuite": "^2.0",
-        "friendsofsymfony/elastica-bundle": "dev-master",
-        "ruflin/elastica": "^3.2",
+        "friendsofsymfony/elastica-bundle": "^3.2",
+        "ruflin/elastica": "^2.1",
         "cocur/slugify": "^2.3",
         "knplabs/knp-paginator-bundle": "^2.5",
         "phpoffice/phpexcel": "~1.8.1",
