@@ -277,6 +277,12 @@ class CategoryController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
+        // Prendo i figli primi e li metto a root
+        foreach ($entity->getSubCategories() as $subCategory) {
+            $subCategory->setRoot(true);
+            $this->flush($subCategory);
+        }
+
         return parent::deleteAction(
             $request,
             $entity,
