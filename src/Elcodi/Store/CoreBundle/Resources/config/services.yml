@@ -11,3 +11,7 @@ services:
                 - StoreOverrideBundle
                 - "@elcodi.store_template_bundle"
                 - StoreFallbackBundle
+    
+    elcodi_store.manager.datetime:
+        class: Elcodi\Store\CoreBundle\Services\DateTimeManager
+
