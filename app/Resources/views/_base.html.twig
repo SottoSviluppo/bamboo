@@ -64,6 +64,9 @@
             }());
         </script>
 
+        {% block stylesheets %}
+        {% endblock stylesheets %}
+
         {{ elcodi_hook("store.head_bottom") }}
     </head>
 
@@ -143,6 +146,9 @@
                 _etc.push(["{{ store_tracker }}", 'source_dir', '', '1']);
             }
         </script>
+
+        {% block javascripts %}
+        {% endblock javascripts %}
 
         {% block foot_script "" %}
         {% block other_scripts %}

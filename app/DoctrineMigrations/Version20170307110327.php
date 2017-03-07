@@ -19,6 +19,7 @@ class Version20170307110327 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE coupon ADD free_shipping TINYINT(1) DEFAULT \'0\'');
+        $this->addSql('ALTER TABLE country ADD is_ue TINYINT(1) DEFAULT \'0\' NOT NULL');
     }
 
     /**
@@ -30,5 +31,6 @@ class Version20170307110327 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE coupon DROP free_shipping');
+        $this->addSql('ALTER TABLE country DROP is_ue');
     }
 }
