@@ -63,7 +63,6 @@ class AppKernel extends Kernel
             'Snc\RedisBundle\SncRedisBundle',
             'JMS\I18nRoutingBundle\JMSI18nRoutingBundle',
             'Mmoreram\ControllerExtraBundle\ControllerExtraBundle',
-            'Mmoreram\CacheFlushBundle\CacheFlushBundle',
             'Mmoreram\HttpHeadersBundle\HttpHeadersBundle',
             'FOS\ElasticaBundle\FOSElasticaBundle',
             'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle',
@@ -73,6 +72,7 @@ class AppKernel extends Kernel
             /**
              * Elcodi core bundles
              */
+            'Elcodi\Bundle\CacheFlushBundle\CacheFlushBundle',
             'Elcodi\Bundle\CoreBundle\ElcodiCoreBundle',
             'Elcodi\Bundle\LanguageBundle\ElcodiLanguageBundle',
             'Elcodi\Bundle\CartBundle\ElcodiCartBundle',
