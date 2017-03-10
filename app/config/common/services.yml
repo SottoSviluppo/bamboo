@@ -36,3 +36,9 @@ services:
         arguments:
             - "@elcodi.repository.currency"
             - "@elcodi.store_default_currency_iso"
+
+    
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
