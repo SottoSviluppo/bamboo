@@ -162,9 +162,17 @@ class CouponController extends AbstractAdminController
             }
         }
 
+        // check if already exists
+        if ($coupon->getId() <= 0) {
+            $oldCoupon = $this->get('elcodi.repository.coupon')->findOneByCode($coupon->getCode());
+            if ($oldCoupon != null) {
+                $this->addFlash('error', 'admin.coupon.already_exists');
+                $isValid = false;
+            }
+        }
+
         if ($isValid) {
             $this->flush($coupon);
-
             $this->addFlash('success', 'admin.coupon.saved');
 
             return $this->redirectToRoute('admin_coupon_list');

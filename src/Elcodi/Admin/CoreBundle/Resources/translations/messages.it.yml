@@ -417,6 +417,7 @@ admin:
         new: 'Nuovo coupon'
         plural: Coupons
         saved: 'Coupon salvato'
+        already_exists: 'Il coupon esiste già'
 
         section:
             basic:
