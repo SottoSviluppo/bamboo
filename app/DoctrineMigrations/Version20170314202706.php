@@ -20,6 +20,8 @@ class Version20170314202706 extends AbstractMigration
 
         $this->addSql('ALTER TABLE country ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
         $this->addSql('ALTER TABLE address ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
+        $this->addSql('ALTER TABLE orders ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
+        $this->addSql('ALTER TABLE order_line ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
     }
 
     /**
@@ -32,5 +34,7 @@ class Version20170314202706 extends AbstractMigration
 
         $this->addSql('ALTER TABLE address DROP extra_data');
         $this->addSql('ALTER TABLE country DROP extra_data');
+        $this->addSql('ALTER TABLE orders DROP extra_data');
+        $this->addSql('ALTER TABLE order_line DROP extra_data');
     }
 }

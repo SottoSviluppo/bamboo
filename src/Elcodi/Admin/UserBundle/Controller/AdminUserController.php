@@ -88,6 +88,32 @@ class AdminUserController extends AbstractAdminController
     }
 
     /**
+     *
+     * @Route(
+     *      path = "/impersonate",
+     *      name = "admin_admin_user_impersonate",
+     *      methods = {"GET", "POST"}
+     * )
+     *
+     */
+    public function impersonateAction(Request $request)
+    {
+        return; // ad ora non funziona
+        $user = $this->get('elcodi.repository.customer')->find(1);
+
+        // Here, "store_area" is the name of the firewall in your security.yml
+        $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, $user->getPassword(), "store_area", $user->getRoles());
+        $this->get("security.token_storage")->setToken($token);
+
+        // Fire the login event
+        // Logging the user in above the way we do it doesn't do this automatically
+        $event = new \Symfony\Component\Security\Http\Event\InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
+        echo "ok";
+        die();
+    }
+
+    /**
      * Edit and Saves admin user
      *
      * @param FormInterface      $form      Form
