@@ -17,11 +17,10 @@
 
 namespace Elcodi\Store\GeoBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 
 /**
  * Class AddressType
@@ -60,48 +59,53 @@ class AddressType extends AbstractType
         $builder
             ->add('name', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.name.label',
+                'label' => 'store.address.form.fields.name.label',
             ])
             ->add('recipientName', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.recipientName.label',
+                'label' => 'store.address.form.fields.recipientName.label',
             ])
             ->add('recipientSurname', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.recipientSurname.label',
+                'label' => 'store.address.form.fields.recipientSurname.label',
             ])
             ->add('address', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.address.label',
+                'label' => 'store.address.form.fields.address.label',
             ])
             ->add('addressMore', 'text', [
                 'required' => false,
-                'label'    => 'store.address.form.fields.addressMore.label',
+                'label' => 'store.address.form.fields.addressMore.label',
             ])
             ->add('city', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.city.label',
+                'label' => 'store.address.form.fields.city.label',
             ])
             ->add('country', 'entity', [
                 'required' => true,
                 'class' => 'Elcodi\Component\Geo\Entity\Country',
-                'label'    => 'store.address.form.fields.country.label',
+                'label' => 'store.address.form.fields.country.label',
+                'query_builder' => function (EntityRepository $repository) {
+                    return $repository->createQueryBuilder('q')
+                        ->where('q.enabled = 1')
+                    ;
+                },
             ])
             ->add('postalcode', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.postalcode.label',
+                'label' => 'store.address.form.fields.postalcode.label',
             ])
             ->add('phone', 'text', [
                 'required' => true,
-                'label'    => 'store.address.form.fields.phone.label',
+                'label' => 'store.address.form.fields.phone.label',
             ])
             ->add('mobile', 'text', [
                 'required' => false,
-                'label'    => 'store.address.form.fields.mobile.label',
+                'label' => 'store.address.form.fields.mobile.label',
             ])
             ->add('comments', 'textarea', [
                 'required' => false,
-                'label'    => 'store.address.form.fields.comments.label',
+                'label' => 'store.address.form.fields.comments.label',
             ])
             ->add('send', 'submit', [
                 'label' => 'store.address.form.fields.send.label',
