@@ -25,12 +25,11 @@ use Elcodi\Component\Zone\Entity\Interfaces\ZoneInterface;
 /**
  * Interface ShippingRangeInterface
  */
-interface ShippingRangeInterface
-    extends
-    ShippingPriceRangeInterface,
-    ShippingWeightRangeInterface,
-    EnabledInterface,
-    IdentifiableInterface
+interface ShippingRangeInterface extends
+ShippingPriceRangeInterface,
+ShippingWeightRangeInterface,
+EnabledInterface,
+IdentifiableInterface
 {
     /**
      * Get Carrier
@@ -127,4 +126,21 @@ interface ShippingRangeInterface
      * @return $this Self object
      */
     public function setType($type);
+
+    /**
+     * Sets Country.
+     *
+     * @param string $country Country
+     *
+     * @return $this Self object
+     */
+    public function setCountry($country);
+
+    /**
+     * Get Country.
+     *
+     * @return string Country
+     */
+    public function getCountry();
+
 }

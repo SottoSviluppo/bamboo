@@ -81,3 +81,10 @@ Elcodi\Plugin\CustomShippingBundle\Entity\ShippingRange:
                 name: to_price_currency_iso
                 referencedColumnName: iso
                 nullable: false
+        country:
+            targetEntity: Elcodi\Component\Geo\Entity\Interfaces\CountryInterface
+            cascade: [ "all" ]
+            joinColumn:
+                name: country_id
+                referencedColumnName: id
+                nullable: false

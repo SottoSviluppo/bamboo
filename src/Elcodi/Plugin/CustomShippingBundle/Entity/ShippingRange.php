@@ -34,8 +34,8 @@ use Elcodi\Plugin\CustomShippingBundle\Entity\Traits\ShippingWeightRangeTrait;
 class ShippingRange implements ShippingRangeInterface
 {
     use ShippingPriceRangeTrait,
-        ShippingWeightRangeTrait,
-        IdentifiableTrait,
+    ShippingWeightRangeTrait,
+    IdentifiableTrait,
         EnabledTrait;
 
     /**
@@ -65,6 +65,13 @@ class ShippingRange implements ShippingRangeInterface
      * toZone
      */
     protected $toZone;
+
+    /**
+     * @var Country
+     *
+     * country
+     */
+    protected $country;
 
     /**
      * @var integer
@@ -233,5 +240,29 @@ class ShippingRange implements ShippingRangeInterface
         $this->type = $type;
 
         return $this;
+    }
+
+    /**
+     * Sets Country.
+     *
+     * @param entity $country
+     *
+     * @return $this Self object
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get Country.
+     *
+     * @return entity Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }
