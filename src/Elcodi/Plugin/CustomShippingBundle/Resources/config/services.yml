@@ -16,4 +16,3 @@ services:
         arguments:
             - "@elcodi.repository.carrier"
             - "@elcodi.converter.currency"
-            - "@elcodi.matcher.zone"

@@ -18,9 +18,6 @@
 namespace Elcodi\Plugin\CustomShippingBundle\Tests\UnitTest\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use PHPUnit_Framework_TestCase;
-use Prophecy\Argument;
-
 use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
 use Elcodi\Component\Currency\Entity\Currency;
 use Elcodi\Component\Currency\Entity\Money;
@@ -31,6 +28,8 @@ use Elcodi\Plugin\CustomShippingBundle\Entity\Interfaces\CarrierInterface;
 use Elcodi\Plugin\CustomShippingBundle\Entity\Interfaces\ShippingRangeInterface;
 use Elcodi\Plugin\CustomShippingBundle\Provider\ShippingRangesProvider;
 use Elcodi\Plugin\CustomShippingBundle\Repository\CarrierRepository;
+use PHPUnit_Framework_TestCase;
+use Prophecy\Argument;
 
 /**
  * Class ShippingRangesProviderTest
@@ -63,8 +62,7 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
                 $weightTo,
                 $weightRangePrice
             )->reveal(),
-            $this->getCurrencyConverter($currencyConverterMultiplier)->reveal(),
-            $this->getZoneMatcher()->reveal()
+            $this->getCurrencyConverter($currencyConverterMultiplier)->reveal()
         );
 
         $shippingRanges = $shippingCollectEventListener->getAllShippingRangesSatisfiedWithCart(
@@ -82,118 +80,118 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
             // Test with no carriers
             [
                 false, // With carrier
-                null,  // Price from
-                null,  // Price to
-                0,     // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                0,     // Currency converter multiplier
-                0,      // Ranges found
+                null, // Price from
+                null, // Price to
+                0, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                0, // Currency converter multiplier
+                0, // Ranges found
             ],
 
             // Test with carrier without ranges
             [
-                true,  // With carrier
-                null,  // Price from
-                null,  // Price to
-                0,     // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                0,     // Currency converter multiplier
-                0,      // Ranges found
+                true, // With carrier
+                null, // Price from
+                null, // Price to
+                0, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                0, // Currency converter multiplier
+                0, // Ranges found
             ],
 
             // Test with matching price
             [
-                true,  // With carrier
-                500,   // Price from
-                1200,  // Price to
-                700,   // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                1,     // Currency converter multiplier
-                1,      // Ranges found
+                true, // With carrier
+                500, // Price from
+                1200, // Price to
+                700, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                1, // Currency converter multiplier
+                1, // Ranges found
             ],
 
             // Test without matching price
             [
-                true,  // With carrier
-                500,   // Price from
-                600,   // Price to
-                700,   // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                1,     // Currency converter multiplier
-                0,      // Ranges found
+                true, // With carrier
+                500, // Price from
+                600, // Price to
+                700, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                1, // Currency converter multiplier
+                0, // Ranges found
             ],
 
             // test with matching weight
             [
-                true,  // With carrier
-                null,  // Price from
-                null,  // Price to
-                0,     // Price range price
-                800,   // Weight from
-                1200,  // Weight to
-                200,   // Weight range price
-                1,     // Currency converter multiplier
-                1,      // Ranges found
+                true, // With carrier
+                null, // Price from
+                null, // Price to
+                0, // Price range price
+                800, // Weight from
+                1200, // Weight to
+                200, // Weight range price
+                1, // Currency converter multiplier
+                1, // Ranges found
             ],
 
             // test without matching weight
             [
-                true,  // With carrier
-                null,  // Price from
-                null,  // Price to
-                0,     // Price range price
-                800,   // Weight from
-                900,   // Weight to
-                200,   // Weight range price
-                1,     // Currency converter multiplier
-                0,      // Ranges found
+                true, // With carrier
+                null, // Price from
+                null, // Price to
+                0, // Price range price
+                800, // Weight from
+                900, // Weight to
+                200, // Weight range price
+                1, // Currency converter multiplier
+                0, // Ranges found
             ],
 
             // test with different currencies matching
             [
-                true,  // With carrier
-                300,   // Price from
-                600,   // Price to
-                500,   // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                2,     // Currency converter multiplier
-                1,      // Ranges found
+                true, // With carrier
+                300, // Price from
+                600, // Price to
+                500, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                2, // Currency converter multiplier
+                1, // Ranges found
             ],
 
             // test with different currencies not matching
             [
-                true,  // With carrier
-                510,   // Price from
-                600,   // Price to
-                500,   // Price range price
-                null,  // Weight from
-                null,  // Weight to
-                0,     // Weight range price
-                2,     // Currency converter multiplier
-                0,      // Ranges found
+                true, // With carrier
+                510, // Price from
+                600, // Price to
+                500, // Price range price
+                null, // Weight from
+                null, // Weight to
+                0, // Weight range price
+                2, // Currency converter multiplier
+                0, // Ranges found
             ],
 
             // test with both pricing and weight matching
             [
-                true,  // With carrier
-                500,   // Price from
-                600,   // Price to
-                700,   // Price range price
-                800,   // Weight from
-                1200,  // Weight to
-                200,   // Weight range price
-                1,     // Currency converter multiplier
-                1,      // Ranges found
+                true, // With carrier
+                500, // Price from
+                600, // Price to
+                700, // Price range price
+                800, // Weight from
+                1200, // Weight to
+                200, // Weight range price
+                1, // Currency converter multiplier
+                1, // Ranges found
             ],
         ];
     }
@@ -247,10 +245,10 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
                     ->getId()
                     ->willReturn('price-shipping-range-id');
                 $priceShippingRange
-                    ->getToZone()
+                    ->getCountry()
                     ->willReturn(
                         $this
-                            ->prophesize('Elcodi\Component\Zone\Entity\Interfaces\ZoneInterface')
+                            ->prophesize('Elcodi\Component\Geo\Entity\Country')
                             ->reveal()
                     );
                 $priceShippingRange
@@ -284,10 +282,10 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
                     ->getId()
                     ->willReturn('weight-shipping-range-id');
                 $weightShippingRange
-                    ->getToZone()
+                    ->getCountry()
                     ->willReturn(
                         $this
-                            ->prophesize('Elcodi\Component\Zone\Entity\Interfaces\ZoneInterface')
+                            ->prophesize('Elcodi\Component\Geo\Entity\Country')
                             ->reveal()
                     );
                 $weightShippingRange
@@ -343,22 +341,6 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
             });
 
         return $currencyConverter;
-    }
-
-    /**
-     * Get zone matcher prophecy object
-     *
-     * @return ZoneMatcher Cone matcher
-     */
-    private function getZoneMatcher($match = true)
-    {
-        $zoneMatcher = $this->prophesize('Elcodi\Component\Zone\Services\ZoneMatcher');
-
-        $zoneMatcher
-            ->isAddressContainedInZone(Argument::any(), Argument::any())
-            ->willReturn($match);
-
-        return $zoneMatcher;
     }
 
     /**

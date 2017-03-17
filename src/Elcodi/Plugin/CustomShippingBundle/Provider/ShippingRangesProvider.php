@@ -19,7 +19,6 @@ namespace Elcodi\Plugin\CustomShippingBundle\Provider;
 
 use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
-use Elcodi\Component\Zone\Services\ZoneMatcher;
 use Elcodi\Plugin\CustomShippingBundle\ElcodiShippingRangeTypes;
 use Elcodi\Plugin\CustomShippingBundle\Entity\Interfaces\CarrierInterface;
 use Elcodi\Plugin\CustomShippingBundle\Entity\Interfaces\ShippingRangeInterface;
@@ -45,27 +44,17 @@ class ShippingRangesProvider
     protected $currencyConverter;
 
     /**
-     * @var ZoneMatcher
-     *
-     * ZoneMatcher
-     */
-    protected $zoneMatcher;
-
-    /**
      * Construct method
      *
      * @param CarrierRepository $carrierRepository Carrier Repository
      * @param CurrencyConverter $currencyConverter Currency Converter
-     * @param ZoneMatcher       $zoneMatcher       Zone matcher
      */
     public function __construct(
         CarrierRepository $carrierRepository,
-        CurrencyConverter $currencyConverter,
-        ZoneMatcher $zoneMatcher
+        CurrencyConverter $currencyConverter
     ) {
         $this->carrierRepository = $carrierRepository;
         $this->currencyConverter = $currencyConverter;
-        $this->zoneMatcher = $zoneMatcher;
     }
 
     /**
@@ -168,7 +157,7 @@ class ShippingRangesProvider
         $shippingRangeToPrice = $shippingRange->getToPrice();
 
         return
-        $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
+        $this->isShippingRangeCountrySatisfiedByCart($cart, $shippingRange) &&
             (
             $this
                 ->currencyConverter
@@ -208,7 +197,7 @@ class ShippingRangesProvider
         }
 
         return
-        $this->isShippingRangeZonesSatisfiedByCart($cart, $shippingRange) &&
+        $this->isShippingRangeCountrySatisfiedByCart($cart, $shippingRange) &&
         is_numeric($cartRangeFromWeight) &&
         is_numeric($cartRangeToWeight) &&
         $cartRangeFromWeight >= 0 &&
@@ -217,32 +206,27 @@ class ShippingRangesProvider
         $cartWeight < $cartRangeToWeight;
     }
 
-    /**
-     * Given ShippingRange zones are satisfied by a cart,
-     *
-     * @param CartInterface          $cart          Cart
-     * @param ShippingRangeInterface $shippingRange Carrier Range
-     *
-     * @return boolean ShippingRange is satisfied by cart
-     */
-    private function isShippingRangeZonesSatisfiedByCart(
+    private function isShippingRangeCountrySatisfiedByCart(
         CartInterface $cart,
         ShippingRangeInterface $shippingRange
     ) {
-        //ritorna true per togliere il controllo delle zone nelle spedizioni
-        return true;
+        $deliveryAddress = $cart->getDeliveryAddress();
+        if ($deliveryAddress === null) {
+            return true;
+        }
 
-        // Righe commentate in quanto al momento non è necessario tenere in considerazione le zone per le spedizioni
-        // $deliveryAddress = $cart->getDeliveryAddress();
-        // $shippingRange->getToZone()->getName();
+        if ($shippingRange->getCountry() === null) {
+            return true;
+        }
 
-        // return
-        //     $deliveryAddress === null ||
-        //     $this
-        //         ->zoneMatcher
-        //         ->isAddressContainedInZone(
-        //             $deliveryAddress,
-        //             $shippingRange->getToZone()
-        //         );
+        if ($deliveryAddress->getCountry() === null) {
+            return true;
+        }
+
+        if ($shippingRange->getCountry()->getId() == $deliveryAddress->getCountry()->getId()) {
+            return true;
+        }
+
+        return false;
     }
 }
