@@ -208,17 +208,30 @@ class OrderController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        $stateLineStack = $this
-            ->get('elcodi.order_payment_states_machine_manager')
-            ->transition(
-                $order,
-                $order->getPaymentStateLineStack(),
-                $transition,
-                ''
-            );
+        // per evitare il fatto che non vengono dispatchati gli eventi da qui:
+        if ($transition == 'pay') {
+            $this->get('paymentsuite.bridge')->setOrder($order);
+            $this
+                ->get('paymentsuite.event_dispatcher')
+                ->notifyPaymentOrderSuccess(
+                    $this->get('paymentsuite.bridge'),
+                    $this
+                        ->get('paymentsuite.freepayment.method_factory')
+                        ->create()
+                );
+        } else {
+            $stateLineStack = $this
+                ->get('elcodi.order_payment_states_machine_manager')
+                ->transition(
+                    $order,
+                    $order->getPaymentStateLineStack(),
+                    $transition,
+                    ''
+                );
 
-        $order->setPaymentStateLineStack($stateLineStack);
-        $this->flush($order);
+            $order->setPaymentStateLineStack($stateLineStack);
+            $this->flush($order);
+        }
 
         return $this->redirect($request->headers->get('referer'));
     }
@@ -258,7 +271,7 @@ class OrderController extends AbstractAdminController
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
-
+        echo "l";die();
         $stateLineStack = $this
             ->get('elcodi.order_shipping_states_machine_manager')
             ->transition(

@@ -19,6 +19,7 @@ namespace Elcodi\Store\CartBundle\EventListener;
 
 use Elcodi\Component\Cart\Event\OrderOnCreatedEvent;
 use Elcodi\Store\PageBundle\EventListener\Abstracts\AbstractEmailSenderEventListener;
+use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 
 /**
  * Class SendOrderConfirmationEmailEventListener
@@ -30,9 +31,10 @@ class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventLi
      *
      * @param OrderOnCreatedEvent $event Event
      */
-    public function sendOrderConfirmationEmail(OrderOnCreatedEvent $event)
+    public function sendOrderConfirmationEmail(PaymentOrderSuccessEvent $event)
     {
-        $order = $event->getOrder();
+        $paymentBridge = $event->getPaymentBridge();
+        $order = $paymentBridge->getOrder();
         $customer = $order->getCustomer();
 
         $this->sendEmail(
@@ -44,4 +46,19 @@ class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventLi
             $customer->getEmail(), true
         );
     }
+
+    //     public function sendOrderConfirmationEmail(OrderOnCreatedEvent $event)
+    // {
+    //     $order = $event->getOrder();
+    //     $customer = $order->getCustomer();
+
+    //     $this->sendEmail(
+    //         'order_confirmation',
+    //         [
+    //             'order' => $order,
+    //             'customer' => $customer,
+    //         ],
+    //         $customer->getEmail(), true
+    //     );
+    // }
 }

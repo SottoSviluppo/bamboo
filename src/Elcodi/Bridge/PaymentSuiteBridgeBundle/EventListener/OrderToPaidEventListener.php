@@ -18,10 +18,9 @@
 namespace Elcodi\Bridge\PaymentSuiteBridgeBundle\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
-
 use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 use Elcodi\Component\StateTransitionMachine\Machine\MachineManager;
+use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
 /**
  * Class OrderToPaidEventListener
