@@ -276,7 +276,7 @@ class OrderController extends AbstractAdminController
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
-        echo "l";die();
+
         $stateLineStack = $this
             ->get('elcodi.order_shipping_states_machine_manager')
             ->transition(
