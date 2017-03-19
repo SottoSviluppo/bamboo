@@ -153,7 +153,12 @@ class OrderController extends AbstractAdminController
 
         $addressFormatter = $this->get('elcodi.formatter.address');
         $deliveryAddress = $order->getDeliveryAddress();
-        $deliveryInfo = $addressFormatter->toArray($deliveryAddress);
+
+        if ($deliveryAddress == null) {
+            $deliveryInfo = 'No delivery address';
+        } else {
+            $deliveryInfo = $addressFormatter->toArray($deliveryAddress);
+        }
 
         $billingAddress = $order->getBillingAddress();
         if ($billingAddress == null) {
