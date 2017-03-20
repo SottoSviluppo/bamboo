@@ -83,6 +83,8 @@ class ShippingRangesProvider
                 )
             );
         }
+        // \Doctrine\Common\Util\Debug::dump($satisfiedShippingRanges);
+        // die();
 
         return $satisfiedShippingRanges;
     }
@@ -210,17 +212,20 @@ class ShippingRangesProvider
         CartInterface $cart,
         ShippingRangeInterface $shippingRange
     ) {
-        $deliveryAddress = $cart->getDeliveryAddress();
-        if ($deliveryAddress === null) {
-            return true;
-        }
-
         if ($shippingRange->getCountry() === null) {
             return true;
         }
 
+        // per ora: se non ho un indirizzo con country e il shipping range è italia lo inserisco.
+        $defaultResult = $shippingRange->getCountry()->getId() == 1;
+
+        $deliveryAddress = $cart->getDeliveryAddress();
+        if ($deliveryAddress === null) {
+            return $defaultResult;
+        }
+
         if ($deliveryAddress->getCountry() === null) {
-            return true;
+            return $defaultResult;
         }
 
         if ($shippingRange->getCountry()->getId() == $deliveryAddress->getCountry()->getId()) {
