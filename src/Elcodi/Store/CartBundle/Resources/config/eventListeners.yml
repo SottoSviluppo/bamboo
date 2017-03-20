@@ -24,4 +24,7 @@ services:
         class: Elcodi\Store\CartBundle\EventListener\SendOrderShippedEmailEventListener
         parent: store.abstract_email_sender_event_listener
         tags:
-            - { name: kernel.event_listener, event: state_machine.order_shipping_states_machine.transition_order ready, method: sendOrderShippedEmail, priority: 0 }
+            - { name: kernel.event_listener, event: state_machine.order_shipping_states_machine.transition_picked up by carrier, method: sendOrderShippedEmail, priority: 0 }
+
+
+
