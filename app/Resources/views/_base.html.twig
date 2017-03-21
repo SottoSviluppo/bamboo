@@ -5,6 +5,11 @@
 {% set current_user_session_sha1 = current_user_session_sha1|sha1 %}
 {% set current_route_name = app.request.get('_route') %}
 
+{# 
+per evitare errori in rotta
+    #}
+{% set current_route_name = current_route_name|replace({'.': '_'}) %}
+
 {% block doctype_and_html %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html lang="{{ app.request.locale }}" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->

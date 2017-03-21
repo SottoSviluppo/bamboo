@@ -13,3 +13,6 @@ monolog:
             level: debug
         console:
             type:  console
+
+paypal_web_checkout:
+    debug: false
