@@ -19,7 +19,6 @@ namespace Elcodi\Plugin\CustomShippingBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Elcodi\Bundle\CoreBundle\DataFixtures\ORM\Abstracts\AbstractFixture;
 use Elcodi\Component\Core\Services\ObjectDirector;
 use Elcodi\Component\Currency\Entity\Interfaces\CurrencyInterface;
@@ -57,19 +56,19 @@ class CarrierData extends AbstractFixture implements DependentFixtureInterface
 
         $entityTranslator->save($carrier, [
             'en' => [
-                'name'        => 'Basic',
+                'name' => 'Basic',
                 'description' => 'Our basic delivery system',
             ],
             'es' => [
-                'name'        => 'Básico',
+                'name' => 'Básico',
                 'description' => 'Nuestro sistema de entrega básico',
             ],
             'fr' => [
-                'name'        => 'Minimale',
+                'name' => 'Minimale',
                 'description' => 'Notre système de livraison basique',
             ],
             'ca' => [
-                'name'        => 'Bàsic',
+                'name' => 'Bàsic',
                 'description' => 'El nostre sistema d\'entrega bàsic',
             ],
         ]);

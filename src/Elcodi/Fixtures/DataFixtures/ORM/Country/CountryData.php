@@ -18,9 +18,7 @@
 namespace Elcodi\Fixtures\DataFixtures\ORM\Country;
 
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Elcodi\Bundle\CoreBundle\DataFixtures\ORM\Abstracts\AbstractFixture;
-use Elcodi\Component\Geo\Entity\Interfaces\AddressInterface;
 
 /**
  * Class CountryData
@@ -37,7 +35,8 @@ class CountryData extends AbstractFixture
         $spain = $this
             ->getFactory('country')
             ->create()
-            ->setName('Spain');
+            ->setName('Spain')
+            ->setEnabled(true);
 
         $manager->persist($spain);
         $this->addReference('spain', $spain);
@@ -45,7 +44,8 @@ class CountryData extends AbstractFixture
         $italy = $this
             ->getFactory('country')
             ->create()
-            ->setName('Italy');
+            ->setName('Italy')
+            ->setEnabled(true);
 
         $manager->persist($italy);
         $this->addReference('italy', $italy);
