@@ -37,7 +37,7 @@ store:
                 
         save:
             response_ok: 'Indirizzo salvato'
-        select_address_type: 'Select a %1 address'
+        select_address_type: 'Scegli un indirizzo di %1'
     coupon:
         applied:
             message_ko: 'Coupon non applicabile'
