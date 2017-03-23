@@ -157,4 +157,21 @@ class OrderController extends Controller
 
     }
 
+    /**
+     *
+     * @Route(
+     *      path = "/restore/fromorder/{id}",
+     *      name = "restore_cart_from_order",
+     *      methods = {"GET"}
+     * )
+     *
+     */
+    public function restoreCartFromOrderAction($id)
+    {
+        $this->get('elcodi.cart_restorer')->restoreCartFromOrderId($id);
+
+        return $this->redirect(
+            $this->generateUrl('store_checkout_address')
+        );
+    }
 }
