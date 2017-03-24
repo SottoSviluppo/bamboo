@@ -46,7 +46,7 @@
                 <td class="ta-r">{{ order.purchasableAmount|print_convert_money }}</td>
             </tr>
 
-            {% if order.couponAmount.greatterThan(0) %}
+            {% if order.couponAmount.amount > 0 %}
                 <tr>
                     <td colspan="3" class="ta-r">{{ 'admin.order.details.discount'|trans }}</td>
                     <td class="ta-r">-{{ order.couponAmount|print_convert_money }}</td>
