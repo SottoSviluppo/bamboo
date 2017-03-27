@@ -251,6 +251,12 @@ fos_elastica:
                                 shortDescription: ~
                                 description: ~
                                 enabled: ~
+                        principalCategory:
+                            type: "object"
+                            properties:
+                                id: ~
+                                name: ~
+                                enabled: ~
                         categories:
                             type: "nested"
                             properties:
