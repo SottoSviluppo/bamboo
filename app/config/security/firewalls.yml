@@ -33,6 +33,7 @@ security:
             provider: customer
             pattern: ^/
             anonymous: true
+            switch_user: true
             form_login:
                 login_path: store_login
                 check_path: store_login_check

@@ -1,0 +1,21 @@
+{% extends '@StoreTemplate/Layout/_layout.html.twig' %}
+
+{% block breadcrumb_container %}
+{% endblock breadcrumb_container %}
+
+{% block content %}
+
+    {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+        <a href="{{ path('elcodi_impersonate', {'_switch_user': '_exit'}) }}">Esci dall'impersonificazione</a>
+    {% else %}
+    <form action="{{ path('elcodi_impersonate') }}" method="POST">
+        <select id="customer" name="customer">
+            {% for customer in customers %}
+                <option value="{{customer.username}}">{{customer.username}}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="button-primary button-fat pv-s mr-l">Impersonifica</button>
+    </form>
+    {% endif %}
+    
+{% endblock content %}
