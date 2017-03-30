@@ -141,7 +141,6 @@ class CategoryController extends Controller
         );
 
         $purchasablesQuery = $purchasableRepository->getAllFromCategories($categories);
-
         $paginator = new Paginator($purchasablesQuery);
 
         $paginator->getQuery()

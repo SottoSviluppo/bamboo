@@ -17,6 +17,7 @@
 
 namespace Elcodi\Store\GeoBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

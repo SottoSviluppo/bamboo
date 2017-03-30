@@ -5,15 +5,13 @@ namespace Elcodi\Store\SearchBundle\Services;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
-use Elastica\Query\Terms;
-use Elastica\Query\Term;
-use Elastica\Query\Range;
 use Elastica\Query\Nested;
-use Elastica\Query\HasChild;
+use Elastica\Query\Range;
+use Elastica\Query\Term;
+use Elastica\Query\Terms;
 use Elastica\Query\Wildcard;
-use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Component\Currency\Entity\Money;
-
+use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
 
 /**
@@ -33,10 +31,10 @@ class StoreSearchService implements IStoreSearchService
     private $productPartialSearch;
     private $categoryPartialSearch;
 
-    function __construct(
-        \Symfony\Component\DependencyInjection\ContainerInterface $container, 
-        $prefix, 
-        $itemsPerPage, 
+    public function __construct(
+        \Symfony\Component\DependencyInjection\ContainerInterface $container,
+        $prefix,
+        $itemsPerPage,
         CurrencyConverter $currencyConverter,
         $categoryDefaultConnector,
         $productPartialSearch,
@@ -70,6 +68,9 @@ class StoreSearchService implements IStoreSearchService
 
         //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
         $productQuery = $this->createQueryForProducts($query, $categories, $priceRange, $categoryConnector);
+
+        // $boolQuery->setSort(array('id' => array('order' => 'asc')));
+
         $adapter = $finder->createPaginatorAdapter($productQuery);
 
         return $this->paginator->paginate($adapter, $page, $limit);
@@ -77,7 +78,7 @@ class StoreSearchService implements IStoreSearchService
 
     private function createFinderFor($type)
     {
-        return $this->container->get('fos_elastica.finder.app.'.$type);
+        return $this->container->get('fos_elastica.finder.app.' . $type);
     }
 
     private function createQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector)
@@ -93,21 +94,21 @@ class StoreSearchService implements IStoreSearchService
 
             $nameQuery = new Match('name', $query);
             if ($this->productPartialSearch) {
-                $nameQuery = new Wildcard('name', '*'.$query.'*');
+                $nameQuery = new Wildcard('name', '*' . $query . '*');
             }
             $fieldsBoolQuery->addShould($nameQuery);
 
             $fieldQuery = new MultiMatch();
             $fieldQuery->setQuery($query);
             $fieldQuery->setFields([
-                'shortDescription', 'description' 
+                'shortDescription', 'description',
             ]);
 
             $fieldsBoolQuery->addShould($fieldQuery);
 
             $skuQuery = new Match('sku', $query);
             if ($this->productPartialSearch) {
-                $skuQuery = new Wildcard('sku', '*'.$query.'*');
+                $skuQuery = new Wildcard('sku', '*' . $query . '*');
             }
 
             $fieldsBoolQuery->addShould($skuQuery);
@@ -116,7 +117,7 @@ class StoreSearchService implements IStoreSearchService
 
             $boolQuery->addMust($fieldsBoolQuery);
         }
-        
+
         if (!empty($categories)) {
             $this->setCategoriesQuery($boolQuery, $categories, $categoryConnector);
         }
@@ -125,7 +126,11 @@ class StoreSearchService implements IStoreSearchService
             $this->setPriceRangeQuery($boolQuery, $priceRange);
         }
 
-        return $boolQuery;
+        // ordina i risultati della ricerca per principalCategory e per id del prodotto
+        $finalQuery = new \Elastica\Query($boolQuery);
+        $finalQuery->setSort(array('principalCategory.name' => array('order' => 'asc'), 'id' => array('order' => 'asc')));
+
+        return $finalQuery;
     }
 
     private function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
@@ -135,7 +140,7 @@ class StoreSearchService implements IStoreSearchService
 
         $categoriesQuery = new BoolQuery();
 
-        $categoryNameQuery = new Wildcard('categories.name', '*'.$query.'*');
+        $categoryNameQuery = new Wildcard('categories.name', '*' . $query . '*');
         if (!$this->categoryPartialSearch) {
             $categoryNameQuery = new Match('categories.name', $query);
         }
@@ -150,7 +155,7 @@ class StoreSearchService implements IStoreSearchService
         $variantsQuery = new MultiMatch();
         $variantsQuery->setQuery($query);
         $variantsQuery->setFields([
-           'variants.shortDescription', 'variants.description' 
+            'variants.shortDescription', 'variants.description',
         ]);
 
         $variantsBool = new BoolQuery();
@@ -158,13 +163,13 @@ class StoreSearchService implements IStoreSearchService
 
         $variantNameQuery = new Match('variants.name', $query);
         if ($this->productPartialSearch) {
-            $variantNameQuery = new Wildcard('variants.name', '*'.$query.'*');
+            $variantNameQuery = new Wildcard('variants.name', '*' . $query . '*');
         }
         $variantsBool->addShould($variantNameQuery);
 
         $variantsSkuQuery = new Match('variants.sku', $query);
         if ($this->productPartialSearch) {
-            $variantsSkuQuery = new Wildcard('variants.sku', '*'.$query.'*');
+            $variantsSkuQuery = new Wildcard('variants.sku', '*' . $query . '*');
         }
         $variantsBool->addShould($variantsSkuQuery);
 
@@ -173,7 +178,7 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addShould($variants);
 
         $manufacturers = new BoolQuery();
-        $manufacturerNameQuery = new Wildcard('manufacturer.name', '*'.$query.'*');
+        $manufacturerNameQuery = new Wildcard('manufacturer.name', '*' . $query . '*');
         if (!$this->categoryPartialSearch) {
             $manufacturerNameQuery = new Match('manufacturer.name', $query);
         }
@@ -183,15 +188,15 @@ class StoreSearchService implements IStoreSearchService
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
-        $priceRange = array_map(function($item) {
+        $priceRange = array_map(function ($item) {
             $item = floatval($item);
-            $money = $this->currencyConverter->convertMoney(Money::create($item*100, $this->currentCurrency), $this->defaultCurrency);
+            $money = $this->currencyConverter->convertMoney(Money::create($item * 100, $this->currentCurrency), $this->defaultCurrency);
 
             return $money->getAmount();
         }, $priceRange);
 
         $range = [
-            'from' => $priceRange[0]
+            'from' => $priceRange[0],
         ];
 
         if (count($priceRange) > 1) {
@@ -206,12 +211,11 @@ class StoreSearchService implements IStoreSearchService
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
-        
+
         $categoriesBool = new BoolQuery();
         if ($categoryConnector == 'or') {
             $categoriesBool->addMust(new Terms('categories.id', $categories));
-        }
-        elseif ($categoryConnector == 'and') {
+        } elseif ($categoryConnector == 'and') {
             foreach ($categories as $category) {
                 $categoryIdNested = new Nested();
                 $categoryIdNested->setPath('categories');
