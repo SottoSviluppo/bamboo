@@ -18,13 +18,12 @@
 namespace Elcodi\Admin\CurrencyBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use Elcodi\Admin\CurrencyBundle\Form\DataMapper\MoneyDataMapper;
 use Elcodi\Component\Core\Wrapper\Interfaces\WrapperInterface;
 use Elcodi\Component\Currency\Entity\Money;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class MoneyType
@@ -66,19 +65,19 @@ class MoneyType extends AbstractType
     {
         $builder
             ->add('amount', 'number', [
-                'scale'  => 2,
+                // 'scale'  => 2,
             ])
             ->add('currency', 'entity', [
-                'class'         => $this->currencyNamespace,
+                'class' => $this->currencyNamespace,
                 'query_builder' => function (EntityRepository $repository) {
                     return $repository
                         ->createQueryBuilder('c')
                         ->where('c.enabled = :enabled')
                         ->setParameter('enabled', true);
                 },
-                'required'      => true,
-                'multiple'      => false,
-                'property'      => 'symbol',
+                'required' => true,
+                'multiple' => false,
+                'property' => 'symbol',
             ])
             ->setDataMapper(new MoneyDataMapper());
     }

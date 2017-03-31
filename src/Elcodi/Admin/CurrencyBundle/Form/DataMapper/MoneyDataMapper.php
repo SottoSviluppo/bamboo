@@ -17,11 +17,10 @@
 
 namespace Elcodi\Admin\CurrencyBundle\Form\DataMapper;
 
+use Elcodi\Component\Currency\Entity\Money;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\FormInterface;
-
-use Elcodi\Component\Currency\Entity\Money;
 
 /**
  * Class MoneyDataMapper
@@ -41,7 +40,7 @@ class MoneyDataMapper implements DataMapperInterface
         foreach ($forms as $form) {
             switch ($form->getName()) {
                 case 'amount':
-                    $form->setData(bcdiv($data->getAmount(), 100, 2));
+                    $form->setData(bcdiv($data->getAmount(), $data->getCurrency()->getDivideBy(), $data->getCurrency()->getPrecision()));
                     break;
                 case 'currency':
                     $form->setData($data->getCurrency());
@@ -62,7 +61,7 @@ class MoneyDataMapper implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
         $data = Money::create(
-            bcmul($forms['amount']->getData(), 100),
+            bcmul($forms['amount']->getData(), $forms['currency']->getData()->getDivideBy()),
             $forms['currency']->getData()
         );
     }

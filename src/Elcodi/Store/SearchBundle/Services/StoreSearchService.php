@@ -190,7 +190,7 @@ class StoreSearchService implements IStoreSearchService
     {
         $priceRange = array_map(function ($item) {
             $item = floatval($item);
-            $money = $this->currencyConverter->convertMoney(Money::create($item * 100, $this->currentCurrency), $this->defaultCurrency);
+            $money = $this->currencyConverter->convertMoney(Money::create($item * $this->currentCurrency->getDivideBy(), $this->currentCurrency), $this->defaultCurrency);
 
             return $money->getAmount();
         }, $priceRange);
