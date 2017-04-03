@@ -43,7 +43,7 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
         'canRead' => false,
         'canCreate' => false,
         'canUpdate' => false,
-        'canDelete' => false
+        'canDelete' => false,
     ];
 
     /**
@@ -67,7 +67,7 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
             'canRead' => $this->permissionsRepository->canReadEntity($this->resource, $this->currentUser),
             'canCreate' => $this->permissionsRepository->canCreateEntity($this->resource, $this->currentUser),
             'canUpdate' => $this->permissionsRepository->canUpdateEntity($this->resource, $this->currentUser),
-            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser)
+            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser),
         ];
     }
 
@@ -81,7 +81,7 @@ class OrdersNotShippedBuilder extends AbstractMenuBuilder implements MenuBuilder
         if ($this->permissions['canRead']) {
             $subnode = $menu->findSubnodeByName('admin.order.plural');
             if (!empty($subnode)) {
-                $subnode->setWarnings($this->getNonShippedOrdersCount());
+                // $subnode->setWarnings($this->getNonShippedOrdersCount());
             }
         }
     }

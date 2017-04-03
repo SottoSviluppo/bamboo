@@ -45,7 +45,7 @@ class MenuController extends Controller
             ->loadMenuByCode('admin');
 
         return [
-            'menu'  => $menu,
+            'menu' => $menu,
             'route' => $this
                 ->get('request_stack')
                 ->getMasterRequest()
