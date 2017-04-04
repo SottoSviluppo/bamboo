@@ -35,7 +35,7 @@
         <li{% if type == 3 %} class="active"{% endif %}>
             <a title="tab 3" href="{{ url("admin_reports_last_week") }}">
                 <span class='dashboard-tabs-range'>{{ 'admin.dashboard.chart_range.last7days'|trans }}</span>
-                {% set lastWeekIntervalContainer = metric_create_interval_container(1) %}
+                {% set lastWeekIntervalContainer = metric_create_interval_container(3) %}
                 <span class='dashboard-tabs-amount'>
                     {{ metric_accumulation(store.tracker, 'order_total', lastWeekIntervalContainer.elements)|print_money_from_value }}
                 </span>
