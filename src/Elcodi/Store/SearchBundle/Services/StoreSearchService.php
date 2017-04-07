@@ -131,13 +131,16 @@ class StoreSearchService implements IStoreSearchService
         }
 
         // ordina i risultati della ricerca per principalCategory e per id del prodotto
-        //$finalQuery = new Query($boolQuery);
-        /*$finalQuery->setSort(array(
-            'principalCategory.name' => array('order' => 'asc'), 
-            'id' => array('order' => 'asc')
-        ));*/
+        $finalQuery = new Query($boolQuery);
 
-        return $boolQuery;
+        if (empty($query) and !empty($categories)) {
+            $finalQuery->setSort(array(
+                'principalCategory.name' => array('order' => 'asc'), 
+                'id' => array('order' => 'asc')
+            ));
+        }
+
+        return $finalQuery;
     }
 
     /*private function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
