@@ -10,6 +10,9 @@ use Elastica\Query\Range;
 use Elastica\Query\Term;
 use Elastica\Query\Terms;
 use Elastica\Query\Wildcard;
+use Elastica\Query\Filtered;
+use Elastica\Query\QueryString;
+use Elastica\Query;
 use Elcodi\Component\Currency\Entity\Money;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
@@ -90,7 +93,7 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addFilter($enableQuery);
 
         if (!empty($query)) {
-            $fieldsBoolQuery = new BoolQuery();
+            /*$fieldsBoolQuery = new BoolQuery();
 
             $nameQuery = new Match('name', $query);
             if ($this->productPartialSearch) {
@@ -113,9 +116,10 @@ class StoreSearchService implements IStoreSearchService
 
             $fieldsBoolQuery->addShould($skuQuery);
 
-            $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);
+            $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);*/
+            $queryString = new QueryString('*'.$query.'*');
 
-            $boolQuery->addMust($fieldsBoolQuery);
+            $boolQuery->addMust($queryString);
         }
 
         if (!empty($categories)) {
@@ -127,13 +131,16 @@ class StoreSearchService implements IStoreSearchService
         }
 
         // ordina i risultati della ricerca per principalCategory e per id del prodotto
-        $finalQuery = new \Elastica\Query($boolQuery);
-        $finalQuery->setSort(array('principalCategory.name' => array('order' => 'asc'), 'id' => array('order' => 'asc')));
+        //$finalQuery = new Query($boolQuery);
+        /*$finalQuery->setSort(array(
+            'principalCategory.name' => array('order' => 'asc'), 
+            'id' => array('order' => 'asc')
+        ));*/
 
-        return $finalQuery;
+        return $boolQuery;
     }
 
-    private function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
+    /*private function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
     {
         $categories = new Nested();
         $categories->setPath('categories');
@@ -184,7 +191,7 @@ class StoreSearchService implements IStoreSearchService
         }
         $manufacturers->addShould($manufacturerNameQuery);
         $boolQuery->addShould($manufacturers);
-    }
+    }*/
 
     private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
