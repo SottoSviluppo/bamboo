@@ -23,7 +23,7 @@
         class: 'email',
         rows: [
         { name: 'admin.mailing.field.title.title'|trans },
-        { name: 'Action' },
+        { name: 'admin.mailing.field.action.title'|trans  },
         ],
     } %}
 
@@ -39,7 +39,7 @@
     </td>
     <td>
         <a href="{{ url('admin_email_send', { id: entity.id }) }}" class="button-primary">
-            invia email
+            {{ 'admin.mailing.field.action.send_email'|trans }}
         </a>
     </td>
 
