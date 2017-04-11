@@ -9,20 +9,21 @@
 {% block title 'admin.mailing.list'|trans %}
 
 
-{% block no_items
+    {% block no_items
     lists.no_items(
-        'admin.mailing.single'|trans,
-        'admin.mailing.plural'|trans
+    'admin.mailing.single'|trans,
+    'admin.mailing.plural'|trans
     )
-%}
+    %}
 
 
-{% block table_head %}
+    {% block table_head %}
 
-    {% include '@AdminCore/Tables/head.html.twig' with {
+        {% include '@AdminCore/Tables/head.html.twig' with {
         class: 'email',
         rows: [
-            { name: 'admin.mailing.field.title.title'|trans },
+        { name: 'admin.mailing.field.title.title'|trans },
+        { name: 'Action' },
         ],
     } %}
 
@@ -34,6 +35,11 @@
     <td>
         <a href="{{ url('admin_email_edit', { id: entity.id }) }}">
             {{ entity.title }}
+        </a>
+    </td>
+    <td>
+        <a href="{{ url('admin_email_send', { id: entity.id }) }}" class="button-primary">
+            invia email
         </a>
     </td>
 
