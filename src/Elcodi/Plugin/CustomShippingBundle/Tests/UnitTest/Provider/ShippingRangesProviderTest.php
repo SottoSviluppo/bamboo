@@ -29,6 +29,7 @@ use Elcodi\Plugin\CustomShippingBundle\Entity\Interfaces\ShippingRangeInterface;
 use Elcodi\Plugin\CustomShippingBundle\Provider\ShippingRangesProvider;
 use Elcodi\Plugin\CustomShippingBundle\Repository\CarrierRepository;
 use PHPUnit_Framework_TestCase;
+// use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 
 /**
@@ -246,11 +247,7 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
                     ->willReturn('price-shipping-range-id');
                 $priceShippingRange
                     ->getCountry()
-                    ->willReturn(
-                        $this
-                            ->prophesize('Elcodi\Component\Geo\Entity\Country')
-                            ->reveal()
-                    );
+                    ->willReturn(null);
                 $priceShippingRange
                     ->getCarrier()
                     ->willReturn($carrier);
@@ -283,11 +280,7 @@ class ShippingRangesProviderTest extends PHPUnit_Framework_TestCase
                     ->willReturn('weight-shipping-range-id');
                 $weightShippingRange
                     ->getCountry()
-                    ->willReturn(
-                        $this
-                            ->prophesize('Elcodi\Component\Geo\Entity\Country')
-                            ->reveal()
-                    );
+                    ->willReturn(null);
                 $weightShippingRange
                     ->getCarrier()
                     ->willReturn($carrier);
