@@ -506,6 +506,9 @@ admin:
             title:
                 placeholder: 'e.g. My Awesome Mailing'
                 title: Title
+            action:
+                title: Actions
+                send_email: "Test email"
         list: 'Mailing list'
         new: 'Create new mailing'
         plural: Mailings

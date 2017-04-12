@@ -19,6 +19,7 @@ namespace Elcodi\Admin\PageBundle\Controller;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
+use Elcodi\Component\User\Entity\Customer;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -138,5 +139,63 @@ class EmailController extends AbstractAdminController
             'email' => $email,
             'form' => $form->createView(),
         ];
+    }
+
+    /**
+     * Edit and Saves page
+     *
+     * @param FormInterface $form    Form
+     * @param PageInterface $email   Email
+     * @param boolean       $isValid Is valid
+     *
+     * @return RedirectResponse Redirect response
+     *
+     * @Route(
+     *      path = "/{id}/send-test",
+     *      name = "admin_email_send",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"GET"}
+     * )
+     * @EntityAnnotation(
+     *      class = {
+     *          "factory" = "elcodi.factory.page",
+     *          "method" = "create",
+     *          "static" = false
+     *      },
+     *      mapping = {
+     *          "id" = "~id~",
+     *          "type" = \Elcodi\Component\Page\ElcodiPageTypes::TYPE_EMAIL,
+     *      },
+     *      name = "email",
+     *      persist = true
+     * )
+     *
+     * @Template
+     */
+    public function sendTestEmailAction(
+        PageInterface $email
+    ) {
+
+        if ($email->getName() == "order_confirmation" || $email->getName() == "order_shipped") {
+            $order = $this->get('elcodi.repository.order')->findBy(array(), array('id' => 'desc'), 1);
+            $customer = $order[0]->getCustomer();
+            $context = ['order' => $order[0], 'customer' => $customer];
+        } else {
+            $customer = new Customer();
+            $customer->setFirstname('Customer');
+            $customer->setEmail('customer@customer.com');
+            $context = ['customer' => $customer];
+        }
+
+        $this->get('elcodi_store.mailer.sender')->send(
+            $email->getName(),
+            $context,
+            'info@sottosviluppo.com',
+            false
+        );
+
+        return $this->redirectToRoute('admin_email_list');
     }
 }
