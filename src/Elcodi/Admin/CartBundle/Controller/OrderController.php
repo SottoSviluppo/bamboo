@@ -49,7 +49,7 @@ class OrderController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "s/{page}/{limit}/{orderByField}/{orderByDirection}",
+     *      path = "s/all/{page}/{limit}/{orderByField}/{orderByDirection}",
      *      name = "admin_order_list",
      *      requirements = {
      *          "page" = "\d*",
@@ -81,6 +81,107 @@ class OrderController extends AbstractAdminController
             'limit' => $limit,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
+            'state' => 'all',
+        ];
+    }
+
+    /**
+     * List elements of certain entity type.
+     *
+     * This action is just a wrapper, so should never get any data,
+     * as this is component responsibility
+     *
+     * @param integer $page             Page
+     * @param integer $limit            Limit of items per page
+     * @param string  $orderByField     Field to order by
+     * @param string  $orderByDirection Direction to order by
+     *
+     * @return array Result
+     *
+     * @Route(
+     *      path = "s/paid/{page}/{limit}/{orderByField}/{orderByDirection}",
+     *      name = "admin_order_list_paid",
+     *      requirements = {
+     *          "page" = "\d*",
+     *          "limit" = "\d*",
+     *      },
+     *      defaults = {
+     *          "page" = "1",
+     *          "limit" = "50",
+     *          "orderByField" = "id",
+     *          "orderByDirection" = "DESC",
+     *      },
+     *      methods = {"GET"}
+     * )
+     * @Template("AdminCartBundle:Order:list.html.twig")
+     */
+    public function listPaidAction(
+        $page,
+        $limit,
+        $orderByField,
+        $orderByDirection
+    ) {
+        if (!$this->canRead()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
+            'orderByDirection' => $orderByDirection,
+            'state' => 'paid',
+        ];
+    }
+
+    /**
+     * List elements of certain entity type.
+     *
+     * This action is just a wrapper, so should never get any data,
+     * as this is component responsibility
+     *
+     * @param integer $page             Page
+     * @param integer $limit            Limit of items per page
+     * @param string  $orderByField     Field to order by
+     * @param string  $orderByDirection Direction to order by
+     *
+     * @return array Result
+     *
+     * @Route(
+     *      path = "s/unpaid/{page}/{limit}/{orderByField}/{orderByDirection}",
+     *      name = "admin_order_list_unpaid",
+     *      requirements = {
+     *          "page" = "\d*",
+     *          "limit" = "\d*",
+     *      },
+     *      defaults = {
+     *          "page" = "1",
+     *          "limit" = "50",
+     *          "orderByField" = "id",
+     *          "orderByDirection" = "DESC",
+     *      },
+     *      methods = {"GET"}
+     * )
+     * @Template("AdminCartBundle:Order:list.html.twig")
+     */
+    public function listUnpaidAction(
+        $page,
+        $limit,
+        $orderByField,
+        $orderByDirection
+    ) {
+        if (!$this->canRead()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        return [
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
+            'orderByDirection' => $orderByDirection,
+            'state' => 'unpaid',
         ];
     }
 

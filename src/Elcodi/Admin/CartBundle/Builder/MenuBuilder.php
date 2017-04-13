@@ -35,10 +35,10 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
         'canRead' => false,
         'canCreate' => false,
         'canUpdate' => false,
-        'canDelete' => false
+        'canDelete' => false,
     ];
 
-    function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
+    public function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
     {
         parent::__construct($menuNodeFactory);
         $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
@@ -48,7 +48,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
             'canRead' => $this->permissionsRepository->canReadEntity($this->resource, $this->currentUser),
             'canCreate' => $this->permissionsRepository->canCreateEntity($this->resource, $this->currentUser),
             'canUpdate' => $this->permissionsRepository->canUpdateEntity($this->resource, $this->currentUser),
-            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser)
+            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser),
         ];
     }
 
@@ -60,17 +60,45 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
     public function build(MenuInterface $menu)
     {
         $node = $this
-                    ->menuNodeFactory
-                    ->create()
-                    ->setName('admin.order.plural');
-                    
+            ->menuNodeFactory
+            ->create()
+            ->setName('admin.order.plural');
+
         if ($this->permissions['canRead']) {
             $node
                 ->setCode('shopping-cart')
                 ->setUrl('admin_order_list')
                 ->setTag('order')
-                ->setPriority(16);
+                ->setPriority(16)
 
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('Pagati')
+                        ->setCode('bullhorn')
+                        ->setUrl('admin_order_list_paid')
+                        ->setTag('communication')
+                )
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('Non pagati')
+                        ->setCode('bullhorn')
+                        ->setUrl('admin_order_list_unpaid')
+                        ->setTag('communication')
+                )
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('Tutti')
+                        ->setCode('bullhorn')
+                        ->setUrl('admin_order_list')
+                        ->setTag('communication')
+                )
+            ;
             $activeUrls = [
                 'admin_customer_order_list',
                 'admin_customer_order_list',
@@ -79,7 +107,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
             if ($this->permissions['canUpdate']) {
                 $activeUrls[] = 'admin_order_edit';
             }
-            
+
             $menu
                 ->addSubnode($node->setActiveUrls($activeUrls));
         }

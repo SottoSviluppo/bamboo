@@ -18,14 +18,12 @@
 namespace Elcodi\Admin\CartBundle\Controller\Component;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
-use Mmoreram\ControllerExtraBundle\Annotation\Paginator as PaginatorAnnotation;
 use Mmoreram\ControllerExtraBundle\ValueObject\PaginatorAttributes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 
 /**
  * Class OrderComponentsController
@@ -52,7 +50,7 @@ class OrderComponentController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "s/component/{page}/{limit}/{orderByField}/{orderByDirection}",
+     *      path = "s/component/{page}/{limit}/{orderByField}/{orderByDirection}/{state}",
      *      name = "admin_order_list_component",
      *      requirements = {
      *          "page" = "\d*",
@@ -68,33 +66,64 @@ class OrderComponentController extends AbstractAdminController
      * )
      * @Template("AdminCartBundle:Order:listComponent.html.twig")
      *
-     * @PaginatorAnnotation(
-     *      attributes = "paginatorAttributes",
-     *      class = "elcodi.entity.order.class",
-     *      page = "~page~",
-     *      limit = "~limit~",
-     *      orderBy = {
-     *          {"x", "~orderByField~", "~orderByDirection~"}
-     *      }
-     * )
      */
     public function listComponentAction(
-        Paginator $paginator,
-        PaginatorAttributes $paginatorAttributes,
         $page,
         $limit,
         $orderByField,
-        $orderByDirection
+        $orderByDirection,
+        $state
     ) {
+        $ordersRepository = $this->get('elcodi.repository.order');
+        $queryBuilder = $ordersRepository->createQueryBuilder('o');
+        $queryBuilder->innerJoin('o.paymentLastStateLine', 'p');
+        $queryBuilder->orderBy('p.id', 'DESC');
+
+        if ($state != 'all') {
+            $queryBuilder->where("p.name = '$state'");
+        }
+
+        $paginator = new Paginator($queryBuilder, true);
+        $offset = $limit * ($page - 1);
+        $paginator
+            ->getQuery()
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        $paginatorAttributes = $this->evaluateAttributes($paginator, $limit, $page);
+
         return [
-            'paginator'        => $paginator,
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'paginator' => $paginator,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
-            'totalPages'       => $paginatorAttributes->getTotalPages(),
-            'totalElements'    => $paginatorAttributes->getTotalElements(),
+            'totalPages' => $paginatorAttributes->getTotalPages(),
+            'totalElements' => $paginatorAttributes->getTotalElements(),
         ];
+    }
+
+    protected function evaluateAttributes(
+        // Request $request,
+        // AnnotationPaginator $annotation,
+        Paginator $paginator,
+        $limitPerPage,
+        $page
+    ) {
+        $paginatorAttributes = new PaginatorAttributes();
+        $total = $paginator->count();
+
+        $paginatorAttributes
+            ->setCurrentPage($page)
+            ->setLimitPerPage($limitPerPage)
+            ->setTotalElements($total)
+            ->setTotalPages(ceil($total / $limitPerPage));
+
+        // $request->attributes->set(
+        //     trim($annotation->getAttributes()),
+        //     $paginatorAttributes
+        // );
+        return $paginatorAttributes;
     }
 
     /**
