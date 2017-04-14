@@ -171,6 +171,9 @@
         "classmap": [
             "app/AppKernel.php",
             "app/AppCache.php"
+        ],
+        "files": [
+            "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
         ]
     },
     "config": {
