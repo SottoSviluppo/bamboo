@@ -5,6 +5,7 @@ imports:
     - { resource: firewalls.yml }
     - { resource: accessControl.yml }
     - { resource: permission_rules.yml }
+    - { resource: permission_rules_custom.yml, ignore_errors: true }
 
     #
     # Bamboo store & admin imported security

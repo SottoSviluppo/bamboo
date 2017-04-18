@@ -9,6 +9,7 @@
 /app/config/config_ignored.yml
 /app/config/enabled_bundles.yml
 /app/config/security/security_custom.yml
+/app/config/security/permission_rules_custom.yml
 /app/logs/*
 /app/Resources/uploads/
 /build/
