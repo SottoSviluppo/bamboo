@@ -96,6 +96,7 @@ class OrderComponentController extends AbstractAdminController
             'paginator' => $paginator,
             'page' => $page,
             'limit' => $limit,
+            'state' => $state,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
             'totalPages' => $paginatorAttributes->getTotalPages(),
