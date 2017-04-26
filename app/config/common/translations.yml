@@ -54,3 +54,7 @@ elcodi_entity_translator:
             idGetter: getIso
             fields:
                 name: ~
+        Elcodi\Admin\SocialBundle\Entity\Interfaces\SocialInterface:
+            alias: social
+            fields:
+                url: ~

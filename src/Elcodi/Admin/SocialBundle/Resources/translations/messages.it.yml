@@ -17,9 +17,12 @@ admin:
       enabled:
         title: Abilitato
     section:
+      translatable:
+        title: Dati con traduzione
+        description: I dati da tradurre nelle varie lingue
       nontranslatable:
-        title: Dati
-        description: Dati generici del social media
+        title: Dati senza traduzione
+        description: Dati senza traduzione
       images:
         description: ''
         title: Immagini

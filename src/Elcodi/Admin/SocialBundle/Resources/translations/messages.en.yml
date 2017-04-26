@@ -16,7 +16,14 @@ admin:
         placeholder: ''
       enabled:
         title: Enabled
+      created_at:
+        title: Created
+      updated_at:
+        title: Updated
     section:
+      translatable:
+        title: Translated data
+        description: Data to translate
       nontranslatable:
         title: Data
         description: Generic social media data
