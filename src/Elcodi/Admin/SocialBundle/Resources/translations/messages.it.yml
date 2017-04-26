@@ -41,3 +41,6 @@ elcodi_Admin:
   social:
     name: Social
     description: 
+  menu:
+    social:
+      name: Gestione social
