@@ -1,0 +1,2 @@
+src/Elcodi/**/Tests export-ignore
+src/Elcodi/**/Test  export-ignore
