@@ -174,7 +174,7 @@
             "app/AppCache.php"
         ],
         "exclude-from-classmap": [
-            "/**/Test*/"
+            "/**/Test/", "/**/Tests/"
         ]
     },
     "autoload-dev": {
