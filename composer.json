@@ -172,9 +172,6 @@
         "classmap": [
             "app/AppKernel.php",
             "app/AppCache.php"
-        ],
-        "exclude-from-classmap": [
-            "/**/Test/", "/**/Tests/"
         ]
     },
     "autoload-dev": {
