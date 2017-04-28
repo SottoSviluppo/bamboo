@@ -29,3 +29,11 @@ search_admin_manufacturers:
 search_admin_component_manufacturers:
     path: /search/manufacturers/component/{query}/{page}/{limit}
     defaults: { _controller: AdminSearchBundle:ManufacturerComponent:listComponent, limit: null }
+
+search_admin_coupons:
+    path: /search/coupons
+    defaults: { _controller: AdminSearchBundle:Search:searchCoupons }
+
+search_admin_component_coupons:
+    path: /search/coupons/component/{query}/{page}/{limit}
+    defaults: { _controller: AdminSearchBundle:CouponComponent:listComponent, limit: null }

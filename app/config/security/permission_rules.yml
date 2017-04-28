@@ -24,7 +24,7 @@ parameters:
         Elcodi\Admin\ProductBundle\Controller\ProductController: ['product']
         Elcodi\Admin\ProductBundle\Controller\VariantController: ['product']
         Elcodi\Admin\RuleBundle\Controller\RuleController: ['rule']
-        Elcodi\Admin\SearchBundle\Controller\SearchController: ['product', 'order', 'customer', 'manufacturer']
+        Elcodi\Admin\SearchBundle\Controller\SearchController: ['product', 'order', 'customer', 'manufacturer', 'coupon']
         Elcodi\Admin\StoreBundle\Controller\StoreController: ['store']
         Elcodi\Admin\TaxBundle\Controller\TaxController: ['tax']
         Elcodi\Admin\TemplateBundle\Controller\TemplateController: ['template']

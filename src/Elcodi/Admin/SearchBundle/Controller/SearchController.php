@@ -170,4 +170,38 @@ class SearchController extends AbstractAdminController
             'limit' => $limit
         ];
     }
+
+    /**
+    * @Template("AdminSearchBundle:Search:coupons.html.twig")
+    */
+    public function searchCouponsAction()
+    {
+        if (!$this->canRead('coupon')) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        $request = $this->getRequest();
+        $query = $request->query->get('q');
+
+        if(empty($query)){
+            return $this->redirect($this->generateUrl('admin_coupon_list'));
+        }
+
+        $page = $request->query->get('page');
+        if (empty($page)) {
+            $page = 1;
+        }
+        
+        $limit = $request->query->get('limit');
+        if (empty($limit)) {
+            $limit = null;
+        }
+
+        return [
+            'query' => $query,
+            'page' => $page,
+            'limit' => $limit
+        ];
+    }
 }
