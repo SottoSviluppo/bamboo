@@ -88,6 +88,19 @@ class AdminSearchService implements IAdminSearchService
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
+    public function searchCoupons($query, $page = 1, $limit = null)
+    {
+        $finder = $this->createFinderFor('coupons');
+        
+        if (empty($limit)) {
+            $limit = $this->itemsPerPage;
+        }
+        $this->limit = $limit;
+
+        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        return $this->paginator->paginate($adapter, $page, $limit);
+    }
+
     public function getLimit()
     {
         return $this->limit;

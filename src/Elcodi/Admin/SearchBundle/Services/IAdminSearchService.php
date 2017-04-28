@@ -12,5 +12,7 @@ interface IAdminSearchService
 
     function searchManufacturers($query, $page = 1, $limit = null);
 
+    function searchCoupons($query, $page = 1, $limit = null);
+
     function getLimit();
 }

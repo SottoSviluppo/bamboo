@@ -331,6 +331,17 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+                coupons:
+                    mappings:
+                        code: ~
+                        name: ~
+                        color: ~
+                    persistence:
+                        driver: orm
+                        model: Elcodi\Component\Coupon\Entity\Coupon
+                        provider: ~
+                        listener: ~
+                        finder: ~
 
 ivory_ck_editor:
     default_config: my_config

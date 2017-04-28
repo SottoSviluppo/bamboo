@@ -12,8 +12,7 @@
 {% block no_items
     lists.no_items(
         'admin.coupon.single'|trans,
-        'admin.coupon.plural'|trans,
-        url('admin_coupon_new')
+        'admin.coupon.plural'|trans
     )
 %}
 
@@ -81,7 +80,6 @@
 
 {% block table_paginator_links %}
 
-    {% set url = 'admin_coupon_list' %}
-    {{ parent() }}
+    {{ knp_pagination_render(paginator) }}
 
 {% endblock table_paginator_links %}

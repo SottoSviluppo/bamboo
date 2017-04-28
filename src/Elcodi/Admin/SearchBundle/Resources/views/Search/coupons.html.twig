@@ -1,0 +1,43 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'coupon',
+} %}
+
+
+{% block breadcrumb %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.coupon.plural'|trans, active: true }
+        ],
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block header_actions %}
+
+    <a href="{{ url('admin_coupon_new') }}" class="button-primary">
+        <i class="icon-plus"></i> <span>{{ 'admin.coupon.new'|trans }}</span>
+    </a>
+
+{% endblock header_actions %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{
+                render(url('search_admin_component_coupons', {
+                    query: query,
+                    page: page,
+                    limit: limit
+                }))
+            }}
+        </div>
+    </div>
+
+{% endblock content %}
