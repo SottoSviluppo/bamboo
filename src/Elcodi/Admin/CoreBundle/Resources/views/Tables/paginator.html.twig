@@ -22,13 +22,11 @@
 {% if first_middle_group_element < 1 %}
     {% set first_middle_group_element = 1 %}
 {% endif %}
-{% set last_middle_group_element = first_middle_group_element + middle_group_length + 1 %}
+{% set last_middle_group_element = first_middle_group_element + (2 * middle_group_length) %}
 {% if last_middle_group_element > total_pages %}
     {% set last_middle_group_element = total_pages %}
     {% set first_middle_group_element = last_middle_group_element - (2 * middle_group_length) %}
 {% endif %}
-
-
 
 <nav class="pagination">
     <ul>
