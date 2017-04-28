@@ -64,7 +64,7 @@
                     limit: limit,
                     orderByField: orderByField,
                     orderByDirection: orderByDirection
-                }) }}"{% endif %}>
+                }) }}"{% endif %} {% if current_iterated_page == page %} style="background-color: #ccc"{% endif %}>
                     {{ current_iterated_page }}
                 </a>
             </li>
