@@ -31,3 +31,4 @@ parameters:
         Elcodi\Admin\UserBundle\Controller\AdminUserController: ['user']
         Elcodi\Admin\UserBundle\Controller\CustomerController: ['customer']
         Elcodi\Admin\PermissionsBundle\Controller\PermissionsController: ['permissions']
+    permissions_custom: ~
