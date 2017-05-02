@@ -365,8 +365,11 @@ admin:
             discount:
                 title: '% Importo'
 
+            uses:
+                title: Utilizzi / disponibilità
+
             enabled:
-                title: Stato
+                title: Abilitato
 
             enforcement:
                 options:
@@ -392,7 +395,7 @@ admin:
                 title: 'Questo coupon può essere applicato assieme ad altri coupon'
 
             status:
-                title: Stato
+                title: Abilitato
 
             type:
                 options:

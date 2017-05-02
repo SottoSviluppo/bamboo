@@ -37,7 +37,7 @@
         rows: [
             { name: 'admin.coupon.field.code.title'|trans },
             { name: 'admin.coupon.field.description.title'|trans, width: 40 },
-            { name: 'admin.coupon.field.rule.title'|trans, width: 20 },
+            { name: 'admin.coupon.field.uses.title'|trans, width: 20 },
             { name: 'admin.coupon.field.status.title'|trans, width: 10 },
         ],
         class: 'coupon',
@@ -57,11 +57,13 @@
         {{ entity.name }}
     </td>
     <td>
-        {% if entity.rule %}
+{#         {% if entity.rule %}
             {{ entity.rule.name }}
         {% else %}
             -
-        {% endif %}
+        {% endif %} #}
+
+        {{entity.used}}/{{entity.count}}
     </td>
     <td>
         {% if entity.enabled %}
