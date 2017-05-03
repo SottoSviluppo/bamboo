@@ -83,6 +83,7 @@ store:
                     label: 'Conferma password'
                 send:
                     label: Invia
+        error: "Indirizzo email non valido, cliente non trovato."
     user:
         form:
             fields:
