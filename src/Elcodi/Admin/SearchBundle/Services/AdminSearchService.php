@@ -8,6 +8,7 @@ use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Nested;
 use Elastica\Query\Range;
+use Elastica\Util;
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
 /**
@@ -97,7 +98,7 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+        $adapter = $finder->createPaginatorAdapter('*' . Util::escapeTerm($query) . '*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 

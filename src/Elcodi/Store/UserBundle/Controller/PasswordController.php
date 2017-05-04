@@ -74,6 +74,8 @@ class PasswordController extends Controller
 
             if ($emailFound) {
                 return $this->redirectToRoute('store_password_recover_sent');
+            } else {
+                $this->addFlash('error', $this->get('translator')->trans('store.recovery.error'));
             }
         }
 

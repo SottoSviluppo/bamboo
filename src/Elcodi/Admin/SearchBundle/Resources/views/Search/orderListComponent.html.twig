@@ -58,9 +58,14 @@
         {% include 'AdminCartBundle:Order:date.html.twig' with { date: entity.createdAt } %}
     </td>
     <td>
-        <a href="{{ url('admin_customer_edit', { id: entity.customer.id }) }}">
-            {{ entity.customer }}
-        </a>
+        {% if entity.customer is not null %}
+            <a href="{{ url('admin_customer_edit', { id: entity.customer.id }) }}">
+                {{ entity.customer }}
+            </a>
+        {% else %}
+            Cliente non definito
+        {% endif %}
+
     </td>
     <td>
         <span class="label label-warning">

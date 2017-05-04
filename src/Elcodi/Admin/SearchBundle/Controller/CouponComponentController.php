@@ -24,7 +24,7 @@ class CouponComponentController extends AbstractAdminController
     }
 
     /**
-     * @Template("AdminCouponBundle:Coupon:listComponent.html.twig")
+     * @Template("AdminSearchBundle:Search:couponListComponent.html.twig")
      */
     public function listComponentAction($query, $page, $limit = null)
     {

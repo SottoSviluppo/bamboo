@@ -83,6 +83,7 @@ store:
                     label: 'Repeat password'
                 send:
                     label: Send
+        error: "Email not valid, customer not found."
     user:
         form:
             fields:
