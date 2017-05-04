@@ -47,8 +47,8 @@ class OrderComponentController extends AbstractAdminController
             $query = null;
         }
 
-        $dateRange = $this->getRange($dateFrom, $dateTo);
-        $idRange = $this->getRange($idFrom, $idTo);
+        $dateRange = $this->service->getRange($dateFrom, $dateTo);
+        $idRange = $this->service->getRange($idFrom, $idTo);
 
         $this->service->setPage($page);
         $this->service->setLimit($limit);
@@ -87,20 +87,6 @@ class OrderComponentController extends AbstractAdminController
             $template,
             $results
         );
-
     }
 
-    private function getRange($dateFrom, $dateTo)
-    {
-        $dateRange = [];
-        if (!empty($dateFrom)) {
-            $dateRange['from'] = $dateFrom;
-        }
-
-        if (!empty($dateTo)) {
-            $dateRange['to'] = $dateTo;
-        }
-        return $dateRange;
-
-    }
 }

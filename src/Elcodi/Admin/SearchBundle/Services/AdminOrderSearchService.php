@@ -189,6 +189,20 @@ class AdminOrderSearchService
         return $this->addMatch('addressDelivery.country.id', $countryId);
     }
 
+    public function getRange($dateFrom, $dateTo)
+    {
+        $dateRange = [];
+        if (!empty($dateFrom)) {
+            $dateRange['from'] = $dateFrom;
+        }
+
+        if (!empty($dateTo)) {
+            $dateRange['to'] = $dateTo;
+        }
+        return $dateRange;
+
+    }
+
     public function addMatch($name, $value)
     {
         if (empty($value)) {
