@@ -198,4 +198,32 @@ class EmailController extends AbstractAdminController
 
         return $this->redirectToRoute('admin_email_list');
     }
+
+    /**
+     * @Route(
+     *      path = "/{id}/send-order-confirmation",
+     *      name = "admin_email_send_order_confirmation",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"GET"}
+     * )
+     */
+    public function sendOrderConfirmationAction(
+        $id
+    ) {
+        $email = $this->get('elcodi.repository.page')->findOneByName('order_confirmation');
+        $order = $this->get('elcodi.repository.order')->find($id);
+        $customer = $order->getCustomer();
+        $context = ['order' => $order, 'customer' => $customer];
+
+        $this->get('elcodi_store.mailer.sender')->send(
+            $email->getName(),
+            $context,
+            'info@sottosviluppo.com',
+            false
+        );
+
+        return $this->redirectToRoute('admin_order_edit', ['id' => $id]);
+    }
 }

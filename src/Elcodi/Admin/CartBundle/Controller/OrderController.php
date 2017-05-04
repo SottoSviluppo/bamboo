@@ -218,10 +218,6 @@ class OrderController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        // echo $order
-        //     ->getShippingStateLineStack()
-        //     ->getLastStateLine()->getName();
-
         $nextPaymentTransitions = $this
             ->get('elcodi.order.payment_states_machine')
             ->getAvailableStates(

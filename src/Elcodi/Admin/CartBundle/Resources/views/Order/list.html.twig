@@ -18,17 +18,8 @@
 
 
 {% block content %}
-{# 
-    {{
-        render(url('admin_order_list_component', {
-            page: page,
-            limit: limit,
-            orderByField: orderByField,
-            orderByDirection: orderByDirection,
-        }))
-    }} #}
 
-     {{
+    {{
         render(url('search_admin_component_orders', {
             query: query,
             page: page,

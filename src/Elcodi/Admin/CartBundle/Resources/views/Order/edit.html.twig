@@ -35,6 +35,10 @@
         <span>{{ 'admin.order.notes'|trans }}</span>
     </a>
 
+    <a href="{{ url('admin_email_send_order_confirmation', { id: order.id }) }}" class="button-primary">
+        Reinvia mail di conferma
+    </a>
+
 {% endblock header_actions %}
 
 
