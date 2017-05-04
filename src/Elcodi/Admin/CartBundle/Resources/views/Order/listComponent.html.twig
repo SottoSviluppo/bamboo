@@ -163,7 +163,10 @@
 
 
 {% block table_paginator_links %}
-    {% if state == 'paid' %}
+
+        {{ knp_pagination_render(paginator) }}
+        
+  {#   {% if state == 'paid' %}
         {% set url = 'admin_order_list_paid' %}
     {% elseif state == 'unpaid' %}
         {% set url = 'admin_order_list_unpaid' %}
@@ -171,5 +174,5 @@
         {% set url = 'admin_order_list' %}
     {% endif %}
     {{ parent() }}
-
+ #}
 {% endblock table_paginator_links %}

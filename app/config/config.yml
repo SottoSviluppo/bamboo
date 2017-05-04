@@ -287,6 +287,7 @@ fos_elastica:
                         finder: ~
                 orders:
                     mappings:
+                        id: ~
                         createdAt: { type: date }
                         customer:
                             type: object
@@ -294,6 +295,27 @@ fos_elastica:
                                 email: ~
                                 firstName: ~
                                 lastName: ~
+                        paymentLastStateLine:
+                            type: object
+                            properties:
+                                id: ~
+                                name: ~
+                        shippingLastStateLine:
+                            type: object
+                            properties:
+                                name: ~
+                        paymentMethod:
+                            type: object
+                            properties:
+                                name: ~
+                        deliveryAddress:
+                            type: object
+                            properties:
+                                country:
+                                    type: object
+                                    properties:
+                                        id: ~
+                                        name: ~
                         orderLines:
                             type: "nested"
                             properties:

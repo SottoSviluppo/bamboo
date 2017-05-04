@@ -81,7 +81,6 @@ class OrderController extends AbstractAdminController
             'limit' => $limit,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
-            'state' => 'all',
         ];
     }
 
@@ -99,7 +98,7 @@ class OrderController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "s/paid/{page}/{limit}/{orderByField}/{orderByDirection}",
+     *      path = "s-paid/{page}/{limit}/{orderByField}/{orderByDirection}",
      *      name = "admin_order_list_paid",
      *      requirements = {
      *          "page" = "\d*",
@@ -127,11 +126,12 @@ class OrderController extends AbstractAdminController
         }
 
         return [
+            'query' => '_',
+            'orderState' => 'paid',
             'page' => $page,
             'limit' => $limit,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
-            'state' => 'paid',
         ];
     }
 
@@ -177,11 +177,12 @@ class OrderController extends AbstractAdminController
         }
 
         return [
+            'query' => '_',
+            'orderState' => 'unpaid',
             'page' => $page,
             'limit' => $limit,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
-            'state' => 'unpaid',
         ];
     }
 
