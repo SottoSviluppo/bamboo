@@ -41,7 +41,7 @@ class SearchController extends AbstractAdminController
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
-        if(empty($query)){
+        if (empty($query)) {
             return $this->redirect($this->generateUrl('admin_product_list'));
         }
 
