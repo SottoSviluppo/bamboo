@@ -15,11 +15,94 @@
 %}
 
 {% block search_form %}
-    <form class="search-form" method="GET" action="{{ path('search_admin_orders') }}">
-        <div>
-            <input type="text" name="q" class="form-control" value="{{ query }}" placeholder="Search Orders" style="width:40rem;">
-            <input type="date" name="datefrom" class="form-control" placeholder="From" title="From" value="{{ dateRange['from'] }}" />
-            <input type="date" name="dateto" class="form-control" placeholder="To" title="To" value="{{ dateRange['to'] }}" />
+    <form class="search-form" method="GET" class="form" action="{{ path('search_admin_orders') }}">
+        <div class="box pb-n">
+            <ol>
+                <li class="col-1-1">
+                    <span class="mini-box">
+                        <label>
+                        Ricerca libera
+                        </label>
+                        <input type="text" name="q"  value="{{ query }}" placeholder="Ricerca ordini" style="width:20rem;">
+                    </span>
+                    <span class="mini-box">
+                        <label>
+                        Dalla data
+                        </label>
+                            <input type="date" name="datefrom"  placeholder="From" title="From" value="{{ dateRange['from'] }}" />
+                        </select>
+                    </span>
+                    <span class="mini-box">
+                        <label>
+                        Alla data
+                        </label>
+                            <input type="date" name="dateto"  placeholder="To" title="To" value="{{ dateRange['to'] }}" />
+                        </select>
+                    </span>
+                </li>
+
+                <li class="col-1-3">
+                    <div class="mini-box">
+                        <label>
+                        Stato ordine
+                        </label>
+                        <select name="orderState" class="filter" >
+                            <option value="">Tutti</option>
+                            <option value="paid" {% if orderState == 'paid' %} selected{% endif %}>Pagato</option>
+                            <option value="unpaid" {% if orderState == 'unpaid' %} selected{% endif %}>Non pagato</option>
+                        </select>
+                    </div>
+                </li>
+
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    Spedizione
+                    <select name="shippingState" class="filter" >
+                        <option value="">Tutti</option>
+                        <option value="preparing" {% if shippingState == 'preparing' %} selected{% endif %}>Nuovo</option>
+                        <option value="processed" {% if shippingState == 'processed' %} selected{% endif %}>In elaborazione</option>
+                        <option value="in delivery" {% if shippingState == 'in delivery' %} selected{% endif %}>Spedito</option>
+                    </select>
+                    </div>
+                </li>
+
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    Metodo pagamento
+                    <select name="paymentMethod" class="filter">
+                        <option value="">Tutti</option>
+                        <option value="elcodi_plugin.free_payment.name" {% if paymentMethod == 'elcodi_plugin.free_payment.name' %} selected{% endif %}>Pagamento gratuito</option>
+                        <option value="elcodi_plugin.paypal_web_checkout.name" {% if paymentMethod == 'elcodi_plugin.paypal_web_checkout.name' %} selected{% endif %}>PayPal</option>
+                        <option value="elcodi_plugin.payment_setefi.name" {% if paymentMethod == 'elcodi_plugin.payment_setefi.name' %} selected{% endif %}>Setefi</option>
+                    </select>
+                    </div>
+                </li>
+
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    Email cliente
+                    <input type="text" name="customerEmail" class="form-control" placeholder="Email" title="Email" value="{{ customerEmail }}" style="width:10rem" />
+                    </div>
+                </li>
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    Dall'ordine
+                    <input type="text" name="idFrom" class="form-control" placeholder="Da ordine #" title="Da ordine #" value="{{ idRange['from'] }}" style="width:10rem" />
+                    </div>
+                </li>
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    All'ordine
+                    <input type="text" name="idTo" class="form-control" placeholder="A ordine #" title="A ordine #" value="{{ idRange['to'] }}" style="width:10rem" />
+                    </div>
+                </li>
+            </ol>
+
+
+
+            {% block search_form_custom %}
+            {% endblock search_form_custom %}
+
             <span class="input-group-btn">
                 <button class="search-btn button-primary" type="submit">
                     <i class="icon-search"></i>
@@ -63,7 +146,6 @@
         {% else %}
             Cliente non definito
         {% endif %}
-
     </td>
     <td>
         <span class="label label-warning">

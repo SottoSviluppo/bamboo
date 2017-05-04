@@ -19,13 +19,31 @@
 
 {% block content %}
 
-    {{
+{#     {{
         render(url('admin_order_list_component', {
             page: page,
             limit: limit,
             orderByField: orderByField,
             orderByDirection: orderByDirection,
             state: state,
+        }))
+    }}
+ #}
+
+     {{
+        render(url('search_admin_component_orders', {
+            query: query,
+            page: page,
+            limit: limit,
+            dateFrom: dateFrom,
+            dateTo: dateTo,
+            orderState: orderState,
+            shippingState: shippingState,
+            customerEmail: customerEmail,
+            paymentMethod: paymentMethod,
+            idFrom: idFrom,
+            idTo: idTo,
+            template: template,
         }))
     }}
 
