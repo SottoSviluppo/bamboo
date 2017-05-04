@@ -217,12 +217,19 @@ class EmailController extends AbstractAdminController
         $customer = $order->getCustomer();
         $context = ['order' => $order, 'customer' => $customer];
 
+        if ($this->getRequest()->getHost() == 'tonki.filcronet.it') {
+            $this->addFlash('error', 'Email non inviata in quanto in ambiente di staging');
+            return $this->redirectToRoute('admin_order_edit', ['id' => $id]);
+        }
+
         $this->get('elcodi_store.mailer.sender')->send(
             $email->getName(),
             $context,
-            'info@sottosviluppo.com',
-            false
+            $customer->getEmail(),
+            true
         );
+
+        $this->addFlash('success', $this->get('translator')->trans('recover_user.action.email_sent.title'));
 
         return $this->redirectToRoute('admin_order_edit', ['id' => $id]);
     }
