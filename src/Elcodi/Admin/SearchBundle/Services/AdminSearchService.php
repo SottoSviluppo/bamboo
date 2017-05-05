@@ -2,13 +2,13 @@
 
 namespace Elcodi\Admin\SearchBundle\Services;
 
+use DateTime;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
-use Elastica\Query\Range;
 use Elastica\Query\Nested;
-use DateTime;
-
+use Elastica\Query\Range;
+use Elastica\Util;
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
 /**
@@ -23,7 +23,7 @@ class AdminSearchService implements IAdminSearchService
 
     private $limit;
 
-    function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
+    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
     {
         $this->container = $container;
         $this->prefix = $prefix;
@@ -42,20 +42,21 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     public function searchOrders($query, $page = 1, $limit = null, array $dateRange = array())
     {
         $finder = $this->createFinderFor('orders');
-        
+
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
         }
         $this->limit = $limit;
 
         $orderQuery = $this->createQueryForOrder($query, $dateRange);
+
         $adapter = $finder->createPaginatorAdapter($orderQuery);
 
         //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
@@ -65,39 +66,39 @@ class AdminSearchService implements IAdminSearchService
     public function searchCustomers($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('customers');
-        
+
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     public function searchManufacturers($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('manufacturers');
-        
+
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
     public function searchCoupons($query, $page = 1, $limit = null)
     {
         $finder = $this->createFinderFor('coupons');
-        
+
         if (empty($limit)) {
             $limit = $this->itemsPerPage;
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+        $adapter = $finder->createPaginatorAdapter('*' . Util::escapeTerm($query) . '*');
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
@@ -108,7 +109,7 @@ class AdminSearchService implements IAdminSearchService
 
     private function createFinderFor($type)
     {
-        return $this->container->get('fos_elastica.finder.app.'.$type);
+        return $this->container->get('fos_elastica.finder.app.' . $type);
     }
 
     private function createQueryForOrder($query, array $dateRange = array())
@@ -122,12 +123,12 @@ class AdminSearchService implements IAdminSearchService
             $fieldQuery = new MultiMatch();
             $fieldQuery->setQuery($query);
             $fieldQuery->setFields([
-                'customer.email', 'customer.firstName', 'customer.lastName' 
+                'customer.email', 'customer.firstName', 'customer.lastName',
             ]);
 
             $fieldsBoolQuery->addShould($fieldQuery);
             $this->setNestedQueryForOrder($fieldsBoolQuery, $query);
-            
+
             $boolQuery->addMust($fieldsBoolQuery);
         }
 
@@ -142,14 +143,14 @@ class AdminSearchService implements IAdminSearchService
     {
         $orderItems = new Nested();
         $orderItems->setPath('orderLines');
-        
+
         $products = new BoolQuery();
 
         $fieldsBoolQuery = new BoolQuery();
         $fieldQuery = new MultiMatch();
         $fieldQuery->setQuery($query);
         $fieldQuery->setFields([
-            'orderLines.purchasable.name', 'orderLines.purchasable.sku', 'orderLines.purchasable.shortDescription', 'orderLines.purchasable.description' 
+            'orderLines.purchasable.name', 'orderLines.purchasable.sku', 'orderLines.purchasable.shortDescription', 'orderLines.purchasable.description',
         ]);
 
         $fieldsBoolQuery->addShould($fieldQuery);
@@ -165,7 +166,7 @@ class AdminSearchService implements IAdminSearchService
         $fieldsBoolQuery->addShould($categories);
 
         $products->addMust($fieldsBoolQuery);
-        
+
         $orderItems->setQuery($products);
         $boolQuery->addShould($orderItems);
     }

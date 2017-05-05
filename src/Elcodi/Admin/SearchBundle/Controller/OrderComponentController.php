@@ -3,6 +3,9 @@
 namespace Elcodi\Admin\SearchBundle\Controller;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Paginator as PaginatorAnnotation;
@@ -11,49 +14,81 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormView;
 
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Product\Entity\Interfaces\ProductInterface;
-
 class OrderComponentController extends AbstractAdminController
 {
+    // use TemplateRenderTrait;
+
     private $service;
 
-    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container=null)
+    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
     {
         parent::setContainer($container);
-        $this->service = $this->get('elcodi_admin.admin_search');
+        $this->service = $this->get('elcodi_admin.order.admin_search');
     }
 
-    /**
-    * @Template("AdminCartBundle:Order:listComponent.html.twig")
-    */
-    public function listComponentAction($query, $page, $limit, $dateFrom = null, $dateTo = null)
+    public function listComponentAction($query, $page, $limit)
     {
+        $request = $this->get('request');
+
+        $orderState = $request->get('orderState');
+        $shippingState = $request->get('shippingState');
+        $customerEmail = $request->get('customerEmail');
+        $paymentMethod = $request->get('paymentMethod');
+        $dateFrom = $request->get('dateFrom');
+        $dateTo = $request->get('dateTo');
+        $idFrom = $request->get('idFrom');
+        $idTo = $request->get('idTo');
+        $countryId = $request->get('countryId', 0);
+        $template = $request->get('template', 'AdminCartBundle:Order:listComponent.html.twig');
+        // var_dump($request->request->all()); //POST
+        // var_dump($request->query->all()); //GET
+        // die();
+
         if ($query === "_") {
             $query = null;
         }
 
-        $dateRange = [];
-        if (!empty($dateFrom)) {
-            $dateRange['from'] = $dateFrom;
-        }
+        $dateRange = $this->service->getRange($dateFrom, $dateTo);
+        $idRange = $this->service->getRange($idFrom, $idTo);
 
-        if (!empty($dateTo)) {
-            $dateRange['to'] = $dateTo;
-        }
+        $this->service->setPage($page);
+        $this->service->setLimit($limit);
+        $this->service->addQuery($query);
+        $this->service->addDateRange($dateRange);
+        $this->service->addOrderPaymentState($orderState);
+        $this->service->addOrderShippingState($shippingState);
+        $this->service->addIdRange($idRange);
+        $this->service->addCustomerEmail($customerEmail);
+        $this->service->addOrderPaymentMethod($paymentMethod);
+        $this->service->addCountry($countryId);
 
-        $orders = $this->service->searchOrders($query, $page, $limit, $dateRange);
-        return [
-                'query' => $query,
-                'dateFrom' => $dateFrom,
-                'dateTo' => $dateTo,
-                'paginator' => $orders,
-                'page' => $page,
-                'limit' => $this->service->getLimit(),
-                'orderByField' => '',
-                'orderByDirection' => '',
-                'totalPages' => ceil($orders->getTotalItemCount()/$this->service->getLimit()),
-                'totalElements'=> $orders->getTotalItemCount(),
-            ];
+        // $this->service->printDebug();
+
+        $orders = $this->service->getPaginator();
+
+        $results = [
+            'query' => $query,
+            'dateRange' => $dateRange,
+            'orderState' => $orderState,
+            'shippingState' => $shippingState,
+            'countryId' => $countryId,
+            'customerEmail' => $customerEmail,
+            'paymentMethod' => $paymentMethod,
+            'template' => $template,
+            'idRange' => $idRange,
+            'paginator' => $orders,
+            'page' => $page,
+            'limit' => $this->service->getLimit(),
+            'orderByField' => 'id',
+            'orderByDirection' => 'DESC',
+            'totalPages' => ceil($orders->getTotalItemCount() / $this->service->getLimit()),
+            'totalElements' => $orders->getTotalItemCount(),
+        ];
+
+        return $this->render(
+            $template,
+            $results
+        );
     }
+
 }

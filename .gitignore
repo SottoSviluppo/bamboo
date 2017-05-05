@@ -21,6 +21,7 @@
 /vagrant/Vagrantfile
 /.vscode/
 composer.lock
+composer_custom.json
 
 src/Elcodi/Plugin/*
 !src/Elcodi/Plugin/BankwireBundle/
