@@ -2,18 +2,17 @@
 
 namespace Elcodi\Admin\SearchBundle\Controller;
 
-use Mmoreram\ControllerExtraBundle\Annotation\Entity as AnnotationEntity;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
 use Elcodi\Component\Product\Repository\CategoryRepository;
 use Elcodi\Component\Product\Repository\PurchasableRepository;
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Mmoreram\ControllerExtraBundle\Annotation\Entity as AnnotationEntity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Defines all the search methods on admin
@@ -22,15 +21,15 @@ class SearchController extends AbstractAdminController
 {
     private $service;
 
-    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container=null)
+    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
     {
         parent::setContainer($container);
         $this->service = $this->get('elcodi_admin.admin_search');
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:products.html.twig")
-    */
+     * @Template("AdminSearchBundle:Search:products.html.twig")
+     */
     public function searchProductsAction()
     {
         if (!$this->canRead('product')) {
@@ -49,22 +48,22 @@ class SearchController extends AbstractAdminController
         if (empty($page)) {
             $page = 1;
         }
-        
+
         $limit = $request->query->get('limit');
         if (empty($limit)) {
             $limit = null;
         }
-        
+
         return [
             'query' => $query,
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
         ];
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:orders.html.twig")
-    */
+     * @Template("AdminCartBundle:Order:list.html.twig")
+     */
     public function searchOrdersAction()
     {
         if (!$this->canRead('order')) {
@@ -83,7 +82,7 @@ class SearchController extends AbstractAdminController
         if (empty($page)) {
             $page = 1;
         }
-        
+
         $limit = $request->query->get('limit');
         if (empty($limit)) {
             $limit = $this->getParameter('item_for_page');
@@ -91,19 +90,35 @@ class SearchController extends AbstractAdminController
 
         $dateFrom = $request->query->get('datefrom');
         $dateTo = $request->query->get('dateto');
+        $orderState = $request->query->get('orderState');
+        $countryId = $request->query->get('countryId');
+        $shippingState = $request->query->get('shippingState');
+        $customerEmail = $request->query->get('customerEmail');
+        $paymentMethod = $request->query->get('paymentMethod');
+        $template = $request->query->get('template');
+        $idFrom = $request->query->get('idFrom');
+        $idTo = $request->query->get('idTo');
 
         return [
             'query' => $query,
             'page' => $page,
             'limit' => $limit,
             'dateFrom' => $dateFrom,
-            'dateTo' => $dateTo
+            'dateTo' => $dateTo,
+            'orderState' => $orderState,
+            'shippingState' => $shippingState,
+            'customerEmail' => $customerEmail,
+            'paymentMethod' => $paymentMethod,
+            'template' => $template,
+            'idFrom' => $idFrom,
+            'idTo' => $idTo,
+            'countryId' => $countryId,
         ];
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:customers.html.twig")
-    */
+     * @Template("AdminSearchBundle:Search:customers.html.twig")
+     */
     public function searchCustomersAction()
     {
         if (!$this->canRead('customer')) {
@@ -114,7 +129,7 @@ class SearchController extends AbstractAdminController
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
-        if(empty($query)){
+        if (empty($query)) {
             return $this->redirect($this->generateUrl('admin_customer_list'));
         }
 
@@ -122,7 +137,7 @@ class SearchController extends AbstractAdminController
         if (empty($page)) {
             $page = 1;
         }
-        
+
         $limit = $request->query->get('limit');
         if (empty($limit)) {
             $limit = null;
@@ -131,15 +146,15 @@ class SearchController extends AbstractAdminController
         return [
             'query' => $query,
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
             /*'count' => count($products),
-            'purchasables' => $products,*/
+        'purchasables' => $products,*/
         ];
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:manufacturers.html.twig")
-    */
+     * @Template("AdminSearchBundle:Search:manufacturers.html.twig")
+     */
     public function searchManufacturersAction()
     {
         if (!$this->canRead('manufacturer')) {
@@ -150,7 +165,7 @@ class SearchController extends AbstractAdminController
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
-        if(empty($query)){
+        if (empty($query)) {
             return $this->redirect($this->generateUrl('admin_manufacturer_list'));
         }
 
@@ -158,7 +173,7 @@ class SearchController extends AbstractAdminController
         if (empty($page)) {
             $page = 1;
         }
-        
+
         $limit = $request->query->get('limit');
         if (empty($limit)) {
             $limit = null;
@@ -167,13 +182,13 @@ class SearchController extends AbstractAdminController
         return [
             'query' => $query,
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
         ];
     }
 
     /**
-    * @Template("AdminSearchBundle:Search:coupons.html.twig")
-    */
+     * @Template("AdminSearchBundle:Search:coupons.html.twig")
+     */
     public function searchCouponsAction()
     {
         if (!$this->canRead('coupon')) {
@@ -184,7 +199,7 @@ class SearchController extends AbstractAdminController
         $request = $this->getRequest();
         $query = $request->query->get('q');
 
-        if(empty($query)){
+        if (empty($query)) {
             return $this->redirect($this->generateUrl('admin_coupon_list'));
         }
 
@@ -192,7 +207,7 @@ class SearchController extends AbstractAdminController
         if (empty($page)) {
             $page = 1;
         }
-        
+
         $limit = $request->query->get('limit');
         if (empty($limit)) {
             $limit = null;
@@ -201,7 +216,7 @@ class SearchController extends AbstractAdminController
         return [
             'query' => $query,
             'page' => $page,
-            'limit' => $limit
+            'limit' => $limit,
         ];
     }
 }
