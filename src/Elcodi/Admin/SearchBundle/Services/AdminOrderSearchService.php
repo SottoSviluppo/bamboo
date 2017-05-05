@@ -186,7 +186,7 @@ class AdminOrderSearchService
 
     public function addCountry($countryId)
     {
-        return $this->addMatch('addressDelivery.country.id', $countryId);
+        return $this->addMatch('deliveryAddress.country.id', $countryId);
     }
 
     public function getRange($dateFrom, $dateTo)

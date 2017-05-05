@@ -38,6 +38,7 @@ class OrderComponentController extends AbstractAdminController
         $dateTo = $request->get('dateTo');
         $idFrom = $request->get('idFrom');
         $idTo = $request->get('idTo');
+        $countryId = $request->get('countryId', 0);
         $template = $request->get('template', 'AdminCartBundle:Order:listComponent.html.twig');
         // var_dump($request->request->all()); //POST
         // var_dump($request->query->all()); //GET
@@ -59,7 +60,7 @@ class OrderComponentController extends AbstractAdminController
         $this->service->addIdRange($idRange);
         $this->service->addCustomerEmail($customerEmail);
         $this->service->addOrderPaymentMethod($paymentMethod);
-        $this->service->addCountry(0); //WTF
+        $this->service->addCountry($countryId);
 
         // $this->service->printDebug();
 
@@ -70,6 +71,7 @@ class OrderComponentController extends AbstractAdminController
             'dateRange' => $dateRange,
             'orderState' => $orderState,
             'shippingState' => $shippingState,
+            'countryId' => $countryId,
             'customerEmail' => $customerEmail,
             'paymentMethod' => $paymentMethod,
             'template' => $template,

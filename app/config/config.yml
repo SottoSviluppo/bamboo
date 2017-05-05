@@ -316,6 +316,13 @@ fos_elastica:
                                     properties:
                                         id: ~
                                         name: ~
+                        billingAddress:
+                            type: object
+                            properties:
+                                country:
+                                    type: object
+                                    properties:
+                                        id: ~
                         orderLines:
                             type: "nested"
                             properties:

@@ -91,6 +91,7 @@ class SearchController extends AbstractAdminController
         $dateFrom = $request->query->get('datefrom');
         $dateTo = $request->query->get('dateto');
         $orderState = $request->query->get('orderState');
+        $countryId = $request->query->get('countryId');
         $shippingState = $request->query->get('shippingState');
         $customerEmail = $request->query->get('customerEmail');
         $paymentMethod = $request->query->get('paymentMethod');
@@ -111,6 +112,7 @@ class SearchController extends AbstractAdminController
             'template' => $template,
             'idFrom' => $idFrom,
             'idTo' => $idTo,
+            'countryId' => $countryId,
         ];
     }
 
