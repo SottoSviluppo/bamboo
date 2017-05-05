@@ -77,6 +77,7 @@ class OrderController extends AbstractAdminController
         }
 
         return [
+            'query' => '_',
             'page' => $page,
             'limit' => $limit,
             'orderByField' => $orderByField,
