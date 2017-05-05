@@ -17,12 +17,11 @@
 
 namespace Elcodi\Admin\UserBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\User\ElcodiUserProperties;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\User\ElcodiUserProperties;
 
 /**
  * Class CustomerType
@@ -85,9 +84,9 @@ class CustomerType extends AbstractType
     {
         $builder
             ->setMethod('POST')
-            ->add('username', 'text', [
-                'required' => true,
-            ])
+            // ->add('username', 'hidden', [
+            //     'required' => true,
+            // ])
             ->add('email', 'email', [
                 'required' => true,
             ])
@@ -110,26 +109,26 @@ class CustomerType extends AbstractType
                 'required' => false,
             ])
             ->add('gender', 'choice', [
-                'choices'  => [
+                'choices' => [
                     ElcodiUserProperties::GENDER_MALE => 'admin.user.field.gender.options.male',
                     ElcodiUserProperties::GENDER_FEMALE => 'admin.user.field.gender.options.female',
                 ],
                 'required' => true,
             ])
             ->add('language', 'entity', [
-                'class'    => $this->languageNamespace,
+                'class' => $this->languageNamespace,
                 'property' => 'name',
                 'required' => true,
             ])
             ->add('tax', 'entity', [
-                'class'    => $this->taxNamespace,
+                'class' => $this->taxNamespace,
                 'property' => 'name',
                 'required' => false,
             ])
             ->add('birthday', 'date', [
                 'required' => false,
-                'widget'   => 'single_text',
-                'format'   => 'yyyy-MM-dd',
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
             ])
             ->add('phone', 'text', [
                 'required' => false,
