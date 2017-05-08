@@ -106,7 +106,7 @@ class CustomerType extends AbstractType
                 'required' => false,
             ])
             ->add('fiscalCode', 'text', [
-                'required' => false,
+                'required' => true,
             ])
             ->add('gender', 'choice', [
                 'choices' => [
