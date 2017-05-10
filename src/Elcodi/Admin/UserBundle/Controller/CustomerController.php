@@ -170,18 +170,25 @@ class CustomerController extends AbstractAdminController
                 return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
+        if ($form->getErrorsAsString() == "") {
+            if ($isValid) {
+                $this->flush($customer);
 
-        if ($isValid) {
-            $this->flush($customer);
+                $this->addFlash(
+                    'success',
+                    $this
+                        ->get('translator')
+                        ->trans('admin.customer.saved')
+                );
+
+                return $this->redirectToRoute('admin_customer_list');
+            }
+        } else {
 
             $this->addFlash(
-                'success',
-                $this
-                    ->get('translator')
-                    ->trans('admin.customer.saved')
+                'error',
+                $form->getErrorsAsString()
             );
-
-            return $this->redirectToRoute('admin_customer_list');
         }
 
         return [
