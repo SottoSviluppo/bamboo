@@ -269,7 +269,7 @@ fos_elastica:
                                 name: ~
                     persistence:
                         driver: orm
-                        model: Elcodi\Component\Product\Entity\Product
+                        model: %elcodi.entity.product.class%
                         provider: ~
                         listener: ~
                         finder: ~
@@ -281,7 +281,7 @@ fos_elastica:
                         lastName: ~
                     persistence:
                         driver: orm
-                        model: Elcodi\Component\User\Entity\Customer
+                        model: %elcodi.entity.customer.class%
                         provider: ~
                         listener: ~
                         finder: ~
@@ -346,7 +346,7 @@ fos_elastica:
                                                 name: ~
                     persistence:
                         driver: orm
-                        model: Elcodi\Component\Cart\Entity\Order
+                        model: %elcodi.entity.order.class%
                         provider: ~
                         listener: ~
                         finder: ~
@@ -356,7 +356,7 @@ fos_elastica:
                         description: ~
                     persistence:
                         driver: orm
-                        model: Elcodi\Component\Product\Entity\Manufacturer
+                        model: %elcodi.entity.manufacturer.class%
                         provider: ~
                         listener: ~
                         finder: ~
@@ -367,10 +367,11 @@ fos_elastica:
                         color: ~
                     persistence:
                         driver: orm
-                        model: Elcodi\Component\Coupon\Entity\Coupon
+                        model: %elcodi.entity.coupon.class%
                         provider: ~
                         listener: ~
                         finder: ~
+
 
 ivory_ck_editor:
     default_config: my_config
