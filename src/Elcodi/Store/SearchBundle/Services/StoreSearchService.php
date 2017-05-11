@@ -2,17 +2,17 @@
 
 namespace Elcodi\Store\SearchBundle\Services;
 
+use Elastica\Query;
 use Elastica\Query\BoolQuery;
+use Elastica\Query\Filtered;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
 use Elastica\Query\Nested;
+use Elastica\Query\QueryString;
 use Elastica\Query\Range;
 use Elastica\Query\Term;
 use Elastica\Query\Terms;
 use Elastica\Query\Wildcard;
-use Elastica\Query\Filtered;
-use Elastica\Query\QueryString;
-use Elastica\Query;
 use Elcodi\Component\Currency\Entity\Money;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
@@ -22,17 +22,17 @@ use Elcodi\Store\SearchBundle\Services\IStoreSearchService;
  */
 class StoreSearchService implements IStoreSearchService
 {
-    private $container;
-    private $prefix;
-    private $paginator;
-    private $itemsPerPage;
-    private $currencyConverter;
-    private $currencyRepository;
-    private $currentCurrency;
-    private $defaultCurrency;
-    private $categoryDefaultConnector;
-    private $productPartialSearch;
-    private $categoryPartialSearch;
+    protected $container;
+    protected $prefix;
+    protected $paginator;
+    protected $itemsPerPage;
+    protected $currencyConverter;
+    protected $currencyRepository;
+    protected $currentCurrency;
+    protected $defaultCurrency;
+    protected $categoryDefaultConnector;
+    protected $productPartialSearch;
+    protected $categoryPartialSearch;
 
     public function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container,
@@ -79,12 +79,29 @@ class StoreSearchService implements IStoreSearchService
         return $this->paginator->paginate($adapter, $page, $limit);
     }
 
-    private function createFinderFor($type)
+    protected function createFinderFor($type)
     {
         return $this->container->get('fos_elastica.finder.app.' . $type);
     }
 
-    private function createQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector)
+    protected function createQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector)
+    {
+        $boolQuery = $this->getBoolQueryForProducts($query, $categories, $priceRange, $categoryConnector);
+
+        // ordina i risultati della ricerca per principalCategory e per id del prodotto
+        $finalQuery = new Query($boolQuery);
+
+        if (empty($query) and !empty($categories)) {
+            $finalQuery->setSort(array(
+                'principalCategory.name' => array('order' => 'asc'),
+                'id' => array('order' => 'asc'),
+            ));
+        }
+
+        return $finalQuery;
+    }
+
+    protected function getBoolQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector)
     {
         $boolQuery = new BoolQuery();
 
@@ -97,27 +114,27 @@ class StoreSearchService implements IStoreSearchService
 
             $nameQuery = new Match('name', $query);
             if ($this->productPartialSearch) {
-                $nameQuery = new Wildcard('name', '*' . $query . '*');
+            $nameQuery = new Wildcard('name', '*' . $query . '*');
             }
             $fieldsBoolQuery->addShould($nameQuery);
 
             $fieldQuery = new MultiMatch();
             $fieldQuery->setQuery($query);
             $fieldQuery->setFields([
-                'shortDescription', 'description',
+            'shortDescription', 'description',
             ]);
 
             $fieldsBoolQuery->addShould($fieldQuery);
 
             $skuQuery = new Match('sku', $query);
             if ($this->productPartialSearch) {
-                $skuQuery = new Wildcard('sku', '*' . $query . '*');
+            $skuQuery = new Wildcard('sku', '*' . $query . '*');
             }
 
             $fieldsBoolQuery->addShould($skuQuery);
 
             $this->setNestedQueriesForProduct($fieldsBoolQuery, $query);*/
-            $queryString = new QueryString('*'.$query.'*');
+            $queryString = new QueryString('*' . $query . '*');
 
             $boolQuery->addMust($queryString);
         }
@@ -129,74 +146,63 @@ class StoreSearchService implements IStoreSearchService
         if (!empty($priceRange)) {
             $this->setPriceRangeQuery($boolQuery, $priceRange);
         }
-
-        // ordina i risultati della ricerca per principalCategory e per id del prodotto
-        $finalQuery = new Query($boolQuery);
-
-        if (empty($query) and !empty($categories)) {
-            $finalQuery->setSort(array(
-                'principalCategory.name' => array('order' => 'asc'), 
-                'id' => array('order' => 'asc')
-            ));
-        }
-
-        return $finalQuery;
+        return $boolQuery;
     }
 
-    /*private function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
+    /*protected function setNestedQueriesForProduct(BoolQuery $boolQuery, $query)
     {
-        $categories = new Nested();
-        $categories->setPath('categories');
+    $categories = new Nested();
+    $categories->setPath('categories');
 
-        $categoriesQuery = new BoolQuery();
+    $categoriesQuery = new BoolQuery();
 
-        $categoryNameQuery = new Wildcard('categories.name', '*' . $query . '*');
-        if (!$this->categoryPartialSearch) {
-            $categoryNameQuery = new Match('categories.name', $query);
-        }
-        $categoriesQuery->addShould($categoryNameQuery);
+    $categoryNameQuery = new Wildcard('categories.name', '*' . $query . '*');
+    if (!$this->categoryPartialSearch) {
+    $categoryNameQuery = new Match('categories.name', $query);
+    }
+    $categoriesQuery->addShould($categoryNameQuery);
 
-        $categories->setQuery($categoriesQuery);
+    $categories->setQuery($categoriesQuery);
 
-        $boolQuery->addShould($categories);
+    $boolQuery->addShould($categories);
 
-        $variants = new Nested();
-        $variants->setPath('variants');
-        $variantsQuery = new MultiMatch();
-        $variantsQuery->setQuery($query);
-        $variantsQuery->setFields([
-            'variants.shortDescription', 'variants.description',
-        ]);
+    $variants = new Nested();
+    $variants->setPath('variants');
+    $variantsQuery = new MultiMatch();
+    $variantsQuery->setQuery($query);
+    $variantsQuery->setFields([
+    'variants.shortDescription', 'variants.description',
+    ]);
 
-        $variantsBool = new BoolQuery();
-        $variantsBool->addShould($variantsQuery);
+    $variantsBool = new BoolQuery();
+    $variantsBool->addShould($variantsQuery);
 
-        $variantNameQuery = new Match('variants.name', $query);
-        if ($this->productPartialSearch) {
-            $variantNameQuery = new Wildcard('variants.name', '*' . $query . '*');
-        }
-        $variantsBool->addShould($variantNameQuery);
+    $variantNameQuery = new Match('variants.name', $query);
+    if ($this->productPartialSearch) {
+    $variantNameQuery = new Wildcard('variants.name', '*' . $query . '*');
+    }
+    $variantsBool->addShould($variantNameQuery);
 
-        $variantsSkuQuery = new Match('variants.sku', $query);
-        if ($this->productPartialSearch) {
-            $variantsSkuQuery = new Wildcard('variants.sku', '*' . $query . '*');
-        }
-        $variantsBool->addShould($variantsSkuQuery);
+    $variantsSkuQuery = new Match('variants.sku', $query);
+    if ($this->productPartialSearch) {
+    $variantsSkuQuery = new Wildcard('variants.sku', '*' . $query . '*');
+    }
+    $variantsBool->addShould($variantsSkuQuery);
 
-        $variants->setQuery($variantsBool);
+    $variants->setQuery($variantsBool);
 
-        $boolQuery->addShould($variants);
+    $boolQuery->addShould($variants);
 
-        $manufacturers = new BoolQuery();
-        $manufacturerNameQuery = new Wildcard('manufacturer.name', '*' . $query . '*');
-        if (!$this->categoryPartialSearch) {
-            $manufacturerNameQuery = new Match('manufacturer.name', $query);
-        }
-        $manufacturers->addShould($manufacturerNameQuery);
-        $boolQuery->addShould($manufacturers);
+    $manufacturers = new BoolQuery();
+    $manufacturerNameQuery = new Wildcard('manufacturer.name', '*' . $query . '*');
+    if (!$this->categoryPartialSearch) {
+    $manufacturerNameQuery = new Match('manufacturer.name', $query);
+    }
+    $manufacturers->addShould($manufacturerNameQuery);
+    $boolQuery->addShould($manufacturers);
     }*/
 
-    private function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
+    protected function setPriceRangeQuery(BoolQuery $boolQuery, array $priceRange)
     {
         $priceRange = array_map(function ($item) {
             $item = floatval($item);
@@ -217,7 +223,7 @@ class StoreSearchService implements IStoreSearchService
         $boolQuery->addMust($priceQuery);
     }
 
-    private function setCategoriesQuery(BoolQuery $boolQuery, array $categories, $categoryConnector)
+    protected function setCategoriesQuery(BoolQuery $boolQuery, array $categories, $categoryConnector)
     {
         $categoriesQuery = new Nested();
         $categoriesQuery->setPath('categories');
