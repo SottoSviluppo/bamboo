@@ -231,7 +231,8 @@ fos_elastica:
             types: 
                 products:
                     mappings:
-                        id: ~
+                        id:
+                            type: integer
                         sku: 
                             type: "string"
                             index: "not_analyzed"
@@ -254,13 +255,15 @@ fos_elastica:
                         principalCategory:
                             type: "object"
                             properties:
-                                id: ~
+                                id:
+                                    type: integer
                                 name: ~
                                 enabled: ~
                         categories:
                             type: "nested"
                             properties:
-                                id: ~
+                                id:
+                                    type: integer
                                 name: ~
                                 enabled: ~
                         manufacturer:
@@ -275,7 +278,8 @@ fos_elastica:
                         finder: ~
                 customers:
                     mappings:
-                        id: ~
+                        id:
+                            type: integer
                         email: ~
                         firstName: ~
                         lastName: ~
@@ -287,7 +291,8 @@ fos_elastica:
                         finder: ~
                 orders:
                     mappings:
-                        id: ~
+                        id:
+                            type: integer
                         createdAt: { type: date }
                         customer:
                             type: object
@@ -298,7 +303,8 @@ fos_elastica:
                         paymentLastStateLine:
                             type: object
                             properties:
-                                id: ~
+                                id:
+                                    type: integer
                                 name: ~
                         shippingLastStateLine:
                             type: object
@@ -314,7 +320,8 @@ fos_elastica:
                                 country:
                                     type: object
                                     properties:
-                                        id: ~
+                                        id:
+                                            type: integer
                                         name: ~
                         billingAddress:
                             type: object
@@ -322,7 +329,8 @@ fos_elastica:
                                 country:
                                     type: object
                                     properties:
-                                        id: ~
+                                        id:
+                                            type: integer
                         orderLines:
                             type: "nested"
                             properties:

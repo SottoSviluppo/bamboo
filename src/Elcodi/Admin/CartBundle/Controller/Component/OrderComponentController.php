@@ -50,7 +50,7 @@ class OrderComponentController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "s/component/{page}/{limit}/{orderByField}/{orderByDirection}/{state}",
+     *      path = "s/component/{page}/{limit}/{orderByField}/{orderByDirection}",
      *      name = "admin_order_list_component",
      *      requirements = {
      *          "page" = "\d*",
@@ -71,17 +71,16 @@ class OrderComponentController extends AbstractAdminController
         $page,
         $limit,
         $orderByField,
-        $orderByDirection,
-        $state
+        $orderByDirection
     ) {
         $ordersRepository = $this->get('elcodi.repository.order');
         $queryBuilder = $ordersRepository->createQueryBuilder('o');
         $queryBuilder->innerJoin('o.paymentLastStateLine', 'p');
         $queryBuilder->orderBy('p.id', 'DESC');
 
-        if ($state != 'all') {
-            $queryBuilder->where("p.name = '$state'");
-        }
+        // if ($state != 'all') {
+        //     $queryBuilder->where("p.name = '$state'");
+        // }
 
         $paginator = new Paginator($queryBuilder, true);
         $offset = $limit * ($page - 1);
@@ -96,7 +95,6 @@ class OrderComponentController extends AbstractAdminController
             'paginator' => $paginator,
             'page' => $page,
             'limit' => $limit,
-            'state' => $state,
             'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
             'totalPages' => $paginatorAttributes->getTotalPages(),
