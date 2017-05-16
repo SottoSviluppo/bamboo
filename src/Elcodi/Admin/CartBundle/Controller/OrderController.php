@@ -394,4 +394,45 @@ class OrderController extends AbstractAdminController
 
         return $this->redirect($request->headers->get('referer'));
     }
+
+    /**
+     * Update order address text
+     *
+     * @Route(
+     *      path = "/{id}/order-address-update/{type}",
+     *      name = "admin_order_update_address",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"POST"}
+     * )
+     *
+     */
+    public function orderUpdateShippingAddressAction(
+        Request $request,
+        $id,
+        $type
+    ) {
+        if (!$this->canUpdate()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        $text = $request->get('addressText');
+        $order = $this->get('elcodi.repository.order')->find($id);
+
+        if ($type == 'delivery') {
+            $order->setDeliveryAddressText($text);
+        }
+        if ($type == 'billing') {
+            $order->setBillingAddressText($text);
+        }
+
+        $this->flush($order);
+
+        $this->addFlash('success', 'Indirizzo aggiornato');
+
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 }
