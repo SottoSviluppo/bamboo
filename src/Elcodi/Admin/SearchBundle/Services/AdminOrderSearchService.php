@@ -189,6 +189,11 @@ class AdminOrderSearchService
         return $this->addMatch('deliveryAddress.country.id', $countryId);
     }
 
+    public function addExtraDataMatch($key, $value)
+    {
+        return $this->addMatch('extraData.' . $key, $value);
+    }
+
     public function getRange($dateFrom, $dateTo)
     {
         $dateRange = [];
