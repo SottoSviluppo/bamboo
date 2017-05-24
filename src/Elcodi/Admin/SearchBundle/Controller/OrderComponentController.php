@@ -30,12 +30,12 @@ class OrderComponentController extends AbstractAdminController
     {
         $request = $this->get('request');
 
-        $searchParameters = $this->getSearchParameters($request);
+        $searchParameters = $this->get('elcodi_admin.order.admin_search')->getSearchParameters($request);
         $searchParameters['query'] = $query;
         $searchParameters['page'] = $page;
         $searchParameters['limit'] = $limit;
 
-        $ordersPaginator = $this->getOrdersPaginator($searchParameters);
+        $ordersPaginator = $this->get('elcodi_admin.order.admin_search')->getOrdersPaginator($searchParameters);
         $ordersPaginator->setPageRange(11);
 
         $countries = $this->get('elcodi.repository.country')->findByEnabled(true);
@@ -48,7 +48,7 @@ class OrderComponentController extends AbstractAdminController
             'totalElements' => $ordersPaginator->getTotalItemCount(),
             'countries' => $countries,
         ];
-        $searchParameters = $this->getSearchParameters($request);
+        $searchParameters = $this->get('elcodi_admin.order.admin_search')->getSearchParameters($request);
         $results = array_merge($results, $searchParameters);
 
         return $this->render(
