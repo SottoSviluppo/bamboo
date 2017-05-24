@@ -30,6 +30,35 @@ class OrderComponentController extends AbstractAdminController
     {
         $request = $this->get('request');
 
+        $searchParameters = $this->getSearchParameters($request);
+        $searchParameters['query'] = $query;
+        $searchParameters['page'] = $page;
+        $searchParameters['limit'] = $limit;
+
+        $ordersPaginator = $this->getOrdersPaginator($searchParameters);
+        $ordersPaginator->setPageRange(11);
+
+        $countries = $this->get('elcodi.repository.country')->findByEnabled(true);
+
+        $results = [
+            'paginator' => $ordersPaginator,
+            'orderByField' => 'id',
+            'orderByDirection' => 'DESC',
+            'totalPages' => ceil($ordersPaginator->getTotalItemCount() / $limit),
+            'totalElements' => $ordersPaginator->getTotalItemCount(),
+            'countries' => $countries,
+        ];
+        $searchParameters = $this->getSearchParameters($request);
+        $results = array_merge($results, $searchParameters);
+
+        return $this->render(
+            $searchParameters['template'],
+            $results
+        );
+    }
+
+    public function getSearchParameters($request)
+    {
         $orderState = $request->get('orderState');
         $shippingState = $request->get('shippingState');
         $customerEmail = $request->get('customerEmail');
@@ -40,34 +69,13 @@ class OrderComponentController extends AbstractAdminController
         $idTo = $request->get('idTo');
         $countryId = $request->get('countryId', 0);
         $template = $request->get('template', 'AdminCartBundle:Order:listComponent.html.twig');
-        // var_dump($request->request->all()); //POST
-        // var_dump($request->query->all()); //GET
-        // die();
 
-        if ($query === "_") {
-            $query = null;
-        }
+        $service = $this->get('elcodi_admin.order.admin_search');
 
-        $dateRange = $this->service->getRange($dateFrom, $dateTo);
-        $idRange = $this->service->getRange($idFrom, $idTo);
+        $dateRange = $service->getRange($dateFrom, $dateTo);
+        $idRange = $service->getRange($idFrom, $idTo);
 
-        $this->service->setPage($page);
-        $this->service->setLimit($limit);
-        $this->service->addQuery($query);
-        $this->service->addDateRange($dateRange);
-        $this->service->addOrderPaymentState($orderState);
-        $this->service->addOrderShippingState($shippingState);
-        $this->service->addIdRange($idRange);
-        $this->service->addCustomerEmail($customerEmail);
-        $this->service->addOrderPaymentMethod($paymentMethod);
-        $this->service->addCountry($countryId);
-
-        // $this->service->printDebug();
-
-        $orders = $this->service->getPaginator();
-
-        $results = [
-            'query' => $query,
+        return [
             'dateRange' => $dateRange,
             'orderState' => $orderState,
             'shippingState' => $shippingState,
@@ -76,19 +84,40 @@ class OrderComponentController extends AbstractAdminController
             'paymentMethod' => $paymentMethod,
             'template' => $template,
             'idRange' => $idRange,
-            'paginator' => $orders,
-            'page' => $page,
-            'limit' => $this->service->getLimit(),
-            'orderByField' => 'id',
-            'orderByDirection' => 'DESC',
-            'totalPages' => ceil($orders->getTotalItemCount() / $this->service->getLimit()),
-            'totalElements' => $orders->getTotalItemCount(),
         ];
+    }
 
-        return $this->render(
-            $template,
-            $results
-        );
+    public function getOrdersPaginator($searchParameters)
+    {
+        $service = $this->prepareSearchService($searchParameters);
+        $ordersPaginator = $service->getPaginator();
+
+        return $ordersPaginator;
+    }
+
+    public function prepareSearchService($searchParameters)
+    {
+        if ($searchParameters['query'] === "_") {
+            $searchParameters['query'] = null;
+        }
+
+        $service = $this->get('elcodi_admin.order.admin_search');
+
+        if (array_key_exists('page', $searchParameters)) {
+            $service->setPage($searchParameters['page']);
+        }
+        if (array_key_exists('limit', $searchParameters)) {
+            $service->setLimit($searchParameters['limit']);
+        }
+        $service->addQuery($searchParameters['query']);
+        $service->addDateRange($searchParameters['dateRange']);
+        $service->addOrderPaymentState($searchParameters['orderState']);
+        $service->addOrderShippingState($searchParameters['shippingState']);
+        $service->addIdRange($searchParameters['idRange']);
+        $service->addCustomerEmail($searchParameters['customerEmail']);
+        $service->addOrderPaymentMethod($searchParameters['paymentMethod']);
+        $service->addCountry($searchParameters['countryId']);
+        return $service;
     }
 
 }

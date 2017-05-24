@@ -98,6 +98,17 @@ class SearchController extends AbstractAdminController
         $template = $request->query->get('template');
         $idFrom = $request->query->get('idFrom');
         $idTo = $request->query->get('idTo');
+        $submit = $request->query->get('submit');
+
+        // excel
+        if ($submit == 'Excel') {
+            $searchParameters = $this->getSearchParameters($request);
+            $searchParameters['query'] = $query;
+            $searchParameters['limit'] = 10000;
+            $service = $this->prepareSearchService($searchParameters);
+
+            return $this->get('elcodi.excel_manager.order')->getExcelFromOrders($service->getResult());
+        }
 
         return [
             'query' => $query,
@@ -112,6 +123,7 @@ class SearchController extends AbstractAdminController
             'template' => $template,
             'idFrom' => $idFrom,
             'idTo' => $idTo,
+            'submit' => $submit,
             'countryId' => $countryId,
         ];
     }

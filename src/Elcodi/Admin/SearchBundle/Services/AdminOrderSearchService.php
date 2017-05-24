@@ -54,6 +54,12 @@ class AdminOrderSearchService
         return $this->getPaginator();
     }
 
+    public function getResult()
+    {
+        $finder = $this->createFinderFor('orders');
+        return $finder->find($this->orderQuery, $this->limit);
+    }
+
     public function getPaginator()
     {
         $finder = $this->createFinderFor('orders');
