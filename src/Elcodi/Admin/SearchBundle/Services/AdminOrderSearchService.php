@@ -254,4 +254,63 @@ class AdminOrderSearchService
         $dateQuery = new Range('id', $range);
         $this->orderQuery->addMust($dateQuery);
     }
+
+    public function getSearchParameters($request)
+    {
+        $orderState = $request->get('orderState');
+        $shippingState = $request->get('shippingState');
+        $customerEmail = $request->get('customerEmail');
+        $paymentMethod = $request->get('paymentMethod');
+        $dateFrom = $request->get('dateFrom');
+        $dateTo = $request->get('dateTo');
+        $idFrom = $request->get('idFrom');
+        $idTo = $request->get('idTo');
+        $countryId = $request->get('countryId', 0);
+        $template = $request->get('template', 'AdminCartBundle:Order:listComponent.html.twig');
+
+        $dateRange = $this->getRange($dateFrom, $dateTo);
+        $idRange = $this->getRange($idFrom, $idTo);
+
+        return [
+            'dateRange' => $dateRange,
+            'orderState' => $orderState,
+            'shippingState' => $shippingState,
+            'countryId' => $countryId,
+            'customerEmail' => $customerEmail,
+            'paymentMethod' => $paymentMethod,
+            'template' => $template,
+            'idRange' => $idRange,
+        ];
+    }
+
+    public function getOrdersPaginator($searchParameters)
+    {
+        $this->prepareSearchService($searchParameters);
+        $ordersPaginator = $this->getPaginator();
+
+        return $ordersPaginator;
+    }
+
+    public function prepareSearchService($searchParameters)
+    {
+        if ($searchParameters['query'] === "_") {
+            $searchParameters['query'] = null;
+        }
+
+        if (array_key_exists('page', $searchParameters)) {
+            $this->setPage($searchParameters['page']);
+        }
+        if (array_key_exists('limit', $searchParameters)) {
+            $this->setLimit($searchParameters['limit']);
+        }
+        $this->addQuery($searchParameters['query']);
+        $this->addDateRange($searchParameters['dateRange']);
+        $this->addOrderPaymentState($searchParameters['orderState']);
+        $this->addOrderShippingState($searchParameters['shippingState']);
+        $this->addIdRange($searchParameters['idRange']);
+        $this->addCustomerEmail($searchParameters['customerEmail']);
+        $this->addOrderPaymentMethod($searchParameters['paymentMethod']);
+        $this->addCountry($searchParameters['countryId']);
+        return $this;
+    }
 }
