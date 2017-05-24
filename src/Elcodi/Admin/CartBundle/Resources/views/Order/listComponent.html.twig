@@ -23,6 +23,7 @@
                         <label>
                         Ricerca libera
                         </label>
+                        {% if query == '_' %}{% set query = '' %}{% endif %}
                         <input type="text" name="q"  value="{{ query }}" placeholder="Ricerca ordini" style="width:20rem;">
                     </span>
                     <span class="mini-box">

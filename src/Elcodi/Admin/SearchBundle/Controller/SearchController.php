@@ -37,28 +37,13 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        $request = $this->getRequest();
-        $query = $request->query->get('q');
+        $parameters = $this->getParameters();
 
-        if (empty($query)) {
+        if (empty($parameters['query'])) {
             return $this->redirect($this->generateUrl('admin_product_list'));
         }
 
-        $page = $request->query->get('page');
-        if (empty($page)) {
-            $page = 1;
-        }
-
-        $limit = $request->query->get('limit');
-        if (empty($limit)) {
-            $limit = null;
-        }
-
-        return [
-            'query' => $query,
-            'page' => $page,
-            'limit' => $limit,
-        ];
+        return $parameters;
     }
 
     /**
@@ -71,34 +56,24 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
+        $parameters = $this->getParameters();
+        if (empty($parameters['query'])) {
+            $parameters['query'] = "_";
+        }
+
         $request = $this->getRequest();
-        $query = $request->query->get('q');
 
-        if (empty($query)) {
-            $query = "_";
-        }
-
-        $page = $request->query->get('page');
-        if (empty($page)) {
-            $page = 1;
-        }
-
-        $limit = $request->query->get('limit');
-        if (empty($limit)) {
-            $limit = $this->getParameter('item_for_page');
-        }
-
-        $dateFrom = $request->query->get('datefrom');
-        $dateTo = $request->query->get('dateto');
-        $orderState = $request->query->get('orderState');
-        $countryId = $request->query->get('countryId');
-        $shippingState = $request->query->get('shippingState');
-        $customerEmail = $request->query->get('customerEmail');
-        $paymentMethod = $request->query->get('paymentMethod');
-        $template = $request->query->get('template');
-        $idFrom = $request->query->get('idFrom');
-        $idTo = $request->query->get('idTo');
-        $submit = $request->query->get('submit');
+        $parameters['dateFrom'] = $request->query->get('datefrom');
+        $parameters['dateTo'] = $request->query->get('dateto');
+        $parameters['orderState'] = $request->query->get('orderState');
+        $parameters['countryId'] = $request->query->get('countryId');
+        $parameters['shippingState'] = $request->query->get('shippingState');
+        $parameters['customerEmail'] = $request->query->get('customerEmail');
+        $parameters['paymentMethod'] = $request->query->get('paymentMethod');
+        $parameters['template'] = $request->query->get('template');
+        $parameters['idFrom'] = $request->query->get('idFrom');
+        $parameters['idTo'] = $request->query->get('idTo');
+        $parameters['submit'] = $request->query->get('submit');
 
         // excel
         if ($submit == 'Excel') {
@@ -110,22 +85,7 @@ class SearchController extends AbstractAdminController
             return $this->get('elcodi.excel_manager.order')->getExcelFromOrders($service->getResult());
         }
 
-        return [
-            'query' => $query,
-            'page' => $page,
-            'limit' => $limit,
-            'dateFrom' => $dateFrom,
-            'dateTo' => $dateTo,
-            'orderState' => $orderState,
-            'shippingState' => $shippingState,
-            'customerEmail' => $customerEmail,
-            'paymentMethod' => $paymentMethod,
-            'template' => $template,
-            'idFrom' => $idFrom,
-            'idTo' => $idTo,
-            'submit' => $submit,
-            'countryId' => $countryId,
-        ];
+        return $parameters;
     }
 
     /**
@@ -138,30 +98,13 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        $request = $this->getRequest();
-        $query = $request->query->get('q');
+        $parameters = $this->getParameters();
 
-        if (empty($query)) {
+        if (empty($parameters['query'])) {
             return $this->redirect($this->generateUrl('admin_customer_list'));
         }
 
-        $page = $request->query->get('page');
-        if (empty($page)) {
-            $page = 1;
-        }
-
-        $limit = $request->query->get('limit');
-        if (empty($limit)) {
-            $limit = null;
-        }
-
-        return [
-            'query' => $query,
-            'page' => $page,
-            'limit' => $limit,
-            /*'count' => count($products),
-        'purchasables' => $products,*/
-        ];
+        return $parameters;
     }
 
     /**
@@ -174,28 +117,13 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        $request = $this->getRequest();
-        $query = $request->query->get('q');
+        $parameters = $this->getParameters();
 
-        if (empty($query)) {
+        if (empty($parameters['query'])) {
             return $this->redirect($this->generateUrl('admin_manufacturer_list'));
         }
 
-        $page = $request->query->get('page');
-        if (empty($page)) {
-            $page = 1;
-        }
-
-        $limit = $request->query->get('limit');
-        if (empty($limit)) {
-            $limit = null;
-        }
-
-        return [
-            'query' => $query,
-            'page' => $page,
-            'limit' => $limit,
-        ];
+        return $parameters;
     }
 
     /**
@@ -208,13 +136,20 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        $request = $this->getRequest();
-        $query = $request->query->get('q');
+        $parameters = $this->getParameters();
 
-        if (empty($query)) {
+        if (empty($parameters['query'])) {
             return $this->redirect($this->generateUrl('admin_coupon_list'));
         }
 
+        return $parameters;
+    }
+
+    private function getParameters()
+    {
+        $request = $this->getRequest();
+
+        $query = $request->query->get('q');
         $page = $request->query->get('page');
         if (empty($page)) {
             $page = 1;

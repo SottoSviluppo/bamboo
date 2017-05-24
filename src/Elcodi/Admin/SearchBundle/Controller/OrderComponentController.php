@@ -48,7 +48,6 @@ class OrderComponentController extends AbstractAdminController
             'totalElements' => $ordersPaginator->getTotalItemCount(),
             'countries' => $countries,
         ];
-        $searchParameters = $this->get('elcodi_admin.order.admin_search')->getSearchParameters($request);
         $results = array_merge($results, $searchParameters);
 
         return $this->render(
