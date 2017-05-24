@@ -56,8 +56,14 @@ class AdminOrderSearchService
 
     public function getResult()
     {
+        // add sort to query
+        $q = new \Elastica\Query($this->orderQuery);
+        $sortParam = ['paymentLastStateLine.id' => ['order' => 'desc']];
+        $q->setSort(array($sortParam))
+            ->setMinScore(1);
+
         $finder = $this->createFinderFor('orders');
-        return $finder->find($this->orderQuery, $this->limit);
+        return $finder->find($q, $this->limit);
     }
 
     public function getPaginator()
