@@ -76,9 +76,9 @@ class SearchController extends AbstractAdminController
         $parameters['submit'] = $request->query->get('submit');
 
         // excel
-        if ($submit == 'Excel') {
+        if ($parameters['submit'] == 'Excel') {
             $searchParameters = $this->get('elcodi_admin.order.admin_search')->getSearchParameters($request);
-            $searchParameters['query'] = $query;
+            $searchParameters['query'] = $parameters['query'];
             $searchParameters['limit'] = 10000;
             $service = $this->get('elcodi_admin.order.admin_search')->prepareSearchService($searchParameters);
 
@@ -94,6 +94,8 @@ class SearchController extends AbstractAdminController
     public function searchCustomersAction()
     {
         if (!$this->canRead('customer')) {
+
+            $request = $this->getRequest();
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -113,6 +115,8 @@ class SearchController extends AbstractAdminController
     public function searchManufacturersAction()
     {
         if (!$this->canRead('manufacturer')) {
+
+            $request = $this->getRequest();
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -132,6 +136,8 @@ class SearchController extends AbstractAdminController
     public function searchCouponsAction()
     {
         if (!$this->canRead('coupon')) {
+
+            $request = $this->getRequest();
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
@@ -142,6 +148,7 @@ class SearchController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_coupon_list'));
         }
 
+        $request = $this->getRequest();
         return $parameters;
     }
 
@@ -157,7 +164,7 @@ class SearchController extends AbstractAdminController
 
         $limit = $request->query->get('limit');
         if (empty($limit)) {
-            $limit = null;
+            $limit = $this->getParameter('item_for_page');
         }
 
         return [

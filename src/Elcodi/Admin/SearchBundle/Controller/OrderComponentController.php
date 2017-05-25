@@ -37,6 +37,7 @@ class OrderComponentController extends AbstractAdminController
 
         $ordersPaginator = $this->get('elcodi_admin.order.admin_search')->getOrdersPaginator($searchParameters);
         $ordersPaginator->setPageRange(11);
+        $ordersPaginator->setItemNumberPerPage($limit);
 
         $countries = $this->get('elcodi.repository.country')->findByEnabled(true);
 
