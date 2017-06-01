@@ -97,6 +97,43 @@ class OrderController extends Controller
     }
 
     /**
+     * Generic thank you page
+     *
+     * @param integer $id     Order id
+     * @param boolean $thanks Thanks
+     *
+     * @return Response Response
+     *
+     * @Route(
+     *      path = "/completed/thanks",
+     *      name = "store_completed_order_generic",
+     *      methods = {"GET"}
+     * )
+     */
+    public function completedOrderGenericAction()
+    {
+        $orders = $this
+            ->get('elcodi.repository.order')
+            ->findBy([
+                'customer' => $this->getUser(),
+            ],
+                [
+                    'id' => 'DESC',
+                ]
+            );
+        $lastOrder = $orders[0];
+
+        // if order is not paid then redirect to correct order thank you page
+        $lastPaymentState = $lastOrder->getPaymentLastStateLine()->getName();
+        if ($lastPaymentState == 'unpaid') {
+            return $this->redirect(
+                $this->generateUrl('store_order_thanks', ['id' => $lastOrder->getId()])
+            );
+        }
+        die();
+    }
+
+    /**
      * Order list with pagination.
      *
      * @return Response Response
