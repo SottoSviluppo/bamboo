@@ -91,6 +91,9 @@ class OrderComponentController extends AbstractAdminController
 
         $paginatorAttributes = $this->evaluateAttributes($paginator, $limit, $page);
 
+        $orders = $paginator->getQuery()->getResult();
+        $orderCoupons = $this->getCouponsFromOrders($orders);
+
         return [
             'paginator' => $paginator,
             'page' => $page,
@@ -99,7 +102,25 @@ class OrderComponentController extends AbstractAdminController
             'orderByDirection' => $orderByDirection,
             'totalPages' => $paginatorAttributes->getTotalPages(),
             'totalElements' => $paginatorAttributes->getTotalElements(),
+            'orderCoupons' => $orderCoupons,
         ];
+    }
+
+    public function getCouponsFromOrders($orders)
+    {
+        $coupons = array();
+        foreach ($orders as $order) {
+            //Cerca i coupon associati all'ordine passato
+            $orderCoupons = $this->get('elcodi.repository.order_coupon')->findOrderCouponsByOrder($order);
+            if (empty($orderCoupons)) {
+                $coupon = null;
+            } else {
+                $coupon = $orderCoupons[0]->getCoupon();
+            }
+            //Array dei coupons associati agli ordini, array chiave valore, dove la chiave è l'id dell'ordine mentre il valore è il coupon se presente, altrimenti ha valore NULL
+            $coupons[$order->getId()] = $coupon;
+        }
+        return $coupons;
     }
 
     protected function evaluateAttributes(
