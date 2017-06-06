@@ -140,7 +140,7 @@ class CategoryController extends Controller
             $categoryRepository->getChildrenCategories($category)
         );
 
-        $purchasablesQuery = $purchasableRepository->getAllFromCategories($categories);
+        $purchasablesQuery = $purchasableRepository->getAllFromCategories($categories, $orderByField, $orderByDirection);
         $paginator = new Paginator($purchasablesQuery);
 
         $paginator->getQuery()
