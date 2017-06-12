@@ -17,6 +17,8 @@
 
 namespace Elcodi\Store\UserBundle\Controller;
 
+use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as AnnotationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -24,9 +26,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
-
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Class SecurityController
@@ -165,8 +164,8 @@ class SecurityController extends Controller
         if ($authorizationChecker->isGranted('ROLE_CUSTOMER')) {
             return $this->getJson(array(
                 'success' => true,
-                'message' => 'Utente già loggato'
-                ));
+                'message' => 'Utente già loggato',
+            ));
         }
 
         if ($isValid) {
@@ -180,18 +179,16 @@ class SecurityController extends Controller
 
             return $this->getJson(array(
                 'success' => true,
-                'message' => 'Utente registrato con successo'
-                ));
+                'message' => 'Utente registrato con successo',
+            ));
         }
         $request = $this->get('request');
-        if ( $request->isXmlHttpRequest() ) {
+        if ($request->isXmlHttpRequest()) {
             return $this->getJson(array(
                 'success' => false,
-                'message' => 'Errore generico'
-                ));
-        }
-        else
-        {
+                'message' => 'Errore generico',
+            ));
+        } else {
             return $this->renderTemplate(
                 'Pages:user-register-block.html.twig',
                 [
@@ -247,12 +244,10 @@ class SecurityController extends Controller
         return $this->register($customer, $registerFormView, $isValid, 'Pages:user-register-full.html.twig');
     }
 
-
     private function register(CustomerInterface $customer,
         FormView $registerFormView,
         $isValid,
-        $template)
-    {
+        $template) {
         /**
          * If user is already logged, go to redirect url
          */
