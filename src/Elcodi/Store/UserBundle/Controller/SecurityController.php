@@ -248,6 +248,7 @@ class SecurityController extends Controller
         FormView $registerFormView,
         $isValid,
         $template) {
+
         /**
          * If user is already logged, go to redirect url
          */
@@ -257,6 +258,16 @@ class SecurityController extends Controller
         }
 
         if ($isValid) {
+            // superfluous checks just to make sure
+            if (!$this->isCustomerValid($customer)) {
+                return $this->renderTemplate(
+                    $template,
+                    [
+                        'form' => $registerFormView,
+                    ]
+                );
+            }
+
             $customerManager = $this->get('elcodi.object_manager.customer');
             $customerManager->persist($customer);
             $customerManager->flush($customer);
@@ -273,5 +284,30 @@ class SecurityController extends Controller
                 'form' => $registerFormView,
             ]
         );
+    }
+
+    public function isCustomerValid($customer)
+    {
+        if (!$this->validateEmail($customer->getEmail())) {
+            return false;
+        }
+
+        if (strlen(trim($customer->getPassword())) == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function validateEmail($email)
+    {
+        if (strlen(trim($email)) == 0) {
+            return false;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        return true;
     }
 }
