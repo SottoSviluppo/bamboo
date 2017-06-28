@@ -18,6 +18,10 @@
 namespace Elcodi\Store\CartBundle\Controller;
 
 use Doctrine\ORM\EntityNotFoundException;
+use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
+use Elcodi\Component\Cart\Entity\Interfaces\CartLineInterface;
+use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as AnnotationEntity;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as AnnotationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -27,11 +31,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
-use Elcodi\Component\Cart\Entity\Interfaces\CartLineInterface;
-use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Cart controllers
@@ -83,9 +82,9 @@ class CartController extends Controller
         return $this->renderTemplate(
             'Pages:cart-view.html.twig',
             [
-                'cart'        => $cart,
+                'cart' => $cart,
                 'cartCoupons' => $cartCoupons,
-                'form'        => $formView,
+                'form' => $formView,
             ]
         );
     }
@@ -180,6 +179,62 @@ class CartController extends Controller
         return $this->redirect(
             $this->generateUrl('store_homepage')
         );
+    }
+
+    /**
+     * Increment cartline
+     *
+     * @Route(
+     *      path = "/increment-cartline",
+     *      name = "increment_cartline"
+     * )
+     */
+    public function incrementCartlineAction(Request $request)
+    {
+        $cartLineId = $request->get('cartLineId');
+        $cart = $this
+            ->get('elcodi.wrapper.cart')
+            ->get();
+
+        foreach ($cart->getCartLines() as $cartLine) {
+            if ($cartLine->getId() == $cartLineId) {
+                $this->get('elcodi.manager.cart')->increaseCartLineQuantity($cartLine, 1);
+            }
+        }
+
+        $array = array(
+            'status' => 'ok',
+            'quantity' => $cartLine->getQuantity(),
+        );
+        return $response = new \Symfony\Component\HttpFoundation\JsonResponse($array);
+    }
+
+    /**
+     * decrement cartline
+     *
+     * @Route(
+     *      path = "/decrement-cartline",
+     *      name = "decrement_cartline"
+     * )
+     */
+    public function decrementCartlineAction(Request $request)
+    {
+        $cartLineId = $request->get('cartLineId');
+        $cart = $this
+            ->get('elcodi.wrapper.cart')
+            ->get();
+
+        foreach ($cart->getCartLines() as $cartLine) {
+            if ($cartLine->getId() == $cartLineId) {
+                $this->get('elcodi.manager.cart')->decreaseCartLineQuantity($cartLine, 1);
+            }
+        }
+
+        $array = array(
+            'status' => 'ok',
+            'quantity' => $cartLine->getQuantity(),
+        );
+        return $response = new \Symfony\Component\HttpFoundation\JsonResponse($array);
     }
 
     /**
