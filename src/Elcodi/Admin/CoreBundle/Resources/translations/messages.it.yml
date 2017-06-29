@@ -295,6 +295,8 @@ admin:
 
             css_class:
                 title: Classe CSS
+            show_in_home:
+                title: "Mostra in homepage"
 
             slug:
                 customize: 'Personalizza slug'
