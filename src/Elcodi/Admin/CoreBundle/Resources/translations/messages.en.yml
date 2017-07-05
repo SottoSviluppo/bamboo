@@ -216,6 +216,8 @@ admin:
                 title: 'Root Category'
             css_class:
                 title: CSS Class
+            show_in_home:
+                title: "Show in homepage"
             slug:
                 customize: 'Customize slug'
                 placeholder: 'e.g. my/awesome/category'

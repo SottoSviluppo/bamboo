@@ -34,6 +34,16 @@ class StoreSearchService implements IStoreSearchService
     protected $productPartialSearch;
     protected $categoryPartialSearch;
 
+    protected $sortArray = array(
+        'principalCategory.name' => array('order' => 'asc'),
+        'id' => array('order' => 'asc'),
+    );
+
+    public function setSortArray($sortArray)
+    {
+        $this->sortArray = $sortArray;
+    }
+
     public function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container,
         $prefix,
@@ -92,10 +102,7 @@ class StoreSearchService implements IStoreSearchService
         $finalQuery = new Query($boolQuery);
 
         if (empty($query) and !empty($categories)) {
-            $finalQuery->setSort(array(
-                'principalCategory.name' => array('order' => 'asc'),
-                'id' => array('order' => 'asc'),
-            ));
+            $finalQuery->setSort($this->sortArray);
         }
 
         return $finalQuery;

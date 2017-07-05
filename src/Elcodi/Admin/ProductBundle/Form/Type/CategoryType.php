@@ -102,6 +102,9 @@ class CategoryType extends AbstractType
             ->add('cssClass', 'text', [
                 'required' => false,
             ])
+            ->add('showInHome', 'checkbox', [
+                'required' => false,
+            ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
             ])

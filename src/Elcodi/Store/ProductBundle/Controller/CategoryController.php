@@ -234,6 +234,29 @@ class CategoryController extends Controller
     }
 
     /**
+     * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
+     * @Route(
+     *      path = "homecategories/",
+     *      name = "store_homepage_categories",
+     *      methods = {"GET"}
+     * )
+
+     */
+    public function shoInHomeCategoriesAction(Request $request)
+    {
+        $categoryRepository = $this->get('elcodi.repository.category');
+        $categories = $categoryRepository->findBy(array('showInHome' => true, 'enabled' => true));
+        return $this->renderTemplate(
+            'Modules:_categories-homepage.html.twig',
+            [
+                'categories' => $categories,
+
+            ]
+        );
+
+    }
+
+    /**
      * Given a request, return the current highlight-able category
      *
      * @param Request $request Request
