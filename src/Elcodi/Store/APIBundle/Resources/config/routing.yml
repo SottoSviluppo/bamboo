@@ -1,72 +1,72 @@
 store_api_login:
     path:     /store/api/login
-    defaults: { _controller: StoreAPIBundle:API:login }
+    defaults: { _controller: StoreAPIBundle:API:login, _format: json }
 
 store_api_logout:
     path:     /store/api/logout
-    defaults: { _controller: StoreAPIBundle:API:logout }
+    defaults: { _controller: StoreAPIBundle:API:logout, _format: json }
 
 store_api_get_user_data:
     path:     /store/api/get-user-data
-    defaults: { _controller: StoreAPIBundle:API:getUserData }
+    defaults: { _controller: StoreAPIBundle:API:getUserData, _format: json }
 
 store_api_set_user_data:
     path:     /store/api/set-user-data
-    defaults: { _controller: StoreAPIBundle:API:setUserData }
+    defaults: { _controller: StoreAPIBundle:API:setUserData, _format: json }
 
 store_api_register:
     path:     /store/api/register
-    defaults: { _controller: StoreAPIBundle:API:register }
+    defaults: { _controller: StoreAPIBundle:API:register, _format: json }
 
 store_api_get_orders:
     path:     /store/api/get-orders
-    defaults: { _controller: StoreAPIBundle:API:getOrders }
+    defaults: { _controller: StoreAPIBundle:API:getOrders, _format: json }
 
 store_api_get_cart:
     path:     /store/api/get-cart
-    defaults: { _controller: StoreAPIBundle:API:getCart }
+    defaults: { _controller: StoreAPIBundle:API:getCart, _format: json }
 
 store_api_create_paypal_order:
     path:     /store/api/create-paypal-order
-    defaults: { _controller: StoreAPIBundle:API:createPaypalOrder }
+    defaults: { _controller: StoreAPIBundle:API:createPaypalOrder, _format: json }
 
 store_api_restore_cart_from_order:
     path:     /store/api/restore-cart-from-order
-    defaults: { _controller: StoreAPIBundle:API:restoreCartFromOrder }
+    defaults: { _controller: StoreAPIBundle:API:restoreCartFromOrder, _format: json }
 
 store_api_update_country_language:
     path:     /store/api/update-country-language
-    defaults: { _controller: StoreAPIBundle:API:updateCountryLanguage }
+    defaults: { _controller: StoreAPIBundle:API:updateCountryLanguage, _format: json }
 
 store_api_update_cart_line_quantity:
     path:     /store/api/update-cart-line-quantity
-    defaults: { _controller: StoreAPIBundle:API:updateCartLineQuantity }
+    defaults: { _controller: StoreAPIBundle:API:updateCartLineQuantity, _format: json }
 
 store_api_get_countries:
     path:     /store/api/get-countries
-    defaults: { _controller: StoreAPIBundle:API:getAllCountries }
+    defaults: { _controller: StoreAPIBundle:API:getCountries, _format: json }
 
 store_api_get_user_address:
     path:     /store/api/get-user-addresses
-    defaults: { _controller: StoreAPIBundle:API:getUserAddresses }
+    defaults: { _controller: StoreAPIBundle:API:getUserAddresses, _format: json }
 
 store_api_add_coupon_to_cart:
     path:     /store/api/add-coupon-to-cart
-    defaults: { _controller: StoreAPIBundle:API:addCouponToCart }
+    defaults: { _controller: StoreAPIBundle:API:addCouponToCart, _format: json }
 
 store_api_remove_coupon_from_cart:
     path:     /store/api/remove-coupon-from-cart
-    defaults: { _controller: StoreAPIBundle:API:removeCouponFromCart }
+    defaults: { _controller: StoreAPIBundle:API:removeCouponFromCart, _format: json }
 
 store_api_create_address:
     path:     /store/api/create-address
-    defaults: { _controller: StoreAPIBundle:API:createAddress }
+    defaults: { _controller: StoreAPIBundle:API:createAddress, _format: json }
 
 store_api_delete_user_address:
     path:     /store/api/delete-user-address
-    defaults: { _controller: StoreAPIBundle:API:deleteUserAddress }
+    defaults: { _controller: StoreAPIBundle:API:deleteUserAddress, _format: json }
 
-store_api_set_user_address:
-    path:     /store/api/set-user-address
-    defaults: { _controller: StoreAPIBundle:API:setUserAddress }
+store_api_set_delivery_address:
+    path:     /store/api/set-delivery-address
+    defaults: { _controller: StoreAPIBundle:API:setDeliveryAddressAction, _format: json }
 

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
@@ -55,17 +56,16 @@ class APIController extends Controller
             return $this->getFailedMessage($exception->getMessage());
         }
 
-        return $this->getJson(
-            array(
-                'email' => $email,
-                'first_name' => $firstName,
-                'last_name' => $lastName,
-                'user_status' => [
-                    'message' => $message,
-                    'response' => $response,
-                    'status' => $status,
-                ],
-            )
+        return $this->getJson(array(
+            'email' => $email,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'user_status' => [
+                'message' => $message,
+                'response' => $response,
+                'status' => $status,
+            ],
+        )
         );
     }
 
@@ -384,7 +384,7 @@ class APIController extends Controller
         }
     }
 
-    private function updateCart()
+    protected function updateCart()
     {
         $cart = $this
             ->get('elcodi.wrapper.cart')
@@ -399,7 +399,7 @@ class APIController extends Controller
             ->dispatchCartLoadEvents($cart);
     }
 
-    private function getCartLine($cartLine)
+    protected function getCartLine($cartLine)
     {
         return array(
             'cart_line_id' => $cartLine->getId(),
@@ -482,7 +482,7 @@ class APIController extends Controller
         }
     }
 
-    public function getAllCountriesAction(Request $request)
+    public function getCountriesAction(Request $request)
     {
         try
         {
@@ -519,7 +519,7 @@ class APIController extends Controller
         }
     }
 
-    public function setUserAddressAction(Request $request)
+    public function setDeliveryAddressAction(Request $request)
     {
         try
         {
@@ -577,7 +577,7 @@ class APIController extends Controller
         }
     }
 
-    private function getAddressData($address, $customer)
+    protected function getAddressData($address, $customer)
     {
         if ($address == null) {
             return [];
@@ -624,15 +624,15 @@ class APIController extends Controller
             $company = $request->get('company');
             $street1 = $request->get('street1');
             $street2 = $request->get('street2');
-            $streetNumber = $request->get('streetNumber');
+            $streetNumber = $request->get('street_number');
             $zip = $request->get('zip');
             $city = $request->get('city');
-            $countryId = $request->get('countryId');
+            $countryId = $request->get('country_id');
             $vat = $request->get('vat');
             $phone = $request->get('phone');
             $nickname = $request->get('nickname');
-            $flagDefault = $request->get('flagDefault');
-            $taxCode = $request->get('taxCode');
+            $flagDefault = $request->get('flag_default');
+            $taxCode = $request->get('tax_code');
             $comments = $request->get('comments');
 
             $country = $this->get('elcodi.repository.country')->find($countryId);
@@ -705,7 +705,7 @@ class APIController extends Controller
         }
     }
 
-    private function createPaypalOrder()
+    protected function createPaypalOrder()
     {
         $formView = $this
             ->get('paymentsuite.paypal_web_checkout.manager')
@@ -714,7 +714,7 @@ class APIController extends Controller
         $this->get('paymentsuite.order.payment_setter')->setPaymentInOrder('elcodi_plugin.paypal_web_checkout.getter');
     }
 
-    private function throwExceptionIfNoProductsInCart()
+    protected function throwExceptionIfNoProductsInCart()
     {
         $cart = $this
             ->get('elcodi.wrapper.cart')
@@ -724,7 +724,7 @@ class APIController extends Controller
         }
     }
 
-    private function setDeliveryAddressToCart($customer)
+    protected function setDeliveryAddressToCart($customer)
     {
         $cart = $this
             ->get('elcodi.wrapper.cart')
@@ -741,7 +741,7 @@ class APIController extends Controller
         return;
     }
 
-    private function authenticate($request, $user, $password)
+    protected function authenticate($request, $user, $password)
     {
         // Here, "store_area" is the name of the firewall in your security.yml
         $token = new UsernamePasswordToken($user, $password, "store_area", $user->getRoles());
@@ -753,14 +753,14 @@ class APIController extends Controller
         $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);
     }
 
-    private function throwExceptionIfInvalidCustomer($customer)
+    protected function throwExceptionIfInvalidCustomer($customer)
     {
         if ($customer === null || $customer->getId() === null) {
             throw new Exception("No customer found", 1);
         }
     }
 
-    private function getUserByEmail($email)
+    protected function getUserByEmail($email)
     {
         return $this
             ->get('elcodi.repository.customer')
@@ -769,24 +769,24 @@ class APIController extends Controller
             ]);
     }
 
-    private function getLanguages()
+    protected function getLanguages()
     {
         return ['it', 'en', 'fr', 'nl'];
     }
 
-    private function getDefaultCurrency($tenant)
+    protected function getDefaultCurrency($tenant)
     {
         $store = $this->get('elcodi.wrapper.store')->get();
         return $store->getDefaultCurrency()->getIso();
     }
 
-    private function getDecimalPriceFromPrice($price)
+    protected function getDecimalPriceFromPrice($price)
     {
         $decimalPrice = $price->getAmount() / 100;
         return $decimalPrice;
     }
 
-    private function getFailedMessage($message = 'failed')
+    protected function getFailedMessage($message = 'failed')
     {
         return $this->getJson(
             array(
@@ -796,12 +796,12 @@ class APIController extends Controller
         );
     }
 
-    private function getSuccessMessage()
+    protected function getSuccessMessage()
     {
         return $this->getJson($this->getSuccessMessageArray());
     }
 
-    private function getSuccessMessageArray()
+    protected function getSuccessMessageArray()
     {
         return array(
             'message' => "success",
@@ -809,14 +809,14 @@ class APIController extends Controller
         );
     }
 
-    private function getJson($array)
+    protected function getJson($array)
     {
         $response = new \Symfony\Component\HttpFoundation\JsonResponse($array);
         $response->setEncodingOptions($response->getEncodingOptions() | JSON_PRETTY_PRINT);
         return $response;
     }
 
-    private function changeCountryUsingCustomer($customer)
+    protected function changeCountryUsingCustomer($customer)
     {
         $deliveryAddress = $this->getCustomerDeliveryAddress($customer);
         if ($deliveryAddress !== null) {
@@ -824,7 +824,7 @@ class APIController extends Controller
         }
     }
 
-    private function getCustomerDeliveryAddress($customer)
+    protected function getCustomerDeliveryAddress($customer)
     {
         if ($customer->getDeliveryAddress() !== null) {
             return $customer->getDeliveryAddress();
@@ -837,7 +837,7 @@ class APIController extends Controller
         return null;
     }
 
-    private function changeCountryUsingAddress($address)
+    protected function changeCountryUsingAddress($address)
     {
         $country = $address->getCountry();
         if ($country !== null) {
@@ -845,7 +845,7 @@ class APIController extends Controller
         }
     }
 
-    private function getDateString($date)
+    protected function getDateString($date)
     {
         if ($date == null) {
             return '';
@@ -853,7 +853,8 @@ class APIController extends Controller
 
         return $date->format('d/m/Y');
     }
-    private function getDateTimeString($date)
+
+    protected function getDateTimeString($date)
     {
         if ($date == null) {
             return '';
@@ -862,7 +863,7 @@ class APIController extends Controller
         return $date->format('d/m/Y H:i');
     }
 
-    private function setCountryId($countryId)
+    protected function setCountryId($countryId)
     {
         $country = $this->get('elcodi.repository.country')->find($countryId);
         $this->get('session')->set('countryId', $countryId);
