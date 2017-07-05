@@ -50,3 +50,6 @@ store_github_login:
 
 store_paypal_login:
     path: /login/check-paypal
+
+store_api:
+    resource: "@StoreAPIBundle/Resources/config/routing.yml"

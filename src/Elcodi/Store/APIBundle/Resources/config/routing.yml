@@ -1,0 +1,72 @@
+store_api_login:
+    path:     /store/api/login
+    defaults: { _controller: StoreAPIBundle:API:login }
+
+store_api_logout:
+    path:     /store/api/logout
+    defaults: { _controller: StoreAPIBundle:API:logout }
+
+store_api_get_user_data:
+    path:     /store/api/get-user-data
+    defaults: { _controller: StoreAPIBundle:API:getUserData }
+
+store_api_set_user_data:
+    path:     /store/api/set-user-data
+    defaults: { _controller: StoreAPIBundle:API:setUserData }
+
+store_api_register:
+    path:     /store/api/register
+    defaults: { _controller: StoreAPIBundle:API:register }
+
+store_api_get_orders:
+    path:     /store/api/get-orders
+    defaults: { _controller: StoreAPIBundle:API:getOrders }
+
+store_api_get_cart:
+    path:     /store/api/get-cart
+    defaults: { _controller: StoreAPIBundle:API:getCart }
+
+store_api_create_paypal_order:
+    path:     /store/api/create-paypal-order
+    defaults: { _controller: StoreAPIBundle:API:createPaypalOrder }
+
+store_api_restore_cart_from_order:
+    path:     /store/api/restore-cart-from-order
+    defaults: { _controller: StoreAPIBundle:API:restoreCartFromOrder }
+
+store_api_update_country_language:
+    path:     /store/api/update-country-language
+    defaults: { _controller: StoreAPIBundle:API:updateCountryLanguage }
+
+store_api_update_cart_line_quantity:
+    path:     /store/api/update-cart-line-quantity
+    defaults: { _controller: StoreAPIBundle:API:updateCartLineQuantity }
+
+store_api_get_countries:
+    path:     /store/api/get-countries
+    defaults: { _controller: StoreAPIBundle:API:getAllCountries }
+
+store_api_get_user_address:
+    path:     /store/api/get-user-addresses
+    defaults: { _controller: StoreAPIBundle:API:getUserAddresses }
+
+store_api_add_coupon_to_cart:
+    path:     /store/api/add-coupon-to-cart
+    defaults: { _controller: StoreAPIBundle:API:addCouponToCart }
+
+store_api_remove_coupon_from_cart:
+    path:     /store/api/remove-coupon-from-cart
+    defaults: { _controller: StoreAPIBundle:API:removeCouponFromCart }
+
+store_api_create_address:
+    path:     /store/api/create-address
+    defaults: { _controller: StoreAPIBundle:API:createAddress }
+
+store_api_delete_user_address:
+    path:     /store/api/delete-user-address
+    defaults: { _controller: StoreAPIBundle:API:deleteUserAddress }
+
+store_api_set_user_address:
+    path:     /store/api/set-user-address
+    defaults: { _controller: StoreAPIBundle:API:setUserAddress }
+

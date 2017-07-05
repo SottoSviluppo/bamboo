@@ -115,6 +115,7 @@ class AppKernel extends Kernel
             'Elcodi\Store\CartCouponBundle\StoreCartCouponBundle',
             'Elcodi\Store\ConnectBundle\StoreConnectBundle',
             'Elcodi\Store\MetricBundle\StoreMetricBundle',
+            'Elcodi\Store\APIBundle\StoreAPIBundle',
             'Elcodi\Store\PageBundle\StorePageBundle',
             'Elcodi\Store\LanguageBundle\StoreLanguageBundle',
             'Elcodi\Store\OverrideBundle\StoreOverrideBundle',
