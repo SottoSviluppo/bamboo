@@ -435,4 +435,42 @@ class OrderController extends AbstractAdminController
         return $this->redirect($request->headers->get('referer'));
     }
 
+    /**
+     * Update order address json
+     *
+     * @Route(
+     *      path = "/{id}/order-address-update-json/{type}",
+     *      name = "admin_order_update_address_json",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"POST"}
+     * )
+     *
+     */
+    public function orderUpdateShippingAddressJsonAction(
+        Request $request,
+        $id,
+        $type
+    ) {
+        if (!$this->canUpdate()) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
+        $addressArray = $request->get('address_json');
+        $order = $this->get('elcodi.repository.order')->find($id);
+
+        if ($type == 'delivery') {
+            $order->setDeliveryAddressJson($addressArray);
+        }
+        if ($type == 'billing') {
+            $order->setBillingAddressJson($addressArray);
+        }
+
+        $this->flush($order);
+        $this->addFlash('success', 'Indirizzo aggiornato');
+        return $this->redirect($request->headers->get('referer'));
+    }
+
 }
