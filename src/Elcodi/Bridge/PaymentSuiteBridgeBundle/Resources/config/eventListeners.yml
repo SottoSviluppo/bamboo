@@ -17,5 +17,8 @@ services:
             - "@elcodi.order_payment_states_machine_manager"
             - "@elcodi.object_manager.order"
             - "@elcodi.object_manager.state_transition_machine_state_line"
+            - "@elcodi.manager.cart_coupon"
+            - "@elcodi.factory.customer_coupon"
+            - "@elcodi.object_manager.customer_coupon"
         tags:
             - { name: kernel.event_listener, event: payment.order.success, method: setOrderToPaid }

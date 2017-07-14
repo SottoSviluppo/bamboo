@@ -357,6 +357,9 @@ admin:
             count:
                 title: 'Limite dell''utilizzo'
 
+            count_customer:
+                title: "Limite d'utilizzo per cliente"
+
             datetime:
                 title: 'Data & Ora'
 

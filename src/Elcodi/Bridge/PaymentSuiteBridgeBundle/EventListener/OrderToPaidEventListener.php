@@ -18,7 +18,9 @@
 namespace Elcodi\Bridge\PaymentSuiteBridgeBundle\EventListener;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Elcodi\Component\CartCoupon\Services\CartCouponManager;
 use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
+use Elcodi\Component\Coupon\Factory\CustomerCouponFactory;
 use Elcodi\Component\StateTransitionMachine\Machine\MachineManager;
 use PaymentSuite\PaymentCoreBundle\Event\Abstracts\AbstractPaymentEvent;
 
@@ -49,20 +51,50 @@ class OrderToPaidEventListener
     private $stateLineObjectManager;
 
     /**
+     * @var CartCouponManager
+     *
+     * CartCoupon manager
+     */
+    private $cartCouponManager;
+
+    /**
+     * @var CustomerCouponFactory
+     *
+     * CustomerCoupon factory
+     */
+    private $customerCouponFactory;
+
+    /**
+     * @var ObjectManager
+     *
+     * CustomerCoupon object manager
+     */
+    private $customerCouponObjectManager;
+
+    /**
      * Construct method
      *
      * @param MachineManager $paymentMachineManager  Machine manager for payment
      * @param ObjectManager  $orderObjectManager     Order object manager
      * @param ObjectManager  $stateLineObjectManager StateLine object manager
+     * @param CartCouponManager  $cartCouponManager CartCoupon object manager
+     * @param CustomerCouponFactory  $customerCouponFactory CartCoupon object manager
+     * @param ObjectManager  $customerCouponObjectManager CartCoupon object manager
      */
     public function __construct(
         MachineManager $paymentMachineManager,
         ObjectManager $orderObjectManager,
-        ObjectManager $stateLineObjectManager
+        ObjectManager $stateLineObjectManager,
+        CartCouponManager $cartCouponManager,
+        CustomerCouponFactory $customerCouponFactory,
+        ObjectManager $customerCouponObjectManager
     ) {
         $this->paymentMachineManager = $paymentMachineManager;
         $this->orderObjectManager = $orderObjectManager;
         $this->stateLineObjectManager = $stateLineObjectManager;
+        $this->cartCouponManager = $cartCouponManager;
+        $this->customerCouponFactory = $customerCouponFactory;
+        $this->customerCouponObjectManager = $customerCouponObjectManager;
     }
 
     /**
@@ -114,5 +146,16 @@ class OrderToPaidEventListener
         $this
             ->stateLineObjectManager
             ->flush($order);
+
+        $cart = $order->getCart();
+        $cartCoupons = $this->cartCouponManager->getCartCoupons($cart);
+        foreach ($cartCoupons as $coupon) {
+            $customerCoupon = $this->customerCouponFactory->create();
+            $customerCoupon->setCustomer($cart->getCustomer());
+            $customerCoupon->setCoupon($coupon->getCoupon());
+            $customerCouponObjectManager = $this->customerCouponObjectManager;
+            $customerCouponObjectManager->persist($customerCoupon);
+            $customerCouponObjectManager->flush();
+        }
     }
 }

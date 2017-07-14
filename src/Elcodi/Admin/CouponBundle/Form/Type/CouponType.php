@@ -104,6 +104,9 @@ class CouponType extends AbstractType
             ->add('count', 'integer', [
                 'required' => false,
             ])
+            ->add('countCustomer', 'integer', [
+                'required' => false,
+            ])
             ->add('used', 'integer', [
                 'required' => false,
             ])

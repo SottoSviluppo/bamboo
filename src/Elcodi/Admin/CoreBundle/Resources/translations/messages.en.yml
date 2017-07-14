@@ -262,6 +262,8 @@ admin:
                 title: Code
             count:
                 title: 'Usage Limit'
+            count_customer:
+                title: "Usage limit for customer"
             datetime:
                 title: 'Date & Time'
             description:
