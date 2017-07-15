@@ -59,6 +59,7 @@ class CategoryData extends AbstractFixture
             ->setMetaKeywords('Women Shirts')
             ->setEnabled(true)
             ->setRoot(true)
+            ->setShowInHome(true)
             ->setPosition(0);
 
         $categoryObjectManager->persist($womenCategory);
@@ -110,6 +111,7 @@ class CategoryData extends AbstractFixture
             ->setMetaKeywords('Men Shirts')
             ->setEnabled(true)
             ->setRoot(true)
+            ->setShowInHome(true)
             ->setPosition(1);
 
         $categoryObjectManager->persist($menCategory);
