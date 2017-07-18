@@ -186,6 +186,23 @@ class AdminOrderSearchService
         return $this->addExactMatch('paymentLastStateLine.name', $orderState);
     }
 
+    public function addCoupon($coupon)
+    {
+        if ($coupon == '') {
+            return;
+        }
+
+        $couponQuery = new Nested();
+        $couponQuery->setPath('orderCoupons');
+
+        $couponTerm = new Match();
+        $couponTerm->setFieldQuery('orderCoupons.coupon.code', $coupon);
+
+        $couponQuery->setQuery($couponTerm);
+
+        $this->orderQuery->addMust($couponQuery);
+    }
+
     public function addOrderShippingState($orderState)
     {
         return $this->addExactMatch('shippingLastStateLine.name', $orderState);
@@ -264,6 +281,7 @@ class AdminOrderSearchService
     public function getSearchParameters($request)
     {
         $orderState = $request->get('orderState');
+        $coupon = $request->get('coupon');
         $shippingState = $request->get('shippingState');
         $customerEmail = $request->get('customerEmail');
         $paymentMethod = $request->get('paymentMethod');
@@ -280,6 +298,7 @@ class AdminOrderSearchService
         return [
             'dateRange' => $dateRange,
             'orderState' => $orderState,
+            'coupon' => $coupon,
             'shippingState' => $shippingState,
             'countryId' => $countryId,
             'customerEmail' => $customerEmail,
@@ -312,6 +331,7 @@ class AdminOrderSearchService
         $this->addQuery($searchParameters['query']);
         $this->addDateRange($searchParameters['dateRange']);
         $this->addOrderPaymentState($searchParameters['orderState']);
+        $this->addCoupon($searchParameters['coupon']);
         $this->addOrderShippingState($searchParameters['shippingState']);
         $this->addIdRange($searchParameters['idRange']);
         $this->addCustomerEmail($searchParameters['customerEmail']);
