@@ -18,7 +18,6 @@ class Version20170322135321 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE address DROP extra_data');
         $this->addSql('ALTER TABLE store CHANGE private_product private_product_creation TINYINT(1) DEFAULT NULL');
         $this->addSql('ALTER TABLE shipping_range CHANGE country_id country_id INT NOT NULL');
     }
@@ -31,7 +30,6 @@ class Version20170322135321 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE address ADD extra_data LONGTEXT DEFAULT NULL COLLATE utf8_unicode_ci COMMENT \'(DC2Type:json_array)\'');
         $this->addSql('ALTER TABLE shipping_range CHANGE country_id country_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE store CHANGE private_product_creation private_product TINYINT(1) DEFAULT NULL');
     }
