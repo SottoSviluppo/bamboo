@@ -26,6 +26,10 @@ store_api_get_cart:
     path:     /store/api/get-cart
     defaults: { _controller: StoreAPIBundle:API:getCart, _format: json }
 
+store_api_remove_cart_line:
+    path:     /store/api/remove-cart-line
+    defaults: { _controller: StoreAPIBundle:API:removeCartLine, _format: json }
+
 store_api_create_paypal_order:
     path:     /store/api/create-paypal-order
     defaults: { _controller: StoreAPIBundle:API:createPaypalOrder, _format: json }

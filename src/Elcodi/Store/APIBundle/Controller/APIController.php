@@ -384,6 +384,27 @@ class APIController extends Controller
         }
     }
 
+    public function removeCartLineAction(Request $request)
+    {
+        $cartLineId = $request->get('cart_line_id');
+        try
+        {
+            $cart = $this
+                ->get('elcodi.wrapper.cart')
+                ->get();
+            $cartLine = $this->get('elcodi.repository.cart_line')->find($cartLineId);
+            $this
+                ->get('elcodi.manager.cart')
+                ->removeLine(
+                    $cart,
+                    $cartLine
+                );
+            return $this->getSuccessMessage();
+        } catch (Exception $exception) {
+            return $this->getFailedMessage($exception->getMessage());
+        }
+    }
+
     protected function updateCart()
     {
         $cart = $this
