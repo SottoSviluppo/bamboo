@@ -48,11 +48,11 @@
                     <p data-fc-modules="truncate" data-fc-max="100" data-fc-more="+" data-fc-less="-">
                         {{ pluginDescription|trans }}
                     </p>
-                    <input type="hidden" id="url-enable-plugin-{{ plugin.hash }}" value="{{ url('admin_plugin_enable', { pluginHash: plugin.hash }) }}" />
+                    <input type="hidden" id="url-enable-plugin-{{ plugin.hash }}" value="{{ path('admin_plugin_enable', { pluginHash: plugin.hash }) }}" />
                 </div>
                 <div class="form-grid-settings">
                     {% if plugin.hasFields() %}
-                        <a href="{{ url('admin_plugin_configure', { pluginHash: plugin.hash }) }}" class="button icon-cogs">
+                        <a href="{{ path('admin_plugin_configure', { pluginHash: plugin.hash }) }}" class="button icon-cogs">
                             {{ 'admin.plugin.section.settings'|trans }}
                         </a>
                     {% endif %}
