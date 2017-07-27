@@ -1,0 +1,10 @@
+<td>
+    <a href="{{ url('admin_coupon_campaign_edit', { id: entity.id }) }}">
+        <strong>{{ entity.campaignName|truncate(20, '…') }}</strong>
+    </a>
+</td>
+{% include '@AdminCore/Tables/actions.html.twig' with {
+    entity : entity,
+    delete: not entity.persistent,
+    class: 'coupon_campaign'
+} %}

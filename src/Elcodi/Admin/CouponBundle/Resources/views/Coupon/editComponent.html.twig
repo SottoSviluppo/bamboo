@@ -48,6 +48,16 @@
                         </li>
                         <li>
                             {{
+                                    form_row(form.coupon_campaign, {
+                                        label: 'admin.coupon.field.coupon_campaign.title',
+                                        attr: {
+                                            placeholder: 'admin.coupon.field.coupon_campaign.placeholder',
+                                        }
+                                    })
+                                }}
+                        </li>
+                        <li>
+                            {{
                                 form_row(form.color, {
                                     label: 'admin.coupon.field.color.title',
                                     attr: { placeholder: 'admin.coupon.field.color.placeholder' }

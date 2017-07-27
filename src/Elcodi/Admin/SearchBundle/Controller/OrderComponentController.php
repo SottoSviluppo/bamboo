@@ -40,6 +40,7 @@ class OrderComponentController extends AbstractAdminController
         $ordersPaginator->setItemNumberPerPage($limit);
 
         $countries = $this->get('elcodi.repository.country')->findByEnabled(true);
+        $couponCampaigns = $this->get('elcodi.repository.coupon_campaign')->findAll();
 
         $orders = $ordersPaginator->getItems();
         $orderCoupons = $this->getCouponsFromOrders($orders);
@@ -51,6 +52,7 @@ class OrderComponentController extends AbstractAdminController
             'totalPages' => ceil($ordersPaginator->getTotalItemCount() / $limit),
             'totalElements' => $ordersPaginator->getTotalItemCount(),
             'countries' => $countries,
+            'couponCampaigns' => $couponCampaigns,
             'orderCoupons' => $orderCoupons,
         ];
         $results = array_merge($results, $searchParameters);

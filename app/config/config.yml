@@ -363,6 +363,11 @@ fos_elastica:
                                         code: ~
                                         name: ~
                                         color: ~
+                                        couponCampaign:
+                                            type: object
+                                            properties:
+                                                campaignName: ~
+
                     persistence:
                         driver: orm
                         model: %elcodi.entity.order.class%

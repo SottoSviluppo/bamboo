@@ -81,6 +81,10 @@ class CouponType extends AbstractType
             ->add('name', 'text', [
                 'required' => true,
             ])
+            ->add('coupon_campaign', 'entity', [
+                'required' => false,
+                'class' => 'Elcodi\Component\Coupon\Entity\CouponCampaign',
+            ])
             ->add('type', 'choice', [
                 'required' => true,
                 'choices' => [

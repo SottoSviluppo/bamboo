@@ -67,6 +67,7 @@ class SearchController extends AbstractAdminController
         $parameters['dateTo'] = $request->query->get('dateto');
         $parameters['orderState'] = $request->query->get('orderState');
         $parameters['coupon'] = $request->query->get('coupon');
+        $parameters['couponCampaign'] = $request->query->get('couponCampaign');
         $parameters['countryId'] = $request->query->get('countryId');
         $parameters['shippingState'] = $request->query->get('shippingState');
         $parameters['customerEmail'] = $request->query->get('customerEmail');
