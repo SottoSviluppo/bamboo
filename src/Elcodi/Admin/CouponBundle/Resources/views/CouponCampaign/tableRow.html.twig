@@ -3,6 +3,13 @@
         <strong>{{ entity.campaignName|truncate(20, '…') }}</strong>
     </a>
 </td>
+
+<td>
+    <a href="{{ url('search_admin_orders', { couponCampaign: entity.campaignName }) }}" target="_blank">
+        Ordini associati
+    </a>
+</td>
+
 {% include '@AdminCore/Tables/actions.html.twig' with {
     entity : entity,
     delete: not entity.persistent,

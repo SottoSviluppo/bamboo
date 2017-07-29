@@ -37,7 +37,8 @@
         rows: [
             { name: 'admin.coupon.field.code.title'|trans },
             { name: 'admin.coupon.field.description.title'|trans, width: 40 },
-            { name: 'admin.coupon.field.uses.title'|trans, width: 20 },
+            { name: 'admin.coupon.field.uses.title'|trans, width: 12 },
+            { name: 'Link', width: 15 },
             { name: 'admin.coupon.field.status.title'|trans, width: 10 },
         ],
         class: 'coupon',
@@ -64,6 +65,11 @@
         {% endif %} #}
 
         {{entity.used}}/{{entity.count}}
+    </td>
+    <td>
+        <a href="{{ url('search_admin_orders', { coupon: entity.code }) }}" target="_blank">
+            Ordini associati
+        </a>
     </td>
     <td>
         {% if entity.enabled %}
