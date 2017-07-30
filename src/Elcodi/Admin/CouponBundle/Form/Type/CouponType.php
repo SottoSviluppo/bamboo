@@ -81,6 +81,10 @@ class CouponType extends AbstractType
             ->add('name', 'text', [
                 'required' => true,
             ])
+            ->add('coupon_campaign', 'entity', [
+                'required' => false,
+                'class' => 'Elcodi\Component\Coupon\Entity\CouponCampaign',
+            ])
             ->add('type', 'choice', [
                 'required' => true,
                 'choices' => [
@@ -117,6 +121,9 @@ class CouponType extends AbstractType
                 'required' => false,
             ])
             ->add('stackable', 'checkbox', [
+                'required' => false,
+            ])
+            ->add('freeShipping', 'checkbox', [
                 'required' => false,
             ])
             ->add('color', 'text', [

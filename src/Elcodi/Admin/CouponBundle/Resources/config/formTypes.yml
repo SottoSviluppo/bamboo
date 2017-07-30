@@ -11,3 +11,17 @@ services:
             - [setFactory, ["@elcodi.factory.coupon"]]
         tags:
             - { name: form.type, alias: elcodi_admin_coupon_form_type_coupon }
+            
+    elcodi_admin.form_type.coupon_campaign:
+        class: Elcodi\Admin\CouponBundle\Form\Type\CouponCampaignType
+        arguments:
+        calls:
+            - [setFactory, ["@elcodi.factory.coupon_campaign"] ]
+        tags:
+            - { name: form.type, alias: elcodi_admin_coupon_campaign_form_type_coupon_campaign }
+
+    elcodi_admin.form_type.coupon_generation:
+        class: Elcodi\Admin\CouponBundle\Form\Type\CouponGenerationType
+        arguments:
+        tags:
+            - { name: form.type, alias: elcodi_admin_coupon_generation_form_type_coupon }

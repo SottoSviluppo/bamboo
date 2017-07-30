@@ -35,10 +35,10 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
         'canRead' => false,
         'canCreate' => false,
         'canUpdate' => false,
-        'canDelete' => false
+        'canDelete' => false,
     ];
 
-    function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
+    public function __construct(NodeFactory $menuNodeFactory, ContainerInterface $container)
     {
         parent::__construct($menuNodeFactory);
         $this->permissionsRepository = $container->get('elcodi.repository.permission_group');
@@ -48,7 +48,7 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
             'canRead' => $this->permissionsRepository->canReadEntity($this->resource, $this->currentUser),
             'canCreate' => $this->permissionsRepository->canCreateEntity($this->resource, $this->currentUser),
             'canUpdate' => $this->permissionsRepository->canUpdateEntity($this->resource, $this->currentUser),
-            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser)
+            'canDelete' => $this->permissionsRepository->canDeleteEntity($this->resource, $this->currentUser),
         ];
     }
 
@@ -61,19 +61,17 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
     {
         if ($this->hasAnyPermission()) {
             $activeUrls = [];
-
             $node = $this
-                        ->menuNodeFactory
-                        ->create()
-                        ->setName('admin.coupon.plural')
-                        ->setCode('gift')
-                        ->setTag('catalog')
-                        ->setPriority(32);
+                ->menuNodeFactory
+                ->create()
+                ->setName('admin.coupon.plural')
+                ->setCode('gift')
+                ->setTag('catalog')
+                ->setPriority(32);
 
             if ($this->permissions['canRead']) {
                 $node->setUrl('admin_coupon_list');
-            }
-            elseif ($this->permissions['canCreate']) {
+            } elseif ($this->permissions['canCreate']) {
                 $node->setUrl('admin_coupon_new');
             }
 
@@ -87,6 +85,40 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
             if (!empty($activeUrls)) {
                 $node->setActiveUrls($activeUrls);
             }
+
+            $node
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('admin.coupon.plural')
+                        ->setCode('file-text-o')
+                        ->setUrl('admin_coupon_list')
+                        ->setActiveUrls([
+                            'admin_coupon_edit',
+                            'admin_coupon_new',
+                        ])
+                )
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('admin.coupon_campaign.plural')
+                        ->setCode('file-text-o')
+                        ->setUrl('admin_coupon_campaign_list')
+                        ->setActiveUrls([
+                            'admin_coupon_campaign_edit',
+                            'admin_coupon_campaign_new',
+                        ])
+                )
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('Generazione coupons')
+                        ->setCode('file-text-o')
+                        ->setUrl('admin_coupon_generation')
+                );
 
             $menu->addSubnode($node);
         }

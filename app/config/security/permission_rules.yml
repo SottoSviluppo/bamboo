@@ -6,6 +6,8 @@ parameters:
         Elcodi\Admin\CartBundle\Controller\OrderController: ['order']
         Elcodi\Admin\CartBundle\Controller\CustomerOrderController: ['order']
         Elcodi\Admin\CouponBundle\Controller\CouponController: ['coupon']
+        Elcodi\Admin\CouponBundle\Controller\CouponCampaignController: ['coupon']
+        Elcodi\Admin\CouponBundle\Controller\CouponGenerationController: ['coupon']
         Elcodi\Admin\CurrencyBundle\Controller\CurrencyController: ['currency']
         Elcodi\Admin\GeoBundle\Controller\CountryController: ['country']
         Elcodi\Admin\GeoBundle\Controller\LocationController: ['location']

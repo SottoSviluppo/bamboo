@@ -37,6 +37,10 @@ class MoneyDataMapper implements DataMapperInterface
      */
     public function mapDataToForms($data, $forms)
     {
+        if ($data === null) {
+            return;
+        }
+
         foreach ($forms as $form) {
             switch ($form->getName()) {
                 case 'amount':
