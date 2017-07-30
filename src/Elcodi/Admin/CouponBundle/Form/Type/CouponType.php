@@ -123,6 +123,9 @@ class CouponType extends AbstractType
             ->add('stackable', 'checkbox', [
                 'required' => false,
             ])
+            ->add('freeShipping', 'checkbox', [
+                'required' => false,
+            ])
             ->add('color', 'text', [
                 'required' => false,
             ])
