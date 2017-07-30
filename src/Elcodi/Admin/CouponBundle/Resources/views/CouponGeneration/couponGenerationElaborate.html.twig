@@ -1,0 +1,9 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% block content %}
+
+    {% for coupon in coupons %}
+        {{coupon.code}}<br />        
+    {% endfor %}
+{% endblock content %}
