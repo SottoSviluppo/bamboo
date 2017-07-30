@@ -38,61 +38,59 @@ class CouponGenerationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        // ->add('name', 'text', [
-        //     'required' => true,
-        // ])
-        ->add('coupon_campaign', 'entity', [
-            'required' => false,
-            'class' => 'Elcodi\Component\Coupon\Entity\CouponCampaign',
-        ])
-        // ->add('type', 'choice', [
-        //     'required' => true,
-        //     'choices' => [
-        //         ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
-        //         ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
-        //     ],
-        // ])
-        // ->add('enforcement', 'choice', [
-        //     'required' => true,
-        //     'choices' => [
-        //         ElcodiCouponTypes::ENFORCEMENT_MANUAL => 'admin.coupon.field.enforcement.options.manual',
-        //         ElcodiCouponTypes::ENFORCEMENT_AUTOMATIC => 'admin.coupon.field.enforcement.options.automatic',
-        //     ],
-        // ])
-            ->add('price', 'money_object', [
+            ->add('coupon_campaign', 'entity', [
                 'required' => false,
+                'class' => 'Elcodi\Component\Coupon\Entity\CouponCampaign',
+            ])
+            // ->add('type', 'choice', [
+            //     'required' => true,
+            //     'choices' => [
+            //         ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
+            //         ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
+            //     ],
+            // ])
+            // ->add('enforcement', 'choice', [
+            //     'required' => true,
+            //     'choices' => [
+            //         ElcodiCouponTypes::ENFORCEMENT_MANUAL => 'admin.coupon.field.enforcement.options.manual',
+            //         ElcodiCouponTypes::ENFORCEMENT_AUTOMATIC => 'admin.coupon.field.enforcement.options.automatic',
+            //     ],
+            // ])
+            ->add('price', 'money_object', [
+                'required' => true,
                 'constraints' => [
                     new MinimumMoney([
                         'value' => 0,
                     ]),
                 ],
             ])
-        // ->add('discount', 'integer', [
-        //     'required' => false,
-        // ])
+            // ->add('discount', 'integer', [
+            //     'required' => false,
+            // ])
             ->add('count', 'integer', [
-                'required' => false,
+                'required' => true,
             ])
             ->add('chars', 'integer', [
-                'required' => false,
+                'required' => true,
+                'attr' => array('min' => 5),
             ])
-        // ->add('countCustomer', 'integer', [
-        //     'required' => false,
-        // ])
-        // ->add('used', 'integer', [
-        //     'required' => false,
-        // ])
-        // ->add('priority', 'integer', [
-        //     'required' => false,
-        // ])
-        // ->add('minimumPurchase', 'money_object', [
-        //     'required' => false,
-        //     'constraints' => [
-        //         new MinimumMoney([
-        //             'value' => 0,
-        //         ]),
-        //     ],
-        // ])
+            // ->add('countCustomer', 'integer', [
+            //     'required' => false,
+            // ])
+            // ->add('used', 'integer', [
+            //     'required' => false,
+            // ])
+            // ->add('priority', 'integer', [
+            //     'required' => false,
+            // ])
+            // ->add('minimumPurchase', 'money_object', [
+            //     'required' => false,
+            //     'constraints' => [
+            //         new MinimumMoney([
+            //             'value' => 0,
+            //         ]),
+            //     ],
+            // ])
             ->add('stackable', 'checkbox', [
                 'required' => false,
             ])

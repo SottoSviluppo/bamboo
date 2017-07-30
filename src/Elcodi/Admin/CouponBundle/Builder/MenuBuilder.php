@@ -110,6 +110,14 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                             'admin_coupon_campaign_edit',
                             'admin_coupon_campaign_new',
                         ])
+                )
+                ->addSubnode(
+                    $this
+                        ->menuNodeFactory
+                        ->create()
+                        ->setName('Generazione coupons')
+                        ->setCode('file-text-o')
+                        ->setUrl('admin_coupon_generation')
                 );
 
             $menu->addSubnode($node);

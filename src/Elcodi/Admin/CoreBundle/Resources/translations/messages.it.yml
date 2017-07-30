@@ -354,6 +354,9 @@ admin:
                 placeholder: 'e.g. MYCODE'
                 title: Codice
 
+            coupon_campaign:
+                title: Campagna coupon
+
             count:
                 title: 'Limite dell''utilizzo'
 
@@ -382,6 +385,9 @@ admin:
                     manual: 'Applicazione manuale'
 
                 title: Modalità
+
+            free_shipping:
+                title: Spedizione gratuita
 
             minimum_purchase:
                 title: 'Acquisto minimo'
@@ -452,6 +458,38 @@ admin:
                 title: Validità
 
         single: Coupon
+
+    coupon_campaign:
+        edit: 'Modifica "%name%"'
+        field:
+            campaign_name:
+                title: 'Nome'
+                placeholder: ''
+            enabled:
+                title: Abilitato
+            created_at:
+                title: Creata il
+            updated_at:
+                title: Aggiornata il
+        section:
+            translatable:
+                title: Dati con traduzione
+                description: I dati da tradurre nelle varie lingue
+            nontranslatable:
+                title: Dati senza traduzione
+                description: Dati senza traduzione
+            images:
+                description: ''
+                title: Immagini
+            visibility:
+                description: ''
+                title: Visibilità
+        list: 'Lista campagne coupon'
+        new: 'Nuova campagna coupon'
+        plural: Campagne coupon
+        saved: 'Campagna coupon salvata'
+        single: Campagna coupon
+        already_exists: 'La campagna coupon esiste già'
 
     country:
         plural: Nazioni

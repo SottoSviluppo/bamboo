@@ -19,11 +19,13 @@ use Symfony\Component\HttpFoundation\Request;
  * Class Controller for CouponCampaign.
  *
  * @Route(
- *      path = "/%bamboo_admin_prefix%/coupon_campaign",
+ *      path = "/coupon/coupon_campaign",
  * )
  */
 class CouponCampaignController extends AbstractAdminController
 {
+    private $resource = 'coupon';
+
     /**
      * List elements of certain entity type.
      *
@@ -137,6 +139,27 @@ class CouponCampaignController extends AbstractAdminController
         $isValid,
         Request $request
     ) {
+        if ($couponCampaign->getId()) {
+            if (!$this->canUpdate($this->resource)) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        } else {
+            if (!$this->canCreate($this->resource)) {
+                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+                return $this->redirect($this->generateUrl('admin_homepage'));
+            }
+        }
+
+        // check if already exists
+        if ($couponCampaign->getId() <= 0) {
+            $oldCouponCampaign = $this->get('elcodi.repository.coupon_campaign')->findOneByCampaignName($couponCampaign->getCampaignName());
+            if ($oldCouponCampaign != null) {
+                $this->addFlash('error', 'admin.coupon_campaign.already_exists');
+                $isValid = false;
+            }
+        }
+
         if ($isValid) {
             $this->flush($couponCampaign);
 

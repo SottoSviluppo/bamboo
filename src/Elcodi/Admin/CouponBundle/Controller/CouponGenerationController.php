@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CouponGenerationController extends AbstractAdminController
 {
+    private $resource = 'coupon';
 
     /**
      * @Route(
@@ -33,6 +34,11 @@ class CouponGenerationController extends AbstractAdminController
      */
     public function couponGenerationAction()
     {
+        if (!$this->canCreate($this->resource)) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
         $form = $this->createForm('elcodi_admin_coupon_generation_form_type_coupon');
         return [
             'form' => $form->createView(),
@@ -49,6 +55,11 @@ class CouponGenerationController extends AbstractAdminController
      */
     public function couponGenerationElaborateAction(Request $request)
     {
+        if (!$this->canCreate($this->resource)) {
+            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+            return $this->redirect($this->generateUrl('admin_homepage'));
+        }
+
         $formArray = $request->request->get('elcodi_admin_coupon_generation_form_type_coupon');
 
         $currency = $this->container->get('elcodi.repository.currency')->findOneByIso($formArray['price']['currency']);
@@ -62,9 +73,20 @@ class CouponGenerationController extends AbstractAdminController
         $this->container->get('elcodi.generator_manager.coupon')->setCouponCampaign($couponCampaign);
         $this->container->get('elcodi.generator_manager.coupon')->setAmount($amount);
         $this->container->get('elcodi.generator_manager.coupon')->setChars($chars);
-        $this->container->get('elcodi.generator_manager.coupon')->setBaseName($couponCampaign->getCampaignName());
-        $this->container->get('elcodi.generator_manager.coupon')->setFreeShipping($formArray['free_shipping']);
-        $this->container->get('elcodi.generator_manager.coupon')->setStackable($formArray['stackable']);
+        if ($couponCampaign !== null) {
+            $this->container->get('elcodi.generator_manager.coupon')->setBaseName($couponCampaign->getCampaignName());
+        }
+        if (array_key_exists('free_shipping', $formArray)) {
+            $this->container->get('elcodi.generator_manager.coupon')->setFreeShipping($formArray['free_shipping']);
+        } else {
+            $this->container->get('elcodi.generator_manager.coupon')->setFreeShipping(false);
+        }
+
+        if (array_key_exists('stackable', $formArray)) {
+            $this->container->get('elcodi.generator_manager.coupon')->setStackable($formArray['stackable']);
+        } else {
+            $this->container->get('elcodi.generator_manager.coupon')->setStackable(false);
+        }
 
         $start = null;
         if ($formArray['validFrom']['date'] != '') {
