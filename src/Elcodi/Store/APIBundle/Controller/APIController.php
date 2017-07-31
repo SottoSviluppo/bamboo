@@ -29,21 +29,7 @@ class APIController extends Controller
 
         try
         {
-            $user = $this->getUserByEmail($email);
-
-            if ($user === null) {
-                throw new Exception("invalid user login", 1);
-            }
-
-            $encoder_service = $this->get('security.encoder_factory');
-            $encoder = $encoder_service->getEncoder($user);
-
-            // Note the difference
-            if (!$encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
-                throw new Exception("invalid user login", 1);
-            }
-
-            $this->authenticate($request, $user, $password);
+            $user = $this->login($request, $email, $password);
 
             $firstName = $user->getFirstName();
             $lastName = $user->getLastName();
@@ -67,6 +53,26 @@ class APIController extends Controller
             ],
         )
         );
+    }
+
+    protected function login($request, $email, $password)
+    {
+        $user = $this->getUserByEmail($email);
+
+        if ($user === null) {
+            throw new Exception("invalid user login", 1);
+        }
+
+        $encoder_service = $this->get('security.encoder_factory');
+        $encoder = $encoder_service->getEncoder($user);
+
+        // Note the difference
+        if (!$encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt())) {
+            throw new Exception("invalid user login", 1);
+        }
+
+        $this->authenticate($request, $user, $password);
+        return $user;
     }
 
     // funziona solo se non hai "remember me", pare
