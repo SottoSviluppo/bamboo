@@ -13,8 +13,8 @@
 
     {% set formAction =
         coupon.id
-            ? url('admin_coupon_update', { id: coupon.id })
-            : url('admin_coupon_save')
+            ? path('admin_coupon_update', { id: coupon.id })
+            : path('admin_coupon_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

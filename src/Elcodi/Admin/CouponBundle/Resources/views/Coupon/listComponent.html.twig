@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.coupon.single'|trans,
         'admin.coupon.plural'|trans,
-        url('admin_coupon_new')
+        path('admin_coupon_new')
     )
 %}
 
@@ -50,7 +50,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_coupon_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_coupon_edit', { id: entity.id }) }}">
             <strong>{{ entity.code }}</strong>
         </a>
     </td>
@@ -67,7 +67,7 @@
         {{entity.used}}/{{entity.count}}
     </td>
     <td>
-        <a href="{{ url('search_admin_orders', { coupon: entity.code }) }}" target="_blank">
+        <a href="{{ path('search_admin_orders', { coupon: entity.code }) }}" target="_blank">
             Ordini associati
         </a>
     </td>
