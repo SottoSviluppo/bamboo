@@ -21,13 +21,14 @@
         <div>
             <input type="text" name="q" class="form-control" value="{{ query }}" placeholder="Search Customers">
             <span class="input-group-btn">
-                <button class="search-btn button-primary" type="submit">
-                    <i class="icon-search"></i>
-                </button>
+                <input class="button-primary" type="submit" name="submit" value="Ricerca">
+                <input class="button-secondary" type="submit" name="submit" value="Excel">
+
             </span>
         </div>
     </form>
 {% endblock %}
+
 
 
 {% block table_head %}

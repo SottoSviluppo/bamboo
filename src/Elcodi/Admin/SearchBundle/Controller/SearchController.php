@@ -93,7 +93,7 @@ class SearchController extends AbstractAdminController
     /**
      * @Template("AdminSearchBundle:Search:customers.html.twig")
      */
-    public function searchCustomersAction()
+    public function searchCustomersAction(Request $request)
     {
         if (!$this->canRead('customer')) {
 
@@ -103,6 +103,18 @@ class SearchController extends AbstractAdminController
         }
 
         $parameters = $this->getParameters();
+        $parameters['submit'] = $request->query->get('submit');
+
+        // excel
+        if ($parameters['submit'] == 'Excel') {
+            // $searchParameters = $this->get('elcodi_admin.customer.admin_search')->getSearchParameters($request);
+            // $searchParameters = array();
+            // $searchParameters['query'] = $parameters['query'];
+            // $searchParameters['limit'] = 100000;
+            $customers = $this->get('elcodi_admin.admin_search')->searchCustomers($parameters['query'], 1, 1000);
+
+            return $this->get('elcodi.excel_manager.customer')->getExcelFromCustomers($customers);
+        }
 
         if (empty($parameters['query'])) {
             return $this->redirect($this->generateUrl('admin_customer_list'));

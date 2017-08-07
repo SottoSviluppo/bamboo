@@ -582,6 +582,8 @@ admin:
 
         single: Cliente
 
+        export: Esporta clienti
+
     dashboard:
         chart:
             cart_conversion:
