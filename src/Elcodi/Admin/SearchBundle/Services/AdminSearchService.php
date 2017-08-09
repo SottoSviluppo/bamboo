@@ -73,7 +73,11 @@ class AdminSearchService implements IAdminSearchService
         $this->limit = $limit;
 
         $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
-        return $this->paginator->paginate($adapter, $page, $limit);
+
+        $options = array();
+        $options['defaultSortFieldName'] = 'id';
+        $options['defaultSortDirection'] = 'desc';
+        return $this->paginator->paginate($adapter, $page, $limit, $options);
     }
 
     public function searchManufacturers($query, $page = 1, $limit = null)
