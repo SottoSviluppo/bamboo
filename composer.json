@@ -64,7 +64,7 @@
         "predis/predis": "^1.0.1",
         "acasademont/i18n-routing-bundle": "2.0.0",
 
-        "mmoreram/controller-extra-bundle": "^1.2.1",
+        "mmoreram/controller-extra-bundle": "1.2.1",
         "mmoreram/extractor": "^1.2",
         "mmoreram/http-headers-bundle": "1.0.0",
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
