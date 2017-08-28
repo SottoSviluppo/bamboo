@@ -32,8 +32,12 @@ class AdminOrderSearchService
         $this->limit = $this->itemsPerPage;
 
         $this->paginator = $this->container->get('knp_paginator');
-        $this->orderQuery = new BoolQuery();
+        $this->init();
+    }
 
+    public function init()
+    {
+        $this->orderQuery = new BoolQuery();
     }
 
     public function getOrderQuery()
@@ -348,15 +352,33 @@ class AdminOrderSearchService
             $this->setLimit($searchParameters['limit']);
         }
         $this->addQuery($searchParameters['query']);
-        $this->addDateRange($searchParameters['dateRange']);
-        $this->addOrderPaymentState($searchParameters['orderState']);
-        $this->addCoupon($searchParameters['coupon']);
-        $this->addCouponCampaign($searchParameters['couponCampaign']);
-        $this->addOrderShippingState($searchParameters['shippingState']);
-        $this->addIdRange($searchParameters['idRange']);
-        $this->addCustomerEmail($searchParameters['customerEmail']);
-        $this->addOrderPaymentMethod($searchParameters['paymentMethod']);
-        $this->addCountry($searchParameters['countryId']);
+        if (array_key_exists('dateRange', $searchParameters)) {
+            $this->addDateRange($searchParameters['dateRange']);
+        }
+        if (array_key_exists('orderState', $searchParameters)) {
+            $this->addOrderPaymentState($searchParameters['orderState']);
+        }
+        if (array_key_exists('coupon', $searchParameters)) {
+            $this->addCoupon($searchParameters['coupon']);
+        }
+        if (array_key_exists('couponCampaign', $searchParameters)) {
+            $this->addCouponCampaign($searchParameters['couponCampaign']);
+        }
+        if (array_key_exists('shippingState', $searchParameters)) {
+            $this->addOrderShippingState($searchParameters['shippingState']);
+        }
+        if (array_key_exists('idRange', $searchParameters)) {
+            $this->addIdRange($searchParameters['idRange']);
+        }
+        if (array_key_exists('customerEmail', $searchParameters)) {
+            $this->addCustomerEmail($searchParameters['customerEmail']);
+        }
+        if (array_key_exists('paymentMethod', $searchParameters)) {
+            $this->addOrderPaymentMethod($searchParameters['paymentMethod']);
+        }
+        if (array_key_exists('countryId', $searchParameters)) {
+            $this->addCountry($searchParameters['countryId']);
+        }
         return $this;
     }
 }
