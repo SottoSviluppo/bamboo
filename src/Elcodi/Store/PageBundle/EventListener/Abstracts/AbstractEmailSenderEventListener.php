@@ -21,6 +21,7 @@ use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
 use Elcodi\Component\Page\Repository\PageRepository;
 use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
 use Elcodi\Store\CoreBundle\Services\TemplateLocator;
+use Monolog\Logger;
 use Swift_Mailer;
 use Twig_Environment;
 
@@ -58,6 +59,11 @@ abstract class AbstractEmailSenderEventListener
     protected $store;
 
     /**
+     * @var Logger
+     */
+    protected $logger;
+
+    /**
      * Construct
      *
      * @param Swift_Mailer     $mailer          Mailer
@@ -71,13 +77,15 @@ abstract class AbstractEmailSenderEventListener
         Twig_Environment $twig,
         PageRepository $pageRepository,
         StoreInterface $store,
-        TemplateLocator $templateLocator
+        TemplateLocator $templateLocator,
+        Logger $logger
     ) {
         $this->mailer = $mailer;
         $this->twig = $twig;
         $this->pageRepository = $pageRepository;
         $this->store = $store;
         $this->templateLocator = $templateLocator;
+        $this->logger = $logger;
     }
 
     /**

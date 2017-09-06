@@ -26,6 +26,7 @@ use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
  */
 class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventListener
 {
+
     /**
      * Send email
      *
@@ -37,28 +38,23 @@ class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventLi
         $order = $paymentBridge->getOrder();
         $customer = $order->getCustomer();
 
-        $this->sendEmail(
-            'order_confirmation',
-            [
-                'order' => $order,
-                'customer' => $customer,
-            ],
-            $customer->getEmail(), true
-        );
+        $re = '/[a-zA-Z0-9!#$%&\'*+\=?^_`{|}~\-.]*@([a-zA-Z0-9]*)\.[a-zA-Z0-9]*/';
+
+        preg_match_all($re, $customer->getEmail(), $matches, PREG_SET_ORDER, 0);
+
+        if (!empty($matches)) {
+            $this->sendEmail(
+                'order_confirmation',
+                [
+                    'order' => $order,
+                    'customer' => $customer,
+                ],
+                $customer->getEmail(), true
+            );
+        } else {
+            $this->logger->warning('Customer con email no valida: ' . $customer->getEmail());
+            return;
+        }
     }
 
-    //     public function sendOrderConfirmationEmail(OrderOnCreatedEvent $event)
-    // {
-    //     $order = $event->getOrder();
-    //     $customer = $order->getCustomer();
-
-    //     $this->sendEmail(
-    //         'order_confirmation',
-    //         [
-    //             'order' => $order,
-    //             'customer' => $customer,
-    //         ],
-    //         $customer->getEmail(), true
-    //     );
-    // }
 }
