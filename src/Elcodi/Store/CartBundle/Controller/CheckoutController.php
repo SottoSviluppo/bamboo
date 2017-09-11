@@ -17,6 +17,12 @@
 
 namespace Elcodi\Store\CartBundle\Controller;
 
+use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
+use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
+use Elcodi\Component\Geo\Entity\Interfaces\AddressInterface;
+use Elcodi\Component\Shipping\Entity\ShippingMethod;
+use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,13 +32,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
-use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
-use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
-use Elcodi\Component\Geo\Entity\Interfaces\AddressInterface;
-use Elcodi\Component\Shipping\Entity\ShippingMethod;
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Class CheckoutController
@@ -101,7 +100,7 @@ class CheckoutController extends Controller
             $translator = $this->get('translator');
             $this->addFlash(
                 'success', $translator
-                ->trans('store.address.save.response_ok')
+                    ->trans('store.address.save.response_ok')
             );
 
             return $this->redirect(
@@ -123,16 +122,16 @@ class CheckoutController extends Controller
         $addressesFormatted = [];
         foreach ($addresses as $address) {
             $addressesFormatted[] =
-                $addressFormatter
-                    ->toArray($address);
+            $addressFormatter
+                ->toArray($address);
         }
 
         return $this->renderTemplate(
             'Pages:checkout-address.html.twig',
             [
-                'cart'      => $cart,
+                'cart' => $cart,
                 'addresses' => $addressesFormatted,
-                'form'      => $formView,
+                'form' => $formView,
             ]
         );
     }
@@ -212,8 +211,8 @@ class CheckoutController extends Controller
         );
 
         $redirectionUrl = ($billingAddressId && $deliveryAddressId)
-            ? 'store_checkout_payment'
-            : 'store_checkout_address';
+        ? 'store_checkout_payment'
+        : 'store_checkout_address';
 
         return $this->redirect(
             $this->generateUrl($redirectionUrl)
@@ -296,9 +295,9 @@ class CheckoutController extends Controller
             'Pages:checkout-payment.html.twig',
             [
                 'shippingMethods' => $shippingMethods,
-                'paymentMethods'  => $paymentMethods,
-                'cart'            => $cart,
-                'cartCoupons'     => $cartCoupons,
+                'paymentMethods' => $paymentMethods,
+                'cart' => $cart,
+                'cartCoupons' => $cartCoupons,
             ]
         );
     }
@@ -389,7 +388,7 @@ class CheckoutController extends Controller
          * this page
          */
         if ($order->getCustomer() != $customer) {
-            throw($this->createAccessDeniedException());
+            throw ($this->createAccessDeniedException());
         }
 
         return $this->renderTemplate(
