@@ -17,7 +17,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_carrier_list'), },
+            { name: title, url: path('admin_carrier_list'), },
             { name: header, active: true, },
         ]
     } %}

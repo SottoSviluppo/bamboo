@@ -13,8 +13,8 @@
 
     {% set formAction =
         carrier.id
-            ? url('admin_carrier_update', { id: carrier.id })
-            : url('admin_carrier_save')
+            ? path('admin_carrier_update', { id: carrier.id })
+            : path('admin_carrier_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

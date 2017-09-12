@@ -61,7 +61,7 @@
     </td>
     {% include "@AdminCore/Tables/actions.html.twig" with {
         entity: entity,
-        delete_url: url('admin_shipping_range_delete', { carrierId: entity.carrier.id, id: entity.id }),
+        delete_url: path('admin_shipping_range_delete', { carrierId: entity.carrier.id, id: entity.id }),
         class: 'shipping_range',
     } %}
 
