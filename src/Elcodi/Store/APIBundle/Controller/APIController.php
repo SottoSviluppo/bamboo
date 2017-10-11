@@ -732,6 +732,26 @@ class APIController extends Controller
         }
     }
 
+    public function existsCustomerEmailAction(Request $request)
+    {
+        $email = $request->get('email');
+        $result = $this->get('elcodi.manager.check_customer')->existsEmail($email);
+
+        return $this->getJson(
+            ['result' => $result]
+        );
+    }
+
+    public function existsCustomerVatAction(Request $request)
+    {
+        $vat = $request->get('vat');
+        $result = $this->get('elcodi.manager.check_customer')->existsVat($vat);
+
+        return $this->getJson(
+            ['result' => $result]
+        );
+    }
+
     protected function createPaypalOrder()
     {
         $formView = $this

@@ -1,0 +1,5 @@
+services:
+    elcodi.manager.check_customer:
+        class: Elcodi\Store\APIBundle\Services\CheckCustomerManager
+        arguments:
+            - "@elcodi.repository.customer"

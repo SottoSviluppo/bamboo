@@ -74,3 +74,11 @@ store_api_set_delivery_address:
     path:     /store/api/set-delivery-address
     defaults: { _controller: StoreAPIBundle:API:setDeliveryAddressAction, _format: json }
 
+store_api_check_email_exists:
+    path:     /store/api/exists-email
+    defaults: { _controller: StoreAPIBundle:API:existsCustomerEmail, _format: json }
+
+store_api_check_vat_exists:
+    path:     /store/api/exists-vat
+    defaults: { _controller: StoreAPIBundle:API:existsCustomerVat, _format: json }
+

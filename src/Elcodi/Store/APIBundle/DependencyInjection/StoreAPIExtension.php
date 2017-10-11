@@ -40,6 +40,7 @@ class StoreAPIExtension extends AbstractExtension
     {
         return [
             'eventListeners',
+            'services',
         ];
     }
 
