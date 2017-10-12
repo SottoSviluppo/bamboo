@@ -20,3 +20,4 @@ services:
             - "@elcodi.repository.page"
             - "@elcodi.store"
             - "@elcodi_store.template_locator.page"
+            - "@logger"
