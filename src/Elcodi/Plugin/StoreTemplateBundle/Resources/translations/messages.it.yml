@@ -89,7 +89,7 @@ template:
         checkout:
             address:
                 add_new_address: 'Aggiungi nuovo indirizzo'
-                payment: Pagamentos
+                payment: Pagamento
                 select_address: 'Scegli gli indirizzi di spedizione e di fatturazione'
             back: Indietro
             layout:
