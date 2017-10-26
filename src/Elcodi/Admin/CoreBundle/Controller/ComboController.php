@@ -26,7 +26,6 @@ class ComboController extends Controller
         return array(
             'data' => $list,
         );
-
     }
 
     /**
@@ -45,7 +44,24 @@ class ComboController extends Controller
         return array(
             'data' => $list,
         );
+    }
 
+    /**
+     *
+     * @Route(
+     *      path = "get-purchasable-for-combo/",
+     *      name = "get_purchasable_for_combo"
+     * )
+     * @JsonResponse()
+     */
+    public function getPurchasableForComboAction(Request $request)
+    {
+        $query = $request->get('query');
+        $list = $this->getPurchasableListFormCombo($query);
+
+        return array(
+            'data' => $list,
+        );
     }
 
     public function getCustomerListFormCombo($query)
@@ -112,6 +128,40 @@ class ComboController extends Controller
 
         foreach ($list as $key => $value) {
             $toString = $value['code'];
+            $list[$key]['toString'] = trim($toString);
+        }
+
+        return $list;
+    }
+
+    public function getPurchasableListFormCombo($query)
+    {
+        $em = $this->get('doctrine')->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb->from('Elcodi\Component\Product\Entity\Purchasable', 'l');
+        $qb->select('l.id, l.name, l.sku');
+
+        $searchKeywords = explode(' ', $query);
+        $count = 0;
+        foreach ($searchKeywords as $searchKeyword) {
+            $keywordToUse = trim($searchKeyword);
+            if (strlen($keywordToUse) == 0) {
+                continue;
+            }
+            $qb->orWhere('l.name LIKE :search' . $count);
+            $qb->setParameter('search' . $count, '%' . $keywordToUse . '%');
+            ++$count;
+        }
+
+        $query = $qb->getQuery();
+        // to debug
+        // echo $query->getSql();
+        // print_r($query->getParameters());die();
+
+        $list = $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        foreach ($list as $key => $value) {
+            $toString = $value['sku'] . ' ' . $value['name'];
             $list[$key]['toString'] = trim($toString);
         }
 
