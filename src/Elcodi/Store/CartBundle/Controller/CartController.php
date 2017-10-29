@@ -135,7 +135,6 @@ class CartController extends Controller
         $purchasable = $this
             ->get('elcodi.repository.purchasable')
             ->find($id);
-
         if (!$purchasable instanceof PurchasableInterface) {
             throw new EntityNotFoundException('Purchasable not found');
         }

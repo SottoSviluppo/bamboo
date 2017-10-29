@@ -182,6 +182,17 @@ class PackController extends AbstractAdminController
                 $pack->setPrincipalImage($firstImage);
             }
 
+            foreach ($pack->getPurchasables() as $purchasable) {
+                $pack->removePurchasable($purchasable);
+            }
+
+            $request = $this->getRequest();
+            $purchasableIdsString = $request->get('purchasables');
+            $purchasableIds = explode(',', $purchasableIdsString);
+            foreach ($purchasableIds as $purchasableId) {
+                $purchasable = $this->get('elcodi.repository.purchasable')->find($purchasableId);
+                $pack->addPurchasable($purchasable);
+            }
             $this->flush($pack);
 
             $this->addFlash(

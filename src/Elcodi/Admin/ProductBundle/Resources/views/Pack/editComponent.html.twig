@@ -89,17 +89,20 @@
     <div class="col-2-3">
         <div class="box">
             <ol class="grid">
-                <li class="col-1-2 pb-n">
-                    <div class="pr-l">
-                        {{
+                <li class="col-1-1 pb-n">
+                    {% include '@AdminProduct/Block/multiProducts.html.twig' with {
+                        'product': pack,
+                        'purchasables': pack.purchasables,
+                        'url': '',
+                    } %}
+                        {# {{
                         form_row(form.purchasables, {
                         label: 'admin.purchasable_pack.field.purchasables.title',
                         attr: {
                         style: "height: 200px"
                     }
                 })
-            }}
-        </div>
+            }} #}
     </li>
 </ol>
 </div>

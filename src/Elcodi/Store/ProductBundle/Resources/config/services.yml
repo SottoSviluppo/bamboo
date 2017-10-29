@@ -11,6 +11,13 @@ services:
             - [setCache, ["@doctrine_cache.providers.elcodi_categories"]]
             - [setEncoder, ["@elcodi.json_encoder"]]
 
+
+    elcodi.manager.pack:
+        class: Elcodi\Store\ProductBundle\Services\PackManager
+        arguments:
+            - "@elcodi.repository.purchasable_pack"
+            - "@doctrine.orm.entity_manager"
+
     elcodi_store.twig_extension:
         class: Elcodi\Store\ProductBundle\Twig\TwigExtension
         tags:

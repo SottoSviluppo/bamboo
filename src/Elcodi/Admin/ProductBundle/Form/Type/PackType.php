@@ -240,16 +240,16 @@ class PackType extends AbstractType
                 'required' => true,
                 'multiple' => false,
             ])
-            ->add('purchasables', 'entity', [
-                'class' => $this->purchasableNamespace,
-                'required' => false,
-                'choice_label' => function (PurchasableInterface $purchasable) {
-                    return $this
-                        ->purchasableNameResolver
-                        ->resolveName($purchasable);
-                },
-                'multiple' => true,
-            ])
+            // ->add('purchasables', 'entity', [
+            //     'class' => $this->purchasableNamespace,
+            //     'required' => false,
+            //     'choice_label' => function (PurchasableInterface $purchasable) {
+            //         return $this
+            //             ->purchasableNameResolver
+            //             ->resolveName($purchasable);
+            //     },
+            //     'multiple' => true,
+            // ])
             ->add('images', 'entity', [
                 'class' => $this->imageNamespace,
                 'required' => false,

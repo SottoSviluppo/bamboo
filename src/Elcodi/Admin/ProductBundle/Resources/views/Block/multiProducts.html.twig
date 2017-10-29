@@ -1,0 +1,44 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('bundles/admincore/selectize/css/selectize.css') }}" media="all">
+
+
+
+<input id="selectizeProducts" type="text" class="form-control" name="purchasables">
+
+<script type="text/javascript" src="{{ asset('bundles/admincore/selectize/js/selectize.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/admincore/selectize/js/selectize-bamboo.js') }}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+    	var selector = '#selectizeProducts';
+
+        var options = getSelectizedBaseOptions(selector, '{{ path("get_purchasable_for_combo") }}');
+{% if url != '' %}
+        options.onChange = function(value) {
+            $.ajax({
+                url: {{url}},
+                type: "POST",
+                dataType: 'json',
+                data: { 
+                    "purchasableId": {{product.id}},
+                    "complementarProductIds": value,
+                },
+                success: function(data) {
+                    if (data.status == 'ok')
+                        FrontendMediator.publish('notification', {type: 'ok', message: 'Prodotti modificati'});
+                    else
+                        FrontendMediator.publish('notification', {type: 'ko', message: 'Prodotti non modificati'});
+                },
+                error: function(data) {
+                    FrontendMediator.publish('notification', {type: 'ko', message: 'Prodotti non modificati'});
+                },
+            });
+        };
+{% endif %}
+    	$(selector).selectize(options);
+
+        {% for purchasable in purchasables %}
+        addAndSelectToSelectizedCombo(selector, {{purchasable.id}}, '{{purchasable.sku}} {{purchasable.name}}');
+        {% endfor %}
+    });
+</script>

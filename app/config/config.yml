@@ -93,6 +93,7 @@ assetic:
         - AdminCoreBundle
         - StoreCoreBundle
         - StoreTemplateBundle
+        - RTITemplateBundle
         - AdminGeoBundle
         - AdminStoreBundle
     debug:          "%kernel.debug%"
