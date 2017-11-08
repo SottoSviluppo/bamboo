@@ -501,7 +501,7 @@ admin:
                 placeholder: 'es. Italia'
                 title: Nome
             enabled:
-                title: 'Status'
+                title: Abilitato
         section:
             translatable:
                 title: 'Nazione'
@@ -536,11 +536,11 @@ admin:
 
         field:
             guest:
-                title: Visitatore
+                title: Visitatore (guest)
 
             identity_document:
                 placeholder: 'e.g. 12345678A'
-                title: Identità
+                title: Carta d'Identità
 
             language:
                 title: 'Lingua preferita'
@@ -550,6 +550,9 @@ admin:
 
             order_count:
                 title: '# Ordini'
+
+            enabled:
+                title: 'Abilitato'
 
             phone:
                 placeholder: 'e.g. 555 55 55 55'
@@ -1471,7 +1474,7 @@ admin:
                     active: Attivo
                     inactive: Disattivo
 
-                title: Stato
+                title: Attivo
 
             firstname:
                 placeholder: 'e.g. John'
@@ -1573,7 +1576,7 @@ admin:
                 options:
                     active: Attivo
                     inactive: Inattivo
-                title: Stato
+                title: Attivo
             master:
                 title: Default
         list: 'Lista'
