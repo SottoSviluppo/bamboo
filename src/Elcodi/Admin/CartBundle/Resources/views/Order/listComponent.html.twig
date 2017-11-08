@@ -109,13 +109,23 @@
                         {% endfor %}
                     </select>
 
-                    {# <input type="text" name="couponCampaign" class="form-control" placeholder="Campagna di coupon" title="Campagna di coupon" value="{{ couponCampaign }}" style="width:10rem" /> #}
                     </div>
                 </li>
                 <li class="col-1-3">
                     <div class="mini-box">
                     Coupon
                     <input type="text" name="coupon" class="form-control" placeholder="Coupon" title="Coupon" value="{{ coupon }}" style="width:10rem" />
+                    </div>
+                </li>
+
+                <li class="col-1-3">
+                    <div class="mini-box">
+                    Fattura
+                    <select name="invoiceRequested" class="filter" >
+                        <option value="">Tutte</option>
+                        <option value="yes" {% if invoiceRequested == 'yes' %} selected{% endif %}>Richiesta fattura</option>
+                        <option value="no" {% if invoiceRequested == 'no' %} selected{% endif %}>Non richiesta fattura</option>
+                    </select>
                     </div>
                 </li>
 

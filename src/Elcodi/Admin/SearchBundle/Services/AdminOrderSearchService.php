@@ -224,6 +224,20 @@ class AdminOrderSearchService
         $this->orderQuery->addMust($couponQuery);
     }
 
+    public function addInvoiceRequested($requested)
+    {
+        if ($requested == '') {
+            return;
+        }
+        if ($requested == 'yes') {
+            return $this->addIsNotNull('billingAddress');
+        }
+
+        if ($requested == 'no') {
+            return $this->addIsNull('billingAddress');
+        }
+    }
+
     public function addOrderShippingState($orderState)
     {
         return $this->addExactMatch('shippingLastStateLine.name', $orderState);
@@ -255,7 +269,18 @@ class AdminOrderSearchService
             $dateRange['to'] = $dateTo;
         }
         return $dateRange;
+    }
 
+    public function addIsNull($name)
+    {
+        $existQuery = new \Elastica\Query\Exists($name);
+        $this->orderQuery->addMustNot($existQuery);
+    }
+
+    public function addIsNotNull($name)
+    {
+        $existQuery = new \Elastica\Query\Exists($name);
+        $this->orderQuery->addMust($existQuery);
     }
 
     public function addMatch($name, $value)
@@ -304,6 +329,7 @@ class AdminOrderSearchService
         $orderState = $request->get('orderState');
         $coupon = $request->get('coupon');
         $couponCampaign = $request->get('couponCampaign');
+        $invoiceRequested = $request->get('invoiceRequested');
         $shippingState = $request->get('shippingState');
         $customerEmail = $request->get('customerEmail');
         $paymentMethod = $request->get('paymentMethod');
@@ -322,6 +348,7 @@ class AdminOrderSearchService
             'orderState' => $orderState,
             'coupon' => $coupon,
             'couponCampaign' => $couponCampaign,
+            'invoiceRequested' => $invoiceRequested,
             'shippingState' => $shippingState,
             'countryId' => $countryId,
             'customerEmail' => $customerEmail,
@@ -364,6 +391,9 @@ class AdminOrderSearchService
         if (array_key_exists('couponCampaign', $searchParameters)) {
             $this->addCouponCampaign($searchParameters['couponCampaign']);
         }
+        if (array_key_exists('invoiceRequested', $searchParameters)) {
+            $this->addInvoiceRequested($searchParameters['invoiceRequested']);
+        }
         if (array_key_exists('shippingState', $searchParameters)) {
             $this->addOrderShippingState($searchParameters['shippingState']);
         }
@@ -379,6 +409,7 @@ class AdminOrderSearchService
         if (array_key_exists('countryId', $searchParameters)) {
             $this->addCountry($searchParameters['countryId']);
         }
+        // $this->addHasInvoice();
         return $this;
     }
 }

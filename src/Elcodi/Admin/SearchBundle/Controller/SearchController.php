@@ -68,6 +68,7 @@ class SearchController extends AbstractAdminController
         $parameters['orderState'] = $request->query->get('orderState');
         $parameters['coupon'] = $request->query->get('coupon');
         $parameters['couponCampaign'] = $request->query->get('couponCampaign');
+        $parameters['invoiceRequested'] = $request->query->get('invoiceRequested');
         $parameters['countryId'] = $request->query->get('countryId');
         $parameters['shippingState'] = $request->query->get('shippingState');
         $parameters['customerEmail'] = $request->query->get('customerEmail');
@@ -171,6 +172,8 @@ class SearchController extends AbstractAdminController
         $request = $this->getRequest();
 
         $query = $request->query->get('q');
+        // echo $query;die();
+
         $page = $request->query->get('page');
         if (empty($page)) {
             $page = 1;
