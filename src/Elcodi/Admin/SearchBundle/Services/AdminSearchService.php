@@ -6,6 +6,7 @@ use DateTime;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
+use Elastica\Query\Wildcard;
 use Elastica\Query\Nested;
 use Elastica\Query\Range;
 use Elastica\Util;
@@ -72,13 +73,24 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
+        $boolQuery = new BoolQuery();
+
         $fieldQuery = new MultiMatch();
         $fieldQuery->setQuery($query);
         $fieldQuery->setFields([
             'email', 'firstName', 'lastName',
         ]);
 
-        $adapter = $finder->createPaginatorAdapter($fieldQuery);
+        $boolQuery->addShould($fieldQuery);
+
+        $wildcardBool = new BoolQuery();
+        $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));
+
+        $boolQuery->addShould($wildcardBool);
+
+        $adapter = $finder->createPaginatorAdapter($boolQuery);
 
         $options = array();
         $options['defaultSortFieldName'] = 'id';
