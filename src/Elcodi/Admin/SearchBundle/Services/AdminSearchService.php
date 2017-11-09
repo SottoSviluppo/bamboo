@@ -75,19 +75,10 @@ class AdminSearchService implements IAdminSearchService
 
         $boolQuery = new BoolQuery();
 
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-            'email', 'firstName', 'lastName',
-        ]);
-
+        $fieldQuery = $this->createMultiMatchQuery($query);
         $boolQuery->addShould($fieldQuery);
 
-        $wildcardBool = new BoolQuery();
-        $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));
-
+        $wildcardBool = $this->createWildcardQuery($query);
         $boolQuery->addShould($wildcardBool);
 
         $adapter = $finder->createPaginatorAdapter($boolQuery);
@@ -208,5 +199,26 @@ class AdminSearchService implements IAdminSearchService
 
         $dateQuery = new Range('createdAt', $range);
         $boolQuery->addMust($dateQuery);
+    }
+
+    private function createMultiMatchQuery($query)
+    {
+        $fieldQuery = new MultiMatch();
+        $fieldQuery->setQuery($query);
+        $fieldQuery->setFields([
+            'email', 'firstName', 'lastName',
+        ]);
+
+        return $fieldQuery;
+    }
+
+    private function createWildcardQuery($query)
+    {
+        $wildcardBool = new BoolQuery();
+        $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));
+
+        return $wildcardBool;
     }
 }
