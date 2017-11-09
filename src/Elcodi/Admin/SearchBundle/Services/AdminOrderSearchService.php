@@ -6,6 +6,7 @@ use DateTime;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
+use Elastica\Query\Wildcard;
 use Elastica\Query\Nested;
 use Elastica\Query\Range;
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
@@ -115,13 +116,12 @@ class AdminOrderSearchService
         // creo la query per la stringa
         $fieldsBoolQuery = new BoolQuery();
 
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-            'customer.email', 'customer.firstName', 'customer.lastName',
-        ]);
-
+        $fieldQuery = $this->createCustomersMultiMatchQuery($query);
         $fieldsBoolQuery->addShould($fieldQuery);
+        
+        $wildcardBool = $this->createCustomersWildcardQuery($query);
+        $fieldsBoolQuery->addShould($wildcardBool);
+
         $this->setNestedQueryForOrder($fieldsBoolQuery, $query);
 
         $this->orderQuery->addMust($fieldsBoolQuery);
@@ -411,5 +411,26 @@ class AdminOrderSearchService
         }
         // $this->addHasInvoice();
         return $this;
+    }
+
+    private function createCustomersMultiMatchQuery($query)
+    {
+        $fieldQuery = new MultiMatch();
+        $fieldQuery->setQuery($query);
+        $fieldQuery->setFields([
+            'customer.email', 'customer.firstName', 'customer.lastName',
+        ]);
+
+        return $fieldQuery;
+    }
+
+    private function createCustomersWildcardQuery($query)
+    {
+        $wildcardBool = new BoolQuery();
+        $wildcardBool->addShould(new Wildcard('customer.email', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('customer.firstName', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('customer.lastName', '*'.$query.'*'));
+
+        return $wildcardBool;
     }
 }

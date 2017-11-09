@@ -228,6 +228,17 @@ fos_elastica:
     indexes:
         app:
             index_name: app_%elcodi.core.bamboo.cache_prefix%
+            settings:
+                index:
+                    analysis:
+                        tokenizer:
+                            email_tokenizer:
+                                type: uax_url_email
+                        analyzer:
+                            email_analyzer:
+                                type: custom
+                                tokenizer: email_tokenizer
+                                filter: [lowercase, stop]
             types: 
                 products:
                     mappings:
@@ -280,7 +291,7 @@ fos_elastica:
                     mappings:
                         id:
                             type: integer
-                        email: ~
+                        email: { type: string, analyzer: email_analyzer }
                         firstName: ~
                         lastName: ~
                     persistence:
@@ -297,7 +308,7 @@ fos_elastica:
                         customer:
                             type: object
                             properties:
-                                email: ~
+                                email: { type: string, analyzer: email_analyzer }
                                 firstName: ~
                                 lastName: ~
                         paymentLastStateLine:

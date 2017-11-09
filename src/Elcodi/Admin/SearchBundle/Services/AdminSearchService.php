@@ -6,6 +6,7 @@ use DateTime;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
+use Elastica\Query\Wildcard;
 use Elastica\Query\Nested;
 use Elastica\Query\Range;
 use Elastica\Util;
@@ -72,7 +73,15 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+        $boolQuery = new BoolQuery();
+
+        $fieldQuery = $this->createMultiMatchQuery($query);
+        $boolQuery->addShould($fieldQuery);
+
+        $wildcardBool = $this->createWildcardQuery($query);
+        $boolQuery->addShould($wildcardBool);
+
+        $adapter = $finder->createPaginatorAdapter($boolQuery);
 
         $options = array();
         $options['defaultSortFieldName'] = 'id';
@@ -190,5 +199,26 @@ class AdminSearchService implements IAdminSearchService
 
         $dateQuery = new Range('createdAt', $range);
         $boolQuery->addMust($dateQuery);
+    }
+
+    private function createMultiMatchQuery($query)
+    {
+        $fieldQuery = new MultiMatch();
+        $fieldQuery->setQuery($query);
+        $fieldQuery->setFields([
+            'email', 'firstName', 'lastName',
+        ]);
+
+        return $fieldQuery;
+    }
+
+    private function createWildcardQuery($query)
+    {
+        $wildcardBool = new BoolQuery();
+        $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
+        $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));
+
+        return $wildcardBool;
     }
 }
