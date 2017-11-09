@@ -72,7 +72,13 @@ class AdminSearchService implements IAdminSearchService
         }
         $this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+        $fieldQuery = new MultiMatch();
+        $fieldQuery->setQuery($query);
+        $fieldQuery->setFields([
+            'email', 'firstName', 'lastName',
+        ]);
+
+        $adapter = $finder->createPaginatorAdapter($fieldQuery);
 
         $options = array();
         $options['defaultSortFieldName'] = 'id';
