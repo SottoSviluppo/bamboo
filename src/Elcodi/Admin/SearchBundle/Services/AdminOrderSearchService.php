@@ -445,9 +445,15 @@ class AdminOrderSearchService
     private function createCustomersWildcardQuery($query)
     {
         $wildcardBool = new BoolQuery();
-        $wildcardBool->addShould(new Wildcard('customer.email', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('customer.firstName', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('customer.lastName', '*'.$query.'*'));
+
+        if (strpos($query, '@') !== false) {
+            $wildcardBool->addShould(new Wildcard('customer.email', '*'.$query.'*'));
+        }
+        else {
+            $wildcardBool->addShould(new Wildcard('customer.email', '*'.$query.'*'));
+            $wildcardBool->addShould(new Wildcard('customer.firstName', '*'.$query.'*'));
+            $wildcardBool->addShould(new Wildcard('customer.lastName', '*'.$query.'*'));
+        }
 
         return $wildcardBool;
     }
