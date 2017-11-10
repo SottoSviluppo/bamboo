@@ -201,9 +201,15 @@ class AdminSearchService implements IAdminSearchService
     private function createWildcardQuery($query)
     {
         $wildcardBool = new BoolQuery();
-        $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
-        $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));
+
+        if (strpos($query, '@') !== false) {
+            $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
+        }
+        else {
+            $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
+            $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
+            $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));   
+        }
 
         return $wildcardBool;
     }
