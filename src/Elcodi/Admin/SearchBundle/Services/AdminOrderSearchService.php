@@ -115,16 +115,45 @@ class AdminOrderSearchService
 
         // creo la query per la stringa
         $fieldsBoolQuery = new BoolQuery();
-
-        $fieldQuery = $this->createCustomersMultiMatchQuery($query);
-        $fieldsBoolQuery->addShould($fieldQuery);
         
         $wildcardBool = $this->createCustomersWildcardQuery($query);
         $fieldsBoolQuery->addShould($wildcardBool);
 
         $this->setNestedQueryForOrder($fieldsBoolQuery, $query);
+        $this->addFreeSearchOnOrderCode($fieldsBoolQuery, $query);
+        $this->addFreeSearchOnCoupon($fieldsBoolQuery, $query);
+        $this->addFreeSearchOnCouponCampaign($fieldsBoolQuery, $query);
 
         $this->orderQuery->addMust($fieldsBoolQuery);
+    }
+
+    private function addFreeSearchOnOrderCode(BoolQuery $boolQuery, $query)
+    {
+        if (is_numeric($query)) {
+            $boolQuery->addShould(new Match('id', intval($query)));
+        }
+    }
+
+    private function addFreeSearchOnCoupon(BoolQuery $boolQuery, $query)
+    {
+        $couponQuery = new Nested();
+        $couponQuery->setPath('orderCoupons');
+
+        $couponTerm = new Wildcard('orderCoupons.coupon.code', '*'.$query.'*');
+        $couponQuery->setQuery($couponTerm);
+
+        $boolQuery->addShould($couponQuery);
+    }
+
+    private function addFreeSearchOnCouponCampaign(BoolQuery $boolQuery, $query)
+    {
+        $couponCampaignQuery = new Nested();
+        $couponCampaignQuery->setPath('orderCoupons');
+
+        $couponCampaignTerm = new Wildcard('orderCoupons.coupon.couponCampaign.campaignName', '*'.$query.'*');
+        $couponCampaignQuery->setQuery($couponCampaignTerm);
+
+        $boolQuery->addShould($couponCampaignQuery);
     }
 
     private function setNestedQueryForOrder(BoolQuery $boolQuery, $query)
@@ -411,17 +440,6 @@ class AdminOrderSearchService
         }
         // $this->addHasInvoice();
         return $this;
-    }
-
-    private function createCustomersMultiMatchQuery($query)
-    {
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-            'customer.email', 'customer.firstName', 'customer.lastName',
-        ]);
-
-        return $fieldQuery;
     }
 
     private function createCustomersWildcardQuery($query)
