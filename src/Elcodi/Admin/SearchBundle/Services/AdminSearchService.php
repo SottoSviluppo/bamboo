@@ -75,9 +75,6 @@ class AdminSearchService implements IAdminSearchService
 
         $boolQuery = new BoolQuery();
 
-        $fieldQuery = $this->createMultiMatchQuery($query);
-        $boolQuery->addShould($fieldQuery);
-
         $wildcardBool = $this->createWildcardQuery($query);
         $boolQuery->addShould($wildcardBool);
 
@@ -199,17 +196,6 @@ class AdminSearchService implements IAdminSearchService
 
         $dateQuery = new Range('createdAt', $range);
         $boolQuery->addMust($dateQuery);
-    }
-
-    private function createMultiMatchQuery($query)
-    {
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-            'email', 'firstName', 'lastName',
-        ]);
-
-        return $fieldQuery;
     }
 
     private function createWildcardQuery($query)
