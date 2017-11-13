@@ -24,13 +24,13 @@
                     </a>
                     <ul class="thumbnail-actions">
                         <li>
-                            <a href="{{ url('admin_image_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}" class="icon-trash-o" data-fc-delete="{{ image.id }}"></a>
+                            <a href="{{ path('admin_image_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}" class="icon-trash-o" data-fc-delete="{{ image.id }}"></a>
                         </li>
                     </ul>
                 </li>
             {% endfor %}
             </ul>
-            <a href="{{ url('admin_image_upload') }}" id="pickfiles" class="button" data-fc-modules="upload-gallery">
+            <a href="{{ path('admin_image_upload') }}" id="pickfiles" class="button" data-fc-modules="upload-gallery">
                 <i class="icon-file-image-o mr-s"></i> {{ 'admin.image.info.upload'|trans }}
             </a>
             <progress id="progresBar" value="0" max="100" style="display: none"></progress>

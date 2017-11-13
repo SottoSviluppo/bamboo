@@ -16,14 +16,14 @@
                     <img src="{{ logo }}" class="group-images thumbnail" />
                     <ul class="thumbnail-actions" >
                         <li>
-                            <a href="{% if image.id  %}{{ url('admin_image_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}{% endif %}" id="upload-{{ imageName }}-delete" {% if not image.id %}style="display: none" {% endif %}> <i class="icon-trash-o"></i> </a>
+                            <a href="{% if image.id  %}{{ path('admin_image_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}{% endif %}" id="upload-{{ imageName }}-delete" {% if not image.id %}style="display: none" {% endif %}> <i class="icon-trash-o"></i> </a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <progress id="upload-{{ imageName }}-progress" value="0" max="100" style="display: none"></progress>
             <p class="mb-n">
-                <a href="{{ url('admin_image_upload') }}" id="upload-{{ imageName }}" image-type="{{ imageName }}" data-fc-modules="upload-single" data-fc-height="{{ imageHeight|default(100) }}" data-fc-width="{{ imageWidth|default(300) }}" class="button mb-m">{{ 'admin.image.info.upload_single'|trans }}</a>
+                <a href="{{ path('admin_image_upload') }}" id="upload-{{ imageName }}" image-type="{{ imageName }}" data-fc-modules="upload-single" data-fc-height="{{ imageHeight|default(100) }}" data-fc-width="{{ imageWidth|default(300) }}" class="button mb-m">{{ 'admin.image.info.upload_single'|trans }}</a>
             </p>
             <p class="fz-s mb-n">{{ 'admin.image.info.format'|trans }}</p>
         </div>
