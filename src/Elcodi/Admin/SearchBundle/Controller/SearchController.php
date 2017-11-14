@@ -63,8 +63,8 @@ class SearchController extends AbstractAdminController
 
         $request = $this->getRequest();
 
-        $parameters['dateFrom'] = $request->query->get('datefrom');
-        $parameters['dateTo'] = $request->query->get('dateto');
+        $parameters['dateFrom'] = $request->query->get('dateFrom');
+        $parameters['dateTo'] = $request->query->get('dateTo');
         $parameters['orderState'] = $request->query->get('orderState');
         $parameters['coupon'] = $request->query->get('coupon');
         $parameters['couponCampaign'] = $request->query->get('couponCampaign');
