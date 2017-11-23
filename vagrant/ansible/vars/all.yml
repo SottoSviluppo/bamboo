@@ -23,7 +23,7 @@ redis:
     port: '6379'
 php:
     install: '1'    
-    packages: [php-cli, php-curl, php-intl, php-mcrypt, php-gd, php-mysql, php-redis, php-sqlite3, php-bcmath, php-mbstring, php-pclzip]
+    packages: [php-cli, php-curl, php-intl, php-mcrypt, php-gd, php-mysql, php-redis, php-sqlite3, php-bcmath, php-mbstring, php-pclzip, php-zip]
     pecl_packages: []
 xdebug:
     install: '1'
