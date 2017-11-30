@@ -17,14 +17,11 @@
 
 namespace Elcodi\Admin\GeoBundle\Form\Type;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
-
 
 /**
  * Class CountryType
@@ -32,9 +29,8 @@ use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFor
 class CountryType extends AbstractType
 {
     use FactoryTrait
-    ,EntityTranslatableFormTrait
+    , EntityTranslatableFormTrait
     ;
-
 
     /**
      * Construct
@@ -73,7 +69,11 @@ class CountryType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
+                'required' => true,
+            ])
+            ->add('enabled', 'checkbox', [
                 'required' => false,
+                'data' => true,
             ])
         ;
 
