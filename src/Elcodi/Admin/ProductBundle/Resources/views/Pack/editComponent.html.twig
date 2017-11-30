@@ -72,6 +72,10 @@
                 placeholder: 'admin.purchasable_pack.field.description.placeholder'}}) 
             }}
         </li>
+        
+        </li>
+            {{ form_row(form.type, { label: 'admin.coupon.field.type.title' }) }}
+        </li>
     </ol>
 </div>
 </section>
@@ -84,6 +88,8 @@
         <div class="box-none">
             <h3 class="fw-n">{{ 'admin.purchasable_pack.section.catalog.title'|trans }}</h3>
             <p>{{ 'admin.purchasable_pack.section.catalog.description'|trans }}</p>
+
+            
         </div>
     </div>
     <div class="col-2-3">
@@ -108,41 +114,65 @@
 </div>
 </div>
 </div>
-<div class="grid">
-    <div class="col-1-3">
-        <div class="box-none">
-            <h3 class="fw-n">{{ 'admin.purchasable_pack.section.pricing.title'|trans }}</h3>
-            <p>{{ 'admin.purchasable_pack.section.pricing.description'|trans }}</p>
+
+        <div class="grid">
+            <div class="col-1-3">
+                <div class="box-none">
+                    <h3 class="fw-n">{{ 'admin.purchasable_pack.section.pricing.title'|trans }}</h3>
+                    <p>{{ 'admin.purchasable_pack.section.pricing.description'|trans }}</p>
+                </div>
+            </div>                
+
+            <div class="col-2-3">
+                <div class="box pb-n">
+                    <ol class="grid">
+                        
+                        <li class="price-amount col-1-2">
+                            {{
+                            form_row(form.price, {
+                            label: 'admin.purchasable_pack.field.price.title',
+                            })
+                            }}
+                        </li>
+                        <li class="price-amount col-1-2">
+                            {{
+                            form_row(form.reducedPrice, {
+                            label: 'admin.purchasable_pack.field.reduced_price.title',
+                            })
+                            }}
+                        </li>
+                        <li class="col-1-1">
+                            {{
+                            form_row(form.tax, {
+                            label: 'admin.tax.single',
+                            })
+                            }}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div class="col-2-3">
-        <div class="box pb-n">
-            <ol class="grid">
-                <li class="col-1-3">
-                    {{
-                    form_row(form.price, {
-                    label: 'admin.purchasable_pack.field.price.title',
-                })
-            }}
-        </li>
-        <li class="col-1-3">
-            {{
-            form_row(form.reducedPrice, {
-            label: 'admin.purchasable_pack.field.reduced_price.title',
-        })
-    }}
-</li>
-<li class="col-1-3">
-    {{
-    form_row(form.tax, {
-    label: 'admin.tax.single',
-})
-}}
-</li>
-</ol>
-</div>
-</div>
-</div>
+
+        <div id="percent-amount" class="grid">
+            <div class="col-1-3">
+                <div class="box-none">
+                    <h3 class="fw-n">{{ 'admin.coupon.section.percent_amount.title'|trans }}</h3>
+                </div>
+            </div>
+            <div class="col-2-3">
+                <div class="box">
+                    <ol>
+                        <li>
+                            {{ form_row(form.discount, { label: 'admin.coupon.field.discount.title' }) }}
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+
+
 <div class="grid{% if not useStock %} d-n{% endif %}">
     <div class="col-1-3">
         <div class="box-none">
@@ -394,5 +424,36 @@ redirect_path: pack.id
     </div>
 </div>
 {{ form_end(form) }}
+
+<script type="text/javascript">
+
+
+
+$('#elcodi_admin_product_form_type_purchasable_pack_type').change(function(event) {
+    changePriceManagement($(this).val());
+});
+
+jQuery(document).ready(function($) {
+    changePriceManagement({{pack.type}});
+});
+
+function changePriceManagement(type) {
+    if (type == 1)
+    {
+        toggleAbsolutePrices(true);
+    }
+    if (type == 2)
+    {
+        toggleAbsolutePrices(false);
+    }
+}
+
+function toggleAbsolutePrices(toggle)
+{
+    $('#percent-amount').toggle(!toggle);       
+    $('.price-amount').toggle(toggle);    
+}
+
+</script>
 
 {% endblock content %}
