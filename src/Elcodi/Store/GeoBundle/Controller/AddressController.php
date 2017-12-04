@@ -17,6 +17,9 @@
 
 namespace Elcodi\Store\GeoBundle\Controller;
 
+use Elcodi\Component\Geo\Entity\Interfaces\AddressInterface;
+use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,10 +29,6 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use Elcodi\Component\Geo\Entity\Interfaces\AddressInterface;
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Address controllers
@@ -73,8 +72,8 @@ class AddressController extends Controller
         $addressesFormatted = [];
         foreach ($addresses as $address) {
             $addressesFormatted[] =
-                $addressFormatter
-                    ->toArray($address);
+            $addressFormatter
+                ->toArray($address);
         }
 
         return $this->renderTemplate(
@@ -114,7 +113,6 @@ class AddressController extends Controller
                 $this->getUser()->getId(),
                 $id
             );
-
         if (!($address instanceof AddressInterface)) {
             throw new NotFoundHttpException('Address not found');
         }
@@ -146,8 +144,8 @@ class AddressController extends Controller
             $this->addFlash('success', $message);
 
             $redirectUrl = self::CHECKOUT_SOURCE == $source
-                ? 'store_checkout_address'
-                : 'store_address_list';
+            ? 'store_checkout_address'
+            : 'store_address_list';
 
             return $this->redirect(
                 $this->generateUrl($redirectUrl)
@@ -162,7 +160,7 @@ class AddressController extends Controller
             'Pages:address-edit.html.twig',
             [
                 'address' => $address,
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
             ]
         );
     }
@@ -229,8 +227,8 @@ class AddressController extends Controller
             $this->addFlash('success', $message);
 
             $redirectUrl = self::CHECKOUT_SOURCE == $source
-                ? 'store_checkout_address'
-                : 'store_address_list';
+            ? 'store_checkout_address'
+            : 'store_address_list';
 
             return $this->redirect(
                 $this->generateUrl($redirectUrl)
@@ -241,7 +239,7 @@ class AddressController extends Controller
             'Pages:address-edit.html.twig',
             [
                 'address' => $address,
-                'form'    => $formView,
+                'form' => $formView,
             ]
         );
     }
@@ -292,8 +290,8 @@ class AddressController extends Controller
         $this->addFlash('success', $message);
 
         $redirectUrl = self::CHECKOUT_SOURCE == $source
-            ? 'store_checkout_address'
-            : 'store_address_list';
+        ? 'store_checkout_address'
+        : 'store_address_list';
 
         return $this->redirect(
             $this->generateUrl($redirectUrl)
