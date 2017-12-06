@@ -5,8 +5,8 @@
 } %}
 {% block content %}
     {% set formAction = couponCampaign.id
-        ? url('admin_coupon_campaign_update', {id: couponCampaign.id})
-        : url('admin_coupon_campaign_save') %}
+        ? path('admin_coupon_campaign_update', {id: couponCampaign.id})
+        : path('admin_coupon_campaign_save') %}
     {{ form_start(form, { action: formAction }) }}
     <fieldset>
         <div class="grid">

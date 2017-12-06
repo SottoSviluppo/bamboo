@@ -114,3 +114,4 @@ store:
         profile:
             save:
                 message_ok: 'Profilo salvato'
+                message_ko: 'Profilo non salvato'

@@ -10,7 +10,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_coupon_list') },
+            { name: title, url: path('admin_coupon_list') },
             { name: header, active: true },
         ]
     } %}
@@ -19,7 +19,7 @@
 
 {% block content %}
 
-    {% set formAction = url('admin_coupon_generation_elaborate') %}
+    {% set formAction = path('admin_coupon_generation_elaborate') %}
 
     {{ form_start(form, { action: formAction }) }}
     <fieldset >
