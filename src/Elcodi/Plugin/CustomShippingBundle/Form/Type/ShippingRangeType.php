@@ -17,12 +17,11 @@
 
 namespace Elcodi\Plugin\CustomShippingBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Plugin\CustomShippingBundle\ElcodiShippingRangeTypes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
-use Elcodi\Plugin\CustomShippingBundle\ElcodiShippingRangeTypes;
 
 /**
  * Class ShippingRangeType
@@ -83,7 +82,7 @@ class ShippingRangeType extends AbstractType
                 'required' => true,
             ])
             ->add('type', 'choice', [
-                'choices'  => [
+                'choices' => [
                     ElcodiShippingRangeTypes::TYPE_PRICE => 'admin.shipping_range.field.type.options.price',
                     ElcodiShippingRangeTypes::TYPE_WEIGHT => 'admin.shipping_range.field.type.options.weight',
                 ],
@@ -98,16 +97,17 @@ class ShippingRangeType extends AbstractType
             ->add('fromPrice', 'money_object', [
                 'required' => false,
             ])
-             ->add('toPrice', 'money_object', [
-                 'required' => false,
-             ]);
-             //Esclusa la zona dal calcolo delle spese di spedizioni
-            // ->add('toZone', 'entity', [
-            //     'class'    => $this->zoneNamespace,
-            //     'required' => true,
-            //     'property' => 'name',
-            //     'multiple' => false,
-            // ]);
+            ->add('toPrice', 'money_object', [
+                'required' => false,
+            ])
+        ;
+        //Esclusa la zona dal calcolo delle spese di spedizioni
+        // ->add('toZone', 'entity', [
+        //     'class'    => $this->zoneNamespace,
+        //     'required' => true,
+        //     'property' => 'name',
+        //     'multiple' => false,
+        // ]);
     }
 
     /**

@@ -100,7 +100,12 @@
         {% endif %}
     </td>
     <td class="ta-r">
+        {% if entity.type == 1 %}
         {{ entity.price|print_money }}
+        {% endif %}
+        {% if entity.type == 2 %}
+        {{ entity.discount }}% sconto
+        {% endif %}
     </td>
     <td class="ta-r {% if not store.useStock %}d-n{% endif %}">
         {% if entity.stock >= 5 %}

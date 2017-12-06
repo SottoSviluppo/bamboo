@@ -19,6 +19,7 @@ namespace Elcodi\Admin\ProductBundle\Form\Type;
 
 use Elcodi\Admin\ProductBundle\Validation\MinimumMoney;
 use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
+use Elcodi\Component\Coupon\ElcodiCouponTypes;
 use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Elcodi\Component\Product\ElcodiProductStock;
 use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
@@ -164,6 +165,13 @@ class PackType extends AbstractType
             ->add('sku', 'text', [
                 'required' => false,
             ])
+            ->add('type', 'choice', [
+                'required' => true,
+                'choices' => [
+                    ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
+                    ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
+                ],
+            ])
             ->add('price', 'money_object', [
                 'required' => true,
                 'constraints' => [
@@ -179,6 +187,9 @@ class PackType extends AbstractType
                         'value' => 0,
                     ]),
                 ],
+            ])
+            ->add('discount', 'integer', [
+                'required' => false,
             ])
             ->add('tax', 'entity', [
                 'class' => $this->taxNamespace,

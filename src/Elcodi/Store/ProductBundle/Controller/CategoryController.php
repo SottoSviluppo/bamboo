@@ -189,12 +189,12 @@ class CategoryController extends Controller
      */
     public function subcategoriesView(CategoryInterface $category, $id, $page, $limit, $orderByField, $orderByDirection, Request $request)
     {
-
+        $categoryRepository = $this->get('elcodi.repository.category');
         return $this->renderTemplate(
             'Pages:subcategories-view.html.twig',
             [
                 'category' => $category,
-
+                'subCategories' => $categoryRepository->getChildrenCategoriesOrderByPosition($category)
             ]
         );
 

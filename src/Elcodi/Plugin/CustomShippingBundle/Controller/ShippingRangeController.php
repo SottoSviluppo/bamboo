@@ -35,159 +35,159 @@ use Symfony\Component\HttpFoundation\Request;
  *      path = "carrier/{carrierId}/range"
  * )
  */
-class ShippingRangeController extends AbstractAdminController {
-	/**
-	 * Edit and Saves category
-	 *
-	 * @param FormInterface          $form          Form
-	 * @param CarrierInterface       $carrier       Carrier
-	 * @param ShippingRangeInterface $shippingRange Shipping range
-	 * @param boolean                $isValid       Is valid
-	 *
-	 * @return RedirectResponse Redirect response
-	 *
-	 * @Route(
-	 *      path = "/{id}",
-	 *      name = "admin_shipping_range_edit",
-	 *      requirements = {
-	 *          "id" = "\d+",
-	 *      },
-	 *      methods = {"GET"}
-	 * )
-	 * @Route(
-	 *      path = "/{id}/update",
-	 *      name = "admin_shipping_range_update",
-	 *      requirements = {
-	 *          "id" = "\d+",
-	 *      },
-	 *      methods = {"POST"}
-	 * )
-	 *
-	 * @Route(
-	 *      path = "/new",
-	 *      name = "admin_shipping_range_new",
-	 *      methods = {"GET"}
-	 * )
-	 * @Route(
-	 *      path = "/new/update",
-	 *      name = "admin_shipping_range_save",
-	 *      methods = {"POST"}
-	 * )
-	 *
-	 * @EntityAnnotation(
-	 *      class = "elcodi.entity.carrier.class",
-	 *      mapping = {
-	 *          "id" = "~carrierId~"
-	 *      },
-	 *      name = "carrier"
-	 * )
-	 * @EntityAnnotation(
-	 *      class = {
-	 *          "factory" = "elcodi_plugin.custom_shipping.factory.shipping_range",
-	 *          "method" = "create",
-	 *          "static" = false
-	 *      },
-	 *      mapping = {
-	 *          "id" = "~id~"
-	 *      },
-	 *      mappingFallback = true,
-	 *      name = "shippingRange",
-	 *      persist = true
-	 * )
-	 * @FormAnnotation(
-	 *      class = "elcodi_plugin_custom_shipping_form_type_shipping_range",
-	 *      name  = "form",
-	 *      entity = "shippingRange",
-	 *      handleRequest = true,
-	 *      validate = "isValid"
-	 * )
-	 *
-	 * @Template
-	 */
-	public function editAction(
-		FormInterface $form,
-		CarrierInterface $carrier,
-		ShippingRangeInterface $shippingRange,
-		$isValid
-	) {
-		if (!$this->canViewShipping()) {
+class ShippingRangeController extends AbstractAdminController
+{
+    /**
+     * Edit and Saves category
+     *
+     * @param FormInterface          $form          Form
+     * @param CarrierInterface       $carrier       Carrier
+     * @param ShippingRangeInterface $shippingRange Shipping range
+     * @param boolean                $isValid       Is valid
+     *
+     * @return RedirectResponse Redirect response
+     *
+     * @Route(
+     *      path = "/{id}",
+     *      name = "admin_shipping_range_edit",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"GET"}
+     * )
+     * @Route(
+     *      path = "/{id}/update",
+     *      name = "admin_shipping_range_update",
+     *      requirements = {
+     *          "id" = "\d+",
+     *      },
+     *      methods = {"POST"}
+     * )
+     *
+     * @Route(
+     *      path = "/new",
+     *      name = "admin_shipping_range_new",
+     *      methods = {"GET"}
+     * )
+     * @Route(
+     *      path = "/new/update",
+     *      name = "admin_shipping_range_save",
+     *      methods = {"POST"}
+     * )
+     *
+     * @EntityAnnotation(
+     *      class = "elcodi.entity.carrier.class",
+     *      mapping = {
+     *          "id" = "~carrierId~"
+     *      },
+     *      name = "carrier"
+     * )
+     * @EntityAnnotation(
+     *      class = {
+     *          "factory" = "elcodi_plugin.custom_shipping.factory.shipping_range",
+     *          "method" = "create",
+     *          "static" = false
+     *      },
+     *      mapping = {
+     *          "id" = "~id~"
+     *      },
+     *      mappingFallback = true,
+     *      name = "shippingRange",
+     *      persist = true
+     * )
+     * @FormAnnotation(
+     *      class = "elcodi_plugin_custom_shipping_form_type_shipping_range",
+     *      name  = "form",
+     *      entity = "shippingRange",
+     *      handleRequest = true,
+     *      validate = "isValid"
+     * )
+     *
+     * @Template
+     */
+    public function editAction(
+        FormInterface $form,
+        CarrierInterface $carrier,
+        ShippingRangeInterface $shippingRange,
+        $isValid
+    ) {
+        if (!$this->canViewShipping()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-		if ($isValid) {
-			// \Doctrine\Common\Util\Debug::dump('pippo');die();
-			/**
-			 * We must add the default Carrier
-			 */
-			$shippingRange->setCarrier($carrier);
+        if ($isValid) {
+            /**
+             * We must add the default Carrier
+             */
+            $shippingRange->setCarrier($carrier);
 
-			$this->flush($shippingRange);
+            $this->flush($shippingRange);
 
-			$this->addFlash(
-				'success',
-				$this
-					->get('translator')
-					->trans('admin.shipping_range.saved')
-			);
+            $this->addFlash(
+                'success',
+                $this
+                    ->get('translator')
+                    ->trans('admin.shipping_range.saved')
+            );
 
-			return $this->redirectToRoute('admin_carrier_edit', [
-				'id' => $carrier->getId(),
-			]);
-		}
+            return $this->redirectToRoute('admin_carrier_edit', [
+                'id' => $carrier->getId(),
+            ]);
+        }
 
-		return [
-			'shippingRange' => $shippingRange,
-			'carrier' => $carrier,
-			'form' => $form->createView(),
-		];
-	}
+        return [
+            'shippingRange' => $shippingRange,
+            'carrier' => $carrier,
+            'form' => $form->createView(),
+        ];
+    }
 
-	/**
-	 * Delete entity
-	 *
-	 * @param Request $request      Request
-	 * @param mixed   $entity       Entity to delete
-	 * @param string  $redirectPath Redirect path
-	 *
-	 * @return RedirectResponse Redirect response
-	 *
-	 * @Route(
-	 *      path = "/{id}/delete",
-	 *      name = "admin_shipping_range_delete",
-	 *      methods = {"GET", "POST"}
-	 * )
-	 *
-	 * @EntityAnnotation(
-	 *      class = "elcodi.entity.shipping_range.class",
-	 *      mapping = {
-	 *          "id" = "~id~"
-	 *      }
-	 * )
-	 */
-	public function deleteAction(
-		Request $request,
-		$entity,
-		$redirectPath = null
-	) {
-		if (!$this->canViewShipping()) {
+    /**
+     * Delete entity
+     *
+     * @param Request $request      Request
+     * @param mixed   $entity       Entity to delete
+     * @param string  $redirectPath Redirect path
+     *
+     * @return RedirectResponse Redirect response
+     *
+     * @Route(
+     *      path = "/{id}/delete",
+     *      name = "admin_shipping_range_delete",
+     *      methods = {"GET", "POST"}
+     * )
+     *
+     * @EntityAnnotation(
+     *      class = "elcodi.entity.shipping_range.class",
+     *      mapping = {
+     *          "id" = "~id~"
+     *      }
+     * )
+     */
+    public function deleteAction(
+        Request $request,
+        $entity,
+        $redirectPath = null
+    ) {
+        if (!$this->canViewShipping()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-		/**
-		 * @var ShippingRangeInterface $entity
-		 */
-		$carrierId = $entity
-			->getCarrier()
-			->getId();
+        /**
+         * @var ShippingRangeInterface $entity
+         */
+        $carrierId = $entity
+            ->getCarrier()
+            ->getId();
 
-		return parent::deleteAction(
-			$request,
-			$entity,
-			$this->generateUrl('admin_carrier_edit', [
-				'id' => $carrierId,
-			])
-		);
-	}
+        return parent::deleteAction(
+            $request,
+            $entity,
+            $this->generateUrl('admin_carrier_edit', [
+                'id' => $carrierId,
+            ])
+        );
+    }
 }

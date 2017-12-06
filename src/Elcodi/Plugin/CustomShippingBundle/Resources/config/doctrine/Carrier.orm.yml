@@ -14,11 +14,11 @@ Elcodi\Plugin\CustomShippingBundle\Entity\Carrier:
             column: name
             type: string
             length: 255
-            nullable: false
+            nullable: true
         description:
             column: description
             type: text
-
+            nullable: true
         enabled:
             column: enabled
             type: boolean

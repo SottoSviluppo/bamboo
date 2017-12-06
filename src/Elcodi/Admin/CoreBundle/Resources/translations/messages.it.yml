@@ -1390,6 +1390,8 @@ admin:
                 price_format: 'Da %from% a %to%'
                 title: Valore
                 weight_format: 'Da %from% g a %to% g'
+            country:
+                title: 'Nazione'
 
         list: 'Lista intervalli di spedizione'
         new: 'Crea nuovo intervallo'
