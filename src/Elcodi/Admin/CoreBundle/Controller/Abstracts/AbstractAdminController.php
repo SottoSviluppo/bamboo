@@ -108,7 +108,6 @@ class AbstractAdminController extends Controller
         $entity,
         $redirectPath = null
     ) {
-        // \Doctrine\Common\Util\Debug::dump($redirectPath);die();
         return $this->getResponse($request, function () use ($entity) {
             /**
              * @var EnabledInterface $entity

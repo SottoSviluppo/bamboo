@@ -53,6 +53,7 @@ class ElcodiBankwireExtension extends AbstractExtension
         return [
             'services',
             'eventListeners',
+            'controllers',
         ];
     }
 
