@@ -12,7 +12,8 @@
 {% block no_items
     lists.no_items(
         'admin.coupon.single'|trans,
-        'admin.coupon.plural'|trans
+        'admin.coupon.plural'|trans,
+        path('admin_coupon_new')
     )
 %}
 
@@ -34,9 +35,10 @@
 
     {% include '@AdminCore/Tables/head.html.twig' with {
         rows: [
-            { name: 'admin.coupon.field.code.title'|trans },
-            { name: 'admin.coupon.field.description.title'|trans, width: 40 },
-            { name: 'admin.coupon.field.uses.title'|trans, width: 20 },
+            { name: 'admin.coupon.field.code.title'|trans, width: 10 },
+            { name: 'admin.coupon.field.description.title'|trans, width: 20 },
+            { name: 'admin.coupon.field.uses.title'|trans, width: 12 },
+            { name: 'Link', width: 15 },
             { name: 'admin.coupon.field.status.title'|trans, width: 10 },
         ],
         class: 'coupon',
@@ -48,7 +50,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_coupon_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_coupon_edit', { id: entity.id }) }}">
             <strong>{{ entity.code }}</strong>
         </a>
     </td>
@@ -63,6 +65,11 @@
         {% endif %} #}
 
         {{entity.used}}/{{entity.count}}
+    </td>
+    <td>
+        <a href="{{ path('search_admin_orders', { coupon: entity.code }) }}" target="_blank">
+            Ordini associati
+        </a>
     </td>
     <td>
         {% if entity.enabled %}
