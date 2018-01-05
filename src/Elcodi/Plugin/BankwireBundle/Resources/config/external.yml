@@ -1,5 +1,6 @@
 bankwire:
     payment_success:
-        route: store_order_thanks
+        # route: store_order_thanks
+        route: bankwire_store_homepage
         order_append: true
         order_append_field: id

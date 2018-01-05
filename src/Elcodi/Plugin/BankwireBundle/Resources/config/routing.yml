@@ -1,2 +1,3 @@
 bankwire_routes:
     resource: "@BankwireBundle/Resources/config/routing.yml"
+

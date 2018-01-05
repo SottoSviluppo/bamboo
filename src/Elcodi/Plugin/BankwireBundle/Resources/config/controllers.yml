@@ -1,0 +1,10 @@
+services:
+
+    #
+    # Controllers
+    #
+    plugin.bankwire.bankwire_controller:
+        class:  Elcodi\Plugin\BankwireBundle\Controller\BankwireController
+        calls:
+          - [ setContainer, [ '@service_container' ]]
+    
