@@ -24,7 +24,7 @@
             <div class="shipping-list">
                 {% include "@StoreTemplate/Modules/_shipping-item.html.twig" with { "shippingRange": cart.shippingRange, "shippingAmount": cart.shippingAmount } %}
             </div>
-            <p class="cart-total"><span>{{ 'template.store_template_bundle.cart.view.total'|trans }} </span>{{ cart.amount|print_convert_money() }}</p>
+            <p class="cart-total"><span>{{ 'template.store_template_bundle.cart.view.total'|trans }} </span>{{ addMoney(cart.amount, cart.taxAmount)|print_convert_money() }}</p>
 
             <div class="cart-actions">
                 <a class="button button-secondary" href="{{ url('store_checkout_address') }}" data-test="checkout-button">{{ 'template.store_template_bundle.cart.view.checkout'|trans }} &nbsp;<i class="fa fa-arrow-right"></i> </a>
