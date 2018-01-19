@@ -997,6 +997,7 @@ ui:
         yesterday_at: 'Ayer a las %time%'
     delete:
         success: 'Borrado correctamente'
+        error: "Deleted error"
     editor:
         help: 'Selecciona el texto para ver las opciones de formato'
     forms:

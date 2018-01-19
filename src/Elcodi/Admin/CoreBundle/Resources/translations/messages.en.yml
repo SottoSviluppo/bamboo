@@ -1223,6 +1223,7 @@ ui:
         yesterday_at: 'Yesterday at %time%'
     delete:
         success: 'Correctly deleted'
+        error: "Deleted error"
     editor:
         help: 'Select some text to get some format options'
     forms:
