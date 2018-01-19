@@ -109,19 +109,28 @@ class AbstractAdminController extends Controller
         $redirectPath = null
     ) {
         return $this->getResponse($request, function () use ($entity) {
-            /**
-             * @var EnabledInterface $entity
-             */
-            $entityManager = $this->getManagerForClass($entity);
-            $entityManager->remove($entity);
-            $entityManager->flush();
+            try {
+                /**
+                 * @var EnabledInterface $entity
+                 */
+                $entityManager = $this->getManagerForClass($entity);
+                $entityManager->remove($entity);
+                $entityManager->flush();
 
-            $this->addFlash(
-                'success',
-                $this
-                    ->get('translator')
-                    ->trans('ui.delete.success')
-            );
+                $this->addFlash(
+                    'success',
+                    $this
+                        ->get('translator')
+                        ->trans('ui.delete.success')
+                );
+            } catch (Exception $e) {
+                 $this->addFlash(
+                    'error',
+                    $this
+                        ->get('translator')
+                        ->trans('ui.delete.error')
+                );
+            }
 
         }, $redirectPath);
     }

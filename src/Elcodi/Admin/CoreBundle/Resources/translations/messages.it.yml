@@ -1646,6 +1646,7 @@ ui:
 
     delete:
         success: 'Eliminazione riuscita'
+        error: "Non è possibile effettuare l'eliminazione"
 
     editor:
         help: 'Scegli del testo per ottenere le opzioni di formattazione'

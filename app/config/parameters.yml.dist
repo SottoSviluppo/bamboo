@@ -83,4 +83,4 @@ parameters:
     category_partial_search: true
     # if set TRUE indicate that FreePayment is used to create an order
     create_order_with_freepayment: false
-    assetsbaseurl: 'http://tonki.filcronet.it'
+    assetsbaseurl: 'http://10.10.10.10'
