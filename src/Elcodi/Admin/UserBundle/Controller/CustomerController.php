@@ -159,6 +159,7 @@ class CustomerController extends AbstractAdminController
         CustomerInterface $customer,
         $isValid
     ) {
+
         if ($customer->getId()) {
             if (!$this->canUpdate()) {
                 $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
@@ -172,6 +173,7 @@ class CustomerController extends AbstractAdminController
         }
         if ($form->getErrorsAsString() == "") {
             if ($isValid) {
+                $this->manageExtraFields($customer);
                 $this->flush($customer);
 
                 $this->addFlash(
@@ -184,7 +186,6 @@ class CustomerController extends AbstractAdminController
                 return $this->redirectToRoute('admin_customer_list');
             }
         } else {
-
             $this->addFlash(
                 'error',
                 $form->getErrorsAsString()
@@ -195,6 +196,15 @@ class CustomerController extends AbstractAdminController
             'customer' => $customer,
             'form' => $form->createView(),
         ];
+    }
+
+    public function manageExtraFields($customer)
+    {
+        $request = $this->getRequest();
+        $extraFields = $request->get('extra_field', []);
+        foreach ($extraFields as $name => $value) {
+            $customer->setExtraDataValue($name, $value);
+        }
     }
 
     /**

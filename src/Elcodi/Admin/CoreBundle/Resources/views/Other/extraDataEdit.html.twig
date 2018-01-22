@@ -1,0 +1,6 @@
+<select id="extra_field_{{fieldName}}" name="extra_field[{{fieldName}}]">
+  {% for key, choice in choices %}
+  <option value="{{key}}" {% if selectedChoice == key %}selected="selected"{% endif %}>{{choice}}</option>
+  {% endfor %}
+</select>      
+
