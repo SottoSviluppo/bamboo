@@ -8,6 +8,7 @@ services:
         arguments:
             - "@elcodi.repository.order"
             - "@elcodi.wrapper.cart"
+            - "@elcodi.store"
             - "@elcodi.converter.currency"
             - "@elcodi.name_resolver.purchasable"
 

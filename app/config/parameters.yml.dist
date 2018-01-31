@@ -84,3 +84,5 @@ parameters:
     # if set TRUE indicate that FreePayment is used to create an order
     create_order_with_freepayment: false
     assetsbaseurl: 'http://10.10.10.10'
+    #ordine minino di acquisto
+    minimum_order_import: 5000

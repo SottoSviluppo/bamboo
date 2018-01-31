@@ -17,9 +17,6 @@
 
 namespace Elcodi\Bridge\PaymentSuiteBridgeBundle\Services;
 
-use LogicException;
-use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
-
 use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 use Elcodi\Component\Cart\Entity\Order;
 use Elcodi\Component\Cart\Entity\OrderLine;
@@ -28,6 +25,9 @@ use Elcodi\Component\Cart\Wrapper\CartWrapper;
 use Elcodi\Component\Currency\Entity\Money;
 use Elcodi\Component\Currency\Services\CurrencyConverter;
 use Elcodi\Component\Product\NameResolver\Interfaces\PurchasableNameResolverInterface;
+use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
+use LogicException;
+use PaymentSuite\PaymentCoreBundle\Services\Interfaces\PaymentBridgeInterface;
 
 /**
  * Class PaymentBridge
@@ -56,6 +56,13 @@ class PaymentBridge implements PaymentBridgeInterface
     private $cartWrapper;
 
     /**
+     * @var StoreInterface
+     *
+     * Store 
+     */
+    private $store;
+
+    /**
      * @var CurrencyConverter
      *
      * Currency converter
@@ -78,11 +85,13 @@ class PaymentBridge implements PaymentBridgeInterface
     public function __construct(
         OrderRepository $orderRepository,
         CartWrapper $cartWrapper,
+        StoreInterface $store,
         CurrencyConverter $currencyConverter,
         PurchasableNameResolverInterface $purchasableNameResolver
     ) {
         $this->orderRepository = $orderRepository;
         $this->cartWrapper = $cartWrapper;
+        $this->store = $store;
         $this->currencyConverter = $currencyConverter;
         $this->purchasableNameResolver = $purchasableNameResolver;
     }
@@ -257,8 +266,15 @@ class PaymentBridge implements PaymentBridgeInterface
 
                 $orderLineArray['item_name'] = $orderLineName;
 
-                // $lineAmount = $orderLine->getPurchasableAmount();
-                $lineAmount = $orderLine->getAmount();
+                $lineAmount = $orderLine->getPurchasableAmount();
+                $tax = $orderLine->getTax();
+                if ($tax !== null) {
+                    if (!$this->store->getTaxIncluded()) {
+                        $percentage = (100 + $tax->getValue()) / 100;
+                        $lineAmount = $lineAmount->multiply($percentage);
+                    }
+                }
+                // $lineAmount = $orderLine->getAmount();
 
                 /*
                  * We need to convert any price to match
