@@ -198,15 +198,6 @@ class CustomerController extends AbstractAdminController
         ];
     }
 
-    public function manageExtraFields($customer)
-    {
-        $request = $this->getRequest();
-        $extraFields = $request->get('extra_field', []);
-        foreach ($extraFields as $name => $value) {
-            $customer->setExtraDataValue($name, $value);
-        }
-    }
-
     /**
      * Enable entity
      *

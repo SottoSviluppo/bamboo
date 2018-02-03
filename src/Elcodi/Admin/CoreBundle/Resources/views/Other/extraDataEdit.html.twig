@@ -1,6 +1,17 @@
+
+{% if choices is defined %}
+
 <select id="extra_field_{{fieldName}}" name="extra_field[{{fieldName}}]">
   {% for key, choice in choices %}
   <option value="{{key}}" {% if selectedChoice == key %}selected="selected"{% endif %}>{{choice}}</option>
   {% endfor %}
 </select>      
 
+{% endif %}
+
+{% if type == 'boolean' %}
+	{# hack: funziona con php, per passare il valore anche quando è non checkato #}
+	<input type='hidden' value='0' name="extra_field[{{fieldName}}]">
+	<input type="checkbox" name="extra_field[{{fieldName}}]" {% if value == '1' %} checked="checked" {% endif %} value="1"/>
+	
+{% endif %}

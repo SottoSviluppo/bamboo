@@ -124,7 +124,7 @@ class AbstractAdminController extends Controller
                         ->trans('ui.delete.success')
                 );
             } catch (Exception $e) {
-                 $this->addFlash(
+                $this->addFlash(
                     'error',
                     $this
                         ->get('translator')
@@ -466,6 +466,14 @@ class AbstractAdminController extends Controller
         return $repository->canViewAppStore($user);
     }
 
+    protected function manageExtraFields($object)
+    {
+        $request = $this->getRequest();
+        $extraFields = $request->get('extra_field', []);
+        foreach ($extraFields as $name => $value) {
+            $object->setExtraDataValue($name, $value);
+        }
+    }
     /**
      * Private controller helpers
      *

@@ -172,6 +172,7 @@ class CouponController extends AbstractAdminController
         }
 
         if ($isValid) {
+            $this->manageExtraFields($coupon);
             $this->flush($coupon);
             $this->addFlash('success', 'admin.coupon.saved');
 
