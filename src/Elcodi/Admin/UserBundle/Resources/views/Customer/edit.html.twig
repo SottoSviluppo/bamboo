@@ -20,8 +20,8 @@
                  data-author-email="{{ app.user.email }}"
                  data-context="{{ context }}"
                  data-source="{{ source }}"
-                 data-route-list="{{ url('elcodi_comments_list', { source: source, context: context }) }}"
-                 data-route-add="{{ url('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
+                 data-route-list="{{ path('elcodi_comments_list', { source: source, context: context }) }}"
+                 data-route-add="{{ path('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
                     ></div>
         </div>
     {% endif %}
@@ -30,7 +30,7 @@
 {% block header_actions %}
 
     {% if customer.id %}
-        <a href="{{ url('admin_customer_order_list', { customerId: customer.id }) }}" type="button" class="button">
+        <a href="{{ path('admin_customer_order_list', { customerId: customer.id }) }}" type="button" class="button">
             <i class="icon-shopping-cart"></i>
             <span>{{ 'admin.order.from_user'|trans({ '%name%': customer.firstname }) }}</span>
         </a>
@@ -55,7 +55,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_customer_list'), },
+            { name: title, url: path('admin_customer_list'), },
             { name: header, active: true, },
         ]
     } %}
@@ -66,9 +66,9 @@
 {% block content %}
 
     {% if customer.id %}
-        {{ render(url('admin_customer_edit_component', { id: customer.id })) }}
+        {{ render(path('admin_customer_edit_component', { id: customer.id })) }}
     {% else %}
-        {{ render(url('admin_customer_new_component')) }}
+        {{ render(path('admin_customer_new_component')) }}
     {% endif %}
 
 {% endblock content %}

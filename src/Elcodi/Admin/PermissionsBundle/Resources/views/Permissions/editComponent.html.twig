@@ -13,8 +13,8 @@
 
     {% set formAction =
         permissionGroup.id
-            ? url('admin_permissions_update', { id: permissionGroup.id })
-            : url('admin_permissions_save')
+            ? path('admin_permissions_update', { id: permissionGroup.id })
+            : path('admin_permissions_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

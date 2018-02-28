@@ -13,8 +13,8 @@
 
     {% set formAction =
     blog_post.id
-    ? url('admin_blog_post_update', { id: blog_post.id })
-    : url('admin_blog_post_save')
+    ? path('admin_blog_post_update', { id: blog_post.id })
+    : path('admin_blog_post_save')
     %}
 
     {{ form_start(form, { action: formAction }) }}

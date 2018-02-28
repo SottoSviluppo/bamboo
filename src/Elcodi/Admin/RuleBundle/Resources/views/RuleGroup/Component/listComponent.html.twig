@@ -22,7 +22,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url("admin_rule_group_view", {"id": entity.id}) }}">
+        <a href="{{ path("admin_rule_group_view", {"id": entity.id}) }}">
             {{ entity.id }}
         </a>
     </td>
@@ -36,7 +36,7 @@
         <ul>
             {% for rule in entity.rules %}
                 <li>
-                    <a href="{{ url("admin_rule_view", { id: rule.id }) }}">
+                    <a href="{{ path("admin_rule_view", { id: rule.id }) }}">
                         {{ rule.name }}
                     </a>
                 </li>

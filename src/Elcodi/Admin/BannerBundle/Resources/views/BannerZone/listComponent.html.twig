@@ -47,18 +47,18 @@
                     </button>
                     <ul role="menu" class="dropdown-menu pull-right">
                         <li>
-                            <a href="{{ url("admin_banner_zone_edit", {"id": entity.id}) }}">
+                            <a href="{{ path("admin_banner_zone_edit", {"id": entity.id}) }}">
                                 {{ "Edit"|trans }}
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url("admin_banner_zone_view", {"id": entity.id}) }}">
+                            <a href="{{ path("admin_banner_zone_view", {"id": entity.id}) }}">
                                 {{ "Details"|trans }}
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ url("admin_banner_zone_delete", {"id": entity.id}) }}">
+                            <a href="{{ path("admin_banner_zone_delete", {"id": entity.id}) }}">
                                 {{ "Remove"|trans }}
                             </a>
                         </li>

@@ -1,4 +1,4 @@
-<ol id="js-location-selectors" data-url="{{ url('admin_location_selectors') }}" class="grid">
+<ol id="js-location-selectors" data-url="{{ path('admin_location_selectors') }}" class="grid">
     {% for select in selects %}
         <li class="d-ib mr-m">
             {% set fieldType = 'admin.address.field.' ~ select.type ~ '.title' %}

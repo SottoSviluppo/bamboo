@@ -5,12 +5,12 @@
 
     <div class="row">
         <div class="col-md-6">
-            {{ render(url("admin_banner_view_component", {
+            {{ render(path("admin_banner_view_component", {
                 'id': id,
             })) }}
         </div>
         <div class="col-md-6">
-            {{ render(url("admin_banner_new_component")) }}
+            {{ render(path("admin_banner_new_component")) }}
         </div>
     </div>
 

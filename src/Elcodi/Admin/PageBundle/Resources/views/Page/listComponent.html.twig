@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.page.single'|trans,
         'admin.page.plural'|trans,
-        url('admin_page_new')
+        path('admin_page_new')
     )
 %}
 
@@ -32,12 +32,12 @@
 
 {% block table_body_row %}
     <td>
-        <a href="{{ url('admin_page_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_page_edit', { id: entity.id }) }}">
             <strong>{{ entity.title|truncate(20, '…') }}</strong>
         </a>
     </td>
     <td>
-        {% set path = url('elcodi.route.page_render', {
+        {% set path = path('elcodi.route.page_render', {
             'id': entity.id,
             'path': entity.path
         }) %}

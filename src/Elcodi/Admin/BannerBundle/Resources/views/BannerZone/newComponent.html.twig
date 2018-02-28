@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    {{ form_start(form, {'action': url('admin_banner_zone_save')}) }}
+    {{ form_start(form, {'action': path('admin_banner_zone_save')}) }}
 
         {{ form_row(form.name) }}
         {{ form_row(form.code) }}

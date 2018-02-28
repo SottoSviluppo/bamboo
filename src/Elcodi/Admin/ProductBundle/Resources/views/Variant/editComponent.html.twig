@@ -27,8 +27,8 @@
 
         {% include '@AdminCore/Common/breadcrumb.html.twig' with {
             breadcrumb: [
-                { name: title, url: url('admin_product_list') },
-                { name: product.name, url: url('admin_product_edit', { id: product.id }) },
+                { name: title, url: path('admin_product_list') },
+                { name: product.name, url: path('admin_product_edit', { id: product.id }) },
                 { name: header, active: true },
             ],
         } %}
@@ -38,11 +38,11 @@
     {% include 'AdminCoreBundle::Common/flashMessages.html.twig' %}
 
     {% set formAction = variant.id
-        ? url('admin_product_variant_update', {
+        ? path('admin_product_variant_update', {
             productId: product.id,
             id: variant.id,
         })
-        : url('admin_product_variant_save', {
+        : path('admin_product_variant_save', {
             productId: product.id,
         })
     %}
@@ -55,7 +55,7 @@
                         <h3 class="fw-n">{{ 'admin.variant.section.attributes.title'|trans }}</h3>
                         <p>{{ 'admin.variant.section.attributes.description'|trans }}</p>
                         <p>
-                            <a href="{{ url('admin_attribute_new') }}" id="new-attribute" data-fc-modules="window-content" class="button">
+                            <a href="{{ path('admin_attribute_new') }}" id="new-attribute" data-fc-modules="window-content" class="button">
                                 <i class="icon-plus"></i>
                                 {{ 'admin.attribute.new'|trans }}
                             </a>

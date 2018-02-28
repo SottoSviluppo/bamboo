@@ -19,7 +19,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_purchasable_pack_new') }}" type="button" class="button-primary" data-test="new-purchasable-pack">
+    <a href="{{ path('admin_purchasable_pack_new') }}" type="button" class="button-primary" data-test="new-purchasable-pack">
         <i class="icon-plus"></i>
         <span>{{ 'admin.purchasable_pack.new'|trans }}</span>
     </a>
@@ -30,7 +30,7 @@
 {% block content %}
 
     {{
-        render(url('admin_purchasable_pack_list_component', {
+        render(path('admin_purchasable_pack_list_component', {
             page: page,
             limit: limit,
             orderByField: orderByField,

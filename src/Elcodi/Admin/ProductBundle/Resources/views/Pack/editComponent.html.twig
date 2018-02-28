@@ -13,8 +13,8 @@
 
         {% set formAction =
         pack.id
-        ? url('admin_purchasable_pack_update', { id: pack.id })
-        : url('admin_purchasable_pack_save')
+        ? path('admin_purchasable_pack_update', { id: pack.id })
+        : path('admin_purchasable_pack_save')
         %}
 
 
@@ -229,7 +229,7 @@ redirect_path: pack.id
                     })
                 }}
                 <p class="pt-s fz-default mb-n ta-r">
-                    <a href="{{ url('admin_category_new') }}" data-fc-modules="window-content">
+                    <a href="{{ path('admin_category_new') }}" data-fc-modules="window-content">
                         <i class="icon-plus"></i>
                         {{ 'admin.category.new'|trans }}
                     </a>
@@ -244,7 +244,7 @@ redirect_path: pack.id
         })
     }}
     <p class="pt-s fz-default mb-n ta-r">
-        <a href="{{ url('admin_manufacturer_new') }}" data-fc-modules="window-content">
+        <a href="{{ path('admin_manufacturer_new') }}" data-fc-modules="window-content">
             <i class="icon-plus"></i>
             {{ 'admin.manufacturer.new'|trans }}
         </a>

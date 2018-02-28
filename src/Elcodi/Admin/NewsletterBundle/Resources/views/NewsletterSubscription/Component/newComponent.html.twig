@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    {{ form_start(form, {'action': url('admin_newsletter_subscription_save')}) }}
+    {{ form_start(form, {'action': path('admin_newsletter_subscription_save')}) }}
 
         {{ form_row(form.email) }}
         {{ form_row(form.hash) }}

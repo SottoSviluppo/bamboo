@@ -13,7 +13,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: 'admin.plugin.plural'|trans, url:url('admin_plugin_list')  },
+            { name: 'admin.plugin.plural'|trans, url:path('admin_plugin_list')  },
             { name: plugin.getConfigurationValue("name")|trans , active: true },
         ]
     } %}

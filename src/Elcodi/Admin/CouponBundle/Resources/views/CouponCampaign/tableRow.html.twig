@@ -1,11 +1,11 @@
 <td>
-    <a href="{{ url('admin_coupon_campaign_edit', { id: entity.id }) }}">
+    <a href="{{ path('admin_coupon_campaign_edit', { id: entity.id }) }}">
         <strong>{{ entity.campaignName|truncate(20, '…') }}</strong>
     </a>
 </td>
 
 <td>
-    <a href="{{ url('search_admin_orders', { couponCampaign: entity.campaignName }) }}" target="_blank">
+    <a href="{{ path('search_admin_orders', { couponCampaign: entity.campaignName }) }}" target="_blank">
         Ordini associati
     </a>
 </td>

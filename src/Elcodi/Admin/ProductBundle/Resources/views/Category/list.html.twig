@@ -20,7 +20,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_category_new') }}" class="button-primary" data-test="new-category">
+    <a href="{{ path('admin_category_new') }}" class="button-primary" data-test="new-category">
         <i class="icon-plus"></i>
         <span>{{ 'admin.category.new'|trans }}</span>
     </a>
@@ -30,6 +30,6 @@
 
 {% block content %}
 
-    {{ render(url('admin_category_list_component'))}}
+    {{ render(path('admin_category_list_component'))}}
 
 {% endblock content %}

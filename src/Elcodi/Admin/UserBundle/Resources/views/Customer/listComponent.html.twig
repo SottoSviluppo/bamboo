@@ -50,7 +50,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_customer_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_customer_edit', { id: entity.id }) }}">
             <strong>{{ entity.username }}</strong>
         </a>
     </td>

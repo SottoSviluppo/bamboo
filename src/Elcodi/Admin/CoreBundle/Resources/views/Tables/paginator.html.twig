@@ -35,7 +35,7 @@
     <ul>
         {% if not is_first_page %}
         <li>
-            <a {% if is_first_page == false %} href="{{ url(url, {
+            <a {% if is_first_page == false %} href="{{ path(url, {
                 page: prev_page,
                 limit: limit,
                 orderByField: orderByField,
@@ -47,7 +47,7 @@
         {% endif %}
         {% if space_left <= page %}
             <li>
-                <a href="{{ url(url, {
+                <a href="{{ path(url, {
                     page: 1,
                     limit: limit,
                     orderByField: orderByField,
@@ -62,7 +62,7 @@
         {% if total_pages > 1 %}
             {% for current_iterated_page in first_middle_group_element..last_middle_group_element %}
                 <li class="prev{% if current_iterated_page == page %} disabled{% endif %}">
-                <a {% if current_iterated_page != page %} href="{{ url(url, {
+                <a {% if current_iterated_page != page %} href="{{ path(url, {
                     page: current_iterated_page,
                     limit: limit,
                     orderByField: orderByField,
@@ -79,7 +79,7 @@
                 <li class="disabled"><a>...</a></li>
             {% endif %}
             <li>
-                <a href="{{ url(url, {
+                <a href="{{ path(url, {
                     page: total_pages,
                     limit: limit,
                     orderByField: orderByField,
@@ -90,7 +90,7 @@
         {% if not is_last_page %}
         <li>
             {{ is_last_page }}
-            <a {% if is_last_page == false %} href="{{ url(url, {
+            <a {% if is_last_page == false %} href="{{ path(url, {
                 page: next_page,
                 limit: limit,
                 orderByField: orderByField,

@@ -17,8 +17,8 @@
                         data-author-email="{{ app.user.email }}"
                         data-context="{{ context }}"
                         data-source="{{ source }}"
-                        data-route-list="{{ url('elcodi_comments_list', { source: source, context: context }) }}"
-                        data-route-add="{{ url('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
+                        data-route-list="{{ path('elcodi_comments_list', { source: source, context: context }) }}"
+                        data-route-add="{{ path('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
                         ></div>
                     </div>
                 {% endif %}
@@ -27,7 +27,7 @@
             {% block header_actions %}
 
                 {% if product.id > 0 %}
-                    <a target="_blank" href="{{ url('store_product_view', { id: product.id, slug: product.slug }) }}" data-fc-modules="modal" class="button">
+                    <a target="_blank" href="{{ path('store_product_view', { id: product.id, slug: product.slug }) }}" data-fc-modules="modal" class="button">
                         <i class="icon-eye"></i>
                         <span>{{ 'admin.product.in_store'|trans }}</span>
                     </a>
@@ -55,7 +55,7 @@
 
                     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
                     breadcrumb: [
-                    { name: title, url: url('admin_product_list'), },
+                    { name: title, url: path('admin_product_list'), },
                     { name: header, active: true, },
                     ]
                 } %}
@@ -79,9 +79,9 @@
                         <p class="msg-warning">{{ 'admin.product.error.price_negative'|trans }}</p>
                     {% endif %}
 
-                    {{ render(url('admin_product_edit_component', { id: product.id })) }}
+                    {{ render(path('admin_product_edit_component', { id: product.id })) }}
                 {% else %}
-                    {{ render(url('admin_product_new_component')) }}
+                    {{ render(path('admin_product_new_component')) }}
                 {% endif %}
 
                 {% if product.id %}

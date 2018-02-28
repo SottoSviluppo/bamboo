@@ -17,7 +17,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_admin_user_list'), },
+            { name: title, url: path('admin_admin_user_list'), },
             { name: header, active: true, },
         ]
     } %}
@@ -30,9 +30,9 @@
     <div class="row">
         <div class="col-md-12">
             {% if adminUser.id %}
-                {{ render(url('admin_admin_user_edit_component', { id: adminUser.id })) }}
+                {{ render(path('admin_admin_user_edit_component', { id: adminUser.id })) }}
             {% else %}
-                {{ render(url('admin_admin_user_new_component')) }}
+                {{ render(path('admin_admin_user_new_component')) }}
             {% endif %}
         </div>
     </div>

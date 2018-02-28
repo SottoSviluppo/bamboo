@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.attribute.single'|trans,
         'admin.attribute.plural'|trans,
-        url('admin_attribute_new')
+        path('admin_attribute_new')
     )
 %}
 
@@ -33,7 +33,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_attribute_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_attribute_edit', { id: entity.id }) }}">
             <strong>{{ entity.name }}</strong>
         </a>
     </td>
