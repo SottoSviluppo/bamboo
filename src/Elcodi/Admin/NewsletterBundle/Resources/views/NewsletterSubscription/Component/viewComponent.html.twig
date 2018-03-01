@@ -6,12 +6,12 @@
 
 {% block view_buttons %}
     <div class="spacer spacer-bottom">
-        <a href="{{ url("admin_newsletter_subscription_list") }}" class="btn">{{ 'View all'|trans }}</a>
-        <a href="{{ url("admin_newsletter_subscription_edit", {"id": entity.id}) }}" class="btn btn-primary">{{ 'Edit'|trans }}</a>
+        <a href="{{ path("admin_newsletter_subscription_list") }}" class="btn">{{ 'View all'|trans }}</a>
+        <a href="{{ path("admin_newsletter_subscription_edit", {"id": entity.id}) }}" class="btn btn-primary">{{ 'Edit'|trans }}</a>
         {% if entity.enabled %}
-            <a href="{{ url("admin_newsletter_subscription_disable", {"id": entity.id}) }}" class="btn btn-warning">{{ 'Disable'|trans }}</a>
+            <a href="{{ path("admin_newsletter_subscription_disable", {"id": entity.id}) }}" class="btn btn-warning">{{ 'Disable'|trans }}</a>
         {% else %}
-            <a href="{{ url("admin_newsletter_subscription_enable", {"id": entity.id}) }}" class="btn btn-success">{{ 'Enable'|trans }}</a>
+            <a href="{{ path("admin_newsletter_subscription_enable", {"id": entity.id}) }}" class="btn btn-success">{{ 'Enable'|trans }}</a>
         {% endif %}
     </div>
 {% endblock view_buttons %}

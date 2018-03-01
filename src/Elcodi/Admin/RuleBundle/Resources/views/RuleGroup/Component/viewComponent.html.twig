@@ -24,7 +24,7 @@
             <ul>
                 {% for rule in entity.rules %}
                     <li>
-                        <a href="{{ url("admin_rule_view", {id: rule.id}) }}">
+                        <a href="{{ path("admin_rule_view", {id: rule.id}) }}">
                             {{ rule.name }}
                         </a>
                     </li>
@@ -35,8 +35,8 @@
 
     <tr>
         <td>
-            <a href="{{ url("admin_rule_group_edit", {"id": entity.id}) }}" type="button" class="btn btn-primary btn-flat">Edit</a>
-            <a href="{{ url("admin_rule_group_delete", {"id": entity.id}) }}" type="button" class="btn btn-danger btn-flat">Delete</a>
+            <a href="{{ path("admin_rule_group_edit", {"id": entity.id}) }}" type="button" class="btn btn-primary btn-flat">Edit</a>
+            <a href="{{ path("admin_rule_group_delete", {"id": entity.id}) }}" type="button" class="btn btn-danger btn-flat">Delete</a>
         </td>
     </tr>
 

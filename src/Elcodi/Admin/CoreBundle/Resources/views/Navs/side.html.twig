@@ -32,7 +32,7 @@
             </a>
             <ul id="sidebar-user-dropdown" class="sidebar-user-dropdown hidden">
                 <li data-test="menu-profile">
-                    <a href="{{ url('admin_admin_user_edit', {id: app.user.id }) }}">
+                    <a href="{{ path('admin_admin_user_edit', {id: app.user.id }) }}">
                     <span class="mobile tablet">
                         <i class="icon-user fz-xl"></i> {{ 'admin.profile.single'|trans }}
                     </span>
@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li data-test="menu-logout">
-                    <a href="{{ url('admin_logout') }}">
+                    <a href="{{ path('admin_logout') }}">
                     <span class="mobile tablet">
                         <i class="icon-sign-out fz-xl"></i> {{ 'admin.login.action.logout'|trans }}
                     </span>
@@ -76,7 +76,7 @@
     <nav id="sidebar-user-mobile" class="navigation navigation-vertical">
         <ul>
             <li data-test="menu-profile">
-                <a href="{{ url('admin_admin_user_edit', {id: app.user.id }) }}">
+                <a href="{{ path('admin_admin_user_edit', {id: app.user.id }) }}">
                     <span class="mobile tablet">
                         <i class="icon-user fz-xl"></i> {{ 'admin.profile.single'|trans }}
                     </span>
@@ -86,7 +86,7 @@
                 </a>
             </li>
             <li data-test="menu-logout">
-                <a href="{{ url('admin_logout') }}">
+                <a href="{{ path('admin_logout') }}">
                     <span class="mobile tablet">
                         <i class="icon-sign-out fz-xl"></i> {{ 'admin.login.action.logout'|trans }}
                     </span>

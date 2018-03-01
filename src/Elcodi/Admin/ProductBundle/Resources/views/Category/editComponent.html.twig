@@ -22,8 +22,8 @@
 
     {% set formAction =
         category.id
-            ? url('admin_category_update', { id: category.id })
-            : url('admin_category_save')
+            ? path('admin_category_update', { id: category.id })
+            : path('admin_category_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

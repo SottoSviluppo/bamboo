@@ -10,8 +10,8 @@
 
         {% set formAction =
         attribute.id
-        ? url('admin_attribute_update', { id: attribute.id })
-        : url('admin_attribute_save')
+        ? path('admin_attribute_update', { id: attribute.id })
+        : path('admin_attribute_save')
         %}
 
         {{ form_start(form, { action: formAction }) }}

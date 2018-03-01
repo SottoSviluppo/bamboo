@@ -15,8 +15,8 @@
 
     {% set formAction =
         customer.id
-            ? url('admin_customer_update', { id: customer.id })
-            : url('admin_customer_save')
+            ? path('admin_customer_update', { id: customer.id })
+            : path('admin_customer_save')
      %}
 
     <div class="pr-l">

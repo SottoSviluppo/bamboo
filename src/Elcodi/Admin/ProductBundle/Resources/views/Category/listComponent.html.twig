@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.category.single'|trans,
         'admin.category.plural'|trans,
-        url('admin_category_new')
+        path('admin_category_new')
     )
 %}
 
@@ -34,14 +34,14 @@
 
             <a class="icon-trash-o c-ko td-n fz-l ml-l"
                title="{{ 'ui.forms.delete'|trans }}"
-               href="{{ url('admin_category_delete', { id: category.id }) }}"
+               href="{{ path('admin_category_delete', { id: category.id }) }}"
                data-fc-modules="confirm"
                data-fc-name="{{ category.name }}"
                data-fc-text="{{ 'ui.confirm.delete'|trans }}">
             </a>
         </p>
 
-        <a href="{{ url('admin_category_edit', { id: category.id }) }}" class="fw-n va-b">
+        <a href="{{ path('admin_category_edit', { id: category.id }) }}" class="fw-n va-b">
             {{ category.name }}
         </a>
 
@@ -72,7 +72,7 @@
             <div class="box-background">
             <ol id="categories-list"
                 data-fc-modules="sortable"
-                data-fc-url="{{ url('admin_category_sort_component') }}"
+                data-fc-url="{{ path('admin_category_sort_component') }}"
                 data-fc-type="nested"
                 data-fc-output="json"
                 data-fc-depth="8"

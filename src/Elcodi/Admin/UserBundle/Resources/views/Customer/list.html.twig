@@ -20,7 +20,7 @@
 {% block content %}
 
     {{
-        render(url('admin_customer_list_component', {
+        render(path('admin_customer_list_component', {
             page: page,
             limit: limit,
             orderByField: orderByField,

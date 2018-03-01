@@ -11,7 +11,7 @@
 
     {% block content %}
 
-        {% set formAction =  url('admin_email_update', { id: email.id }) %}
+        {% set formAction =  path('admin_email_update', { id: email.id }) %}
             {{ form_start(form, { action: formAction}) }}
             <fieldset>
                 <div class="grid">

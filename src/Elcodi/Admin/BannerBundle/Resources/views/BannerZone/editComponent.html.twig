@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    {{ form_start(form, {'action': url('admin_banner_zone_update', {
+    {{ form_start(form, {'action': path('admin_banner_zone_update', {
         'id': entity.id
     })}) }}
 

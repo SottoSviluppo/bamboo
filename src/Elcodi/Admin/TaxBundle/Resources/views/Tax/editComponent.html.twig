@@ -13,8 +13,8 @@
 
 	{% set formAction =
         tax.id
-            ? url('admin_tax_update', { id: tax.id })
-            : url('admin_tax_save')
+            ? path('admin_tax_update', { id: tax.id })
+            : path('admin_tax_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

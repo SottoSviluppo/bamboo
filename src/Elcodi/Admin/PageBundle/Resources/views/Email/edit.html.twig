@@ -22,7 +22,7 @@
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
             { name: 'admin.communication.single'|trans, active: false },
-            { name: title, url: url('admin_email_list'), },
+            { name: title, url: path('admin_email_list'), },
             { name: header, active: true, },
         ]
     } %}
@@ -33,8 +33,8 @@
 {% block content %}
 
     {% if email.id %}
-        {{ render(url('admin_email_edit_component', { id: email.id })) }}
+        {{ render(path('admin_email_edit_component', { id: email.id })) }}
     {% else %}
-        {{ render(url('admin_email_new_component')) }}
+        {{ render(path('admin_email_new_component')) }}
     {% endif %}
 {% endblock content %}

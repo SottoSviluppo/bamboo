@@ -20,7 +20,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_country_new') }}" class="button-primary">
+    <a href="{{ path('admin_country_new') }}" class="button-primary">
         <i class="icon-plus"></i>
         <span>{{ 'admin.country.new'|trans }}</span>
     </a>
@@ -34,7 +34,7 @@
         <div class="col-md-12">
             {{
                 render(
-                    url('admin_country_list_component', {
+                    path('admin_country_list_component', {
                         page: page,
                         limit: limit,
                         orderByField: orderByField,

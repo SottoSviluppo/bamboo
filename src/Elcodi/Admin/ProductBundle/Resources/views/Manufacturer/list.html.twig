@@ -20,7 +20,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_manufacturer_new') }}" class="button-primary" data-test="new-manufacturer">
+    <a href="{{ path('admin_manufacturer_new') }}" class="button-primary" data-test="new-manufacturer">
         <i class="icon-plus"></i>
         <span>{{ 'admin.manufacturer.new'|trans }}</span>
     </a>
@@ -31,7 +31,7 @@
 {% block content %}
 
     {{
-        render(url('admin_manufacturer_list_component', {
+        render(path('admin_manufacturer_list_component', {
             page: page,
             limit: limit,
             orderByField: orderByField,

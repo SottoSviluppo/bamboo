@@ -7,7 +7,7 @@
             </a>
             <ul class="thumbnail-actions">
                 <li>
-                    <a href="{{ url('admin_image_delete', { id: image.id }) }}"
+                    <a href="{{ path('admin_image_delete', { id: image.id }) }}"
                        data-fc-modules="confirm" data-fc-name="{{ image.name }}"
                        data-fc-text="{{ 'ui.confirm.delete'|trans }}">
                         <i class="icon-trash-o"></i>

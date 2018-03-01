@@ -12,8 +12,8 @@
 
     {% set formAction =
     page.id
-    ? url('admin_page_update', { id: page.id })
-    : url('admin_page_save')
+    ? path('admin_page_update', { id: page.id })
+    : path('admin_page_save')
     %}
 
     {{ form_start(form, { action: formAction }) }}

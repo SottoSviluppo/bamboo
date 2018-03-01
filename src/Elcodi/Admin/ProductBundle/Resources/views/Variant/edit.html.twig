@@ -10,14 +10,14 @@
 
     {% if variant.id %}
         {{
-            render(url('admin_product_variant_edit_component', {
+            render(path('admin_product_variant_edit_component', {
                 productId: product.id,
                 id: variant.id,
             }))
         }}
     {% else %}
         {{
-            render(url('admin_product_variant_new_component', {
+            render(path('admin_product_variant_new_component', {
                 productId: product.id,
             }))
         }}

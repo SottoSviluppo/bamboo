@@ -13,8 +13,8 @@
 
     {% set formAction =
         adminUser.id
-            ? url('admin_admin_user_update', { id: adminUser.id })
-            : url('admin_admin_user_save')
+            ? path('admin_admin_user_update', { id: adminUser.id })
+            : path('admin_admin_user_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

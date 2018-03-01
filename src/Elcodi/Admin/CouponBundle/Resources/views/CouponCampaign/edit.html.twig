@@ -14,7 +14,7 @@
                 active: false
             }, {
                 name: title,
-                url: url('admin_coupon_campaign_list')
+                url: path('admin_coupon_campaign_list')
             }, {
                 name: header,
                 active: true
@@ -25,11 +25,11 @@
 {% block content %}
     {% if couponCampaign.id %}
         {{
-            render(url('admin_coupon_campaign_edit_component', {
+            render(path('admin_coupon_campaign_edit_component', {
                 id: couponCampaign.id,
             }))
         }}
     {% else %}
-        {{ render(url('admin_coupon_campaign_new_component')) }}
+        {{ render(path('admin_coupon_campaign_new_component')) }}
     {% endif %}
 {% endblock content %}
