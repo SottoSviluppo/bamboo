@@ -26,7 +26,8 @@
 
 {% block header_actions %}
 
-    <a href="{{ path('admin_customer_order_list', {customerId: order.customer.id}) }}" type="button" class="button">
+    {# <a href="{{ path('admin_customer_order_list', {customerId: order.customer.id}) }}" type="button" class="button"> #}
+    <a href="{{ path('search_admin_orders', {customerEmail: order.customer.email}) }}" type="button" class="button">
         <i class="icon-shopping-cart"></i>
         <span>{{ 'admin.order.from_user'|trans({ '%name%': order.customer.firstname }) }}</span>
     </a>

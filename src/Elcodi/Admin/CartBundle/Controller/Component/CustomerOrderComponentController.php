@@ -18,15 +18,14 @@
 namespace Elcodi\Admin\CartBundle\Controller\Component;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Paginator as PaginatorAnnotation;
 use Mmoreram\ControllerExtraBundle\ValueObject\PaginatorAttributes;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\Cart\Entity\Interfaces\OrderInterface;
 
 /**
  * Class CustomerOrderComponentController
@@ -90,14 +89,15 @@ class CustomerOrderComponentController extends AbstractAdminController
         $orderByField,
         $orderByDirection
     ) {
+        // \Doctrine\Common\Util\Debug::dump($paginator);die();
         return [
-            'paginator'        => $paginator,
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'paginator' => $paginator,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
-            'totalPages'       => $paginatorAttributes->getTotalPages(),
-            'totalElements'    => $paginatorAttributes->getTotalElements(),
+            'totalPages' => $paginatorAttributes->getTotalPages(),
+            'totalElements' => $paginatorAttributes->getTotalElements(),
         ];
     }
 
