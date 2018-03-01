@@ -60,3 +60,8 @@ elcodi_custom_routes:
 ElendevRoxyFilemanBundle:
     resource: "@ElendevRoxyFilemanBundle/Resources/config/routing.yml"
     prefix:   /elendev-roxyfileman
+
+
+lexik_translation_edition:
+    resource: "@LexikTranslationBundle/Resources/config/routing.yml"
+    prefix:   /admin/translation

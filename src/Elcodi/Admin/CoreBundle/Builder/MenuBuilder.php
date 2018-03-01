@@ -74,6 +74,17 @@ class MenuBuilder extends AbstractMenuBuilder implements MenuBuilderInterface
                     ->setCode('gear')
                     ->setTag('settings')
                     ->setPriority(-32)
-            );
+            )
+            ->addSubnode(
+                $this
+                    ->menuNodeFactory
+                    ->create()
+                    ->setName('Traduzioni')
+                    ->setCode('gear')
+                    ->setUrl('admin_translations')
+                    ->setPriority(-30)
+                    ->setTag('settings')
+            )
+        ;
     }
 }

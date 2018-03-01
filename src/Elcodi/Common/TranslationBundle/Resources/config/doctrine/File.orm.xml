@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                                      http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Elcodi\Common\TranslationBundle\Entity\File"
+            table="lexik_translation_file"
+            repository-class="Elcodi\Common\TranslationBundle\Entity\FileRepository">
+
+        <unique-constraints>
+            <unique-constraint name="hash_idx" columns="hash" />
+        </unique-constraints>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="prePersist" />
+            <lifecycle-callback type="preUpdate" method="preUpdate" />
+        </lifecycle-callbacks>
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="IDENTITY" />
+        </id>
+
+        <one-to-many field="translations" target-entity="Elcodi\Common\TranslationBundle\Entity\Translation" mapped-by="file">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <field name="domain" column="domain" type="string" length="255" />
+
+        <field name="locale" column="locale" type="string" length="10" />
+
+        <field name="extention" column="extention" type="string" length="10" />
+
+        <field name="path" column="path" type="string" length="255" />
+
+        <field name="hash" column="hash" type="string" length="255" />
+
+    </entity>
+</doctrine-mapping>
