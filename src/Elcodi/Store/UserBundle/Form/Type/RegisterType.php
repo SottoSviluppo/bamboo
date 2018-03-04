@@ -17,11 +17,10 @@
 
 namespace Elcodi\Store\UserBundle\Form\Type;
 
+use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 
 /**
  * Class RegisterType
@@ -46,6 +45,7 @@ class RegisterType extends AbstractType
             'data_class' => $this
                 ->factory
                 ->getEntityNamespace(),
+            'validation_groups' => array('registration'),
         ]);
     }
 
@@ -63,25 +63,25 @@ class RegisterType extends AbstractType
             ->setMethod('POST')
             ->add('firstname', 'text', [
                 'required' => true,
-                'label'    => 'store.user.form.fields.firstname.label',
+                'label' => 'store.user.form.fields.firstname.label',
             ])
             ->add('lastname', 'text', [
                 'required' => true,
-                'label'    => 'store.user.form.fields.lastname.label',
+                'label' => 'store.user.form.fields.lastname.label',
             ])
             ->add('email', 'email', [
                 'required' => true,
-                'label'    => 'store.user.form.fields.email.label',
+                'label' => 'store.user.form.fields.email.label',
             ])
             ->add('password', 'repeated', [
-                'type'           => 'password',
-                'first_options'  => [
+                'type' => 'password',
+                'first_options' => [
                     'label' => 'store.user.form.fields.password.label',
                 ],
                 'second_options' => [
                     'label' => 'store.user.form.fields.repeat_password.label',
                 ],
-                'required'       => true,
+                'required' => true,
             ])
             ->add('send', 'submit', [
                 'label' => 'store.user.form.fields.send.label',
