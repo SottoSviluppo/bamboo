@@ -64,6 +64,24 @@ class ComboController extends Controller
         );
     }
 
+    /**
+     *
+     * @Route(
+     *      path = "get-category-for-combo/",
+     *      name = "get_category_for_combo"
+     * )
+     * @JsonResponse()
+     */
+    public function getCategoryForComboAction(Request $request)
+    {
+        $query = $request->get('query');
+        $list = $this->getCategoryListFormCombo($query);
+
+        return array(
+            'data' => $list,
+        );
+    }
+
     public function getCustomerListFormCombo($query)
     {
         $em = $this->get('doctrine')->getManager();
@@ -162,6 +180,40 @@ class ComboController extends Controller
 
         foreach ($list as $key => $value) {
             $toString = $value['sku'] . ' ' . $value['name'];
+            $list[$key]['toString'] = trim($toString);
+        }
+
+        return $list;
+    }
+
+    public function getCategoryListFormCombo($query)
+    {
+        $em = $this->get('doctrine')->getManager();
+        $qb = $em->createQueryBuilder();
+        $qb->from('Elcodi\Component\Product\Entity\Category', 'l');
+        $qb->select('l.id, l.name');
+
+        $searchKeywords = explode(' ', $query);
+        $count = 0;
+        foreach ($searchKeywords as $searchKeyword) {
+            $keywordToUse = trim($searchKeyword);
+            if (strlen($keywordToUse) == 0) {
+                continue;
+            }
+            $qb->orWhere('l.name LIKE :search' . $count);
+            $qb->setParameter('search' . $count, '%' . $keywordToUse . '%');
+            ++$count;
+        }
+
+        $query = $qb->getQuery();
+        // to debug
+        // echo $query->getSql();
+        // print_r($query->getParameters());die();
+
+        $list = $query->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+
+        foreach ($list as $key => $value) {
+            $toString = $value['name'];
             $list[$key]['toString'] = trim($toString);
         }
 
