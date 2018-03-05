@@ -43,16 +43,18 @@ class CustomerType extends AbstractType
      * Tax namespace
      */
     protected $taxNamespace;
+    protected $countryNamespace;
 
     /**
      * Construct
      *
      * @param string $languageNamespace Language Namespace
      */
-    public function __construct($languageNamespace, $taxNamespace)
+    public function __construct($languageNamespace, $taxNamespace, $countryNamespace)
     {
         $this->languageNamespace = $languageNamespace;
         $this->taxNamespace = $taxNamespace;
+        $this->countryNamespace = $countryNamespace;
     }
 
     /**
@@ -71,6 +73,7 @@ class CustomerType extends AbstractType
             'data_class' => $this
                 ->factory
                 ->getEntityNamespace(),
+            'validation_groups' => array('backend'),
         ]);
     }
 
@@ -106,7 +109,7 @@ class CustomerType extends AbstractType
                 'required' => false,
             ])
             ->add('fiscalCode', 'text', [
-                'required' => true,
+                'required' => false,
             ])
             ->add('gender', 'choice', [
                 'choices' => [
@@ -122,6 +125,11 @@ class CustomerType extends AbstractType
             ])
             ->add('tax', 'entity', [
                 'class' => $this->taxNamespace,
+                'property' => 'name',
+                'required' => false,
+            ])
+            ->add('country', 'entity', [
+                'class' => $this->countryNamespace,
                 'property' => 'name',
                 'required' => false,
             ])

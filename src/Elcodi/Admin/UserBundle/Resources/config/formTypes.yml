@@ -39,6 +39,7 @@ services:
         arguments:
             - %elcodi.entity.language.class%
             - %elcodi.entity.tax.class%
+            - %elcodi.entity.country.class%
         calls:
             - [setFactory, ["@elcodi.factory.customer"]]
         tags:
