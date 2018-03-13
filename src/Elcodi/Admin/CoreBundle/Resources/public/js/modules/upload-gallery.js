@@ -70,10 +70,11 @@ FrontendCore.define('upload-gallery', [ oGlobalSettings.sPathJs + '../components
 
 		},
 		updateSelect : function() {
-
 			var oContainer = document.getElementById('thumb-gallery-select'),
 				oThumbs = document.getElementById('thumb-gallery'),
 				nId;
+
+				oSelect = $('.js-images-select')[0],
 
 			$('input', oContainer).each( function() {
 				$(this).removeAttr('checked');
@@ -82,15 +83,15 @@ FrontendCore.define('upload-gallery', [ oGlobalSettings.sPathJs + '../components
 			$('img' , oThumbs).each( function() {
 				nId = parseInt(this.id.replace('image-',''), 10);
 
-				$('input[id=elcodi_admin_product_form_type_product_images_'+ nId +']', oContainer).click();
-				$('input[id=elcodi_admin_product_form_type_product_variant_images_'+ nId +']', oContainer).click();
-				$('input[id=elcodi_admin_product_form_type_purchasable_pack_images_'+ nId +']', oContainer).click();
+				$('input[id=' + oSelect.id + '_'+ nId +']', oContainer).click();
+				// $('input[id=elcodi_admin_product_form_type_product_images_'+ nId +']', oContainer).click();
+				// $('input[id=elcodi_admin_product_form_type_product_variant_images_'+ nId +']', oContainer).click();
+				// $('input[id=elcodi_admin_product_form_type_purchasable_pack_images_'+ nId +']', oContainer).click();
 
 			});
 
 		},
 		addImageToGallery : function( nId, sUrlView, sUrlDelete) {
-
 			var self = this,
 				oContainer = $('.js-images-select')[0],
 				oThumbs = document.getElementById('thumb-gallery'),
@@ -100,33 +101,41 @@ FrontendCore.define('upload-gallery', [ oGlobalSettings.sPathJs + '../components
 				oOption,
 				oActions = '<ul class="thumbnail-actions"><li><a href="' + sUrlDelete + '" class="icon-trash-o" data-fc-modules="ajax-link" data-fc-delete="'+ nId +'"></a></li></ul>';
 
-
-				if ($('#elcodi_admin_product_form_type_product_images_' + nId , oContainer).length === 0) {
+				if ($('#' + oContainer.id + '_' + nId , oContainer).length === 0) {
 					oOption = document.createElement('input');
 					oOption.type = 'checkbox';
-					oOption.name = 'elcodi_admin_product_form_type_product[images][]';
-					oOption.id = 'elcodi_admin_product_form_type_product_images_' + nId;
+					oOption.name = oContainer.name; 
+					oOption.id = oContainer.id + '_' + nId;
 					oOption.value = nId;
 					$(oContainer).append(oOption);
 				}
 
-				if ($('#elcodi_admin_product_form_type_product_variant_images_' + nId , oContainer).length === 0) {
-					oOption = document.createElement('input');
-					oOption.type = 'checkbox';
-					oOption.name = 'elcodi_admin_product_form_type_product_variant[images][]';
-					oOption.id = 'elcodi_admin_product_form_type_product_variant_images_' + nId;
-					oOption.value = nId;
-					$(oContainer).append(oOption);
-				}
+				// if ($('#elcodi_admin_product_form_type_product_images_' + nId , oContainer).length === 0) {
+				// 	oOption = document.createElement('input');
+				// 	oOption.type = 'checkbox';
+				// 	oOption.name = 'elcodi_admin_product_form_type_product[images][]';
+				// 	oOption.id = 'elcodi_admin_product_form_type_product_images_' + nId;
+				// 	oOption.value = nId;
+				// 	$(oContainer).append(oOption);
+				// }
 
-				if ($('#elcodi_admin_product_form_type_purchasable_pack_images_' + nId , oContainer).length === 0) {
-					oOption = document.createElement('input');
-					oOption.type = 'checkbox';
-					oOption.name = 'elcodi_admin_product_form_type_purchasable_pack[images][]';
-					oOption.id = 'elcodi_admin_product_form_type_purchasable_pack_images_' + nId;
-					oOption.value = nId;
-					$(oContainer).append(oOption);
-				}
+				// if ($('#elcodi_admin_product_form_type_product_variant_images_' + nId , oContainer).length === 0) {
+				// 	oOption = document.createElement('input');
+				// 	oOption.type = 'checkbox';
+				// 	oOption.name = 'elcodi_admin_product_form_type_product_variant[images][]';
+				// 	oOption.id = 'elcodi_admin_product_form_type_product_variant_images_' + nId;
+				// 	oOption.value = nId;
+				// 	$(oContainer).append(oOption);
+				// }
+
+				// if ($('#elcodi_admin_product_form_type_purchasable_pack_images_' + nId , oContainer).length === 0) {
+				// 	oOption = document.createElement('input');
+				// 	oOption.type = 'checkbox';
+				// 	oOption.name = 'elcodi_admin_product_form_type_purchasable_pack[images][]';
+				// 	oOption.id = 'elcodi_admin_product_form_type_purchasable_pack_images_' + nId;
+				// 	oOption.value = nId;
+				// 	$(oContainer).append(oOption);
+				// }
 
 				oLi.id = nId;
 				oLi.className = 'animated fadeIn';
