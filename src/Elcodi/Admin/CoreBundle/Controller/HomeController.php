@@ -39,4 +39,20 @@ class HomeController extends Controller
     {
         return [];
     }
+
+    /**
+     * Translations action
+     *
+     * @Route(
+     *      path = "transl",
+     *      name = "admin_translations"
+     * )
+     * @Template
+     */
+    public function translationsAction()
+    {
+        return $this->redirect('translation');
+        // return [];
+    }
+
 }

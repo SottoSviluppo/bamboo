@@ -22,7 +22,7 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url("admin_newsletter_subscription_view", {"id": entity.id}) }}">
+        <a href="{{ path("admin_newsletter_subscription_view", {"id": entity.id}) }}">
             {{ entity.id }}
         </a>
     </td>
@@ -55,5 +55,5 @@
 {% endblock table_paginator_links %}
 
 {% block table_buttons %}
-    <a href="{{ url("admin_newsletter_subscription_new") }}"type="button" class="btn btn-success">{{ "New newsletter subscription"|trans }}</a>
+    <a href="{{ path("admin_newsletter_subscription_new") }}"type="button" class="btn btn-success">{{ "New newsletter subscription"|trans }}</a>
 {% endblock table_buttons %}

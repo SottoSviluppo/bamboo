@@ -32,12 +32,12 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_permissions_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_permissions_edit', { id: entity.id }) }}">
             <strong>{{ entity.name }}</strong>
         </a>
     </td>
     <td>
-        <a href="{{ url('admin_permissions_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_permissions_edit', { id: entity.id }) }}">
             <strong>{{ "#{entity.adminUser.firstname} #{entity.adminUser.lastname}" }}</strong>
         </a>
     </td>

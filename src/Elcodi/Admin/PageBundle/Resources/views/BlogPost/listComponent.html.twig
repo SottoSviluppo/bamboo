@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.blog_post.single'|trans,
         'admin.blog_post.plural'|trans,
-        url('admin_blog_post_new')
+        path('admin_blog_post_new')
     )
 %}
 
@@ -34,13 +34,13 @@
 
 {% block table_body_row %}
     <td>
-        <a href="{{ url('admin_blog_post_edit', { id: entity.id}) }}">
+        <a href="{{ path('admin_blog_post_edit', { id: entity.id}) }}">
            <strong>{{ entity.title|truncate(30, '…') }}</strong>
         </a>
         <p>{{ entity.content|striptags|truncate(150, '…') }}</p>
     </td>
     <td>
-        {% set path = url('store_blog_post_view', {
+        {% set path = path('store_blog_post_view', {
         id: entity.id,
         slug: entity.path,
         }) %}

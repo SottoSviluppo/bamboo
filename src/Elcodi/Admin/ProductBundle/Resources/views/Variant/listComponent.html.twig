@@ -13,7 +13,7 @@
     lists.no_items(
         'admin.variant.single'|trans,
         'admin.variant.plural'|trans,
-        url('admin_product_variant_new', { productId: productId })
+        path('admin_product_variant_new', { productId: productId })
     )
 %}
 
@@ -39,7 +39,7 @@
         <a target="_blank" data-fc-modules="modal"
            data-fc-width="95%" data-fc-height="95%"
            href="{{
-                url( 'admin_product_variant_edit', {
+                path( 'admin_product_variant_edit', {
                     productId: entity.product.id,
                     id: entity.id,
                 })
@@ -76,7 +76,7 @@
                data-fc-name="{{ entity.product.name }}{% for option in entity.options %} {{ option.value }}{% endfor %}"
                data-fc-text="{{ 'ui.confirm.delete'|trans }}"
                href="{{
-                    url('admin_product_variant_delete', {
+                    path('admin_product_variant_delete', {
                         productId: entity.product.id,
                         id: entity.id,
                     })

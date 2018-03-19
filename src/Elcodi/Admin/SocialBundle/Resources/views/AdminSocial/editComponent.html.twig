@@ -13,8 +13,8 @@
 
 	{% set formAction =
         social.id
-            ? url('admin_social_update', { id: social.id })
-            : url('admin_social_save')
+            ? path('admin_social_update', { id: social.id })
+            : path('admin_social_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}

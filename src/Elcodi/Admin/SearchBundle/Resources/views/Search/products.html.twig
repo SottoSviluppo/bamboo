@@ -18,7 +18,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_product_new') }}" type="button" class="button-primary" data-test="new-product">
+    <a href="{{ path('admin_product_new') }}" type="button" class="button-primary" data-test="new-product">
         <i class="icon-plus"></i>
         <span>{{ 'admin.product.new'|trans }}</span>
     </a>
@@ -29,7 +29,7 @@
 {% block content %}
 
     {{
-        render(url('search_admin_component_products', {
+        render(path('search_admin_component_products', {
             query: query,
             page: page,
             limit: limit

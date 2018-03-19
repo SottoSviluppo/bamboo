@@ -33,12 +33,12 @@
 {% block table_body_row %}
 
     <td>
-        <a href="{{ url('admin_email_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_email_edit', { id: entity.id }) }}">
             {{ entity.title }}
         </a>
     </td>
     <td>
-        <a href="{{ url('admin_email_send', { id: entity.id }) }}" class="button-primary">
+        <a href="{{ path('admin_email_send', { id: entity.id }) }}" class="button-primary">
             {{ 'admin.mailing.field.action.send_email'|trans }}
         </a>
     </td>

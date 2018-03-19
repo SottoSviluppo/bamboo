@@ -51,12 +51,12 @@ class SetupPermissionsCommand extends AbstractElcodiCommand
 
             if ($adminUser != null) {
                 $this->printMessage($output, 'Permissions setup', 'Set permissions to ' . $defaultEmail);
-                $userFullName = trim($adminUser->getFirstname().' '.$adminUser->getLastname());
+                $userFullName = trim($adminUser->getFirstname() . ' ' . $adminUser->getLastname());
                 if (empty($userFullName)) {
                     $userFullName = $defaultEmail;
                 }
 
-                $name = 'Full permissions - '.$userFullName;
+                $name = 'Full permissions - ' . $userFullName;
 
                 $permissionGroup = $permissionGroupFactory
                     ->create()
@@ -80,6 +80,12 @@ class SetupPermissionsCommand extends AbstractElcodiCommand
 
                 $permissionGroupManager->persist($permissionGroup);
                 $permissionGroupManager->flush($permissionGroup);
+            } else {
+                $this->printMessage(
+                    $output,
+                    'Permission setup',
+                    'INDICARE UN EMAIL PER CUI UTILIZZARE IL COMANDO'
+                );
             }
 
         } catch (\Exception $ex) {

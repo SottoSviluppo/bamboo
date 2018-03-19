@@ -146,7 +146,7 @@
             </ol>
             <ol>
                 <li class="pb-n">
-                    {% render url('admin_location_selectors', { locationId: store.address.city }) %}
+                    {% render path('admin_location_selectors', { locationId: store.address.city }) %}
                     {{ form_row(form.address.city, {
                         attr: {
                             class: "address-city"

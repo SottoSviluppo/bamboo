@@ -17,13 +17,12 @@
 
 namespace Elcodi\Admin\CartBundle\Controller;
 
+use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
+use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
-use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
 
 /**
  * Class Controller for Customer Orders
@@ -33,7 +32,7 @@ use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
  * )
  */
 class CustomerOrderController extends AbstractAdminController
-{   
+{
     /**
      * List elements of orders for a customer
      *
@@ -87,10 +86,10 @@ class CustomerOrderController extends AbstractAdminController
         }
 
         return [
-            'customer'         => $customer,
-            'page'             => $page,
-            'limit'            => $limit,
-            'orderByField'     => $orderByField,
+            'customer' => $customer,
+            'page' => $page,
+            'limit' => $limit,
+            'orderByField' => $orderByField,
             'orderByDirection' => $orderByDirection,
         ];
     }

@@ -154,7 +154,7 @@ class AppKernel extends Kernel
              */
             'Elcodi\Common\FirewallBundle\ElcodiFirewallBundle',
             'Elcodi\Common\CommonBundle\ElcodiCommonBundle',
-
+            "Elcodi\Common\TranslationBundle\LexikTranslationBundle",
             /**
              * Elcodi Plugins
              */

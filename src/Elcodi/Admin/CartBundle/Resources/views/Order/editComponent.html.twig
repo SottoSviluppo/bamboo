@@ -27,9 +27,9 @@
                 <tr>
                     <td>
                         {% if purchasable.purchasableType == 'product' %}
-                            <a href="{{ url('admin_product_edit', { id: purchasable.id}) }}" class="fw-b">{{ purchasableName }}</a>
+                            <a href="{{ path('admin_product_edit', { id: purchasable.id}) }}" class="fw-b">{{ purchasableName }}</a>
                         {% elseif purchasable.purchasableType == 'purchasable_pack' %}
-                            <a href="{{ url('admin_purchasable_pack_edit', { id: purchasable.id}) }}" class="fw-b">{{ purchasableName }}</a>
+                            <a href="{{ path('admin_purchasable_pack_edit', { id: purchasable.id}) }}" class="fw-b">{{ purchasableName }}</a>
                         {% else %}
                             <a href="#" class="fw-b">{{ purchasableName }}</a>
                         {% endif %}

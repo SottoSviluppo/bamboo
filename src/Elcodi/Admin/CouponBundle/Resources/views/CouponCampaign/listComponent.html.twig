@@ -4,7 +4,7 @@
 } %}
 {% block title 'admin.coupon_campaign.list' | trans %}
     {% block no_items
-    lists.no_items('admin.coupon_campaign.single' | trans, 'admin.coupon_campaign.plural' | trans, url('admin_coupon_campaign_new')) %}
+    lists.no_items('admin.coupon_campaign.single' | trans, 'admin.coupon_campaign.plural' | trans, path('admin_coupon_campaign_new')) %}
         {% block table_head %}
             {% include 'AdminCouponBundle::CouponCampaign/tableHead.html.twig' %}
         {% endblock table_head %}

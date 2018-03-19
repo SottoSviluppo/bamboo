@@ -1,19 +1,19 @@
     <td>
-        <a href="{{ url('admin_tax_edit', { id: entity.id }) }}">
+        <a href="{{ path('admin_tax_edit', { id: entity.id }) }}">
             <strong>{{ entity.name|truncate(20, '…') }}</strong>
         </a>
     </td>
     <td>
         <div class="switch">
-            <input id="enable-{{ entity.id }}-master" type="hidden" value="{{ url('admin_tax_master', { id: entity.id }) }}" />
+            <input id="enable-{{ entity.id }}-master" type="hidden" value="{{ path('admin_tax_master', { id: entity.id }) }}" />
             <input id="{{ entity.id }}-master" name="tax-master" type="radio" {% if entity.id ==  store.defaultTax.id %}checked="checked"{% endif %} />
             <label for="{{ entity.id }}-master"></label>
         </div>
     </td>
     <td>
         <div class="switch">
-            <input id="enable-{{ entity.id }}" type="hidden" value="{{ url('admin_tax_enable', { id: entity.id }) }}" />
-            <input id="disable-{{ entity.id }}" type="hidden" value="{{ url('admin_tax_disable', { id: entity.id }) }}" />
+            <input id="enable-{{ entity.id }}" type="hidden" value="{{ path('admin_tax_enable', { id: entity.id }) }}" />
+            <input id="disable-{{ entity.id }}" type="hidden" value="{{ path('admin_tax_disable', { id: entity.id }) }}" />
             <input id="{{ entity.id }}" type="checkbox" {% if entity.enabled %}checked="checked"{% endif %} />
             <label for="{{ entity.id }}"></label>
         </div>

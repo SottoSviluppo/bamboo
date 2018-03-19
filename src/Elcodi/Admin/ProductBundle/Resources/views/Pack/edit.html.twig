@@ -17,8 +17,8 @@
              data-author-email="{{ app.user.email }}"
              data-context="{{ context }}"
              data-source="{{ source }}"
-             data-route-list="{{ url('elcodi_comments_list', { source: source, context: context }) }}"
-             data-route-add="{{ url('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
+             data-route-list="{{ path('elcodi_comments_list', { source: source, context: context }) }}"
+             data-route-add="{{ path('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
                 ></div>
     </div>
     {% endif %}
@@ -27,7 +27,7 @@
 {% block header_actions %}
 
     {% if pack.id > 0 %}
-        <a target="_blank" href="{{ url('store_purchasable_pack_view', { id: pack.id, slug: pack.slug }) }}" data-fc-modules="modal" class="button">
+        <a target="_blank" href="{{ path('store_purchasable_pack_view', { id: pack.id, slug: pack.slug }) }}" data-fc-modules="modal" class="button">
             <i class="icon-eye"></i>
             <span>{{ 'admin.purchasable_pack.in_store'|trans }}</span>
         </a>
@@ -55,7 +55,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_purchasable_pack_list'), },
+            { name: title, url: path('admin_purchasable_pack_list'), },
             { name: header, active: true, },
         ]
     } %}
@@ -79,9 +79,9 @@
             <p class="msg-warning">{{ 'admin.purchasable_pack.error.price_negative'|trans }}</p>
         {% endif %}
 
-        {{ render(url('admin_purchasable_pack_edit_component', { id: pack.id })) }}
+        {{ render(path('admin_purchasable_pack_edit_component', { id: pack.id })) }}
     {% else %}
-        {{ render(url('admin_purchasable_pack_new_component')) }}
+        {{ render(path('admin_purchasable_pack_new_component')) }}
     {% endif %}
 
     {% if pack.id %}

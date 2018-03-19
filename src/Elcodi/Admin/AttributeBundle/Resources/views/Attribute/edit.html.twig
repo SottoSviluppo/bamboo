@@ -19,7 +19,7 @@
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
             { name: 'admin.categorization.single'|trans, active: false },
-            { name: title, url: url('admin_attribute_list'), },
+            { name: title, url: path('admin_attribute_list'), },
             { name: header, 'active' : true, },
         ]
     } %}
@@ -32,7 +32,7 @@
     {% if attribute.id %}
         {{
             render(
-                url('admin_attribute_edit_component', {
+                path('admin_attribute_edit_component', {
                     id: attribute.id,
                 })
             )
@@ -40,7 +40,7 @@
     {% else %}
         {{
             render(
-                url('admin_attribute_new_component')
+                path('admin_attribute_new_component')
             )
         }}
     {% endif %}

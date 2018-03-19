@@ -17,8 +17,8 @@
                  data-author-email="{{ app.user.email }}"
                  data-context="{{ context }}"
                  data-source="{{ source }}"
-                 data-route-list="{{ url('elcodi_comments_list', { source: source, context: context }) }}"
-                 data-route-add="{{ url('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
+                 data-route-list="{{ path('elcodi_comments_list', { source: source, context: context }) }}"
+                 data-route-add="{{ path('elcodi_comments_add', { source: source, context: context, authorToken: author_token }) }}"
                     ></div>
         </div>
     {% endif %}
@@ -26,7 +26,8 @@
 
 {% block header_actions %}
 
-    <a href="{{ url('admin_customer_order_list', {customerId: order.customer.id}) }}" type="button" class="button">
+    {# <a href="{{ path('admin_customer_order_list', {customerId: order.customer.id}) }}" type="button" class="button"> #}
+    <a href="{{ path('search_admin_orders', {customerEmail: order.customer.email}) }}" type="button" class="button">
         <i class="icon-shopping-cart"></i>
         <span>{{ 'admin.order.from_user'|trans({ '%name%': order.customer.firstname }) }}</span>
     </a>
@@ -35,7 +36,7 @@
         <span>{{ 'admin.order.notes'|trans }}</span>
     </a>
 
-    <a href="{{ url('admin_email_send_order_confirmation', { id: order.id }) }}" class="button-primary">
+    <a href="{{ path('admin_email_send_order_confirmation', { id: order.id }) }}" class="button-primary">
         Reinvia mail di conferma
     </a>
 
@@ -54,7 +55,7 @@
 
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
-            { name: title, url: url('admin_order_list'), },
+            { name: title, url: path('admin_order_list'), },
             { name: header, active: true, },
         ]
     } %}
@@ -67,7 +68,7 @@
     <div class="grid">
         <div class="col-8-12">
             <div class="pr-l">
-                {{ render(url('admin_order_edit_component', { id: order.id })) }}
+                {{ render(path('admin_order_edit_component', { id: order.id })) }}
                 <div class="box-background">
                     <h3 class="fw-n"><i class="icon-clock-o"></i>{{ 'admin.order.states.title'|trans }}</h3>
                     <table class="table order-history">
@@ -117,7 +118,7 @@
         <div class="col-4-12">
             <div class="box-background ta-c mb-n">
                 {% for paymentTransition in nextPaymentTransitions %}
-                    <a href="{{ url('admin_order_change_payment_state', {
+                    <a href="{{ path('admin_order_change_payment_state', {
                         id: order.id,
                         transition: paymentTransition.name,
                     }) }}" class="button-primary">
@@ -127,7 +128,7 @@
                 {% endfor %}
 
                 {% for shippingTransition in nextShippingTransitions %}
-                    <a href="{{ url('admin_order_change_shipping_state', {
+                    <a href="{{ path('admin_order_change_shipping_state', {
                         id: order.id,
                         transition: shippingTransition.name
                     }) }}" class="button-secondary">
@@ -138,7 +139,7 @@
             </div>
             <div class="box ph-n">
                 <div class="box-none pv-n">
-                    <h3 class="fw-n"><a href="{{ url('admin_customer_edit', { id: order.customer.id }) }}">{{ order.customer.fullName }}</a></h3>
+                    <h3 class="fw-n"><a href="{{ path('admin_customer_edit', { id: order.customer.id }) }}">{{ order.customer.fullName }}</a></h3>
                     <a href="mailto:{{ order.customer.email }}" class="c-foreground"><i class="icon-envelope"></i> {{ order.customer.username }}</a>
                 </div>
                 <a href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=es&amp;q={{ deliveryInfo.fullAddress|url_encode }}" target="_blank">

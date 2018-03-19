@@ -22,8 +22,8 @@
 
         {% set formAction =
         manufacturer.id
-        ? url('admin_manufacturer_update', { id: manufacturer.id })
-        : url('admin_manufacturer_save')
+        ? path('admin_manufacturer_update', { id: manufacturer.id })
+        : path('admin_manufacturer_save')
         %}
 
         {{ form_start(form, { action: formAction }) }}

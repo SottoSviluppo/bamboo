@@ -13,8 +13,8 @@
 
 	{% set formAction =
         country.id
-            ? url('admin_country_update', { id: country.id })
-            : url('admin_country_save')
+            ? path('admin_country_update', { id: country.id })
+            : path('admin_country_save')
      %}
 
     {{ form_start(form, { action: formAction }) }}
