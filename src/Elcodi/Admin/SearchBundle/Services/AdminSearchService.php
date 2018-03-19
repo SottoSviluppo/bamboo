@@ -6,211 +6,213 @@ use DateTime;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
-use Elastica\Query\Wildcard;
 use Elastica\Query\Nested;
+use Elastica\Query\QueryString;
 use Elastica\Query\Range;
+use Elastica\Query\Wildcard;
 use Elastica\Util;
 use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
 
 /**
  * Defines all the search methods
  */
-class AdminSearchService implements IAdminSearchService
-{
-    private $container;
-    private $prefix;
-    private $itemsPerPage;
-    private $paginator;
+class AdminSearchService implements IAdminSearchService {
+	private $container;
+	private $prefix;
+	private $itemsPerPage;
+	private $paginator;
 
-    private $limit;
+	private $limit;
 
-    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage)
-    {
-        $this->container = $container;
-        $this->prefix = $prefix;
-        $this->itemsPerPage = $itemsPerPage;
-        $this->limit = $this->itemsPerPage;
+	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage) {
+		$this->container = $container;
+		$this->prefix = $prefix;
+		$this->itemsPerPage = $itemsPerPage;
+		$this->limit = $this->itemsPerPage;
 
-        $this->paginator = $this->container->get('knp_paginator');
-    }
+		$this->paginator = $this->container->get('knp_paginator');
+	}
 
-    public function searchProducts($query, $page = 1, $limit = null)
-    {
-        $finder = $this->createFinderFor('products');
+	public function searchProducts($query, $page = 1, $limit = null) {
+		$finder = $this->createFinderFor('products');
 
-        if (empty($limit)) {
-            $limit = $this->itemsPerPage;
-        }
-        $this->limit = $limit;
+		if (empty($limit)) {
+			$limit = $this->itemsPerPage;
+		}
+		$this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
-        return $this->paginator->paginate($adapter, $page, $limit);
-    }
+		$adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+		return $this->paginator->paginate($adapter, $page, $limit);
+	}
 
-    public function searchOrders($query, $page = 1, $limit = null, array $dateRange = array())
-    {
-        $finder = $this->createFinderFor('orders');
+	public function searchOrders($query, $page = 1, $limit = null, array $dateRange = array()) {
+		$finder = $this->createFinderFor('orders');
 
-        if (empty($limit)) {
-            $limit = $this->itemsPerPage;
-        }
-        $this->limit = $limit;
+		if (empty($limit)) {
+			$limit = $this->itemsPerPage;
+		}
+		$this->limit = $limit;
 
-        $orderQuery = $this->createQueryForOrder($query, $dateRange);
+		$orderQuery = $this->createQueryForOrder($query, $dateRange);
 
-        $adapter = $finder->createPaginatorAdapter($orderQuery);
+		$adapter = $finder->createPaginatorAdapter($orderQuery);
 
-        //$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
-        return $this->paginator->paginate($adapter, $page, $limit);
-    }
+		//$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
+		return $this->paginator->paginate($adapter, $page, $limit);
+	}
 
-    public function searchCustomers($query, $page = 1, $limit = null)
-    {
-        $finder = $this->createFinderFor('customers');
+	public function searchCustomers($query, $page = 1, $limit = null) {
+		$finder = $this->createFinderFor('customers');
 
-        if (empty($limit)) {
-            $limit = $this->itemsPerPage;
-        }
-        $this->limit = $limit;
+		if (empty($limit)) {
+			$limit = $this->itemsPerPage;
+		}
+		$this->limit = $limit;
 
-        $boolQuery = new BoolQuery();
+		$boolQuery = new BoolQuery();
 
-        $wildcardBool = $this->createWildcardQuery($query);
-        $boolQuery->addShould($wildcardBool);
+		if (strpos($query, '@') !== false) {
+			$wildcardBool = $this->createWildcardQuery($query);
+			$boolQuery->addShould($wildcardBool);
+		} else {
+			$queryString = $this->createQueryString($query);
+			$boolQuery->addShould($queryString);
+		}
 
-        $adapter = $finder->createPaginatorAdapter($boolQuery);
+		$adapter = $finder->createPaginatorAdapter($boolQuery);
 
-        $options = array();
-        $options['defaultSortFieldName'] = 'id';
-        $options['defaultSortDirection'] = 'desc';
-        return $this->paginator->paginate($adapter, $page, $limit, $options);
-    }
+		$options = array();
+		$options['defaultSortFieldName'] = 'id';
+		$options['defaultSortDirection'] = 'desc';
+		return $this->paginator->paginate($adapter, $page, $limit, $options);
+	}
 
-    public function searchManufacturers($query, $page = 1, $limit = null)
-    {
-        $finder = $this->createFinderFor('manufacturers');
+	public function searchManufacturers($query, $page = 1, $limit = null) {
+		$finder = $this->createFinderFor('manufacturers');
 
-        if (empty($limit)) {
-            $limit = $this->itemsPerPage;
-        }
-        $this->limit = $limit;
+		if (empty($limit)) {
+			$limit = $this->itemsPerPage;
+		}
+		$this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . $query . '*');
-        return $this->paginator->paginate($adapter, $page, $limit);
-    }
+		$adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+		return $this->paginator->paginate($adapter, $page, $limit);
+	}
 
-    public function searchCoupons($query, $page = 1, $limit = null)
-    {
-        $finder = $this->createFinderFor('coupons');
+	public function searchCoupons($query, $page = 1, $limit = null) {
+		$finder = $this->createFinderFor('coupons');
 
-        if (empty($limit)) {
-            $limit = $this->itemsPerPage;
-        }
-        $this->limit = $limit;
+		if (empty($limit)) {
+			$limit = $this->itemsPerPage;
+		}
+		$this->limit = $limit;
 
-        $adapter = $finder->createPaginatorAdapter('*' . Util::escapeTerm($query) . '*');
-        return $this->paginator->paginate($adapter, $page, $limit);
-    }
+		$adapter = $finder->createPaginatorAdapter('*' . Util::escapeTerm($query) . '*');
+		return $this->paginator->paginate($adapter, $page, $limit);
+	}
 
-    public function getLimit()
-    {
-        return $this->limit;
-    }
+	public function getLimit() {
+		return $this->limit;
+	}
 
-    private function createFinderFor($type)
-    {
-        return $this->container->get('fos_elastica.finder.app.' . $type);
-    }
+	private function createFinderFor($type) {
+		return $this->container->get('fos_elastica.finder.app.' . $type);
+	}
 
-    private function createQueryForOrder($query, array $dateRange = array())
-    {
-        $boolQuery = new BoolQuery();
+	private function createQueryForOrder($query, array $dateRange = array()) {
+		$boolQuery = new BoolQuery();
 
-        if (!empty($query)) {
-            // creo la query per la stringa
-            $fieldsBoolQuery = new BoolQuery();
+		if (!empty($query)) {
+			// creo la query per la stringa
+			$fieldsBoolQuery = new BoolQuery();
 
-            $fieldQuery = new MultiMatch();
-            $fieldQuery->setQuery($query);
-            $fieldQuery->setFields([
-                'customer.email', 'customer.firstName', 'customer.lastName',
-            ]);
+			$fieldQuery = new MultiMatch();
+			$fieldQuery->setQuery($query);
+			$fieldQuery->setFields([
+				'customer.email', 'customer.firstName', 'customer.lastName',
+			]);
 
-            $fieldsBoolQuery->addShould($fieldQuery);
-            $this->setNestedQueryForOrder($fieldsBoolQuery, $query);
+			$fieldsBoolQuery->addShould($fieldQuery);
+			$this->setNestedQueryForOrder($fieldsBoolQuery, $query);
 
-            $boolQuery->addMust($fieldsBoolQuery);
-        }
+			$boolQuery->addMust($fieldsBoolQuery);
+		}
 
-        if (!empty($dateRange)) {
-            $this->setDateRangeQuery($boolQuery, $dateRange);
-        }
+		if (!empty($dateRange)) {
+			$this->setDateRangeQuery($boolQuery, $dateRange);
+		}
 
-        return $boolQuery;
-    }
+		return $boolQuery;
+	}
 
-    private function setNestedQueryForOrder(BoolQuery $boolQuery, $query)
-    {
-        $orderItems = new Nested();
-        $orderItems->setPath('orderLines');
+	private function setNestedQueryForOrder(BoolQuery $boolQuery, $query) {
+		$orderItems = new Nested();
+		$orderItems->setPath('orderLines');
 
-        $products = new BoolQuery();
+		$products = new BoolQuery();
 
-        $fieldsBoolQuery = new BoolQuery();
-        $fieldQuery = new MultiMatch();
-        $fieldQuery->setQuery($query);
-        $fieldQuery->setFields([
-            'orderLines.purchasable.name', 'orderLines.purchasable.sku', 'orderLines.purchasable.shortDescription', 'orderLines.purchasable.description',
-        ]);
+		$fieldsBoolQuery = new BoolQuery();
+		$fieldQuery = new MultiMatch();
+		$fieldQuery->setQuery($query);
+		$fieldQuery->setFields([
+			'orderLines.purchasable.name', 'orderLines.purchasable.sku', 'orderLines.purchasable.shortDescription', 'orderLines.purchasable.description',
+		]);
 
-        $fieldsBoolQuery->addShould($fieldQuery);
+		$fieldsBoolQuery->addShould($fieldQuery);
 
-        $categories = new Nested();
-        $categories->setPath('orderLines.purchasable.categories');
+		$categories = new Nested();
+		$categories->setPath('orderLines.purchasable.categories');
 
-        $categoriesQuery = new BoolQuery();
-        $categoriesQuery->addShould(new Match('orderLines.purchasable.categories.name', $query));
+		$categoriesQuery = new BoolQuery();
+		$categoriesQuery->addShould(new Match('orderLines.purchasable.categories.name', $query));
 
-        $categories->setQuery($categoriesQuery);
+		$categories->setQuery($categoriesQuery);
 
-        $fieldsBoolQuery->addShould($categories);
+		$fieldsBoolQuery->addShould($categories);
 
-        $products->addMust($fieldsBoolQuery);
+		$products->addMust($fieldsBoolQuery);
 
-        $orderItems->setQuery($products);
-        $boolQuery->addShould($orderItems);
-    }
+		$orderItems->setQuery($products);
+		$boolQuery->addShould($orderItems);
+	}
 
-    private function setDateRangeQuery(BoolQuery $boolQuery, array $dateRange)
-    {
-        $range = [];
-        if (!empty($dateRange['from'])) {
-            $range['gte'] = DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
-        }
+	private function setDateRangeQuery(BoolQuery $boolQuery, array $dateRange) {
+		$range = [];
+		if (!empty($dateRange['from'])) {
+			$range['gte'] = DateTime::createFromFormat('Y-m-d', $dateRange['from'])->format('Y-m-d 00:00:00');
+		}
 
-        if (!empty($dateRange['to'])) {
-            $range['lte'] = DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
-        }
+		if (!empty($dateRange['to'])) {
+			$range['lte'] = DateTime::createFromFormat('Y-m-d', $dateRange['to'])->format('Y-m-d 23:59:59');
+		}
 
-        $range['format'] = 'yyyy-MM-dd HH:mm:ss';
+		$range['format'] = 'yyyy-MM-dd HH:mm:ss';
 
-        $dateQuery = new Range('createdAt', $range);
-        $boolQuery->addMust($dateQuery);
-    }
+		$dateQuery = new Range('createdAt', $range);
+		$boolQuery->addMust($dateQuery);
+	}
 
-    private function createWildcardQuery($query)
-    {
-        $wildcardBool = new BoolQuery();
+	private function createWildcardQuery($query) {
+		$wildcardBool = new BoolQuery();
 
-        if (strpos($query, '@') !== false) {
-            $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
-        }
-        else {
-            $wildcardBool->addShould(new Wildcard('email', '*'.$query.'*'));
-            $wildcardBool->addShould(new Wildcard('firstName', '*'.$query.'*'));
-            $wildcardBool->addShould(new Wildcard('lastName', '*'.$query.'*'));   
-        }
+		// if (strpos($query, '@') !== false) {
+		$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
+		// }
+		//        else {
+		// 	$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('firstName', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('lastName', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
+		// }
 
-        return $wildcardBool;
-    }
+		return $wildcardBool;
+	}
+
+	private function createQueryString($query) {
+		$queryString = new BoolQuery();
+
+		$queryString->addShould(new QueryString($query));
+
+		return $queryString;
+	}
 }

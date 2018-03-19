@@ -294,6 +294,7 @@ fos_elastica:
                         email: { type: string, analyzer: email_analyzer }
                         firstName: ~
                         lastName: ~
+                        companyName: ~
                     persistence:
                         driver: orm
                         model: %elcodi.entity.customer.class%
