@@ -22,8 +22,8 @@ use Elcodi\Component\Core\Factory\Traits\FactoryTrait;
 use Elcodi\Component\Coupon\ElcodiCouponTypes;
 use Elcodi\Component\EntityTranslator\EventListener\Traits\EntityTranslatableFormTrait;
 use Elcodi\Component\Product\ElcodiProductStock;
-use Elcodi\Component\Product\Entity\Interfaces\PurchasableInterface;
 use Elcodi\Component\Product\NameResolver\Interfaces\PurchasableNameResolverInterface;
+use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,268 +32,263 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Class PackType
  */
-class PackType extends AbstractType
-{
-    use EntityTranslatableFormTrait, FactoryTrait;
+class PackType extends AbstractType {
+	use EntityTranslatableFormTrait, FactoryTrait;
 
-    /**
-     * @var PurchasableNameResolverInterface
-     *
-     * Purchasable name resolver
-     */
-    protected $purchasableNameResolver;
+	/**
+	 * @var PurchasableNameResolverInterface
+	 *
+	 * Purchasable name resolver
+	 */
+	protected $purchasableNameResolver;
 
-    /**
-     * @var string
-     *
-     * Purchasable namespace
-     */
-    protected $purchasableNamespace;
+	/**
+	 * @var string
+	 *
+	 * Purchasable namespace
+	 */
+	protected $purchasableNamespace;
 
-    /**
-     * @var string
-     *
-     * Manufacturer namespace
-     */
-    protected $manufacturerNamespace;
+	/**
+	 * @var string
+	 *
+	 * Manufacturer namespace
+	 */
+	protected $manufacturerNamespace;
 
-    /**
-     * @var string
-     *
-     * Category namespace
-     */
-    protected $categoryNamespace;
+	/**
+	 * @var string
+	 *
+	 * Category namespace
+	 */
+	protected $categoryNamespace;
 
-    /**
-     * @var string
-     *
-     * Image namespace
-     */
-    protected $imageNamespace;
+	/**
+	 * @var string
+	 *
+	 * Image namespace
+	 */
+	protected $imageNamespace;
 
-    /**
-     * @var string
-     *
-     * Tax namespace
-     */
-    protected $taxNamespace;
+	/**
+	 * @var string
+	 *
+	 * Tax namespace
+	 */
+	protected $taxNamespace;
 
-    /**
-     * Construct
-     *
-     * @param PurchasableNameResolverInterface $purchasableNameResolver Purchasable name resolver
-     * @param string                           $purchasableNamespace    Purchasable namespace
-     * @param string                           $manufacturerNamespace   Manufacturer namespace
-     * @param string                           $categoryNamespace       Category namespace
-     * @param string                           $imageNamespace          Image namespace
-     * @param string                           $taxNamespace            Tax namespace
-     */
-    public function __construct(
-        PurchasableNameResolverInterface $purchasableNameResolver,
-        $purchasableNamespace,
-        $manufacturerNamespace,
-        $categoryNamespace,
-        $imageNamespace,
-        $taxNamespace
-    ) {
-        $this->purchasableNameResolver = $purchasableNameResolver;
-        $this->purchasableNamespace = $purchasableNamespace;
-        $this->manufacturerNamespace = $manufacturerNamespace;
-        $this->categoryNamespace = $categoryNamespace;
-        $this->imageNamespace = $imageNamespace;
-        $this->taxNamespace = $taxNamespace;
-    }
+	/**
+	 * Construct
+	 *
+	 * @param PurchasableNameResolverInterface $purchasableNameResolver Purchasable name resolver
+	 * @param string                           $purchasableNamespace    Purchasable namespace
+	 * @param string                           $manufacturerNamespace   Manufacturer namespace
+	 * @param string                           $categoryNamespace       Category namespace
+	 * @param string                           $imageNamespace          Image namespace
+	 * @param string                           $taxNamespace            Tax namespace
+	 */
+	public function __construct(
+		PurchasableNameResolverInterface $purchasableNameResolver,
+		$purchasableNamespace,
+		$manufacturerNamespace,
+		$categoryNamespace,
+		$imageNamespace,
+		$taxNamespace
+	) {
+		$this->purchasableNameResolver = $purchasableNameResolver;
+		$this->purchasableNamespace = $purchasableNamespace;
+		$this->manufacturerNamespace = $manufacturerNamespace;
+		$this->categoryNamespace = $categoryNamespace;
+		$this->imageNamespace = $imageNamespace;
+		$this->taxNamespace = $taxNamespace;
+	}
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param OptionsResolver $resolver The resolver for the options.
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'empty_data' => function () {
-                $this
-                    ->factory
-                    ->create();
-            },
-            'data_class' => $this
-                ->factory
-                ->getEntityNamespace(),
-        ]);
-    }
+	/**
+	 * Configures the options for this type.
+	 *
+	 * @param OptionsResolver $resolver The resolver for the options.
+	 */
+	public function configureOptions(OptionsResolver $resolver) {
+		$resolver->setDefaults([
+			'empty_data' => function () {
+				$this
+					->factory
+					->create();
+			},
+			'data_class' => $this
+				->factory
+				->getEntityNamespace(),
+		]);
+	}
 
-    /**
-     * Buildform function
-     *
-     * @param FormBuilderInterface $builder the formBuilder
-     * @param array                $options the options for this form
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('name', 'text', [
-                'required' => true,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 65,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('slug', 'text', [
-                'required' => true,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 65,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('description', 'ckeditor', [
-                'required' => true,
-                'config_name' => 'my_config',
-            ])
-            ->add('showInHome', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('stock', 'hidden', [
-                'required' => true,
-            ])
-            ->add('sku', 'text', [
-                'required' => false,
-            ])
-            ->add('type', 'choice', [
-                'required' => true,
-                'choices' => [
-                    ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
-                    ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
-                ],
-            ])
-            ->add('price', 'money_object', [
-                'required' => true,
-                'constraints' => [
-                    new MinimumMoney([
-                        'value' => 0,
-                    ]),
-                ],
-            ])
-            ->add('reducedPrice', 'money_object', [
-                'required' => false,
-                'constraints' => [
-                    new MinimumMoney([
-                        'value' => 0,
-                    ]),
-                ],
-            ])
-            ->add('discount', 'integer', [
-                'required' => false,
-            ])
-            ->add('tax', 'entity', [
-                'class' => $this->taxNamespace,
-                'required' => false,
-                'multiple' => false,
-            ])
-            ->add('imagesSort', 'text', [
-                'required' => false,
-            ])
-            ->add('enabled', 'checkbox', [
-                'required' => false,
-            ])
-            ->add('height', 'number', [
-                'required' => false,
-            ])
-            ->add('width', 'number', [
-                'required' => false,
-            ])
-            ->add('depth', 'number', [
-                'required' => false,
-            ])
-            ->add('weight', 'number', [
-                'required' => false,
-            ])
-            ->add('metaTitle', 'text', [
-                'required' => false,
-            ])
-            ->add('metaDescription', 'text', [
-                'required' => false,
-                'constraints' => [
-                    new Constraints\Length(
-                        [
-                            'max' => 159,
-                        ]
-                    ),
-                ],
-            ])
-            ->add('metaKeywords', 'text', [
-                'required' => false,
-            ])
-            ->add('stockType', 'choice', [
-                'choices' => [
-                    'admin.purchasable_pack.field.stock_type.specific_stock' => ElcodiProductStock::SPECIFIC_STOCK,
-                    'admin.purchasable_pack.field.stock_type.inherit_stock' => ElcodiProductStock::INHERIT_STOCK,
-                ],
-                'choices_as_values' => true,
-                'required' => true,
-            ])
-            ->add('stock', 'number', [
-                'required' => false,
-            ])
-            ->add('manufacturer', 'entity', [
-                'class' => $this->manufacturerNamespace,
-                'required' => false,
-                'multiple' => false,
-            ])
-            ->add('principalCategory', 'entity', [
-                'class' => $this->categoryNamespace,
-                'required' => true,
-                'multiple' => false,
-            ])
-            // ->add('purchasables', 'entity', [
-            //     'class' => $this->purchasableNamespace,
-            //     'required' => false,
-            //     'choice_label' => function (PurchasableInterface $purchasable) {
-            //         return $this
-            //             ->purchasableNameResolver
-            //             ->resolveName($purchasable);
-            //     },
-            //     'multiple' => true,
-            // ])
-            ->add('images', 'entity', [
-                'class' => $this->imageNamespace,
-                'required' => false,
-                'property' => 'id',
-                'multiple' => true,
-                'expanded' => false,
-            ]);
+	/**
+	 * Buildform function
+	 *
+	 * @param FormBuilderInterface $builder the formBuilder
+	 * @param array                $options the options for this form
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder
+			->add('name', 'text', [
+				'required' => true,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 65,
+						]
+					),
+				],
+			])
+			->add('slug', 'text', [
+				'required' => true,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 65,
+						]
+					),
+				],
+			])
+			->add('description', CKEditorType::class, [
+				'required' => true,
+				'config_name' => 'my_config',
+			])
+			->add('showInHome', 'checkbox', [
+				'required' => false,
+			])
+			->add('stock', 'hidden', [
+				'required' => true,
+			])
+			->add('sku', 'text', [
+				'required' => false,
+			])
+			->add('type', 'choice', [
+				'required' => true,
+				'choices' => [
+					ElcodiCouponTypes::TYPE_AMOUNT => 'admin.coupon.field.type.options.fixed',
+					ElcodiCouponTypes::TYPE_PERCENT => 'admin.coupon.field.type.options.percent',
+				],
+			])
+			->add('price', 'money_object', [
+				'required' => true,
+				'constraints' => [
+					new MinimumMoney([
+						'value' => 0,
+					]),
+				],
+			])
+			->add('reducedPrice', 'money_object', [
+				'required' => false,
+				'constraints' => [
+					new MinimumMoney([
+						'value' => 0,
+					]),
+				],
+			])
+			->add('discount', 'integer', [
+				'required' => false,
+			])
+			->add('tax', 'entity', [
+				'class' => $this->taxNamespace,
+				'required' => false,
+				'multiple' => false,
+			])
+			->add('imagesSort', 'text', [
+				'required' => false,
+			])
+			->add('enabled', 'checkbox', [
+				'required' => false,
+			])
+			->add('height', 'number', [
+				'required' => false,
+			])
+			->add('width', 'number', [
+				'required' => false,
+			])
+			->add('depth', 'number', [
+				'required' => false,
+			])
+			->add('weight', 'number', [
+				'required' => false,
+			])
+			->add('metaTitle', 'text', [
+				'required' => false,
+			])
+			->add('metaDescription', 'text', [
+				'required' => false,
+				'constraints' => [
+					new Constraints\Length(
+						[
+							'max' => 159,
+						]
+					),
+				],
+			])
+			->add('metaKeywords', 'text', [
+				'required' => false,
+			])
+			->add('stockType', 'choice', [
+				'choices' => [
+					'admin.purchasable_pack.field.stock_type.specific_stock' => ElcodiProductStock::SPECIFIC_STOCK,
+					'admin.purchasable_pack.field.stock_type.inherit_stock' => ElcodiProductStock::INHERIT_STOCK,
+				],
+				'choices_as_values' => true,
+				'required' => true,
+			])
+			->add('stock', 'number', [
+				'required' => false,
+			])
+			->add('manufacturer', 'entity', [
+				'class' => $this->manufacturerNamespace,
+				'required' => false,
+				'multiple' => false,
+			])
+			->add('principalCategory', 'entity', [
+				'class' => $this->categoryNamespace,
+				'required' => true,
+				'multiple' => false,
+			])
+			// ->add('purchasables', 'entity', [
+			//     'class' => $this->purchasableNamespace,
+			//     'required' => false,
+			//     'choice_label' => function (PurchasableInterface $purchasable) {
+			//         return $this
+			//             ->purchasableNameResolver
+			//             ->resolveName($purchasable);
+			//     },
+			//     'multiple' => true,
+			// ])
+			->add('images', 'entity', [
+				'class' => $this->imageNamespace,
+				'required' => false,
+				'property' => 'id',
+				'multiple' => true,
+				'expanded' => false,
+			]);
 
-        $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
-    }
+		$builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
+	}
 
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefix defaults to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
-    public function getBlockPrefix()
-    {
-        return 'elcodi_admin_product_form_type_purchasable_pack';
-    }
+	/**
+	 * Returns the prefix of the template block name for this type.
+	 *
+	 * The block prefix defaults to the underscored short class name with
+	 * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
+	 *
+	 * @return string The prefix of the template block name
+	 */
+	public function getBlockPrefix() {
+		return 'elcodi_admin_product_form_type_purchasable_pack';
+	}
 
-    /**
-     * Return unique name for this form
-     *
-     * @deprecated Deprecated since Symfony 2.8, to be removed from Symfony 3.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
-    }
+	/**
+	 * Return unique name for this form
+	 *
+	 * @deprecated Deprecated since Symfony 2.8, to be removed from Symfony 3.
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->getBlockPrefix();
+	}
 }
