@@ -31,6 +31,8 @@
                     {{ 'admin.category.field.enabled.options.inactive'|trans }}
                 </span>
             {% endif %}
+            <a class="category-up label-ko">Su</a>
+            <a class="category-down label-ko">Giù</a>
 
             <a class="icon-trash-o c-ko td-n fz-l ml-l"
                title="{{ 'ui.forms.delete'|trans }}"
@@ -53,6 +55,8 @@
             </ol>
         {% endif %}
     </li>
+
+
 
 {% endmacro category_tree %}
 
@@ -84,6 +88,59 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+
+    function serialize(a) {
+        return this.getSubTree($("#" + a.id + "> li"));
+    }
+
+    function getSubTree(a) {
+        var b = {},
+        c = this;
+        return a.each(function(a) {
+            b[a] = {
+                order: a + 1,
+                id: null !== this.getAttribute("data-fc-id") ? this.getAttribute("data-fc-id") : this.id,
+                name: null !== this.getAttribute("data-fc-name") ? this.getAttribute("data-fc-name") : this.id,
+                subtree: c.getSubTree($(this).find("> ol").find("> li"))
+            }
+        }), b
+    }
+
+
+    function send()
+    {
+        var component = $('#categories-list')[0];
+        var object = serialize(component);
+        var c = JSON.stringify(object);
+        $.ajax({
+            url: component.getAttribute('data-fc-url'),
+            type: "POST",
+            data: {
+                data: c
+            },
+            dataType: "json"
+        })
+    }
+
+
+    $('.category-up').click(function() {
+        var actualLi = $(this).parent().parent();
+        var beforeLi = actualLi.prev();
+        actualLi.insertBefore(beforeLi);
+        send();
+    });
+
+
+    $('.category-down').click(function() {
+        var actualLi = $(this).parent().parent();
+        var nextLi = actualLi.next();
+        actualLi.insertAfter(nextLi);
+        send();
+    });
+
+    </script>
 
 {% endblock table_content %}
 
