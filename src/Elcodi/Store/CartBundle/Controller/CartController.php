@@ -82,9 +82,9 @@ class CartController extends Controller {
 		//verifico che nelle impostazioni dello store non sia specificato che i prezzi sia comprensivi delle tasse
 		if (!$this->get('elcodi.store')->getTaxIncluded()) {
 			$cartTaxAmount = $this->get('elcodi.loader.cart_prices')->getTaxAmount($cart);
-			// if (count($cartCoupons) > 0) {
-			// 	$cartTaxAmount = $this->get('elcodi.loader.cart_prices')->getTaxAmountWithCoupon($cart);
-			// }
+			if (count($cartCoupons) > 0) {
+				$cartTaxAmount = $this->get('elcodi.loader.cart_prices')->getTaxAmountWithCoupon($cart);
+			}
 			$cart->setTaxAmount($cartTaxAmount);
 			$this
 				->get('elcodi.object_manager.cart')
