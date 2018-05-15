@@ -414,7 +414,11 @@ admin:
                     percent: 'Importo percentuale'
 
                 title: Tipo
-
+            include_categories:
+                options:
+                    include_categories: 'Includi le categorie'
+                    exclude_categories: 'Escludi le categorie'
+                title: 'Includi/escludi categorie'
             used:
                 title: Utilizzato
 
@@ -426,6 +430,8 @@ admin:
             color:
                 title: Colore
                 placeholder: "Inserisci il colore e.s. #5BF25C"
+            categories:
+                title: Categorie
 
         list: 'Lista dei coupon'
         new: 'Nuovo coupon'
@@ -456,6 +462,9 @@ admin:
             validity:
                 description: 'Imposta la validità temporale del coupon e il suo stato.'
                 title: Validità
+            categories:
+                description: 'Possibilità di include od escludere le categorie selezionate dal coupon'
+                title: 'Categorie'
 
         single: Coupon
 

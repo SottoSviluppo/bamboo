@@ -298,6 +298,11 @@ admin:
                     fixed: 'Fixed amount'
                     percent: 'Percent amount'
                 title: Type
+            include_categories:
+                options:
+                    include_categories: 'Include categories'
+                    exclude_categories: 'Exclude categories'
+                title: 'Include/explude categories'
             used:
                 title: Used
             valid_from:
@@ -307,6 +312,8 @@ admin:
             color:
                 title: Color
                 placeholder: "Insert color e.g. #5BF25C"
+            categories:
+                title: Categorie
         list: 'Coupon list'
         new: 'New coupon'
         plural: Coupons
@@ -329,6 +336,9 @@ admin:
             validity:
                 description: 'Set the time validity of the coupon and the status.'
                 title: Validity
+            categories:
+                description: 'Select categories to include or explude'
+                title: 'Categories'
         single: Coupon
     country:
         plural: Countries
