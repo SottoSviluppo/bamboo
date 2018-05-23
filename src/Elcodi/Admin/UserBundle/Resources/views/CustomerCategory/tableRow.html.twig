@@ -1,0 +1,24 @@
+<td>
+    <a href="{{ path('admin_category_customer_edit', { id: entity.id }) }}">
+        <strong>{{ entity.name|truncate(20, '…') }}</strong>
+    </a>
+</td>
+<td>
+    <a href="{{ path('admin_category_customer_edit', { id: entity.id }) }}">
+    	 {% if entity.enabled %}
+                <span class="label-ok fz-xs">
+                    {{ 'admin.category.field.enabled.options.active'|trans }}
+                </span>
+            {% else %}
+                <span class="label fz-xs">
+                    {{ 'admin.category.field.enabled.options.inactive'|trans }}
+                </span>
+            {% endif %}
+    </a>
+</td>
+
+{% include '@AdminCore/Tables/actions.html.twig' with {
+    entity : entity,
+    delete: not entity.persistent,
+    class: 'customer_category'
+} %}

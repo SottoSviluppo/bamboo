@@ -76,7 +76,7 @@ parameters:
         template: 'Template'
         user: 'Users'
         permissions: Permissions
-
+        customerCategory: 'Customer Categories'
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 
     product_partial_search: false

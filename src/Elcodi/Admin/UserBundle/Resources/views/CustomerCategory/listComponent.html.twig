@@ -1,0 +1,175 @@
+{% extends 'AdminCoreBundle::Common/listComponent.html.twig' %}
+
+{% set elcodi_context = {
+    entity_type: 'customer_category'
+} %}
+
+{% block title 'admin.category.list' | trans %}
+
+{% block no_items lists.no_items('admin.category.single' | trans, 'admin.category.plural' | trans, path('admin_customer_category_new')) %}
+        
+{% block table_head %}
+    {% include 'AdminUserBundle::CustomerCategory/tableHead.html.twig' %}
+{% endblock table_head %}
+{% block table_body_row %}
+    {% include 'AdminUserBundle::CustomerCategory/tableRow.html.twig' with {
+        'entity' : entity
+    } %}
+{% endblock table_body_row %}
+
+{% block table_paginator_links %}
+    {% set url = 'admin_customer_category_list' %}
+    {{ parent() }}
+{% endblock table_paginator_links %}
+
+
+
+{# {% extends 'AdminCoreBundle::Common/listComponent.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'customer_category'
+} %}
+
+
+{% block title 'admin.category.list'|trans %}
+
+
+{% block no_items
+    lists.no_items(
+        'admin.category.single'|trans,
+        'admin.category.plural'|trans,
+        path('admin_customer_category_new')
+    )
+%}
+
+
+{% macro category_tree(category, children) %}
+
+    <li class="pr-n" data-fc-id="{{ category.id }}" data-fc-name="{{ category.name }}" data-test="category-{{ category.id }}">
+        <p class="fl-r fz-s pr-l">
+            {% if category.enabled %}
+                <span class="label-ok fz-xs">
+                    {{ 'admin.category.field.enabled.options.active'|trans }}
+                </span>
+            {% else %}
+                <span class="label fz-xs">
+                    {{ 'admin.category.field.enabled.options.inactive'|trans }}
+                </span>
+            {% endif %}
+            <a class="category-up label-ko">Su</a>
+            <a class="category-down label-ko">Giù</a>
+
+            <a class="icon-trash-o c-ko td-n fz-l ml-l"
+               title="{{ 'ui.forms.delete'|trans }}"
+               href="{{ path('admin_category_delete', { id: category.id }) }}"
+               data-fc-modules="confirm"
+               data-fc-name="{{ category.name }}"
+               data-fc-text="{{ 'ui.confirm.delete'|trans }}">
+            </a>
+        </p>
+
+        <a href="{{ path('admin_category_edit', { id: category.id }) }}" class="fw-n va-b">
+            {{ category.name }}
+        </a>
+
+        {% if children|length > 0 %}
+            <ol>
+                {% for child in children %}
+                    {{ _self.category_tree(child.entity, child.children) }}
+                {% endfor %}
+            </ol>
+        {% endif %}
+    </li>
+
+
+
+{% endmacro category_tree %}
+
+
+{% block table_content %}
+
+    <div class="grid">
+        <div class="col-1-3">
+            <div class="box-none">
+                <h3 class="fw-n">{{ 'admin.category.section.edit.title'|trans }}</h3>
+                <p>{{ 'admin.category.section.edit.description.0'|trans }}</p>
+                <p>{{ 'admin.category.section.edit.description.1'|trans }}</p>
+                <p>{{ 'admin.category.section.edit.description.2'|trans }}</p>
+            </div>
+        </div>
+        <div class="col-2-3">
+            <div class="box-background">
+            <ol id="categories-list"
+                data-fc-modules="sortable"
+                data-fc-url="{{ path('admin_category_sort_component') }}"
+                data-fc-type="nested"
+                data-fc-output="json"
+                data-fc-depth="8"
+            >
+                {% for node in paginator %}
+                    {{ _self.category_tree(node.entity, node.children) }}
+                {% endfor %}
+            </ol>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+    function serialize(a) {
+        return this.getSubTree($("#" + a.id + "> li"));
+    }
+
+    function getSubTree(a) {
+        var b = {},
+        c = this;
+        return a.each(function(a) {
+            b[a] = {
+                order: a + 1,
+                id: null !== this.getAttribute("data-fc-id") ? this.getAttribute("data-fc-id") : this.id,
+                name: null !== this.getAttribute("data-fc-name") ? this.getAttribute("data-fc-name") : this.id,
+                subtree: c.getSubTree($(this).find("> ol").find("> li"))
+            }
+        }), b
+    }
+
+
+    function send()
+    {
+        var component = $('#categories-list')[0];
+        var object = serialize(component);
+        var c = JSON.stringify(object);
+        $.ajax({
+            url: component.getAttribute('data-fc-url'),
+            type: "POST",
+            data: {
+                data: c
+            },
+            dataType: "json"
+        })
+    }
+
+
+    $('.category-up').click(function() {
+        var actualLi = $(this).parent().parent();
+        var beforeLi = actualLi.prev();
+        actualLi.insertBefore(beforeLi);
+        send();
+    });
+
+
+    $('.category-down').click(function() {
+        var actualLi = $(this).parent().parent();
+        var nextLi = actualLi.next();
+        actualLi.insertAfter(nextLi);
+        send();
+    });
+
+    </script>
+
+{% endblock table_content %}
+
+
+{% block table_pagination '' %}
+ #}

@@ -40,6 +40,7 @@ services:
             - %elcodi.entity.language.class%
             - %elcodi.entity.tax.class%
             - %elcodi.entity.country.class%
+            - %elcodi.entity.customer_category.class%
         calls:
             - [setFactory, ["@elcodi.factory.customer"]]
         tags:
@@ -51,3 +52,11 @@ services:
             - [setFactory, ["@elcodi.factory.admin_user"]]
         tags:
             - { name: form.type, alias: elcodi_admin_user_form_type_admin_user }
+
+    elcodi_admin.form_type.customer_category:
+        class: Elcodi\Admin\UserBundle\Form\Type\CustomerCategoryType
+        calls:
+            - [setFactory, ["@elcodi.factory.customer_category"]]
+            - [setEntityTranslatorFormEventListener, ["@elcodi.entity_translator_form_event_listener"]]
+        tags:
+            - { name: form.type, alias: elcodi_admin_user_form_type_customer_category }

@@ -17,16 +17,15 @@
 
 namespace Elcodi\Store\CartCouponBundle\Controller;
 
+use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
+use Elcodi\Component\Coupon\Exception\Abstracts\AbstractCouponException;
+use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as AnnotationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Response;
-
-use Elcodi\Component\Cart\Entity\Interfaces\CartInterface;
-use Elcodi\Component\Coupon\Exception\Abstracts\AbstractCouponException;
-use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
 
 /**
  * Class CouponController
@@ -35,112 +34,110 @@ use Elcodi\Store\CoreBundle\Controller\Traits\TemplateRenderTrait;
  *      path = "/coupon",
  * )
  */
-class CouponController extends Controller
-{
-    use TemplateRenderTrait;
+class CouponController extends Controller {
+	use TemplateRenderTrait;
 
-    /**
-     * Cart coupon form
-     *
-     * @param FormView $couponApplyFormView Coupon Apply view
-     *
-     * @return Response Response
-     *
-     * @Route(
-     *      path = "/view",
-     *      name = "store_coupon_view",
-     *      methods = {"GET"}
-     * )
-     *
-     * @AnnotationForm(
-     *      class = "store_cart_coupon_form_type_coupon_apply",
-     *      name  = "couponApplyFormView"
-     * )
-     */
-    public function viewAction(FormView $couponApplyFormView)
-    {
-        return $this->renderTemplate(
-            'Subpages:coupon-add.html.twig',
-            [
-                'form' => $couponApplyFormView,
-            ]
-        );
-    }
+	/**
+	 * Cart coupon form
+	 *
+	 * @param FormView $couponApplyFormView Coupon Apply view
+	 *
+	 * @return Response Response
+	 *
+	 * @Route(
+	 *      path = "/view",
+	 *      name = "store_coupon_view",
+	 *      methods = {"GET"}
+	 * )
+	 *
+	 * @AnnotationForm(
+	 *      class = "store_cart_coupon_form_type_coupon_apply",
+	 *      name  = "couponApplyFormView"
+	 * )
+	 */
+	public function viewAction(FormView $couponApplyFormView) {
+		return $this->renderTemplate(
+			'Subpages:coupon-add.html.twig',
+			[
+				'form' => $couponApplyFormView,
+			]
+		);
+	}
 
-    /**
-     * Add coupon to cart
-     *
-     * @param Form $couponApplyFormType Coupon Apply type
-     *
-     * @return array
-     *
-     * @Route(
-     *      path = "/apply",
-     *      name = "store_coupon_apply",
-     *      methods = {"POST"}
-     * )
-     *
-     * @AnnotationForm(
-     *      class = "store_cart_coupon_form_type_coupon_apply",
-     *      name  = "couponApplyFormType",
-     *      handleRequest = true,
-     * )
-     */
-    public function applyAction(Form $couponApplyFormType)
-    {
-        $translator = $this->get('translator');
-        $couponCode = $couponApplyFormType
-            ->get('code')
-            ->getData();
+	/**
+	 * Add coupon to cart
+	 *
+	 * @param Form $couponApplyFormType Coupon Apply type
+	 *
+	 * @return array
+	 *
+	 * @Route(
+	 *      path = "/apply",
+	 *      name = "store_coupon_apply",
+	 *      methods = {"POST"}
+	 * )
+	 *
+	 * @AnnotationForm(
+	 *      class = "store_cart_coupon_form_type_coupon_apply",
+	 *      name  = "couponApplyFormType",
+	 *      handleRequest = true,
+	 * )
+	 */
+	public function applyAction(Form $couponApplyFormType) {
+		$translator = $this->get('translator');
+		$couponCode = $couponApplyFormType
+			->get('code')
+			->getData();
 
-        /**
-         * @var CartInterface $cart
-         */
-        $cart = $this
-            ->get('elcodi.wrapper.cart')
-            ->get();
+		/**
+		 * @var CartInterface $cart
+		 */
+		$cart = $this
+			->get('elcodi.wrapper.cart')
+			->get();
 
-        try {
-            $this
-                ->get('elcodi.manager.cart_coupon')
-                ->addCouponByCode($cart, $couponCode);
+		try {
+			$this
+				->get('elcodi.manager.cart_coupon')
+				->addCouponByCode($cart, $couponCode);
 
-            $message = $translator->trans('store.coupon.applied.message_ok');
-            $this->addFlash('info', $message);
-        } catch (AbstractCouponException $e) {
-            $message = $translator->trans('store.coupon.applied.message_ko');
-            $this->addFlash('error', $message);
-        }
+			$message = $translator->trans('store.coupon.applied.message_ok');
+			$this->addFlash('info', $message);
+		} catch (AbstractCouponException $e) {
 
-        return $this->redirectToRoute('store_cart_view');
-    }
+			// \Doctrine\Common\Util\Debug::dump($e);die();
+			$message = $translator->trans('store.coupon.applied.message_ko');
+			$this->addFlash('error', $message);
+		}
 
-    /**
-     * Remove coupon from cart
-     *
-     * @param string $code Coupon code
-     *
-     * @return array
-     *
-     * @Route(
-     *      path = "/remove/{code}",
-     *      name = "store_coupon_remove",
-     *      methods = {"GET"}
-     * )
-     */
-    public function removeAction($code)
-    {
-        /**
-         * @var CartInterface $cart
-         */
-        $cart = $this
-            ->get('elcodi.wrapper.cart')
-            ->get();
+		return $this->redirectToRoute('store_cart_view');
+	}
 
-        $this
-            ->get('elcodi.manager.cart_coupon')
-            ->removeCouponByCode($cart, $code);
+	/**
+	 * Remove coupon from cart
+	 *
+	 * @param string $code Coupon code
+	 *
+	 * @return array
+	 *
+	 * @Route(
+	 *      path = "/remove/{code}",
+	 *      name = "store_coupon_remove",
+	 *      methods = {"GET"}
+	 * )
+	 */
+	public function removeAction($code) {
+		/**
+		 * @var CartInterface $cart
+		 */
+		$cart = $this
+			->get('elcodi.wrapper.cart')
+			->get();
 
-        return $this->redirectToRoute('store_cart_view');
-    }
+		$this
+			->get('elcodi.manager.cart_coupon')
+			->removeCouponByCode($cart, $code);
+
+		return $this->redirectToRoute('store_cart_view');
+	}
 }

@@ -1,0 +1,47 @@
+{% extends 'AdminCoreBundle::layout.html.twig' %}
+
+
+{% set elcodi_context = {
+    entity_type: 'customer_category',
+} %}
+
+
+{% block header_actions %}
+    {% if customerCategory.id > 0 and false %}
+        <a target="_blank" href="{{ path('store_category_purchasables_list', { id: customerCategory.id, slug: customerCategory.slug }) }}" class="button-primary">
+            <i class="icon-eye"></i>
+            <span>{{ 'admin.category.in_store'|trans }}</span>
+        </a>
+    {% endif %}
+{% endblock header_actions %}
+
+
+{% block breadcrumb %}
+
+    {% set title = 'admin.category.plural'|trans %}
+    {%
+        set header = customerCategory.id
+            ? 'admin.category.edit'|trans({ '%name%': customerCategory.name })
+            : 'admin.category.new'|trans
+    %}
+
+    {% include '@AdminCore/Common/breadcrumb.html.twig' with {
+        breadcrumb: [
+            { name: 'admin.categorization.single'|trans, active: false },
+            { name: title, url: path('admin_customer_category_list'), },
+            { name: header, active: true, },
+        ]
+    } %}
+
+{% endblock breadcrumb %}
+
+
+{% block content %}
+
+    {% if customerCategory.id %}
+        {{ render(path('admin_customer_category_edit_component', { id: customerCategory.id })) }}
+    {% else %}
+        {{ render(path('admin_customer_category_new_component')) }}
+    {% endif %}
+
+{% endblock content %}

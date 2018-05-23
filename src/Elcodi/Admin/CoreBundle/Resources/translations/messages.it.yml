@@ -578,7 +578,7 @@ admin:
         new: 'Crea un nuovo cliente'
         plural: Clienti
         saved: 'Salva modifiche'
-
+        category: 'Categorie clienti'
         section:
             contact:
                 description: 'Le informazioni di contatto per questo utente.'
@@ -595,7 +595,11 @@ admin:
         single: Cliente
 
         export: Esporta clienti
-
+    customer_category:
+        field:
+            customer_category_name:
+                title: "Nome categoria"
+        single: "Categoria cliente"
     dashboard:
         chart:
             cart_conversion:

@@ -15,11 +15,12 @@
  * @author Elcodi Team <tech@elcodi.com>
  */
 
-namespace Elcodi\Admin\UserBundle\Controller;
+namespace Elcodi\Admin\ProductBundle\Controller;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Core\Entity\Interfaces\EnabledInterface;
-use Elcodi\Component\User\Entity\Interfaces\CustomerInterface;
+use Elcodi\Component\Media\Entity\Interfaces\ImageInterface;
+use Elcodi\Component\Product\Entity\Interfaces\CategoryInterface;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,13 +30,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class Controller for Customer
+ * Class Controller for Category
  *
  * @Route(
- *      path = "/user/customer",
+ *      path = "",
  * )
  */
-class CustomerController extends AbstractAdminController
+class CategoryController extends AbstractAdminController
 {
     /**
      * List elements of certain entity type.
@@ -43,77 +44,46 @@ class CustomerController extends AbstractAdminController
      * This action is just a wrapper, so should never get any data,
      * as this is component responsibility
      *
-     * @param integer $page             Page
-     * @param integer $limit            Limit of items per page
-     * @param string  $orderByField     Field to order by
-     * @param string  $orderByDirection Direction to order by
-     *
      * @return array Result
      *
      * @Route(
-     *      path = "s/{page}/{limit}/{orderByField}/{orderByDirection}",
-     *      name = "admin_customer_list",
-     *      requirements = {
-     *          "page" = "\d*",
-     *          "limit" = "\d*",
-     *      },
-     *      defaults = {
-     *          "page" = "1",
-     *          "limit" = "50",
-     *          "orderByField" = "id",
-     *          "orderByDirection" = "DESC",
-     *      },
+     *      path = "/categories",
+     *      name = "admin_category_list",
      *      methods = {"GET"}
      * )
      * @Template
      */
-    public function listAction(
-        $page,
-        $limit,
-        $orderByField,
-        $orderByDirection
-    ) {
+    public function listAction()
+    {
         if (!$this->canRead()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
-        return [
-            'page' => $page,
-            'limit' => $limit,
-            'orderByField' => $orderByField,
-            'orderByDirection' => $orderByDirection,
-        ];
+        return [];
     }
 
     /**
-     * Edit and Saves customer
+     * Edit and Saves category
      *
      * @param FormInterface     $form     Form
-     * @param CustomerInterface $customer Customer
+     * @param CategoryInterface $category Category
      * @param boolean           $isValid  Is valid
+     * @param Request           $request  Request
      *
      * @return RedirectResponse Redirect response
      *
      * @Route(
-     *      path = "/{id}",
-     *      name = "admin_customer_view",
+     *      path = "/category/{id}",
+     *      name = "admin_category_edit",
      *      requirements = {
      *          "id" = "\d+",
      *      },
      *      methods = {"GET"}
      * )
      * @Route(
-     *      path = "/{id}/edit",
-     *      name = "admin_customer_edit",
-     *      requirements = {
-     *          "id" = "\d+",
-     *      },
-     *      methods = {"GET"}
-     * )
-     * @Route(
-     *      path = "/{id}/update",
-     *      name = "admin_customer_update",
+     *      path = "/category/{id}/update",
+     *      name = "admin_category_update",
      *      requirements = {
      *          "id" = "\d+",
      *      },
@@ -121,19 +91,19 @@ class CustomerController extends AbstractAdminController
      * )
      *
      * @Route(
-     *      path = "/new",
-     *      name = "admin_customer_new",
+     *      path = "/category/new",
+     *      name = "admin_category_new",
      *      methods = {"GET"}
      * )
      * @Route(
-     *      path = "/new/update",
-     *      name = "admin_customer_save",
+     *      path = "/category/new/update",
+     *      name = "admin_category_save",
      *      methods = {"POST"}
      * )
      *
      * @EntityAnnotation(
      *      class = {
-     *          "factory" = "elcodi.factory.customer",
+     *          "factory" = "elcodi.factory.category",
      *          "method" = "create",
      *          "static" = false
      *      },
@@ -141,13 +111,13 @@ class CustomerController extends AbstractAdminController
      *          "id" = "~id~"
      *      },
      *      mappingFallback = true,
-     *      name = "customer",
+     *      name = "category",
      *      persist = true
      * )
      * @FormAnnotation(
-     *      class = "elcodi_admin_user_form_type_customer",
+     *      class = "elcodi_admin_product_form_type_category",
      *      name  = "form",
-     *      entity = "customer",
+     *      entity = "category",
      *      handleRequest = true,
      *      validate = "isValid"
      * )
@@ -156,11 +126,11 @@ class CustomerController extends AbstractAdminController
      */
     public function editAction(
         FormInterface $form,
-        CustomerInterface $customer,
-        $isValid
+        CategoryInterface $category,
+        $isValid,
+        Request $request
     ) {
-
-        if ($customer->getId()) {
+        if ($category->getId()) {
             if (!$this->canUpdate()) {
                 $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
                 return $this->redirect($this->generateUrl('admin_homepage'));
@@ -171,29 +141,34 @@ class CustomerController extends AbstractAdminController
                 return $this->redirect($this->generateUrl('admin_homepage'));
             }
         }
-        if ($form->getErrorsAsString() == "") {
-            if ($isValid) {
-                $this->manageExtraFields($customer);
-                $this->flush($customer);
 
-                $this->addFlash(
-                    'success',
-                    $this
-                        ->get('translator')
-                        ->trans('admin.customer.saved')
-                );
+        if ($isValid) {
+            $firstImage = $category
+                ->getImages()
+                ->first();
 
-                return $this->redirectToRoute('admin_customer_list');
+            if ($firstImage instanceof ImageInterface) {
+                $category->setPrincipalImage($firstImage);
             }
-        } else {
-            $this->addFlash(
-                'error',
-                $form->getErrorsAsString()
-            );
+
+            $this->flush($category);
+
+            $this->addFlash('success', 'admin.category.saved');
+
+            if ($request->query->get('modal', false)) {
+                $redirection = $this->redirectToRoute(
+                    'admin_category_edit',
+                    ['id' => $category->getId()]
+                );
+            } else {
+                $redirection = $this->redirectToRoute('admin_category_list');
+            }
+
+            return $redirection;
         }
 
         return [
-            'customer' => $customer,
+            'category' => $category,
             'form' => $form->createView(),
         ];
     }
@@ -207,13 +182,13 @@ class CustomerController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "/{id}/enable",
-     *      name = "admin_customer_enable",
+     *      path = "/category/{id}/enable",
+     *      name = "admin_category_enable",
      *      methods = {"GET", "POST"}
      * )
      *
      * @EntityAnnotation(
-     *      class = "elcodi.entity.customer.class",
+     *      class = "elcodi.entity.category.class",
      *      mapping = {
      *          "id" = "~id~"
      *      }
@@ -243,13 +218,13 @@ class CustomerController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "/{id}/disable",
-     *      name = "admin_customer_disable",
+     *      path = "/category/{id}/disable",
+     *      name = "admin_category_disable",
      *      methods = {"GET", "POST"}
      * )
      *
      * @EntityAnnotation(
-     *      class = "elcodi.entity.customer.class",
+     *      class = "elcodi.entity.category.class",
      *      mapping = {
      *          "id" = "~id~"
      *      }
@@ -280,13 +255,13 @@ class CustomerController extends AbstractAdminController
      * @return RedirectResponse Redirect response
      *
      * @Route(
-     *      path = "/{id}/delete",
-     *      name = "admin_customer_delete",
+     *      path = "/category/{id}/delete",
+     *      name = "admin_category_delete",
      *      methods = {"GET", "POST"}
      * )
      *
      * @EntityAnnotation(
-     *      class = "elcodi.entity.customer.class",
+     *      class = "elcodi.entity.category.class",
      *      mapping = {
      *          "id" = "~id~"
      *      }
@@ -302,10 +277,16 @@ class CustomerController extends AbstractAdminController
             return $this->redirect($this->generateUrl('admin_homepage'));
         }
 
+        // Prendo i figli primi e li metto a root
+        foreach ($entity->getSubCategories() as $subCategory) {
+            $subCategory->setRoot(true);
+            $this->flush($subCategory);
+        }
+
         return parent::deleteAction(
             $request,
             $entity,
-            $this->generateUrl('admin_customer_list')
+            $this->generateUrl('admin_category_list')
         );
     }
 }

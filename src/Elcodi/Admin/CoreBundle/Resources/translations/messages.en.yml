@@ -318,6 +318,7 @@ admin:
         new: 'New coupon'
         plural: Coupons
         saved: 'Coupon saved'
+        category: 'Customer categories'
         section:
             basic:
                 description:
@@ -411,6 +412,11 @@ admin:
                 description: 'Set the user status and preferences.'
                 title: 'Status & Preferences'
         single: Customer
+    customer_category:
+        field:
+            customer_category_name:
+                title: "Category name"
+        single: "Customer category"
     dashboard:
         chart:
             cart_conversion:
