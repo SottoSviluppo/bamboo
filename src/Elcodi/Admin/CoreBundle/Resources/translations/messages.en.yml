@@ -314,6 +314,8 @@ admin:
                 placeholder: "Insert color e.g. #5BF25C"
             categories:
                 title: Categorie
+            customer_categories:
+                title: "Customer categories"
         list: 'Coupon list'
         new: 'New coupon'
         plural: Coupons
@@ -417,6 +419,10 @@ admin:
             customer_category_name:
                 title: "Category name"
         single: "Customer category"
+        plural: "Customers categories"
+        section:
+            basic:
+                description: 'Fornisci un nome il più corto possibile che aiuti a trovare i clienti di questa categoria.'
     dashboard:
         chart:
             cart_conversion:

@@ -11,7 +11,7 @@
     {% include '@AdminCore/Common/breadcrumb.html.twig' with {
         breadcrumb: [
             { name: 'admin.categorization.single'|trans, active: false },
-            { name: 'admin.category.plural'|trans, active: true },
+            { name: 'admin.customer_category.plural'|trans, active: true },
         ],
     } %}
 
@@ -20,7 +20,7 @@
 
 {% block header_actions %}
 
-    <a href="{{ path('admin_category_new') }}" class="button-primary" data-test="new-category">
+    <a href="{{ path('admin_customer_category_new') }}" class="button-primary" data-test="new-category">
         <i class="icon-plus"></i>
         <span>{{ 'admin.category.new'|trans }}</span>
     </a>

@@ -116,10 +116,20 @@
                             {{ form_row(form.includeCategories, { label: 'admin.coupon.field.include_categories.title' }) }}
                         </li>
                         <li class="col-1-1">
-                                    {# label_help: 'admin.product.field.main_category.placeholder'|trans, #}
                              {{
                                 form_row(form.categories, {
                                     label: 'admin.coupon.field.categories.title',
+                                    attr: {
+                                        class: 'select2',
+                                        style: "height: 200px"
+                                    }
+                                })
+                            }}
+                        </li>
+                        <li class="col-1-1">
+                            {{
+                                form_row(form.customerCategories, {
+                                    label: 'admin.coupon.field.customer_categories.title',
                                     attr: {
                                         class: 'select2',
                                         style: "height: 200px"

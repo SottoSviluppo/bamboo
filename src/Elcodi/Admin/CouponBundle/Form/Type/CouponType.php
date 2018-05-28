@@ -158,6 +158,11 @@ class CouponType extends AbstractType {
 				'required' => false,
 				'class' => 'Elcodi\Component\Product\Entity\Category',
 				'multiple' => true,
+			])
+			->add('customerCategories', 'entity', [
+				'required' => false,
+				'class' => 'Elcodi\Component\User\Entity\CustomerCategory',
+				'multiple' => true,
 			]);
 	}
 
