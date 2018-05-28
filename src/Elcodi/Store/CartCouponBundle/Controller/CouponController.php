@@ -104,12 +104,9 @@ class CouponController extends Controller {
 			$message = $translator->trans('store.coupon.applied.message_ok');
 			$this->addFlash('info', $message);
 		} catch (AbstractCouponException $e) {
-
-			// \Doctrine\Common\Util\Debug::dump($e);die();
 			$message = $translator->trans('store.coupon.applied.message_ko');
 			$this->addFlash('error', $message);
 		}
-
 		return $this->redirectToRoute('store_cart_view');
 	}
 
