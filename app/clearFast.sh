@@ -7,5 +7,5 @@ echo -e \\n"> rm -rf /dev/shm/project/cache/de_/"
 rm -rf /dev/shm/project/cache/de_/
 echo -e \\n"> rm -rf app/cache/prod"
 rm -rf app/cache/prod/
-echo -e \\n"> redis-cli flushall"
-redis-cli flushall
+# echo -e \\n"> redis-cli flushall"
+# redis-cli flushall

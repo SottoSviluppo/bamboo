@@ -1,46 +1,68 @@
-data:
-    image: busybox
-    volumes:
-        - ../:/var/www/app
+version: '2'
 
-nginx:
-    image: yappabe/nginx
-    links:
-        - php
-    volumes_from:
-        - data
-    environment:
-        DOCUMENT_ROOT: /var/www/app/web
-        INDEX_FILE: app_dev.php
-        PHP_FPM_SOCKET: php:9000
-        DNSDOCK_ALIAS: bamboo.docker
+services:
+    db:
+        build: mysql5
+        ports:
+            - 3306:3306
+        volumes:
+            - "./.data/db:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        networks:
+          - net1
 
-mysql:
-    image: yappabe/mysql
-    environment:
-        MYSQL_PASS: bamboo
-        MYSQL_USER: bamboo
-        ON_CREATE_DB: bamboo
-        DNSDOCK_ALIAS: mysql.bamboo.docker
+    php:
+        build: php7-fpm
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/app/logs
+        networks:
+          - net1
 
-php:
-    image: yappabe/php
-    working_dir: /var/www/app
-    volumes_from:
-        - data
-    links:
-        - mysql
-    mem_limit: 2000000000
+    nginx:
+        build: nginx
+        ports:
+            - 8080:80
+        volumes_from:
+            - php
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+        networks:
+            - net1
 
-mailcatcher:
-    image: yappabe/mailcatcher
-    environment:
-        DNSDOCK_ALIAS: mailcatcher.bamboo.docker
+    elastic:
+        image: elasticsearch:2
+        networks:
+            - net1
 
-# password: secret
-# vnc port 5999
-selenium:
-    image: vvoyer/docker-selenium-firefox-chrome
-    privileged: true
-    environment:
-        DNSDOCK_ALIAS: selenium.bamboo.docker
+    redis:
+        image: redis:3
+        networks:
+            - net1
+
+    # elk:
+    #     image: willdurand/elk
+    #     ports:
+    #         - 81:80
+    #     volumes:
+    #         - ./elk/logstash:/etc/logstash
+    #         - ./elk/logstash/patterns:/opt/logstash/patterns
+    #     volumes_from:
+    #         - php
+    #         - nginx
+    #     networks:
+    #         - net1
+    # selenium2:
+    #     image: selenium/standalone-firefox-debug:2.53.1
+    #     ports:
+    #         - 4444:4444
+    #         - 5900:5900
+    #     networks:
+    #         - net1
+
+networks:
+    net1:

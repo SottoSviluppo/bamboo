@@ -6,6 +6,8 @@ doctrine_cache:
         #
         elcodi_categories:
             type: predis
+            predis: 
+                host: %redis_host%
             namespace: %elcodi.core.bamboo.cache_prefix%categories
 
         #
@@ -20,6 +22,8 @@ doctrine_cache:
         #
         elcodi_translations:
             type: predis
+            predis: 
+                host: %redis_host%
             namespace: %elcodi.core.bamboo.cache_prefix%translations
 
         #
@@ -27,4 +31,6 @@ doctrine_cache:
         #
         elcodi_comments:
             type: predis
+            predis: 
+                host: %redis_host%
             namespace: %elcodi.core.bamboo.cache_prefix%comments

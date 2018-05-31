@@ -224,7 +224,7 @@ store_page:
 
 fos_elastica:
     clients:
-        default: { host: localhost, port: 9200 }
+        default: { host: %elastica_host%, port: 9200 }
     indexes:
         app:
             index_name: app_%elcodi.core.bamboo.cache_prefix%

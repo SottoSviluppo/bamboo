@@ -37,6 +37,11 @@ parameters:
     bamboo_store_firewall: store_area
 
     elcodi.core.bamboo.cache_prefix: bamboostore01
+
+    #configuration
+    redis_host: localhost
+    elastica_host: localhost
+
     # number of item for page with paginator
     item_for_page: 12
 
