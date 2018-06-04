@@ -5,5 +5,5 @@ snc_redis:
             alias: metric
             options:
                 profile: default
-            dsn: redis://redis
+            dsn: redis://%redis_host%
             logging: false
