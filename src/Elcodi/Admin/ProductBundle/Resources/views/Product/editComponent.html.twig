@@ -103,14 +103,15 @@
         })
     }}
 </li>
-
-<li class="col-1-2">
-    {{
-    form_row(form.tax, {
-    label: 'admin.tax.single',
-})
-}}
-</li>
+{% if not store.taxIncluded %}
+    <li class="col-1-2">
+        {{
+            form_row(form.tax, {
+                label: 'admin.tax.single',
+            })
+        }}
+    </li>
+{% endif %}
 </ol>
 </div>
 </div>
