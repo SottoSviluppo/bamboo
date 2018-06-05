@@ -6,6 +6,15 @@ store_api_logout:
     path:     /store/api/logout
     defaults: { _controller: StoreAPIBundle:API:logout, _format: json }
 
+store_remember_password_by_email:
+    path:     /store/api/remember-password-by-email
+    defaults: { _controller: StoreAPIBundle:API:rememberPasswordByEmail, _format: json }
+
+store_api_login_admin:
+    path:     /store/api/login-admin
+    defaults: { _controller: StoreAPIBundle:API:loginAdmin, _format: json }
+
+
 store_api_get_user_data:
     path:     /store/api/get-user-data
     defaults: { _controller: StoreAPIBundle:API:getUserData, _format: json }
