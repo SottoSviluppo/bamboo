@@ -122,6 +122,15 @@ class APIController extends Controller
 
     public function loginAdminAction(Request $request)
     {
+        // TODO non funziona: ci si riesce a loggare, ma non si è
+        // completamente loggati, sembra manchi qualcosa.
+        // Invece il login tradizionale funziona.
+        // Facendo il dump del adminUser non pare ci siano differenze
+        // $adminUser = $this
+        //     ->get('elcodi.wrapper.admin_user')
+        //     ->get();
+        // \Doctrine\Common\Util\Debug::dump($adminUser);die();
+
         $email = $request->get('email');
         $password = $request->get('password');
 
