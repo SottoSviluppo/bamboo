@@ -17,9 +17,8 @@ monolog:
 paypal_web_checkout:
     debug: false
 
-
 doctrine:
     orm:
-        auto_generate_proxy_classes:  true # <- change to true
+        auto_generate_proxy_classes:  true
         proxy_dir:            '%kernel.cache_dir%/doctrine/orm/Proxies'
         proxy_namespace:      Proxies
