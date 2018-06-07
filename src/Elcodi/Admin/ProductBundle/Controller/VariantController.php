@@ -351,9 +351,9 @@ class VariantController extends AbstractAdminController
          * from parent product Attribute collection
          */
         foreach ($variantAttributes as $variantAttribute) {
-            if (in_array($variantAttribute, $notRemovableAttributes)) {
-                continue;
-            }
+            // if (in_array($variantAttribute, $notRemovableAttributes)) {
+            //     continue;
+            // }
 
             $product->removeAttribute($variantAttribute);
         }
