@@ -251,6 +251,7 @@ redirect_path: product.id
                     <input id="variants-url" type="hidden" value="{{ path('admin_product_variant_list_component', { productId: product.id }) }}" />
                     <input id="variants-message-ok" type="hidden" value="{{ 'admin.variant.saved'|trans }}" />
                     {{ render(path('admin_product_variant_list_component', { productId: product.id })) }}
+                    {# {{ render(path('admin_product_variant_list', { productId: product.id })) }} #}
                 {% else %}
                     <div class="box-background pa-n">
                         <p class="msg-info ma-n">{{ 'admin.product.info.variants_before_saving'|trans }}</p>

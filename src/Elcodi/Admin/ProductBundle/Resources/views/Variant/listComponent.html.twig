@@ -85,12 +85,22 @@
                 <i class="fa fa-times"></i>
             </a>
         {% endif %}
+
     </td>
 
 {% endblock table_body_row %}
 
 
 {% block table_pagination '' %}
+
+{# {% block table_paginator_links %} #}
+
+{# 'admin_product_variant_list_component', { productId: product.id } #}
+    {# {% set url = 'admin_product_variant_list_component' %}
+    {% set params = productId %}
+    {{ parent() }}
+
+{% endblock table_paginator_links %} #}
 
 
 {#

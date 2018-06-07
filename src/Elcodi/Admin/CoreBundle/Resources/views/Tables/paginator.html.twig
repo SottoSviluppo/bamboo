@@ -39,7 +39,8 @@
                 page: prev_page,
                 limit: limit,
                 orderByField: orderByField,
-                orderByDirection: orderByDirection
+                orderByDirection: orderByDirection,
+                productId: params
             }) }}"{% endif %}>
                 <span class="icon-step-backward"></span>
             </a>
@@ -51,7 +52,8 @@
                     page: 1,
                     limit: limit,
                     orderByField: orderByField,
-                    orderByDirection: orderByDirection
+                    orderByDirection: orderByDirection,
+                    productId: params
                 }) }}">1</a>
             </li>
             {% if space_left < page %}
@@ -66,7 +68,8 @@
                     page: current_iterated_page,
                     limit: limit,
                     orderByField: orderByField,
-                    orderByDirection: orderByDirection
+                    orderByDirection: orderByDirection,
+                    productId: params
                 }) }}"{% endif %} {% if current_iterated_page == page %} style="background-color: #ccc"{% endif %}>
                     {{ current_iterated_page }}
                 </a>
@@ -83,7 +86,8 @@
                     page: total_pages,
                     limit: limit,
                     orderByField: orderByField,
-                    orderByDirection: orderByDirection
+                    orderByDirection: orderByDirection,
+                    productId: params
                 }) }}">{{ total_pages }}</a>
             </li>
         {% endif %}
@@ -94,7 +98,8 @@
                 page: next_page,
                 limit: limit,
                 orderByField: orderByField,
-                orderByDirection: orderByDirection
+                orderByDirection: orderByDirection,
+                productId: params
             }) }}"{% endif %}>
                 <span class="icon-step-forward"></span>
             </a>

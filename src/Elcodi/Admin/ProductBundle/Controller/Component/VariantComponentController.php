@@ -54,14 +54,24 @@ class VariantComponentController extends AbstractAdminController
      * @return array Result
      *
      * @Route(
-     *      path = "s/component",
-     *      name = "admin_product_variant_list_component"
+     *      path = "s/component/{page}/{limit}",
+     *      name = "admin_product_variant_list_component",
+     *      requirements = {
+     *          "page" = "\d*",
+     *          "limit" = "\d*"
+     *      },
+     *      defaults = {
+     *          "page" = "1",
+     *          "limit" = "50"          
+     *      },
      * )
      * @Template("AdminProductBundle:Variant:listComponent.html.twig")
      * @Method({"GET"})
      *
      * @PaginatorAnnotation(
      *      class = "elcodi.entity.product_variant.class",
+     *      page = "~page~",
+     *      limit = "~limit~",
      *      innerJoins = {
      *          {"x", "product", "p", false}
      *      },
@@ -72,11 +82,15 @@ class VariantComponentController extends AbstractAdminController
      */
     public function listComponentAction(
         Paginator $paginator,
-        $productId
+        $productId,
+        $page,
+        $limit
     ) {
         return [
             'paginator' => $paginator,
             'productId' => $productId,
+            'page' => $page,
+            'limit' => $limit
         ];
     }
 
