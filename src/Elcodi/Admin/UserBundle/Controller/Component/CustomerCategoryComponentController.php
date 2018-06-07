@@ -34,7 +34,7 @@ class CustomerCategoryComponentController extends AbstractAdminController {
 	 * @return array Result
 	 *
 	 * @Route(
-	 *      path = "/categories/component/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      path = "/user/categories/component/{page}/{limit}/{orderByField}/{orderByDirection}",
 	 *      name = "admin_customer_category_list_component",
 	 *      requirements = {
 	 *          "page" = "\d*",
@@ -93,14 +93,14 @@ class CustomerCategoryComponentController extends AbstractAdminController {
 	 * @return array Result
 	 *
 	 * @Route(
-	 *      path = "/category/{id}/component",
+	 *      path = "/user/category/{id}/component",
 	 *      name = "admin_customer_category_edit_component",
 	 *      requirements = {
 	 *          "id" = "\d+",
 	 *      }
 	 * )
 	 * @Route(
-	 *      path = "/category/new/component",
+	 *      path = "/user/category/new/component",
 	 *      name = "admin_customer_category_new_component",
 	 *      methods = {"GET"}
 	 * )
@@ -138,39 +138,5 @@ class CustomerCategoryComponentController extends AbstractAdminController {
 		];
 	}
 
-	/**
-	 * Sorts the categories with the given orders.
-	 *
-	 * @param Request $request The user request.
-	 *
-	 * @return array Result
-	 *
-	 * @Route(
-	 *      path = "/category/sort/component",
-	 *      name = "admin_category_sort_component",
-	 *      methods = {"POST"}
-	 * )
-	 *
-	 * @JsonResponse
-	 */
-	public function sortComponentAction(Request $request) {
-		$categoriesOrder = json_decode($request->get('data'), true);
-
-		if (!is_null($categoriesOrder)) {
-			$orderResult = $this->get('elcodi_admin.category_sorter')
-				->sort($categoriesOrder);
-
-			if ($orderResult) {
-				return [
-					'result' => 'ok',
-				];
-			}
-		}
-
-		return [
-			'result' => 'ko',
-			'code' => '400',
-			'message' => 'Invalid order received',
-		];
-	}
+	
 }
