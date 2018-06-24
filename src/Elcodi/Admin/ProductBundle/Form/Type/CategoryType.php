@@ -141,12 +141,20 @@ class CategoryType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
             ])
+            ->add('attachments', 'entity', [
+                'class' => 'Elcodi\Component\Media\Entity\Attachment',
+                'required' => false,
+                'property' => 'id',
+                'multiple' => true,
+                'expanded' => false,
+            ])
             ->add('parent', 'entity', [
                 'class' => $categoryNamespace,
                 'query_builder' => $this->getAvailableCategories($currentCategoryId),
                 'required' => true,
                 'multiple' => false,
-            ]);
+            ])
+        ;
 
         $builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
     }

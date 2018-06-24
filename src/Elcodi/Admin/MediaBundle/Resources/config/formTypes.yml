@@ -7,3 +7,10 @@ services:
         class: Elcodi\Admin\MediaBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: elcodi_admin_media_form_type_image }
+    #
+    # Form Types
+    #
+    elcodi_admin.form_type.attachment:
+        class: Elcodi\Admin\MediaBundle\Form\Type\AttachmentType
+        tags:
+            - { name: form.type, alias: elcodi_admin_media_form_type_attachment }

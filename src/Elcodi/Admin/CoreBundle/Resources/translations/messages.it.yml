@@ -699,6 +699,14 @@ admin:
         plural: Immagini
         single: Immagine
 
+    attachment:
+        plural: Allegati
+    attachment:
+        info:
+            principal: Allegato
+            upload: Carica allegato
+
+
     language:
         error:
             disable_master_language: 'Non puoi disabilitare la lingua principale'

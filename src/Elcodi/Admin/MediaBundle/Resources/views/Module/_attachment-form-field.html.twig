@@ -1,0 +1,37 @@
+<div class="grid">
+    <div class="col-1-3">
+        <div id="upload-container" class="box-none">
+            <h3 class="fw-n">{{ 'admin.attachment.plural'|trans }}</h3>
+
+        </div>
+    </div>
+    <div class="col-2-3">
+        <div class="d-n">
+            {{ form_row( imageForm, { attr: { class: 'js-images-select', formType: formType } }) }}
+        </div>
+        <div class="box" data-fc-modules="image-delete">
+            <div class="box" >
+            {% if image %} 
+                {% set display = 'block' %} 
+            {% else %} 
+                {% set display = 'none' %} 
+            {% endif %}
+
+            <ul id="upload-attachment-image" class="thumbnail-group thumbnail-group-extended mb-m" style="display: {{ display }};">
+                <li style="min-width: 0; min-height: 0;">
+                    <span id="upload-attachment-image-filename">{{image.filename}}</span>
+                    <ul >
+                        <li>
+                            <a href="{% if image.id  %}{{ path('admin_image_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}{% endif %}" id="upload-attachment-delete" {% if not image.id %}style="display: none" {% endif %}> <i class="icon-trash-o"></i> </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <progress id="upload-attachment-progress" value="0" max="100" style="display: none"></progress>
+            <p class="mb-n">
+                <a href="{{ path('admin_attachment_upload') }}" id="upload-attachment" image-type="attachment" data-fc-modules="upload-single" class="button mb-m">Upload attachment</a>
+            </p>
+        </div>
+    </div>
+</div>

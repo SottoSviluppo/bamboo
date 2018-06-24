@@ -139,6 +139,12 @@
             formType: 'elcodi_admin_product_form_type_category'
         } %}
 
+        {% include '@AdminMedia/Module/_attachment-form-field.html.twig' with {
+            imageForm: form.attachments,
+            image: category.attachments.0,
+        } %}
+            {# attachment: category.attachment, #}
+
         <div class="ph-n pt-m mb-n">
             <div class="box-background pv-s mb-l">
                 <a data-fc-modules="toggle" href="#metadata-edit"><i class="icon-plus-circle"></i> {{ 'admin.metadata.customize'|trans }}</a>

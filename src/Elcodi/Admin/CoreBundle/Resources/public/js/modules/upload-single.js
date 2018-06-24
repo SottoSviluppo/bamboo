@@ -72,7 +72,6 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 			}
 		},
 		autoBind: function( oTarget ) {
-
 			var self = this,
 				sName = oTarget.id,
 				oContainer = $(oTarget).closest('.grid').find('.js-images-select')[0],
@@ -139,6 +138,9 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 								sFormat = oResponse.response.extension;
 								sUrlSave = oTarget.getAttribute('data-url');
 								sUrlView = oResponse.response.routes.resize.replace('{height}', nHeight).replace('{width}', nWidth).replace('{type}', nType).replace('{id}', nId).replace('{_format}', sFormat);
+								if (oResponse.response.filename !== undefined) {
+									sUrlView = oResponse.response.filename;
+								}
 								sUrlDelete = oResponse.response.routes['delete'].replace('{id}', nId);
 							}
 
@@ -207,7 +209,11 @@ FrontendCore.define('upload-single', [ oGlobalSettings.sPathJs + '../components/
 			});
 		},
 		updateImage : function( oContainer, sName, sUrlView, sUrlDelete ) {
-			$('img', '#' + sName + '-image').attr('src', sUrlView);
+			if (sName == 'upload-attachment') {
+				$('#' + sName + '-image-filename').text(sUrlView);
+			} else {
+				$('img', '#' + sName + '-image').attr('src', sUrlView);
+			}
 			document.getElementById(sName + '-image').style.display = 'block';
 			document.getElementById(sName + '-delete').style.display = 'inline-block';
 			document.getElementById(sName + '-delete').href = sUrlDelete;
