@@ -223,7 +223,14 @@ class ProductType extends AbstractType {
 				'property' => 'id',
 				'multiple' => true,
 				'expanded' => false,
-			]);
+			])
+			->add('attachments', 'entity', [
+                'class' => 'Elcodi\Component\Media\Entity\Attachment',
+                'required' => false,
+                'property' => 'id',
+                'multiple' => true,
+                'expanded' => false,
+            ]);
 
 		$builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());
 	}
