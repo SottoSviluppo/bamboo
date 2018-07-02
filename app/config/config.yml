@@ -283,7 +283,7 @@ fos_elastica:
                                 name: ~
                     persistence:
                         driver: orm
-                        model: %elcodi.entity.product.class%
+                        model: %elcodi.entity.purchasable.class%
                         provider: ~
                         listener: ~
                         finder: ~
