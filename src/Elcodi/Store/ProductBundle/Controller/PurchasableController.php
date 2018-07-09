@@ -61,6 +61,8 @@ class PurchasableController extends Controller
             throw new EntityNotFoundException('Purchasable not found');
         }
 
+        $limit = $this->getParameter('limit_related_products');
+
         $relatedProducts = $this
             ->get('elcodi.related_purchasables_provider')
             ->getRelatedPurchasables($purchasable, 3);

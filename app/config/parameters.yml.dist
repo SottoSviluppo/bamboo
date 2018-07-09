@@ -91,3 +91,5 @@ parameters:
     assetsbaseurl: 'http://10.10.10.10'
     #ordine minino di acquisto
     minimum_order_import: 5000
+    # limite di prodotti correlati visibili
+    limit_related_products: 3
