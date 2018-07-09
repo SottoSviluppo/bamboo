@@ -65,7 +65,7 @@ class PurchasableController extends Controller
 
         $relatedProducts = $this
             ->get('elcodi.related_purchasables_provider')
-            ->getRelatedPurchasables($purchasable, 3);
+            ->getRelatedPurchasables($purchasable, $limit);
 
         return $this->renderTemplate('Modules:_purchasable-related.html.twig', [
             'purchasables' => $relatedProducts,
