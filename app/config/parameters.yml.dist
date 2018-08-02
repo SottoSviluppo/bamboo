@@ -86,6 +86,8 @@ parameters:
 
     product_partial_search: false
     category_partial_search: true
+    # attivazione ricerca parziale sul Customer nell'amministrazione
+    customer_partial_search: true
     # if set TRUE indicate that FreePayment is used to create an order
     create_order_with_freepayment: false
     assetsbaseurl: 'http://10.10.10.10'

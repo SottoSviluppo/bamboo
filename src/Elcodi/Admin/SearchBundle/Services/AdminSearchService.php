@@ -23,12 +23,14 @@ class AdminSearchService implements IAdminSearchService {
 	private $paginator;
 
 	private $limit;
+	private $customerPartialSearch;
 
-	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage) {
+	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage, $customerPartialSearch) {
 		$this->container = $container;
 		$this->prefix = $prefix;
 		$this->itemsPerPage = $itemsPerPage;
 		$this->limit = $this->itemsPerPage;
+		$this->customerPartialSearch = $customerPartialSearch;
 
 		$this->paginator = $this->container->get('knp_paginator');
 	}
@@ -57,7 +59,6 @@ class AdminSearchService implements IAdminSearchService {
 
 		$adapter = $finder->createPaginatorAdapter($orderQuery);
 
-		//$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
 		return $this->paginator->paginate($adapter, $page, $limit);
 	}
 
@@ -71,7 +72,7 @@ class AdminSearchService implements IAdminSearchService {
 
 		$boolQuery = new BoolQuery();
 
-		if (strpos($query, '@') !== false) {
+		if (strpos($query, '@') !== false || $this->customerPartialSearch) {
 			$wildcardBool = $this->createWildcardQuery($query);
 			$boolQuery->addShould($wildcardBool);
 		} else {
@@ -195,15 +196,10 @@ class AdminSearchService implements IAdminSearchService {
 	private function createWildcardQuery($query) {
 		$wildcardBool = new BoolQuery();
 
-		// if (strpos($query, '@') !== false) {
 		$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
-		// }
-		//        else {
-		// 	$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('firstName', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('lastName', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
-		// }
+		$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('firstname', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('lastname', '*' . $query . '*'));
 
 		return $wildcardBool;
 	}
