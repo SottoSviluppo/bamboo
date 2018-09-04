@@ -6,6 +6,7 @@ services:
             - '@service_container'
             - '%elcodi.core.bamboo.cache_prefix%'
             - '%item_for_page%'
+            - '%customer_partial_search%'
 
 
     elcodi_admin.order.admin_search:
