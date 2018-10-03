@@ -1658,6 +1658,8 @@ ui:
         full_name: 'Nome completo'
         phone: Telefono
         zipcode: CAP
+        province: Provincia
+        country: Nazione
 
     customer:
         fiscal_code: Codice fiscale

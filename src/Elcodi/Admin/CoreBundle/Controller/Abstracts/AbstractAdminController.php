@@ -306,6 +306,10 @@ class AbstractAdminController extends Controller
             $permissions = array_merge($permissions, $permissionsCustom);
         }
 
+        if (!array_key_exists($controllerName, $permissions)) {
+            return [];
+        }
+
         return $permissions[$controllerName];
     }
 
