@@ -17,20 +17,18 @@ use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
  * Defines all the search methods
  */
 class AdminSearchService implements IAdminSearchService {
-	private $container;
-	private $prefix;
-	private $itemsPerPage;
-	private $paginator;
+        protected $container;
+	protected $prefix;
+	protected $itemsPerPage;
+	protected $paginator;
 
-	private $limit;
-	private $customerPartialSearch;
+	protected $limit;
 
-	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage, $customerPartialSearch) {
+	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage) {
 		$this->container = $container;
 		$this->prefix = $prefix;
 		$this->itemsPerPage = $itemsPerPage;
 		$this->limit = $this->itemsPerPage;
-		$this->customerPartialSearch = $customerPartialSearch;
 
 		$this->paginator = $this->container->get('knp_paginator');
 	}
@@ -59,20 +57,21 @@ class AdminSearchService implements IAdminSearchService {
 
 		$adapter = $finder->createPaginatorAdapter($orderQuery);
 
+		//$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
 		return $this->paginator->paginate($adapter, $page, $limit);
 	}
 
 	public function searchCustomers($query, $page = 1, $limit = null) {
 		$finder = $this->createFinderFor('customers');
 
-		if (empty($limit)) {
+                if (empty($limit)) {
 			$limit = $this->itemsPerPage;
 		}
 		$this->limit = $limit;
 
 		$boolQuery = new BoolQuery();
 
-		if (strpos($query, '@') !== false || $this->customerPartialSearch) {
+		if (strpos($query, '@') !== false) {
 			$wildcardBool = $this->createWildcardQuery($query);
 			$boolQuery->addShould($wildcardBool);
 		} else {
@@ -116,8 +115,8 @@ class AdminSearchService implements IAdminSearchService {
 		return $this->limit;
 	}
 
-	private function createFinderFor($type) {
-		return $this->container->get('fos_elastica.finder.app.' . $type);
+	protected function createFinderFor($type) {
+            return $this->container->get('fos_elastica.finder.app.' . $type);
 	}
 
 	private function createQueryForOrder($query, array $dateRange = array()) {
@@ -196,10 +195,15 @@ class AdminSearchService implements IAdminSearchService {
 	private function createWildcardQuery($query) {
 		$wildcardBool = new BoolQuery();
 
+		// if (strpos($query, '@') !== false) {
 		$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
-		$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
-		$wildcardBool->addShould(new Wildcard('firstname', '*' . $query . '*'));
-		$wildcardBool->addShould(new Wildcard('lastname', '*' . $query . '*'));
+		// }
+		//        else {
+		// 	$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('firstName', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('lastName', '*' . $query . '*'));
+		// 	$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
+		// }
 
 		return $wildcardBool;
 	}
