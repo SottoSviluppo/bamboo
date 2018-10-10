@@ -33,7 +33,7 @@
                         {% else %}
                             <a href="#" class="fw-b">{{ purchasableName }}</a>
                         {% endif %}
-                        <p class="fz-s">ID: {{ purchasable.id }}</p>
+                        <p class="fz-s">ID: {{ purchasable.id }} // SKU: {{purchasable.sku}}</p>
                     </td>
                     <td class="ta-r">{{ line.quantity }}</td>
                     <td class="ta-r">{{ purchasable.resolvedPrice|print_convert_money }}</td>

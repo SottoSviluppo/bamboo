@@ -66,7 +66,7 @@
 
         "mmoreram/controller-extra-bundle": "1.2.1",
         "mmoreram/extractor": "^1.2",
-        "mmoreram/http-headers-bundle": "1.0.0",
+        "mmoreram/http-headers-bundle": "1.1.0",
         "mmoreram/symfony-bundle-dependencies": "^1.1.1",
 
         "sottosviluppo/elcodi": "dev-develop",
