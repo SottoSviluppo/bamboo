@@ -29,7 +29,7 @@ class ProductComponentController extends AbstractAdminController
     */
     public function listComponentAction($query, $page, $limit = null)
     {
-        $products = $this->service->searchProducts($query, $page, $limit);
+        $products = $this->service->searchProducts($query, $page, $limit);        
         return [
                 'query' => $query,
                 'paginator' => $products,

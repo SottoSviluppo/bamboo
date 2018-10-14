@@ -1,14 +1,10 @@
 services:
-
     elcodi_admin.admin_search:
         class: Elcodi\Admin\SearchBundle\Services\AdminSearchService
         arguments:
             - '@service_container'
             - '%elcodi.core.bamboo.cache_prefix%'
             - '%item_for_page%'
-            - '%customer_partial_search%'
-
-
     elcodi_admin.order.admin_search:
         class: Elcodi\Admin\SearchBundle\Services\AdminOrderSearchService
         arguments:
