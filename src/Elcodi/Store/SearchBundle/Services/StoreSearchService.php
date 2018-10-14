@@ -114,6 +114,7 @@ class StoreSearchService implements IStoreSearchService
 
         $enableQuery = new Term();
         $enableQuery->setTerm('enabled', true);
+        $enableQuery->setTerm('private', false);
         $boolQuery->addFilter($enableQuery);
 
         if (!empty($query)) {

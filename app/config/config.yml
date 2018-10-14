@@ -251,6 +251,7 @@ fos_elastica:
                         shortDescription: ~
                         description: ~
                         enabled: ~
+                        private: ~
                         price: 
                             type: "object"
                             properties:
