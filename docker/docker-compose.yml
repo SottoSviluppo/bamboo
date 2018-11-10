@@ -4,7 +4,7 @@ services:
     db:
         build: mysql5
         ports:
-            - 3306:3306
+            - 3307:3306
         volumes:
             - "./.data/db:/var/lib/mysql"
         environment:
@@ -54,15 +54,12 @@ services:
     #     volumes_from:
     #         - php
     #         - nginx
-    #     networks:
-    #         - net1
-    # selenium2:
-    #     image: selenium/standalone-firefox-debug:2.53.1
-    #     ports:
-    #         - 4444:4444
-    #         - 5900:5900
-    #     networks:
-    #         - net1
+    mailcatcher:
+        image: schickling/mailcatcher
+        ports:
+            - 1080:1080
+        networks:
+            - net1
 
 networks:
     net1:

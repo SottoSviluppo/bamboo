@@ -33,9 +33,9 @@ monolog:
 assetic:
     use_controller: %use_assetic_controller%
 
-swiftmailer:
-    disable_delivery: false
-    delivery_address: 'emanuela.davelli@sottosviluppo.com'
+# swiftmailer:
+#     disable_delivery: false
+#     delivery_address: 'emanuela.davelli@sottosviluppo.com'
 
 store_core:
     error_templates: false

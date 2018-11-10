@@ -10,8 +10,10 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libmcrypt-dev \
     libpng-dev \
+    libicu-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev 
+ 
  
 #   libjpeg-dev \
     
@@ -35,7 +37,7 @@ RUN printf "\n" | pecl install -o -f redis \
 &&  docker-php-ext-enable redis
 
 RUN echo "memory_limit = -1" >> /usr/local/etc/php/php.ini
-
+RUN echo "upload_max_filesize = 10M;" >> /usr/local/etc/php/php.ini
 
 # install xdebug
 RUN pecl install xdebug
@@ -51,5 +53,7 @@ RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-x
 
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
+
+RUN usermod -u 1000 www-data
 
 WORKDIR /var/www/symfony
