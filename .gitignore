@@ -20,7 +20,6 @@
 /vagrant/.vagrant
 /vagrant/Vagrantfile
 /.vscode/
-composer.lock
 composer_custom.json
 /scripts/updatePlugin.sh
 
