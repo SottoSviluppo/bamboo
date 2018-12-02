@@ -1,0 +1,29 @@
+<script type="text/javascript">
+        $('.checkout_button').on('click', function(event) {
+            checkout();
+        });
+
+        function checkout() 
+        {
+            var request = updateCart();
+            request.done(function( msg ) {
+                location = "{{ url('store_checkout_address') }}";
+            });
+        }
+
+        function updateCart()
+        {
+            var formData = $("form").serialize();
+            var request = $.ajax({
+                type: "POST",
+                url: '{{ path("store_cart_update")}}',
+                data: formData,
+                beforeSend: function () {
+                    //show loading image
+                },
+                error: function (e) {
+                }
+            });
+            return request;
+        }
+</script>
