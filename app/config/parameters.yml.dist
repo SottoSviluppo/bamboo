@@ -84,8 +84,12 @@ parameters:
         customerCategory: 'Customer Categories'
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 
+    #search
+    search_products_connector: and
+    search_products_with_variants: false
     product_partial_search: false
     category_partial_search: true
+
     # attivazione ricerca parziale sul Customer nell'amministrazione
     customer_partial_search: true
     # if set TRUE indicate that FreePayment is used to create an order

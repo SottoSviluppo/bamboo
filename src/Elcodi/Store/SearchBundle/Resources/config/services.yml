@@ -10,3 +10,5 @@ services:
             - '%category_default_connector%'
             - '%product_partial_search%'
             - '%category_partial_search%'
+            - '%search_products_connector%'
+            - '%search_products_with_variants%'
