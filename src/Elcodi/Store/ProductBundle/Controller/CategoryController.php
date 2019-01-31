@@ -36,254 +36,247 @@ use Symfony\Component\HttpFoundation\Response;
  *      path = ""
  * )
  */
-class CategoryController extends Controller
-{
-    use TemplateRenderTrait;
+class CategoryController extends Controller {
+	use TemplateRenderTrait;
 
-    /**
-     * Renders the category nav component
-     *
-     * @return Response Response
-     *
-     * @Route(
-     *      path = "/categories/nav",
-     *      name = "store_categories_nav",
-     *      methods = {"GET"}
-     * )
-     */
-    public function navAction()
-    {
-        $masterRequest = $this
-            ->get('request_stack')
-            ->getMasterRequest();
+	/**
+	 * Renders the category nav component
+	 *
+	 * @return Response Response
+	 *
+	 * @Route(
+	 *      path = "/categories/nav",
+	 *      name = "store_categories_nav",
+	 *      methods = {"GET"}
+	 * )
+	 */
+	public function navAction() {
+		$masterRequest = $this
+			->get('request_stack')
+			->getMasterRequest();
 
-        $currentCategory = $this->getCurrentCategoryGivenRequest($masterRequest);
+		$currentCategory = $this->getCurrentCategoryGivenRequest($masterRequest);
 
-        $categoryTree = $this
-            ->get('elcodi_store.store_category_tree')
-            ->load();
+		$categoryTree = $this
+			->get('elcodi_store.store_category_tree')
+			->load();
 
-        return $this->renderTemplate(
-            'Subpages:category-nav.html.twig',
-            [
-                'currentCategory' => $currentCategory,
-                'categoryTree' => $categoryTree,
-            ]
-        );
-    }
+		return $this->renderTemplate(
+			'Subpages:category-nav.html.twig',
+			[
+				'currentCategory' => $currentCategory,
+				'categoryTree' => $categoryTree,
+			]
+		);
+	}
 
-    /**
-     * Render all category purchasables
-     *
-     * @param CategoryInterface $category Category
-     *
-     * @return Response Response
-     *
-     * @Route(
-     *      path = "category/{slug}/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
-     *      name = "store_category_purchasables_list",
-     *      requirements = {
-     *          "slug" = "[a-zA-Z0-9-]+",
-     *          "id" = "\d+",
-     *          "page" = "\d*",
-     *          "limit" = "\d*",
-     *      },
-     *      defaults = {
-     *          "page" = "1",
-     *          "limit" = "10",
-     *          "orderByField" = "id",
-     *          "orderByDirection" = "DESC",
-     *      },
-     *      methods = {"GET"}
-     * )
-     *
-     * @AnnotationEntity(
-     *      class = "elcodi.entity.category.class",
-     *      name = "category",
-     *      mapping = {
-     *          "id" = "~id~",
-     *          "enabled" = true,
-     *      }
-     * )
-     */
-    public function viewAction(CategoryInterface $category, $slug, $id, $page, $limit, $orderByField, $orderByDirection, Request $request)
-    {
-        //item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la variabile $limit con un valore diverso dal default = 10
-        if ($this->container->hasParameter('item_for_page')) {
-            $limit = $this->getParameter('item_for_page');
-        }
+	/**
+	 * Render all category purchasables
+	 *
+	 * @param CategoryInterface $category Category
+	 *
+	 * @return Response Response
+	 *
+	 * @Route(
+	 *      path = "category/{slug}/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "store_category_purchasables_list",
+	 *      requirements = {
+	 *          "slug" = "[a-zA-Z0-9-]+",
+	 *          "id" = "\d+",
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 *
+	 * @AnnotationEntity(
+	 *      class = "elcodi.entity.category.class",
+	 *      name = "category",
+	 *      mapping = {
+	 *          "id" = "~id~",
+	 *          "enabled" = true,
+	 *      }
+	 * )
+	 */
+	public function viewAction(CategoryInterface $category, $slug, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
+		//item_for_page parametro di configurazione, indica il numero di elementi per pagina, se settato imposta la variabile $limit con un valore diverso dal default = 10
+		if ($this->container->hasParameter('item_for_page')) {
+			$limit = $this->getParameter('item_for_page');
+		}
 
-        /**
-         * We must check that the product slug is right. Otherwise we must
-         * return a Redirection 301 to the right url
-         */
-        if ($slug !== $category->getSlug()) {
-            return $this->redirectToRoute('store_category_purchasables_list', [
-                'id' => $category->getId(),
-                'slug' => $category->getSlug(),
-            ], 301);
-        }
+		/**
+		 * We must check that the product slug is right. Otherwise we must
+		 * return a Redirection 301 to the right url
+		 */
+		if ($slug !== $category->getSlug()) {
+			return $this->redirectToRoute('store_category_purchasables_list', [
+				'id' => $category->getId(),
+				'slug' => $category->getSlug(),
+			], 301);
+		}
 
-        if ($category->getSubCategories()->count() > 0) {
-            return $this->redirectToRoute('store_subcategories_list', array('id' => $category->getId()));
-        }
+		if ($category->getSubCategories()->count() > 0) {
+			return $this->redirectToRoute('store_subcategories_list', array('id' => $category->getId()));
+		}
 
-        /**
-         * @var CategoryRepository $categoryRepository
-         * @var PurchasableRepository $purchasableRepository
-         */
-        $categoryRepository = $this->get('elcodi.repository.category');
-        $purchasableRepository = $this->get('elcodi.repository.purchasable');
+		/**
+		 * @var CategoryRepository $categoryRepository
+		 * @var PurchasableRepository $purchasableRepository
+		 */
+		$categoryRepository = $this->get('elcodi.repository.category');
+		$purchasableRepository = $this->get('elcodi.repository.purchasable');
 
-        $categories = array_merge(
-            [$category],
-            $categoryRepository->getChildrenCategories($category)
-        );
+		$categories = array_merge(
+			[$category],
+			$categoryRepository->getChildrenCategories($category)
+		);
 
-        $purchasablesQuery = $purchasableRepository->getAllFromCategories($categories, $orderByField, $orderByDirection);
-        $paginator = new Paginator($purchasablesQuery);
+		$purchasablesQuery = $purchasableRepository->getAllFromCategories($categories, $orderByField, $orderByDirection);
+		$paginator = new Paginator($purchasablesQuery);
 
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($request->get('page') - 1)) // Offset
-            ->setMaxResults($limit); // Limit
+		$paginator->getQuery()
+			->setFirstResult($limit * ($request->get('page') - 1)) // Offset
+			->setMaxResults($limit); // Limit
 
-        $maxPages = ceil($paginator->count() / $limit);
+		$maxPages = ceil($paginator->count() / $limit);
 
-        return $this->renderTemplate(
-            'Pages:category-view.html.twig',
-            [
-                'category' => $category,
-                'purchasables' => $paginator,
-                'currentPage' => $request->get('page'),
-                'limit' => $limit,
-                'totalPages' => $maxPages,
-            ]
-        );
-    }
+		return $this->renderTemplate(
+			'Pages:category-view.html.twig',
+			[
+				'category' => $category,
+				'purchasables' => $paginator,
+				'currentPage' => $request->get('page'),
+				'limit' => $limit,
+				'totalPages' => $maxPages,
+			]
+		);
+	}
 
-    /**
-     * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
-     * @Route(
-     *      path = "categories/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
-     *      name = "store_subcategories_list",
-     *      requirements = {
-     *          "page" = "\d*",
-     *          "limit" = "\d*",
-     *      },
-     *      defaults = {
-     *          "page" = "1",
-     *          "limit" = "10",
-     *          "orderByField" = "id",
-     *          "orderByDirection" = "DESC",
-     *      },
-     *      methods = {"GET"}
-     * )
-     * @AnnotationEntity(
-     *      class = "elcodi.entity.category.class",
-     *      name = "category",
-     *      mapping = {
-     *          "id" = "~id~",
-     *          "enabled" = true,
-     *      }
-     * )
-     */
-    public function subcategoriesView(CategoryInterface $category, $id, $page, $limit, $orderByField, $orderByDirection, Request $request)
-    {
-        $categoryRepository = $this->get('elcodi.repository.category');
-        return $this->renderTemplate(
-            'Pages:subcategories-view.html.twig',
-            [
-                'category' => $category,
-                'subCategories' => $categoryRepository->getChildrenCategoriesOrderByPosition($category)
-            ]
-        );
+	/**
+	 * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
+	 * @Route(
+	 *      path = "categories/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "store_subcategories_list",
+	 *      requirements = {
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 * @AnnotationEntity(
+	 *      class = "elcodi.entity.category.class",
+	 *      name = "category",
+	 *      mapping = {
+	 *          "id" = "~id~",
+	 *          "enabled" = true,
+	 *      }
+	 * )
+	 */
+	public function subcategoriesView(CategoryInterface $category, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
+		$categoryRepository = $this->get('elcodi.repository.category');
+		return $this->renderTemplate(
+			'Pages:subcategories-view.html.twig',
+			[
+				'category' => $category,
+				'subCategories' => $categoryRepository->getChildrenCategoriesOrderByPosition($category),
+			]
+		);
 
-    }
+	}
 
-    /**
-     * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
-     * @Route(
-     *      path = "categories/{page}/{limit}/{orderByField}/{orderByDirection}",
-     *      name = "store_all_root_categores",
-     *      requirements = {
-     *          "page" = "\d*",
-     *          "limit" = "\d*",
-     *      },
-     *      defaults = {
-     *          "page" = "1",
-     *          "limit" = "10",
-     *          "orderByField" = "id",
-     *          "orderByDirection" = "DESC",
-     *      },
-     *      methods = {"GET"}
-     * )
+	/**
+	 * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
+	 * @Route(
+	 *      path = "categories/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "store_all_root_categores",
+	 *      requirements = {
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "10",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
 
-     */
-    public function getAllRootCategoriesAction($page, $limit, $orderByField, $orderByDirection, Request $request)
-    {
-        $categoryRepository = $this->get('elcodi.repository.category');
-        $categories = $categoryRepository->findBy(array('root' => true, 'enabled' => true));
-        return $this->renderTemplate(
-            'Pages:all-categories-view.html.twig',
-            [
-                'categories' => $categories,
+	 */
+	public function getAllRootCategoriesAction($page, $limit, $orderByField, $orderByDirection, Request $request) {
+		$categoryRepository = $this->get('elcodi.repository.category');
+		$categories = $categoryRepository->findBy(array('root' => true, 'enabled' => true));
+		return $this->renderTemplate(
+			'Pages:all-categories-view.html.twig',
+			[
+				'categories' => $categories,
 
-            ]
-        );
+			]
+		);
 
-    }
+	}
 
-    /**
-     * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
-     * @Route(
-     *      path = "homecategories/",
-     *      name = "store_homepage_categories",
-     *      methods = {"GET"}
-     * )
+	/**
+	 * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
+	 * @Route(
+	 *      path = "homecategories/",
+	 *      name = "store_homepage_categories",
+	 *      methods = {"GET"}
+	 * )
 
-     */
-    public function shoInHomeCategoriesAction(Request $request)
-    {
-        $categoryRepository = $this->get('elcodi.repository.category');
-        $categories = $categoryRepository->findBy(array('showInHome' => true, 'enabled' => true));
-        return $this->renderTemplate(
-            'Modules:_categories-homepage.html.twig',
-            [
-                'categories' => $categories,
+	 */
+	public function shoInHomeCategoriesAction(Request $request) {
+		$categoryRepository = $this->get('elcodi.repository.category');
+		$categories = $categoryRepository->findBy(array('showInHome' => true, 'enabled' => true));
+		return $this->renderTemplate(
+			'Modules:_categories-homepage.html.twig',
+			[
+				'categories' => $categories,
 
-            ]
-        );
+			]
+		);
 
-    }
+	}
 
-    /**
-     * Given a request, return the current highlight-able category
-     *
-     * @param Request $request Request
-     *
-     * @return CategoryInterface|null
-     */
-    protected function getCurrentCategoryGivenRequest(Request $request)
-    {
-        $masterRoute = $request->get('_route');
-        $category = null;
+	/**
+	 * Given a request, return the current highlight-able category
+	 *
+	 * @param Request $request Request
+	 *
+	 * @return CategoryInterface|null
+	 */
+	protected function getCurrentCategoryGivenRequest(Request $request) {
+		$masterRoute = $request->get('_route');
+		$category = null;
 
-        /**
-         * @var CategoryInterface $category
-         * @var PurchasableInterface $purchasable
-         */
-        if ($masterRoute === 'store_purchasable_view') {
-            $purchasableId = $request->get('id');
-            $productRepository = $this->get('elcodi.repository.purchasable');
+		/**
+		 * @var CategoryInterface $category
+		 * @var PurchasableInterface $purchasable
+		 */
+		if ($masterRoute === 'store_purchasable_view') {
+			$purchasableId = $request->get('id');
+			$productRepository = $this->get('elcodi.repository.purchasable');
 
-            $purchasable = $productRepository->find($purchasableId);
-            $category = $purchasable->getPrincipalCategory();
-        } elseif ($masterRoute === 'store_category_purchasables_list') {
-            $categoryId = $request->get('id');
-            $categoryRepository = $this->get('elcodi.repository.category');
-            $category = $categoryRepository->find($categoryId);
-        }
+			$purchasable = $productRepository->find($purchasableId);
+			$category = $purchasable->getPrincipalCategory();
+		} elseif ($masterRoute === 'store_category_purchasables_list' || $masterRoute === 'store_subcategories_list') {
+			$categoryId = $request->get('id');
+			$categoryRepository = $this->get('elcodi.repository.category');
+			$category = $categoryRepository->find($categoryId);
+		}
 
-        return $category;
-    }
+		return $category;
+	}
 }
