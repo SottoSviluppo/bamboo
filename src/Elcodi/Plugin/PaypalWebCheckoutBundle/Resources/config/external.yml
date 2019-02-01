@@ -1,4 +1,5 @@
 paypal_web_checkout:
+    debug: true
     business: default
     payment_success:
         route: store_order_thanks

@@ -24,37 +24,35 @@ use PaymentSuite\PaymentCoreBundle\Event\PaymentOrderSuccessEvent;
 /**
  * Class SendOrderConfirmationEmailEventListener
  */
-class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventListener
-{
+class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventListener {
 
-    /**
-     * Send email
-     *
-     * @param OrderOnCreatedEvent $event Event
-     */
-    public function sendOrderConfirmationEmail(PaymentOrderSuccessEvent $event)
-    {
-        $paymentBridge = $event->getPaymentBridge();
-        $order = $paymentBridge->getOrder();
-        $customer = $order->getCustomer();
+	/**
+	 * Send email
+	 *
+	 * @param OrderOnCreatedEvent $event Event
+	 */
+	public function sendOrderConfirmationEmail(PaymentOrderSuccessEvent $event) {
+		$paymentBridge = $event->getPaymentBridge();
+		$order = $paymentBridge->getOrder();
+		$customer = $order->getCustomer();
 
-        $re = '/[a-zA-Z0-9!#$%&\'*+\=?^_`{|}~\-.]*@([a-zA-Z0-9]*)\.[a-zA-Z0-9]*/';
+		$re = '/[a-zA-Z0-9!#$%&\'*+\=?^_`{|}~\-.]*@([\w0-9-]*)\.[a-zA-Z0-9]*/';
 
-        preg_match_all($re, $customer->getEmail(), $matches, PREG_SET_ORDER, 0);
+		preg_match_all($re, $customer->getEmail(), $matches, PREG_SET_ORDER, 0);
 
-        if (!empty($matches)) {
-            $this->sendEmail(
-                'order_confirmation',
-                [
-                    'order' => $order,
-                    'customer' => $customer,
-                ],
-                $customer->getEmail(), true
-            );
-        } else {
-            $this->logger->warning('Customer con email no valida: ' . $customer->getEmail());
-            return;
-        }
-    }
+		if (!empty($matches)) {
+			$this->sendEmail(
+				'order_confirmation',
+				[
+					'order' => $order,
+					'customer' => $customer,
+				],
+				$customer->getEmail(), true
+			);
+		} else {
+			$this->logger->warning('Customer con email no valida: ' . $customer->getEmail());
+			return;
+		}
+	}
 
 }
