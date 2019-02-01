@@ -54,6 +54,7 @@
 
 {% block table_body_row %}
 
+    {% if entity.purchasableType == 'product' %}
     <td data-test="product-{{ entity.id }}">
         {% if entity.images|length > 0 %}
             <a href="{{ path('admin_product_edit', { id: entity.id }) }}" class="thumbnail">
@@ -66,8 +67,8 @@
             <strong>{{ entity.name }}</strong>
         </a>
 
-        {% set path = path('store_product_view', { id: entity.id, slug: entity.slug }) %}
-        {% set relativePath = path('store_product_view', { id: entity.id, slug: entity.slug }) %}
+            {% set path = path('store_product_view', { id: entity.id, slug: entity.slug }) %}
+            {% set relativePath = path('store_product_view', { id: entity.id, slug: entity.slug }) %}
         <p class="fz-s">
             <a target="_blank" href="{{ path }}">{{ relativePath }}</a>
         </p>
@@ -128,7 +129,7 @@
         entity: entity,
         class: 'product',
     } %}
-
+{% endif %}
 {% endblock table_body_row %}
 
 
