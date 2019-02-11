@@ -76,7 +76,7 @@ per evitare errori in rotta
         {{ elcodi_hook("store.head_bottom") }}
     </head>
 
-    <body {% block body_id "" %} {% block body_class "" %}>
+    <body {% block body_id "" %} {% block body_class "" %} {% block body_data %}{% endblock body_data %}>
         {{ elcodi_hook("store.body_top") }}
 
         <!--[if lt IE 8]>
