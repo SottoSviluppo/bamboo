@@ -52,6 +52,7 @@
 
 
 {% block table_body_row %}
+    {% if entity.purchasableType == 'product' %}
 
     <td data-test="product-{{ entity.id }}">
         {% if entity.images|length > 0 %}
@@ -127,7 +128,7 @@
         entity: entity,
         class: 'product',
     } %}
-
+{% endif %}
 {% endblock table_body_row %}
 
 
