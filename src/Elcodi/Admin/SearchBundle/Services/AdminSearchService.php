@@ -3,6 +3,7 @@
 namespace Elcodi\Admin\SearchBundle\Services;
 
 use DateTime;
+use Elastica\Query;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Match;
 use Elastica\Query\MultiMatch;
@@ -17,20 +18,24 @@ use Elcodi\Admin\SearchBundle\Services\IAdminSearchService;
  * Defines all the search methods
  */
 class AdminSearchService implements IAdminSearchService {
-        protected $container;
+	protected $container;
 	protected $prefix;
 	protected $itemsPerPage;
 	protected $paginator;
 
 	protected $limit;
+	private $searchProductsConnector;
+	private $searchProductsWithVariants;
 
-	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage) {
+	public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container, $prefix, $itemsPerPage, $searchProductsConnector, $searchProductsWithVariants) {
 		$this->container = $container;
 		$this->prefix = $prefix;
 		$this->itemsPerPage = $itemsPerPage;
 		$this->limit = $this->itemsPerPage;
 
 		$this->paginator = $this->container->get('knp_paginator');
+		$this->searchProductsConnector = $searchProductsConnector;
+		$this->searchProductsWithVariants = $searchProductsWithVariants;
 	}
 
 	public function searchProducts($query, $page = 1, $limit = null) {
@@ -41,8 +46,11 @@ class AdminSearchService implements IAdminSearchService {
 		}
 		$this->limit = $limit;
 
-		$adapter = $finder->createPaginatorAdapter('*' . $query . '*');
+		$productQuery = $this->createQueryForProducts($query);
+
+		$adapter = $finder->createPaginatorAdapter($productQuery);
 		return $this->paginator->paginate($adapter, $page, $limit);
+
 	}
 
 	public function searchOrders($query, $page = 1, $limit = null, array $dateRange = array()) {
@@ -57,14 +65,13 @@ class AdminSearchService implements IAdminSearchService {
 
 		$adapter = $finder->createPaginatorAdapter($orderQuery);
 
-		//$adapter = $finder->createPaginatorAdapter('*'.$query.'*');
 		return $this->paginator->paginate($adapter, $page, $limit);
 	}
 
 	public function searchCustomers($query, $page = 1, $limit = null) {
 		$finder = $this->createFinderFor('customers');
 
-                if (empty($limit)) {
+		if (empty($limit)) {
 			$limit = $this->itemsPerPage;
 		}
 		$this->limit = $limit;
@@ -116,7 +123,7 @@ class AdminSearchService implements IAdminSearchService {
 	}
 
 	protected function createFinderFor($type) {
-            return $this->container->get('fos_elastica.finder.app.' . $type);
+		return $this->container->get('fos_elastica.finder.app.' . $type);
 	}
 
 	private function createQueryForOrder($query, array $dateRange = array()) {
@@ -195,15 +202,7 @@ class AdminSearchService implements IAdminSearchService {
 	private function createWildcardQuery($query) {
 		$wildcardBool = new BoolQuery();
 
-		// if (strpos($query, '@') !== false) {
 		$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
-		// }
-		//        else {
-		// 	$wildcardBool->addShould(new Wildcard('email', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('firstName', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('lastName', '*' . $query . '*'));
-		// 	$wildcardBool->addShould(new Wildcard('companyName', '*' . $query . '*'));
-		// }
 
 		return $wildcardBool;
 	}
@@ -214,5 +213,47 @@ class AdminSearchService implements IAdminSearchService {
 		$queryString->addShould(new QueryString($query));
 
 		return $queryString;
+	}
+
+	protected function createQueryForProducts($query) {
+		$boolQuery = new BoolQuery();
+
+		if (!empty($query)) {
+			$query = trim($query);
+			$baseQuery = new BoolQuery();
+
+			$productsQuery = $this->setQueryForProducts($query);
+			$baseQuery->addShould($productsQuery);
+
+			if ($this->searchProductsWithVariants) {
+				$variantsQuery = $this->setNestedQueriesForVariants($query);
+				$baseQuery->addShould($variantsQuery);
+			}
+			$boolQuery->addMust($baseQuery);
+		}
+
+		$finalQuery = new Query($boolQuery);
+
+		return $finalQuery;
+	}
+
+	protected function setQueryForProducts($query) {
+		$totalProductsQuery = new BoolQuery();
+		$tokens = explode(' ', $query);
+		foreach ($tokens as $token) {
+			$token = trim($token);
+
+			$productsQuery = new MultiMatch();
+			$productsQuery->setQuery($token);
+			$productsQuery->setFields([
+				'name', 'shortDescription', 'description', 'sku',
+			]);
+			if ($this->searchProductsConnector == 'or') {
+				$totalProductsQuery->addShould($productsQuery);
+			} else {
+				$totalProductsQuery->addMust($productsQuery);
+			}
+		}
+		return $totalProductsQuery;
 	}
 }
