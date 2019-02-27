@@ -118,10 +118,12 @@ class StoreSearchService implements IStoreSearchService {
 			$baseQuery = new BoolQuery();
 
 			if ($this->productPartialSearch) {
-				$productsQuery = $this->setQueryForPartialProducts($query);
-			} else {
-				$productsQuery = $this->setQueryForProducts($query);
+				$productsPartialQuery = $this->setQueryForPartialProducts($query);
+				$baseQuery->addShould($productsPartialQuery);
 			}
+			//else {
+			$productsQuery = $this->setQueryForProducts($query);
+			//}
 			$baseQuery->addShould($productsQuery);
 
 			if ($this->searchProductsWithVariants) {
