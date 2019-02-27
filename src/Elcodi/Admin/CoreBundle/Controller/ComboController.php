@@ -167,6 +167,7 @@ class ComboController extends Controller
                 continue;
             }
             $qb->orWhere('l.name LIKE :search' . $count);
+            $qb->orWhere('l.sku LIKE :search' . $count);
             $qb->setParameter('search' . $count, '%' . $keywordToUse . '%');
             ++$count;
         }
