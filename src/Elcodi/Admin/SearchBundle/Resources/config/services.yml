@@ -5,6 +5,8 @@ services:
             - '@service_container'
             - '%elcodi.core.bamboo.cache_prefix%'
             - '%item_for_page%'
+            - '%search_products_connector%'
+            - '%search_products_with_variants%'
     elcodi_admin.order.admin_search:
         class: Elcodi\Admin\SearchBundle\Services\AdminOrderSearchService
         arguments:

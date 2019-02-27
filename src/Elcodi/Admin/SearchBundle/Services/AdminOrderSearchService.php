@@ -75,8 +75,10 @@ class AdminOrderSearchService
     {
         $finder = $this->createFinderFor('orders');
         $adapter = $finder->createPaginatorAdapter($this->orderQuery);
+
         if (empty($limit)) {
-            $limit = $this->itemsPerPage;
+            //$limit = $this->itemsPerPage;
+            $limit = $this->limit;
         }
         $this->limit = $limit;
 
