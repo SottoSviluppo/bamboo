@@ -248,7 +248,6 @@ fos_elastica:
                             type: integer
                         sku: 
                             type: "string"
-                            index: "not_analyzed"
                         name: ~
                         shortDescription: ~
                         description: ~

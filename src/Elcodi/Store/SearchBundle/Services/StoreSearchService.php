@@ -69,9 +69,9 @@ class StoreSearchService implements IStoreSearchService {
 	}
 
 	public function searchProducts($query, $page = 1, $limit = null, array $categories = array(), array $priceRange = array(), $categoryConnector = null) {
-		if ($query == '') {
-			$query = '_';
-		}
+		/*if ($query == '') {
+			$query = '';
+		}*/
 
 		if (empty($limit)) {
 			$limit = $this->itemsPerPage;
@@ -85,6 +85,10 @@ class StoreSearchService implements IStoreSearchService {
 
 		$productQuery = $this->createQueryForProducts($query, $categories, $priceRange, $categoryConnector);
 
+		//Per vedere la query che esegue ELASTICSEARCH decommenta sotto.
+		//$json=json_encode($productQuery->toArray());
+		//echo $json;
+
 		$adapter = $finder->createPaginatorAdapter($productQuery);
 		return $this->paginator->paginate($adapter, $page, $limit);
 	}
@@ -94,6 +98,7 @@ class StoreSearchService implements IStoreSearchService {
 	}
 
 	protected function createQueryForProducts($query, array $categories = array(), array $priceRange = array(), $categoryConnector) {
+		$query = strtolower($query);
 		$boolQuery = $this->getBoolQueryForProducts($query, $categories, $priceRange, $categoryConnector);
 
 		// ordina i risultati della ricerca per principalCategory e per id del prodotto
@@ -102,6 +107,7 @@ class StoreSearchService implements IStoreSearchService {
 		if (empty($query) and !empty($categories)) {
 			$finalQuery->setSort($this->sortArray);
 		}
+
 		return $finalQuery;
 	}
 
@@ -110,8 +116,11 @@ class StoreSearchService implements IStoreSearchService {
 
 		$enableQuery = new Term();
 		$enableQuery->setTerm('enabled', true);
-		$enableQuery->setTerm('private', false);
 		$boolQuery->addFilter($enableQuery);
+
+		$privateQuery = new Term();
+		$privateQuery->setTerm('private', false);
+		$boolQuery->addFilter($privateQuery);
 
 		if (!empty($query)) {
 			$query = trim($query);
@@ -140,6 +149,7 @@ class StoreSearchService implements IStoreSearchService {
 		if (!empty($priceRange)) {
 			$this->setPriceRangeQuery($boolQuery, $priceRange);
 		}
+
 		return $boolQuery;
 	}
 
@@ -168,7 +178,6 @@ class StoreSearchService implements IStoreSearchService {
 	 * @param string $query stringa da cercare
 	 */
 	protected function setQueryForPartialProducts($query) {
-		$query = strtolower($query);
 		$wildcardBool = new BoolQuery();
 
 		$wildcardBool->addShould(new Wildcard('name', '*' . $query . '*'));
