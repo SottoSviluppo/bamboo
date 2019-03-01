@@ -130,9 +130,8 @@ class StoreSearchService implements IStoreSearchService {
 				$productsPartialQuery = $this->setQueryForPartialProducts($query);
 				$baseQuery->addShould($productsPartialQuery);
 			}
-			//else {
+
 			$productsQuery = $this->setQueryForProducts($query);
-			//}
 			$baseQuery->addShould($productsQuery);
 
 			if ($this->searchProductsWithVariants) {

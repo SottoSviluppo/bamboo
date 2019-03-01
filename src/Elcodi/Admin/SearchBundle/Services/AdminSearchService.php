@@ -48,6 +48,9 @@ class AdminSearchService implements IAdminSearchService {
 
 		$productQuery = $this->createQueryForProducts($query);
 
+		//Per vedere la query che esegue ELASTICSEARCH decommenta sotto.
+		// $json = json_encode($productQuery->toArray());
+		// echo $json;
 		$adapter = $finder->createPaginatorAdapter($productQuery);
 		return $this->paginator->paginate($adapter, $page, $limit);
 
@@ -222,6 +225,9 @@ class AdminSearchService implements IAdminSearchService {
 			$query = trim($query);
 			$baseQuery = new BoolQuery();
 
+			$productsPartialQuery = $this->setQueryForPartialProducts($query);
+			$baseQuery->addShould($productsPartialQuery);
+
 			$productsQuery = $this->setQueryForProducts($query);
 			$baseQuery->addShould($productsQuery);
 
@@ -235,6 +241,21 @@ class AdminSearchService implements IAdminSearchService {
 		$finalQuery = new Query($boolQuery);
 
 		return $finalQuery;
+	}
+
+	/**
+	 * Query per la ricerca parziale dei prodotti, cercado in name shortDescription, description, sku
+	 * @param string $query stringa da cercare
+	 */
+	protected function setQueryForPartialProducts($query) {
+		$wildcardBool = new BoolQuery();
+
+		$wildcardBool->addShould(new Wildcard('name', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('shortDescription', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('description', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('sku', '*' . $query . '*'));
+
+		return $wildcardBool;
 	}
 
 	protected function setQueryForProducts($query) {
