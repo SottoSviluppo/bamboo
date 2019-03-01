@@ -223,6 +223,7 @@ class AdminSearchService implements IAdminSearchService {
 
 		if (!empty($query)) {
 			$query = trim($query);
+			$query = strtolower($query);
 			$baseQuery = new BoolQuery();
 
 			$productsPartialQuery = $this->setQueryForPartialProducts($query);
