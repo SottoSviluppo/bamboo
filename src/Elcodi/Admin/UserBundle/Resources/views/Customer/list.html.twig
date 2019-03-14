@@ -15,7 +15,14 @@
     } %}
 
 {% endblock breadcrumb %}
+{% block header_actions %}
 
+    <a href="{{ path('admin_customer_new') }}" type="button" class="button-primary" data-test="new-customer">
+        <i class="icon-plus"></i>
+        <span>{{ 'admin.customer.new'|trans }}</span>
+    </a>
+
+{% endblock header_actions %}
 
 {% block content %}
 

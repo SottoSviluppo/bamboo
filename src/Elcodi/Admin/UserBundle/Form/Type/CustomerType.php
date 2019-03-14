@@ -88,6 +88,16 @@ class CustomerType extends AbstractType {
 			->add('email', 'email', [
 				'required' => true,
 			])
+			->add('password', 'repeated', [
+                'type'           => 'password',
+                'first_options'  => [
+                    'label' => 'store.user.form.fields.password.label',
+                ],
+                'second_options' => [
+                    'label' => 'store.user.form.fields.repeat_password.label',
+                ],
+                'required'       => true,
+            ])
 			->add('firstname', 'text', [
 				'required' => true,
 			])

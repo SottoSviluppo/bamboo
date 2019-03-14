@@ -159,7 +159,6 @@ class CustomerController extends AbstractAdminController
         CustomerInterface $customer,
         $isValid
     ) {
-
         if ($customer->getId()) {
             if (!$this->canUpdate()) {
                 $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
@@ -170,6 +169,9 @@ class CustomerController extends AbstractAdminController
                 $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
                 return $this->redirect($this->generateUrl('admin_homepage'));
             }
+            
+            $pwEncoder=$this->get('elcodi.provider.customer_provider');
+            $customer->setPassword($pwEncoder->encodePassword($customer->getPassword(), $customer->getSalt()));
         }
         if ($form->getErrorsAsString() == "") {
             if ($isValid) {
