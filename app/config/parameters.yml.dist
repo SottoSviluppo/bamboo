@@ -96,6 +96,8 @@ parameters:
     create_order_with_freepayment: false
     assetsbaseurl: 'http://10.10.10.10'
     #ordine minino di acquisto
-    minimum_order_import: 5000
+    minimum_order_import: 0
     # limite di prodotti correlati visibili
     limit_related_products: 3
+    # mittente email di notifica
+    sender_email_notification: no-reply@store.com

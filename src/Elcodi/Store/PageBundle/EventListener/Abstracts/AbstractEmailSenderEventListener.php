@@ -28,108 +28,113 @@ use Twig_Environment;
 /**
  * Class AbstractEmailSenderEventListener
  */
-abstract class AbstractEmailSenderEventListener
-{
-    /**
-     * @var Swift_Mailer
-     *
-     * Mailer
-     */
-    protected $mailer;
+abstract class AbstractEmailSenderEventListener {
+	/**
+	 * @var Swift_Mailer
+	 *
+	 * Mailer
+	 */
+	protected $mailer;
 
-    /**
-     * @var Twig_Environment
-     *
-     * Twig
-     */
-    protected $twig;
+	/**
+	 * @var Twig_Environment
+	 *
+	 * Twig
+	 */
+	protected $twig;
 
-    /**
-     * @var PageRepository
-     *
-     * Page repository
-     */
-    protected $pageRepository;
+	/**
+	 * @var PageRepository
+	 *
+	 * Page repository
+	 */
+	protected $pageRepository;
 
-    /**
-     * @var StoreInterface
-     *
-     * Store
-     */
-    protected $store;
+	/**
+	 * @var StoreInterface
+	 *
+	 * Store
+	 */
+	protected $store;
 
-    /**
-     * @var Logger
-     */
-    protected $logger;
+	/**
+	 * @var Logger
+	 */
+	protected $logger;
 
-    /**
-     * Construct
-     *
-     * @param Swift_Mailer     $mailer          Mailer
-     * @param Twig_Environment $twig            Twig
-     * @param PageRepository   $pageRepository  Page repository
-     * @param TemplateLocator  $templateLocator A template locator
-     * @param StoreInterface   $store           Store
-     */
-    public function __construct(
-        Swift_Mailer $mailer,
-        Twig_Environment $twig,
-        PageRepository $pageRepository,
-        StoreInterface $store,
-        TemplateLocator $templateLocator,
-        Logger $logger
-    ) {
-        $this->mailer = $mailer;
-        $this->twig = $twig;
-        $this->pageRepository = $pageRepository;
-        $this->store = $store;
-        $this->templateLocator = $templateLocator;
-        $this->logger = $logger;
-    }
+	/**
+	 * Construct
+	 *
+	 * @param Swift_Mailer     $mailer          Mailer
+	 * @param Twig_Environment $twig            Twig
+	 * @param PageRepository   $pageRepository  Page repository
+	 * @param TemplateLocator  $templateLocator A template locator
+	 * @param StoreInterface   $store           Store
+	 */
+	public function __construct(
+		Swift_Mailer $mailer,
+		Twig_Environment $twig,
+		PageRepository $pageRepository,
+		StoreInterface $store,
+		TemplateLocator $templateLocator,
+		Logger $logger
+	) {
+		$this->mailer = $mailer;
+		$this->twig = $twig;
+		$this->pageRepository = $pageRepository;
+		$this->store = $store;
+		$this->templateLocator = $templateLocator;
+		$this->logger = $logger;
+	}
 
-    /**
-     * Send email
-     *
-     * @param string $emailName     Email name
-     * @param array  $context       Context
-     * @param string $receiverEmail Receiver email
-     */
-    protected function sendEmail($emailName, array $context, $receiverEmail, $bcc = false)
-    {
-        $page = $this
-            ->pageRepository
-            ->findOneBy([
-                'name' => $emailName,
-            ]);
+	/**
+	 * Send email
+	 *
+	 * @param string $emailName     Email name
+	 * @param array  $context       Context
+	 * @param string $receiverEmail Receiver email
+	 */
+	protected function sendEmail($emailName, array $context, $receiverEmail, $bcc = false, $senderEmail = null) {
+		$page = $this
+			->pageRepository
+			->findOneBy([
+				'name' => $emailName,
+			]);
 
-        if ($page instanceof PageInterface) {
-            $template = $this
-                ->templateLocator
-                ->locate(':email.html.twig');
+		if ($page instanceof PageInterface) {
+			$template = $this
+				->templateLocator
+				->locate(':email.html.twig');
 
-            $resolvedPage = $this
-                ->twig
-                ->render($template, array_merge([
-                    'title' => $page->getTitle(),
-                    'content' => $page->getContent(),
-                ], $context));
+			$resolvedPage = $this
+				->twig
+				->render($template, array_merge([
+					'title' => $page->getTitle(),
+					'content' => $page->getContent(),
+				], $context));
 
-            $message = $this
-                ->mailer
-                ->createMessage()
-                ->setSubject($page->getTitle())
-                ->setFrom($this->store->getEmail())
-                ->setTo($receiverEmail)
-                ->setBody($resolvedPage, 'text/html');
+			$message = $this
+				->mailer
+				->createMessage()
+				->setSubject($page->getTitle());
 
-            if ($bcc) {
-                $message->setBcc($this->store->getEmail());
-            }
+			//customize sender email
+			if ($senderEmail) {
+				$message->setFrom($senderEmail);
+			} else {
+				$message->setFrom($this->store->getEmail());
+			}
 
-            $this
-                ->mailer
-                ->send($message);
-        }
-    }
+			$message->setTo($receiverEmail)
+				->setBody($resolvedPage, 'text/html');
+
+			if ($bcc) {
+				$message->setBcc($this->store->getEmail());
+			}
+
+			$this
+				->mailer
+				->send($message);
+		}
+	}
 }

@@ -69,9 +69,6 @@ class StoreSearchService implements IStoreSearchService {
 	}
 
 	public function searchProducts($query, $page = 1, $limit = null, array $categories = array(), array $priceRange = array(), $categoryConnector = null) {
-		/*if ($query == '') {
-			$query = '';
-		}*/
 
 		if (empty($limit)) {
 			$limit = $this->itemsPerPage;
@@ -86,8 +83,8 @@ class StoreSearchService implements IStoreSearchService {
 		$productQuery = $this->createQueryForProducts($query, $categories, $priceRange, $categoryConnector);
 
 		//Per vedere la query che esegue ELASTICSEARCH decommenta sotto.
-		//$json=json_encode($productQuery->toArray());
-		//echo $json;
+		// $json = json_encode($productQuery->toArray());
+		// echo $json;
 
 		$adapter = $finder->createPaginatorAdapter($productQuery);
 		return $this->paginator->paginate($adapter, $page, $limit);
