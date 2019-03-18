@@ -14,7 +14,6 @@ services:
     elcodi_elcodi_store.event_listener.send_customer_registration_email:
         class: Elcodi\Store\UserBundle\EventListener\SendRegistrationEmailEventListener
         parent: store.abstract_email_sender_event_listener
-        arguments: ['%sender_email_notification%']
         tags:
             - { name: kernel.event_listener, event: customer.register, method: sendCustomerRegistrationEmail }
 

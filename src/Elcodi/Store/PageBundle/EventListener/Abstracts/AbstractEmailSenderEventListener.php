@@ -61,6 +61,7 @@ abstract class AbstractEmailSenderEventListener {
 	 * @var Logger
 	 */
 	protected $logger;
+	protected $notificationSenderEmail;
 
 	/**
 	 * Construct
@@ -77,7 +78,8 @@ abstract class AbstractEmailSenderEventListener {
 		PageRepository $pageRepository,
 		StoreInterface $store,
 		TemplateLocator $templateLocator,
-		Logger $logger
+		Logger $logger,
+		$notificationSenderEmail
 	) {
 		$this->mailer = $mailer;
 		$this->twig = $twig;
@@ -85,6 +87,7 @@ abstract class AbstractEmailSenderEventListener {
 		$this->store = $store;
 		$this->templateLocator = $templateLocator;
 		$this->logger = $logger;
+		$this->notificationSenderEmail = $notificationSenderEmail;
 	}
 
 	/**

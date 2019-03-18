@@ -47,12 +47,33 @@ class SendOrderConfirmationEmailEventListener extends AbstractEmailSenderEventLi
 					'order' => $order,
 					'customer' => $customer,
 				],
-				$customer->getEmail(), true
+				$customer->getEmail(), false,
+				$this->notificationSenderEmail
 			);
+
+			$this->sendEmailToAdmin($order, $customer);
 		} else {
 			$this->logger->warning('Customer con email no valida: ' . $customer->getEmail());
 			return;
 		}
+	}
+
+	/**
+	 * Send notification to admin for new order creation
+	 */
+	public function sendEmailToAdmin($order, $customer) {
+
+		$this->sendEmail(
+			'order_confirmation_admin',
+			[
+				'order' => $order,
+				'customer' => $customer,
+			],
+			$this->store->getEmail(), //receiver
+			false,
+			$this->notificationSenderEmail//sender
+		);
+
 	}
 
 }

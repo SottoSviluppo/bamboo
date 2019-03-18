@@ -17,76 +17,14 @@
 
 namespace Elcodi\Store\UserBundle\EventListener;
 
-use Elcodi\Component\Page\Repository\PageRepository;
-use Elcodi\Component\Store\Entity\Interfaces\StoreInterface;
 use Elcodi\Component\User\Event\CustomerRegisterEvent;
-use Elcodi\Store\CoreBundle\Services\TemplateLocator;
 use Elcodi\Store\PageBundle\EventListener\Abstracts\AbstractEmailSenderEventListener;
-use Monolog\Logger;
-use Swift_Mailer;
-use Twig_Environment;
 
 /**
  * Class SendRegistrationEmailEventListener
  */
 class SendRegistrationEmailEventListener extends AbstractEmailSenderEventListener {
 
-	/**
-	 * @var Swift_Mailer
-	 *
-	 * Mailer
-	 */
-	protected $mailer;
-
-	/**
-	 * @var Twig_Environment
-	 *
-	 * Twig
-	 */
-	protected $twig;
-
-	/**
-	 * @var PageRepository
-	 *
-	 * Page repository
-	 */
-	protected $pageRepository;
-
-	/**
-	 * @var StoreInterface
-	 *
-	 * Store
-	 */
-	protected $store;
-
-	/**
-	 * @var Logger
-	 */
-	protected $logger;
-
-	/**
-	 * sender email notification
-	 * @var string
-	 */
-	protected $notificationSenderEmail;
-
-	public function __construct(
-		Swift_Mailer $mailer,
-		Twig_Environment $twig,
-		PageRepository $pageRepository,
-		StoreInterface $store,
-		TemplateLocator $templateLocator,
-		Logger $logger,
-		$notificationSenderEmail
-	) {
-		$this->mailer = $mailer;
-		$this->twig = $twig;
-		$this->pageRepository = $pageRepository;
-		$this->store = $store;
-		$this->templateLocator = $templateLocator;
-		$this->logger = $logger;
-		$this->notificationSenderEmail = $notificationSenderEmail;
-	}
 	/**
 	 * Send email
 	 *

@@ -200,6 +200,44 @@ OEF;
 				'title' => 'Confirmación de pedido',
 				'content' => 'Pedido confirmado para {{ order.customer.fullname }}.',
 			],
+			'en' => [
+				'title' => 'Order confirmation',
+				'content' => 'Confirmed order for {{ order.customer.fullname }}.',
+			],
+			'it' => [
+				'title' => 'Conferma Ordine',
+				'content' => 'Ordine confermato per {{ order.customer.fullname }}.',
+			],
+		]);
+
+		/**
+		 * Order confirmation email
+		 */
+		$orderConfirmationAdminEmail = $pageDirector
+			->create()
+			->setTitle('Nuovo ordine')
+			->setContent('Il cliente {{ customer.fullname }} ha effettuato un ordine.')
+			->setName('order_confirmation_admin')
+			->setType(ElcodiPageTypes::TYPE_EMAIL)
+			->setEnabled(true)
+			->setPersistent(true);
+
+		$pageDirector->save($orderConfirmationEmail);
+		$this->addReference('email-order-confirmation-admin', $orderConfirmationAdminEmail);
+
+		$entityTranslator->save($orderConfirmationAdminEmail, [
+			'es' => [
+				'title' => 'Nuevo orden',
+				'content' => 'El cliente {{ order.customer.fullname }} hizo un pedido.',
+			],
+			'en' => [
+				'title' => 'New order',
+				'content' => 'The customer {{ order.customer.fullname }} placed an order.',
+			],
+			'it' => [
+				'title' => 'Conferma Ordine',
+				'content' => 'Il cliente {{ customer.fullname }} ha effettuato un ordine.',
+			],
 		]);
 
 		/**
@@ -263,7 +301,7 @@ CONTENT;
 				'content' => $contentEs,
 			],
 			'en' => [
-				'title' => 'Order confirmation',
+				'title' => 'Confirmation of registration',
 				'content' => $contentEn,
 			],
 		]);
