@@ -753,9 +753,13 @@ admin:
             title:
                 placeholder: 'e.g. La mia fantastica Mailing'
                 title: Titolo
+            name:
+                title: 'Nome della mail (generato automaticamente)'
+                placeholder: 'e.s. nome-della-mail'
             action:
                 title: Azioni
                 send_email: "Email di test"
+
 
         list: 'Mailing list'
         new: 'Crea un nuova mailing'
