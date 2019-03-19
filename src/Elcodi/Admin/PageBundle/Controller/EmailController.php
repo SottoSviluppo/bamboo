@@ -4,6 +4,7 @@ namespace Elcodi\Admin\PageBundle\Controller;
 
 use Elcodi\Admin\CoreBundle\Controller\Abstracts\AbstractAdminController;
 use Elcodi\Component\Page\Entity\Interfaces\PageInterface;
+use Elcodi\Component\User\Entity\Customer;
 use Mmoreram\ControllerExtraBundle\Annotation\Entity as EntityAnnotation;
 use Mmoreram\ControllerExtraBundle\Annotation\Form as FormAnnotation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

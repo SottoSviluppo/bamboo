@@ -416,10 +416,11 @@ ivory_ck_editor:
     configs:
         my_config:
             toolbar: full
-            #uiColor:                "#000000"
             filebrowserBrowseRoute: elendev_roxyfileman_index
             filebrowserBrowseRouteParameters: []
-            #extraPlugins: "wordcount"
+            basicEntities: false
+            entities: false
+            forceSimpleAmpersand: true
 
 elendev_roxy_fileman:
     local_file_system:
