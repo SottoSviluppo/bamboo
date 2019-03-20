@@ -278,4 +278,27 @@ class AdminSearchService implements IAdminSearchService {
 		}
 		return $totalProductsQuery;
 	}
+
+	protected function setNestedQueriesForVariants($query) {
+		$totalVariantsQuery = new BoolQuery();
+		$tokens = explode(' ', $query);
+		foreach ($tokens as $token) {
+			$token = trim($token);
+
+			$variants = new Nested();
+			$variants->setPath('variants');
+			$variantsQuery = new MultiMatch();
+			$variantsQuery->setQuery($token);
+			$variantsQuery->setFields([
+				'variants.name', 'variants.shortDescription', 'variants.description', 'variants.sku',
+			]);
+
+			if ($this->searchProductsConnector == 'or') {
+				$totalVariantsQuery->addShould($variantsQuery);
+			} else {
+				$totalVariantsQuery->addMust($variantsQuery);
+			}
+		}
+		return $totalVariantsQuery;
+	}
 }
