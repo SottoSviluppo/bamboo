@@ -1119,6 +1119,8 @@ admin:
                 title: 'Larghezza (in cm)'
             private:
                 title: Privato
+            position:
+                title: 'Posizione'
 
         in_store: Visualizza
 
