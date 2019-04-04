@@ -61,8 +61,8 @@ class EmailType extends AbstractType {
 				'required' => true,
 				'label' => 'title',
 			])
-			->add('name', 'hidden', [
-				'required' => true,
+			->add('name', 'text', [
+				'required' => false,
 			])
 			->add('type', 'hidden', [
 				'required' => true,
