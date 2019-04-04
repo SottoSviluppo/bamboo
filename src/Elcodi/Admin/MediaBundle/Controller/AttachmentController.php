@@ -20,187 +20,195 @@ use Symfony\Component\HttpFoundation\Request;
  *      path = "/media/attachment"
  * )
  */
-class AttachmentController extends AbstractAdminController
-{
-    /**
-     * List elements of certain entity type.
-     *
-     * This action is just a wrapper, so should never get any data,
-     * as this is component responsibility
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "s/",
-     *      name = "admin_attachment_list",
-     *      methods = {"GET"}
-     * )
-     * @Template
-     */
-    public function listAction()
-    {
-        if (!$this->canRead()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+class AttachmentController extends AbstractAdminController {
+	/**
+	 * List elements of certain entity type.
+	 *
+	 * This action is just a wrapper, so should never get any data,
+	 * as this is component responsibility
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "s/",
+	 *      name = "admin_attachment_list",
+	 *      methods = {"GET"}
+	 * )
+	 * @Template
+	 */
+	public function listAction() {
+		if (!$this->canRead()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return [];
-    }
+		return [];
+	}
 
-    /**
-     * Enable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to enable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/enable",
-     *      name = "admin_attachment_enable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.attachment.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function enableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        if (!$this->canUpdate()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Enable entity
+	 *
+	 * @param Request          $request Request
+	 * @param EnabledInterface $entity  Entity to enable
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/{id}/enable",
+	 *      name = "admin_attachment_enable"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.attachment.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function enableAction(
+		Request $request,
+		EnabledInterface $entity
+	) {
+		if (!$this->canUpdate()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return parent::enableAction(
-            $request,
-            $entity
-        );
-    }
+		return parent::enableAction(
+			$request,
+			$entity
+		);
+	}
 
-    /**
-     * Disable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to disable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/disable",
-     *      name = "admin_attachment_disable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.attachment.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function disableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        if (!$this->canUpdate()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Disable entity
+	 *
+	 * @param Request          $request Request
+	 * @param EnabledInterface $entity  Entity to disable
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/{id}/disable",
+	 *      name = "admin_attachment_disable"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.attachment.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function disableAction(
+		Request $request,
+		EnabledInterface $entity
+	) {
+		if (!$this->canUpdate()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return parent::disableAction(
-            $request,
-            $entity
-        );
-    }
+		return parent::disableAction(
+			$request,
+			$entity
+		);
+	}
 
-    /**
-     * Delete entity
-     *
-     * @param Request $request      Request
-     * @param mixed   $entity       Entity to delete
-     * @param string  $redirectPath Redirect path
-     *
-     * @return RedirectResponse Redirect response
-     *
-     * @Route(
-     *      path = "/{id}/delete",
-     *      name = "admin_attachment_delete"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.attachment.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function deleteAction(
-        Request $request,
-        $entity,
-        $redirectPath = null
-    ) {
-        if (!$this->canDelete()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Delete entity
+	 *
+	 * @param Request $request      Request
+	 * @param mixed   $entity       Entity to delete
+	 * @param string  $redirectPath Redirect path
+	 *
+	 * @return RedirectResponse Redirect response
+	 *
+	 * @Route(
+	 *      path = "/{id}/delete",
+	 *      name = "admin_attachment_delete"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.attachment.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function deleteAction(
+		Request $request,
+		$entity,
+		$redirectPath = null
+	) {
+		if (!$this->canDelete()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        $redirectPathParam = $request
-            ->query
-            ->get('redirect-path');
+		$redirectPathParam = $request
+			->query
+			->get('redirect-path');
 
-        $redirectPath = is_null($redirectPathParam)
-        ? $this->generateUrl('admin_attachment_list')
-        : $redirectPath;
+		$redirectPath = is_null($redirectPathParam)
+		? $this->generateUrl('admin_attachment_list')
+		: $redirectPath;
 
-        return parent::deleteAction(
-            $request,
-            $entity,
-            $redirectPath
-        );
-    }
+		return parent::deleteAction(
+			$request,
+			$entity,
+			$redirectPath
+		);
+	}
 
-    /**
-     * Nav for entity
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/upload",
-     *      name = "admin_attachment_upload"
-     * )
-     *
-     * @JsonResponse()
-     */
-    public function uploadAction()
-    {
-        // if (!$this->canCreate()) {
-        //     $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-        //     return $this->redirect($this->generateUrl('admin_homepage'));
-        // }
+	/**
+	 * Nav for entity
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/upload",
+	 *      name = "admin_attachment_upload"
+	 * )
+	 *
+	 * @JsonResponse()
+	 */
+	public function uploadAction() {
 
-        $jsonResponse = $this
-            ->forward('elcodi.controller.attachment_upload:uploadAction')
-            ->getContent();
+		$jsonResponse = $this
+			->forward('elcodi.controller.attachment_upload:uploadAction')
+			->getContent();
 
-        $response = json_decode($jsonResponse, true);
+		$response = json_decode($jsonResponse, true);
 
-        if ('ok' === $response['status']) {
-            $routes = $this
-                ->get('router')
-                ->getRouteCollection();
+		if ('ok' === $response['status']) {
 
-            $response['response']['routes']['delete'] = $routes
-                ->get('admin_attachment_delete')
-                ->getPath();
-        }
+			$purchasableId = $this->getRequest()->get('purchasableId');
 
-        return $response;
-    }
+			if ($purchasableId) {
+				$purchasable = $this->get('elcodi.repository.purchasable')->findOneById($purchasableId);
+
+				$attachmentId = $response['response']['id'];
+				$attachment = $this->get('elcodi.repository.attachment')->findOneById($attachmentId);
+
+				$purchasable->addAttachment($attachment);
+
+				$this->get('elcodi.object_manager.purchasable')->persist($purchasable);
+				$this->get('elcodi.object_manager.purchasable')->flush();
+			}
+
+			$routes = $this
+				->get('router')
+				->getRouteCollection();
+
+			$response['response']['routes']['delete'] = $routes
+				->get('admin_attachment_delete')
+				->getPath();
+		}
+
+		return $response;
+	}
 }
