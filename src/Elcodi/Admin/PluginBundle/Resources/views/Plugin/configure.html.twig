@@ -24,7 +24,7 @@
 {% block content %}
     <div class="grid pb-xl">
         <div class="col-1-3">
-            <img src="/bundles{{ asset(plugin.getBundleName()|replace({'Bundle': ''})|lower ~ "/images/icon.png") }}" width="150"/>
+            <img src="{{ asset("/bundles/" ~ plugin.getBundleName()|replace({'Bundle': ''})|lower ~ "/images/icon.png") }}" width="150"/>
             <h2>{{ plugin.getConfigurationValue("name")|trans }}</h2>
             <p>{{ plugin.getConfigurationValue("description")|trans|raw }}</p>
 
