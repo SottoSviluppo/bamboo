@@ -222,7 +222,7 @@ OEF;
 			->setEnabled(true)
 			->setPersistent(true);
 
-		$pageDirector->save($orderConfirmationEmail);
+		$pageDirector->save($orderConfirmationAdminEmail);
 		$this->addReference('email-order-confirmation-admin', $orderConfirmationAdminEmail);
 
 		$entityTranslator->save($orderConfirmationAdminEmail, [
