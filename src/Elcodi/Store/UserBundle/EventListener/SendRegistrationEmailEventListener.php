@@ -23,23 +23,44 @@ use Elcodi\Store\PageBundle\EventListener\Abstracts\AbstractEmailSenderEventList
 /**
  * Class SendRegistrationEmailEventListener
  */
-class SendRegistrationEmailEventListener extends AbstractEmailSenderEventListener
-{
-    /**
-     * Send email
-     *
-     * @param CustomerRegisterEvent $event Event
-     */
-    public function sendCustomerRegistrationEmail(CustomerRegisterEvent $event)
-    {
-        $customer = $event->getCustomer();
+class SendRegistrationEmailEventListener extends AbstractEmailSenderEventListener {
 
-        $this->sendEmail(
-            'customer_registration',
-            [
-                'customer' => $customer,
-            ],
-            $customer->getEmail()
-        );
-    }
+	/**
+	 * Send email
+	 *
+	 * @param CustomerRegisterEvent $event Event
+	 */
+	public function sendCustomerRegistrationEmail(CustomerRegisterEvent $event) {
+		$customer = $event->getCustomer();
+
+		$this->sendEmail(
+			'customer_registration',
+			[
+				'customer' => $customer,
+			],
+			$customer->getEmail(), //receiver
+			false,
+			$this->notificationSenderEmail//sender
+		);
+
+		$this->sendEmailToAdmin($customer);
+	}
+
+	/**
+	 * Send notification to admin for new customer registration
+	 */
+	public function sendEmailToAdmin($customer) {
+
+		$this->sendEmail(
+			'customer_registration_admin',
+			[
+				'customer' => $customer,
+			],
+			$this->store->getEmail(), //receiver
+			false,
+			$this->notificationSenderEmail//sender
+		);
+
+	}
+
 }

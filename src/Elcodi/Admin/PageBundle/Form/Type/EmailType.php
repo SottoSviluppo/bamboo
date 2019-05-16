@@ -61,6 +61,9 @@ class EmailType extends AbstractType {
 				'required' => true,
 				'label' => 'title',
 			])
+			->add('name', 'text', [
+				'required' => false,
+			])
 			->add('type', 'hidden', [
 				'required' => true,
 				'data' => ElcodiPageTypes::TYPE_EMAIL,
@@ -69,6 +72,9 @@ class EmailType extends AbstractType {
 				'required' => true,
 				'label' => 'content',
 				'config_name' => 'my_config',
+			])
+			->add('enabled', 'checkbox', [
+				'required' => false,
 			]);
 
 		$builder->addEventSubscriber($this->getEntityTranslatorFormEventListener());

@@ -68,7 +68,12 @@
     {% if customer.id %}
         {{ render(path('admin_customer_edit_component', { id: customer.id })) }}
     {% else %}
-        {{ render(path('admin_customer_new_component')) }}
+        {#{ render(path('admin_customer_new_component')) }#}
+        {% include '@AdminUser/Customer/editComponent.html.twig' with {
+            customer: customer,
+            form: form
+        }
+        %}
     {% endif %}
 
 {% endblock content %}

@@ -13,3 +13,4 @@ services:
             - "@elcodi.store"
             - "@elcodi_store.template_locator.page"
             - "@logger"
+            - "%sender_email_notification%"

@@ -74,7 +74,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 		autoBind: function( oTarget ) {
 			var self = this,
 				sName = oTarget.id,
-				oContainer = $(oTarget).closest('.grid').find('.js-images-select')[0],
+				oContainer = $(oTarget).closest('.grid').find('.js-attachments-select')[0],
 				uploader = new plupload.Uploader({
 					runtimes : 'html5,flash,silverlight,html4',
 
@@ -151,7 +151,8 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 								if (oResponse.status === 'ok') {
 									imageType = oTarget.getAttribute('image-type');
 									self.addImageToGallery( oContainer, oResponse.response.id  );
-									self.updateImage( oContainer, sName, sUrlView, sUrlDelete);
+				
+									self.updateImage(oContainer, sName, sUrlView, sUrlDelete, oResponse.response.id);
 								}
 							}
 
@@ -205,9 +206,9 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 					}
 			});
 		},
-		updateImage : function( oContainer, sName, sUrlView, sUrlDelete ) {
+		updateImage : function( oContainer, sName, sUrlView, sUrlDelete, sId ) {
 			if (sName == 'upload-attachment') {
-				$('#' + sName + '-image-filename').text(sUrlView);
+				$('#' + sName + '-image-filename-'+sId).text(sUrlView);
 			} else {
 				$('img', '#' + sName + '-image').attr('src', sUrlView);
 			}

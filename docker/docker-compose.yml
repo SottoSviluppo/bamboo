@@ -36,6 +36,8 @@ services:
 
     elastic:
         image: elasticsearch:2
+        ports:
+            - 9200:9200
         networks:
             - net1
 

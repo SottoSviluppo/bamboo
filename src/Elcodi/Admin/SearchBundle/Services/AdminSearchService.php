@@ -48,6 +48,9 @@ class AdminSearchService implements IAdminSearchService {
 
 		$productQuery = $this->createQueryForProducts($query);
 
+		//Per vedere la query che esegue ELASTICSEARCH decommenta sotto.
+		// $json = json_encode($productQuery->toArray());
+		// echo $json;
 		$adapter = $finder->createPaginatorAdapter($productQuery);
 		return $this->paginator->paginate($adapter, $page, $limit);
 
@@ -220,7 +223,11 @@ class AdminSearchService implements IAdminSearchService {
 
 		if (!empty($query)) {
 			$query = trim($query);
+			$query = strtolower($query);
 			$baseQuery = new BoolQuery();
+
+			$productsPartialQuery = $this->setQueryForPartialProducts($query);
+			$baseQuery->addShould($productsPartialQuery);
 
 			$productsQuery = $this->setQueryForProducts($query);
 			$baseQuery->addShould($productsQuery);
@@ -235,6 +242,21 @@ class AdminSearchService implements IAdminSearchService {
 		$finalQuery = new Query($boolQuery);
 
 		return $finalQuery;
+	}
+
+	/**
+	 * Query per la ricerca parziale dei prodotti, cercado in name shortDescription, description, sku
+	 * @param string $query stringa da cercare
+	 */
+	protected function setQueryForPartialProducts($query) {
+		$wildcardBool = new BoolQuery();
+
+		$wildcardBool->addShould(new Wildcard('name', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('shortDescription', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('description', '*' . $query . '*'));
+		$wildcardBool->addShould(new Wildcard('sku', '*' . $query . '*'));
+
+		return $wildcardBool;
 	}
 
 	protected function setQueryForProducts($query) {
@@ -255,5 +277,28 @@ class AdminSearchService implements IAdminSearchService {
 			}
 		}
 		return $totalProductsQuery;
+	}
+
+	protected function setNestedQueriesForVariants($query) {
+		$totalVariantsQuery = new BoolQuery();
+		$tokens = explode(' ', $query);
+		foreach ($tokens as $token) {
+			$token = trim($token);
+
+			$variants = new Nested();
+			$variants->setPath('variants');
+			$variantsQuery = new MultiMatch();
+			$variantsQuery->setQuery($token);
+			$variantsQuery->setFields([
+				'variants.name', 'variants.shortDescription', 'variants.description', 'variants.sku',
+			]);
+
+			if ($this->searchProductsConnector == 'or') {
+				$totalVariantsQuery->addShould($variantsQuery);
+			} else {
+				$totalVariantsQuery->addMust($variantsQuery);
+			}
+		}
+		return $totalVariantsQuery;
 	}
 }

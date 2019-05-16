@@ -1,0 +1,12 @@
+.thumbnail-group li.attachment-item{
+    display: block;
+}
+
+.thumbnail-group li.attachment-item .thumbnail-actions{
+    bottom: 0;
+}
+
+.thumbnail-group-extended>li.attachment-item {
+    line-height: 2.5;
+    padding-left: 5px;
+}
