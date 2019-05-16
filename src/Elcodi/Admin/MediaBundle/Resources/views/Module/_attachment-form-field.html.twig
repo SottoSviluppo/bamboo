@@ -12,14 +12,15 @@
             <ul id="thumb-gallery" data-fc-modules="sortable" data-fc-input="{{ form.imagesSort.vars.id }}" class="thumbnail-group thumbnail-group-extended pl-s mb-n">
                 {% for image in images %}
                     <li id="{{ image.id }}" class="attachment-item">
-                        <a href="{{ imageView }}" class="group-images">
-                            <span id="upload-attachment-image-filename-{{image.id}}">{{ image.filename }}</span>
-                        </a>
                         <ul class="thumbnail-actions">
                             <li>
                                 <a href="{{ path('admin_attachment_delete', { id: image.id }) }}{% if redirect_path is defined %}{{ '?redirect-path=' ~ redirect_path }}{% endif %}" class="icon-trash-o" data-fc-delete="{{ image.id }}"></a>
                             </li>
                         </ul>
+                        <a href="{{ imageView }}" class="group-images">
+                            <span id="upload-attachment-image-filename-{{image.id}}">{{ image.filename }}</span>
+                        </a>
+                           
                     </li>
                 {% endfor %}
             </ul>
