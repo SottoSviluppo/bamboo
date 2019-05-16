@@ -66,7 +66,7 @@ class PackData extends AbstractPurchasableData implements DependentFixtureInterf
             ->addCategory($menCategory)
             ->setPrincipalCategory($menCategory)
             ->setManufacturer($manufacturer)
-            // ->addPurchasable($this->getReference('variant-ibiza-lips-white-small'))
+//            ->addPurchasable($this->getReference('variant-ibiza-lips-white-small'))
             ->addPurchasable($this->getReference('product-ibiza-banana'))
             ->addPurchasable($this->getReference('product-i-was-there'))
             ->addPurchasable($this->getReference('product-a-life-style'))

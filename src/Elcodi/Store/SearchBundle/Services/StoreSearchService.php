@@ -121,10 +121,10 @@ class StoreSearchService implements IStoreSearchService {
 				$productsPartialQuery = $this->setQueryForPartialProducts($query);
 				$baseQuery->addShould($productsPartialQuery);
 			}
-			//else {
+			// else {
 			$productsQuery = $this->setQueryForProducts($query);
-			//}
 			$baseQuery->addShould($productsQuery);
+			// }
 
 			if ($this->searchProductsWithVariants) {
 				$variantsQuery = $this->setNestedQueriesForVariants($query);
@@ -164,17 +164,17 @@ class StoreSearchService implements IStoreSearchService {
 	}
 
 	/**
-	 * Query per la ricerca parziale dei prodotti, cercado in name shortDescription, description, sku
+	 * Query per la ricerca parziale dei prodotti, cercando in name, shortDescription, description, sku
 	 * @param string $query stringa da cercare
 	 */
 	protected function setQueryForPartialProducts($query) {
 		$query = strtolower($query);
 		$wildcardBool = new BoolQuery();
 
+		$wildcardBool->addShould(new Wildcard('sku', '*' . $query . '*'));
 		$wildcardBool->addShould(new Wildcard('name', '*' . $query . '*'));
 		$wildcardBool->addShould(new Wildcard('shortDescription', '*' . $query . '*'));
 		$wildcardBool->addShould(new Wildcard('description', '*' . $query . '*'));
-		$wildcardBool->addShould(new Wildcard('sku', '*' . $query . '*'));
 
 		return $wildcardBool;
 	}
