@@ -380,7 +380,10 @@ fos_elastica:
                                         couponCampaign:
                                             type: object
                                             properties:
-                                                campaignName: ~
+                                                campaignName: 
+                                                    type: "string"
+                                                    index: "not_analyzed"
+                                                    # ~
 
                     persistence:
                         driver: orm
