@@ -5,7 +5,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 		modal:  TinyCore.Module.instantiate( 'modal' ),
 		onStart: function () {
 			var aTargets =  FrontendTools.getDataModules('upload-attachment'),
-				self = this;
+			self = this;
 
 			$(aTargets).each(function () {
 				self.autoBind(this);
@@ -34,6 +34,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 				}
 			}
 
+
 		},
 		addImageToGallery : function( oContainer, nId) {
 			var formType = oContainer.getAttribute('formType');
@@ -41,7 +42,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 				formType = 'elcodi_admin_product_form_type_manufacturer';
 
 			var self = this,
-				oOption;
+			oOption;
 
 			if (oContainer.nodeName === 'SELECT') {
 				self.removeSelected(oContainer);
@@ -73,18 +74,18 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 		},
 		autoBind: function( oTarget ) {
 			var self = this,
-				sName = oTarget.id,
-				oContainer = $(oTarget).closest('.grid').find('.js-attachments-select')[0],
-				uploader = new plupload.Uploader({
-					runtimes : 'html5,flash,silverlight,html4',
+			sName = oTarget.id,
+			oContainer = $(oTarget).closest('.grid').find('.js-attachments-select')[0],
+			uploader = new plupload.Uploader({
+				runtimes : 'html5,flash,silverlight,html4',
 
-					browse_button : sName,
+				browse_button : sName,
 
-					url : document.getElementById(sName).href,
+				url : document.getElementById(sName).href,
 
-					filters : {
-						max_file_size : '20mb'
-					},
+				filters : {
+					max_file_size : '20mb'
+				},
 
 					// Flash settings
 					flash_swf_url : oGlobalSettings.sPathJs + '../components/plupload/js/Moxie.swf',
@@ -102,7 +103,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 						FileUploaded: function(up, file, response) {
 
 							var oResponse = $.parseJSON(response.response),
-								nId, sFormat, sUrlView, sUrlDelete, sUrlSave, nWidth = 0, nHeight = 0, nType = 2;
+							nId, sFormat, sUrlView, sUrlDelete, sUrlSave, nWidth = 0, nHeight = 0, nType = 2;
 
 
 							if ( oTarget.getAttribute('data-fc-width') !== null) {
@@ -151,8 +152,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 								if (oResponse.status === 'ok') {
 									imageType = oTarget.getAttribute('image-type');
 									self.addImageToGallery( oContainer, oResponse.response.id  );
-				
-									self.updateImage(oContainer, sName, sUrlView, sUrlDelete, oResponse.response.id);
+									location.reload();
 								}
 							}
 
@@ -184,37 +184,30 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 
 				var oTarget = this;
 
-					if (oContainer.nodeName === 'SELECT') {
-						self.removeSelected(oContainer);
-						// $('option:first', oContainer).prop('selected', true);
-						oTarget.style.display = 'none';
-						document.getElementById(sName + '-image').style.display = 'none';
-						self.updateSelect(oContainer);
-					} else {
-						$.ajax({
-							url: oTarget.href,
-							type: 'post',
-							data: {
-								value: null
-							},
-							success: function() {
-								oTarget.style.display = 'none';
-								document.getElementById(sName + '-image').style.display = 'none';
-								self.updateSelect(oContainer);
-							}
-						});
-					}
+				if (oContainer.nodeName === 'SELECT') {
+					self.removeSelected(oContainer);
+					oTarget.style.display = 'none';
+					document.getElementById(sName + '-image').style.display = 'none';
+					self.updateSelect(oContainer);
+				} else {
+					$.ajax({
+						url: oTarget.href,
+						type: 'post',
+						data: {
+							value: null
+						},
+						success: function() {
+							oTarget.style.display = 'none';
+							document.getElementById(sName + '-image').style.display = 'none';
+							self.updateSelect(oContainer);
+						}
+					});
+				}
 			});
 		},
 		updateImage : function( oContainer, sName, sUrlView, sUrlDelete, sId ) {
-			if (sName == 'upload-attachment') {
-				$('#' + sName + '-image-filename-'+sId).text(sUrlView);
-			} else {
-				$('img', '#' + sName + '-image').attr('src', sUrlView);
-			}
-			document.getElementById(sName + '-image').style.display = 'block';
-			document.getElementById(sName + '-delete').style.display = 'inline-block';
-			document.getElementById(sName + '-delete').href = sUrlDelete;
+			$('#' + sName + '-image-filename-'+sId).text(sUrlView);
+			document.getElementById(sName + '-image-filename-'+sId).style.display = 'block';
 		},
 		saveImage : function( oContainer, sName, nId, sUrlSave, sUrlView, sUrlDelete) {
 
