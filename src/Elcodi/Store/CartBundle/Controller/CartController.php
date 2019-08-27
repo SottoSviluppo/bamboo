@@ -141,9 +141,7 @@ class CartController extends Controller {
 			throw new EntityNotFoundException('Purchasable not found');
 		}
 
-		$cartQuantity = (int) $request
-			->request
-			->get('add-cart-quantity', 1);
+		$cartQuantity = (int) $request->query->get('add-cart-quantity', 1);
 
 		$this
 			->get('elcodi.manager.cart')
