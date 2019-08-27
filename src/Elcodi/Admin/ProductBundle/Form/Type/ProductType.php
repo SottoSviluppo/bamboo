@@ -110,7 +110,7 @@ class ProductType extends AbstractType {
 				'constraints' => [
 					new Constraints\Length(
 						[
-							'max' => 65,
+							'max' => 140,
 						]
 					),
 				],
@@ -120,7 +120,7 @@ class ProductType extends AbstractType {
 				'constraints' => [
 					new Constraints\Length(
 						[
-							'max' => 65,
+							'max' => 140,
 						]
 					),
 				],
