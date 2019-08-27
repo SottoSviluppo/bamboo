@@ -193,6 +193,10 @@ class AttachmentController extends AbstractAdminController {
 				$attachmentId = $response['response']['id'];
 				$attachment = $this->get('elcodi.repository.attachment')->findOneById($attachmentId);
 
+				$attachment->setName(pathinfo($response['response']['filename'], PATHINFO_FILENAME));
+				$this->get('elcodi.object_manager.attachment')->persist($attachment);
+				$this->get('elcodi.object_manager.attachment')->flush();
+
 				$purchasable->addAttachment($attachment);
 
 				$this->get('elcodi.object_manager.purchasable')->persist($purchasable);
