@@ -37,277 +37,284 @@ use Symfony\Component\HttpFoundation\Request;
  *      path = "/product",
  * )
  */
-class ProductController extends AbstractAdminController
-{
-    /**
-     * List elements of certain entity type.
-     *
-     * This action is just a wrapper, so should never get any data,
-     * as this is component responsibility
-     *
-     * @param integer $page             Page
-     * @param integer $limit            Limit of items per page
-     * @param string  $orderByField     Field to order by
-     * @param string  $orderByDirection Direction to order by
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "s/{page}/{limit}/{orderByField}/{orderByDirection}",
-     *      name = "admin_product_list",
-     *      requirements = {
-     *          "page" = "\d*",
-     *          "limit" = "\d*",
-     *      },
-     *      defaults = {
-     *          "page" = "1",
-     *          "limit" = "50",
-     *          "orderByField" = "id",
-     *          "orderByDirection" = "DESC",
-     *      },
-     * )
-     * @Template
-     * @Method({"GET"})
-     */
-    public function listAction(
-        $page,
-        $limit,
-        $orderByField,
-        $orderByDirection
-    ) {
-        if (!$this->canRead()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+class ProductController extends AbstractAdminController {
+	/**
+	 * List elements of certain entity type.
+	 *
+	 * This action is just a wrapper, so should never get any data,
+	 * as this is component responsibility
+	 *
+	 * @param integer $page             Page
+	 * @param integer $limit            Limit of items per page
+	 * @param string  $orderByField     Field to order by
+	 * @param string  $orderByDirection Direction to order by
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "s/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      name = "admin_product_list",
+	 *      requirements = {
+	 *          "page" = "\d*",
+	 *          "limit" = "\d*",
+	 *      },
+	 *      defaults = {
+	 *          "page" = "1",
+	 *          "limit" = "50",
+	 *          "orderByField" = "id",
+	 *          "orderByDirection" = "DESC",
+	 *      },
+	 * )
+	 * @Template
+	 * @Method({"GET"})
+	 */
+	public function listAction(
+		$page,
+		$limit,
+		$orderByField,
+		$orderByDirection
+	) {
+		if (!$this->canRead()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return [
-            'page' => $page,
-            'limit' => $limit,
-            'orderByField' => $orderByField,
-            'orderByDirection' => $orderByDirection,
-        ];
-    }
+		return [
+			'page' => $page,
+			'limit' => $limit,
+			'orderByField' => $orderByField,
+			'orderByDirection' => $orderByDirection,
+		];
+	}
 
-    /**
-     * Edit and Saves product
-     *
-     * @param FormInterface    $form    Form
-     * @param ProductInterface $product Product
-     * @param boolean          $isValid Is valid
-     *
-     * @return RedirectResponse Redirect response
-     *
-     * @Route(
-     *      path = "/{id}",
-     *      name = "admin_product_view",
-     *      requirements = {
-     *          "id" = "\d+",
-     *      },
-     *      methods = {"GET"}
-     * )
-     * @Route(
-     *      path = "/{id}/edit",
-     *      name = "admin_product_edit",
-     *      requirements = {
-     *          "id" = "\d+",
-     *      },
-     *      methods = {"GET"}
-     * )
-     * @Route(
-     *      path = "/{id}/update",
-     *      name = "admin_product_update",
-     *      requirements = {
-     *          "id" = "\d+",
-     *      },
-     *      methods = {"POST"}
-     * )
-     *
-     * @Route(
-     *      path = "/new",
-     *      name = "admin_product_new",
-     *      methods = {"GET"}
-     * )
-     * @Route(
-     *      path = "/new/update",
-     *      name = "admin_product_save",
-     *      methods = {"POST"}
-     * )
-     *
-     * @EntityAnnotation(
-     *      class = {
-     *          "factory" = "elcodi.factory.product",
-     *          "method" = "create",
-     *          "static" = false
-     *      },
-     *      mapping = {
-     *          "id" = "~id~"
-     *      },
-     *      mappingFallback = true,
-     *      name = "product",
-     *      persist = true
-     * )
-     * @FormAnnotation(
-     *      class = "elcodi_admin_product_form_type_product",
-     *      name  = "form",
-     *      entity = "product",
-     *      handleRequest = true,
-     *      validate = "isValid"
-     * )
-     *
-     * @Template
-     */
-    public function editAction(
-        FormInterface $form,
-        ProductInterface $product,
-        $isValid
-    ) {
-        if ($product->getId()) {
-            if (!$this->canUpdate()) {
-                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-                return $this->redirect($this->generateUrl('admin_homepage'));
-            }
-        } else {
-            if (!$this->canCreate()) {
-                $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-                return $this->redirect($this->generateUrl('admin_homepage'));
-            }
-        }
+	/**
+	 * Edit and Saves product
+	 *
+	 * @param FormInterface    $form    Form
+	 * @param ProductInterface $product Product
+	 * @param boolean          $isValid Is valid
+	 *
+	 * @return RedirectResponse Redirect response
+	 *
+	 * @Route(
+	 *      path = "/{id}",
+	 *      name = "admin_product_view",
+	 *      requirements = {
+	 *          "id" = "\d+",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 * @Route(
+	 *      path = "/{id}/edit",
+	 *      name = "admin_product_edit",
+	 *      requirements = {
+	 *          "id" = "\d+",
+	 *      },
+	 *      methods = {"GET"}
+	 * )
+	 * @Route(
+	 *      path = "/{id}/update",
+	 *      name = "admin_product_update",
+	 *      requirements = {
+	 *          "id" = "\d+",
+	 *      },
+	 *      methods = {"POST"}
+	 * )
+	 *
+	 * @Route(
+	 *      path = "/new",
+	 *      name = "admin_product_new",
+	 *      methods = {"GET"}
+	 * )
+	 * @Route(
+	 *      path = "/new/update",
+	 *      name = "admin_product_save",
+	 *      methods = {"POST"}
+	 * )
+	 *
+	 * @EntityAnnotation(
+	 *      class = {
+	 *          "factory" = "elcodi.factory.product",
+	 *          "method" = "create",
+	 *          "static" = false
+	 *      },
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      },
+	 *      mappingFallback = true,
+	 *      name = "product",
+	 *      persist = true
+	 * )
+	 * @FormAnnotation(
+	 *      class = "elcodi_admin_product_form_type_product",
+	 *      name  = "form",
+	 *      entity = "product",
+	 *      handleRequest = true,
+	 *      validate = "isValid"
+	 * )
+	 *
+	 * @Template
+	 */
+	public function editAction(
+		FormInterface $form,
+		ProductInterface $product,
+		$isValid
+	) {
+		if ($product->getId()) {
+			if (!$this->canUpdate()) {
+				$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+				return $this->redirect($this->generateUrl('admin_homepage'));
+			}
+		} else {
+			if (!$this->canCreate()) {
+				$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+				return $this->redirect($this->generateUrl('admin_homepage'));
+			}
+		}
 
-        if ($isValid) {
-            $firstImage = $product
-                ->getSortedImages()
-                ->first();
+		if ($isValid) {
+			$firstImage = $product
+				->getSortedImages()
+				->first();
 
-            if ($firstImage instanceof ImageInterface) {
-                $product->setPrincipalImage($firstImage);
-            }
+			if ($firstImage instanceof ImageInterface) {
+				$product->setPrincipalImage($firstImage);
+			}
 
-            $this->flush($product);
+			$this->flush($product);
 
-            $this->addFlash(
-                'success',
-                $this
-                    ->get('translator')
-                    ->trans('admin.product.saved')
-            );
+			$this->addFlash(
+				'success',
+				$this
+					->get('translator')
+					->trans('admin.product.saved')
+			);
 
-            return $this->redirectToRoute('admin_product_list');
-        }
+			return $this->redirectToRoute('admin_product_list');
+		} else {
+			$formErrors = array();
+			foreach ($form as $child) {
+				foreach ($child->getErrors(true) as $error) {
+					$formErrors[$child->getName()][] = $error->getMessage();
+					$this->addFlash('error', $child->getName() == 'name' . ': ' . $error->getMessage());
+				}
+			}
+		}
 
-        return [
-            'product' => $product,
-            'form' => $form->createView(),
-        ];
-    }
+		return [
+			'product' => $product,
+			'form' => $form->createView(),
+		];
+	}
 
-    /**
-     * Enable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to enable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/enable",
-     *      name = "admin_product_enable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.product.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function enableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        if (!$this->canUpdate()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Enable entity
+	 *
+	 * @param Request          $request Request
+	 * @param EnabledInterface $entity  Entity to enable
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/{id}/enable",
+	 *      name = "admin_product_enable"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.product.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function enableAction(
+		Request $request,
+		EnabledInterface $entity
+	) {
+		if (!$this->canUpdate()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return parent::enableAction(
-            $request,
-            $entity
-        );
-    }
+		return parent::enableAction(
+			$request,
+			$entity
+		);
+	}
 
-    /**
-     * Disable entity
-     *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to disable
-     *
-     * @return array Result
-     *
-     * @Route(
-     *      path = "/{id}/disable",
-     *      name = "admin_product_disable"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.product.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function disableAction(
-        Request $request,
-        EnabledInterface $entity
-    ) {
-        if (!$this->canUpdate()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Disable entity
+	 *
+	 * @param Request          $request Request
+	 * @param EnabledInterface $entity  Entity to disable
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/{id}/disable",
+	 *      name = "admin_product_disable"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.product.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function disableAction(
+		Request $request,
+		EnabledInterface $entity
+	) {
+		if (!$this->canUpdate()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return parent::disableAction(
-            $request,
-            $entity
-        );
-    }
+		return parent::disableAction(
+			$request,
+			$entity
+		);
+	}
 
-    /**
-     * Delete entity
-     *
-     * @param Request $request      Request
-     * @param mixed   $entity       Entity to delete
-     * @param string  $redirectPath Redirect path
-     *
-     * @return RedirectResponse Redirect response
-     *
-     * @Route(
-     *      path = "/{id}/delete",
-     *      name = "admin_product_delete"
-     * )
-     * @Method({"GET", "POST"})
-     *
-     * @EntityAnnotation(
-     *      class = "elcodi.entity.product.class",
-     *      mapping = {
-     *          "id" = "~id~"
-     *      }
-     * )
-     */
-    public function deleteAction(
-        Request $request,
-        $entity,
-        $redirectPath = null
-    ) {
-        if (!$this->canDelete()) {
-            $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
-            return $this->redirect($this->generateUrl('admin_homepage'));
-        }
+	/**
+	 * Delete entity
+	 *
+	 * @param Request $request      Request
+	 * @param mixed   $entity       Entity to delete
+	 * @param string  $redirectPath Redirect path
+	 *
+	 * @return RedirectResponse Redirect response
+	 *
+	 * @Route(
+	 *      path = "/{id}/delete",
+	 *      name = "admin_product_delete"
+	 * )
+	 * @Method({"GET", "POST"})
+	 *
+	 * @EntityAnnotation(
+	 *      class = "elcodi.entity.product.class",
+	 *      mapping = {
+	 *          "id" = "~id~"
+	 *      }
+	 * )
+	 */
+	public function deleteAction(
+		Request $request,
+		$entity,
+		$redirectPath = null
+	) {
+		if (!$this->canDelete()) {
+			$this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
+			return $this->redirect($this->generateUrl('admin_homepage'));
+		}
 
-        return parent::deleteAction(
-            $request,
-            $entity,
-            $this->generateUrl('admin_product_list')
-        );
-    }
+		return parent::deleteAction(
+			$request,
+			$entity,
+			$this->generateUrl('admin_product_list')
+		);
+	}
 }
