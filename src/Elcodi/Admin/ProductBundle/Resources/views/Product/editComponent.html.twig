@@ -172,8 +172,11 @@ redirect_path: product.id
 
 {% include '@AdminMedia/Module/_attachment-form-field.html.twig' with {
 imageForm: form.attachments,
-image: product.attachments.0,
+images: product.attachments,
+purchasableId: product.id,
+redirect_path: product.id ? path('admin_product_edit', { id: product.id }): path('admin_product_new')
 } %}
+
 
 <div class="grid">
     <div class="col-1-3">

@@ -187,7 +187,6 @@ class AttachmentController extends AbstractAdminController {
 		if ('ok' === $response['status']) {
 
 			$purchasableId = $this->getRequest()->get('purchasableId');
-
 			if ($purchasableId) {
 				$purchasable = $this->get('elcodi.repository.purchasable')->findOneById($purchasableId);
 
