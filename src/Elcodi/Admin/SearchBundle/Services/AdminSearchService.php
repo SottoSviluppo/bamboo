@@ -81,14 +81,15 @@ class AdminSearchService implements IAdminSearchService {
 
 		$boolQuery = new BoolQuery();
 
-		if (strpos($query, '@') !== false) {
-			$wildcardBool = $this->createWildcardQuery($query);
-			$boolQuery->addShould($wildcardBool);
-		} else {
-			$queryString = $this->createQueryString($query);
-			$boolQuery->addShould($queryString);
+		if (!empty($query)) {
+			if (strpos($query, '@') !== false) {
+				$wildcardBool = $this->createWildcardQuery($query);
+				$boolQuery->addShould($wildcardBool);
+			} else {
+				$queryString = $this->createQueryString($query);
+				$boolQuery->addShould($queryString);
+			}
 		}
-
 		$adapter = $finder->createPaginatorAdapter($boolQuery);
 
 		$options = array();
@@ -212,8 +213,9 @@ class AdminSearchService implements IAdminSearchService {
 
 	private function createQueryString($query) {
 		$queryString = new BoolQuery();
-
-		$queryString->addShould(new QueryString($query));
+		if (!empty($query)) {
+			$queryString->addShould(new QueryString($query));
+		}
 
 		return $queryString;
 	}
