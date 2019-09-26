@@ -89,7 +89,7 @@ class CategoryController extends Controller {
 	 *      defaults = {
 	 *          "page" = "1",
 	 *          "limit" = "10",
-	 *          "orderByField" = "name",
+	 *          "orderByField" = "position",
 	 *          "orderByDirection" = "ASC",
 	 *      },
 	 *      methods = {"GET"}
