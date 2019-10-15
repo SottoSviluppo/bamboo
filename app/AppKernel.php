@@ -66,6 +66,7 @@ class AppKernel extends Kernel {
 			'Knp\Bundle\PaginatorBundle\KnpPaginatorBundle',
 			'Ivory\CKEditorBundle\IvoryCKEditorBundle',
 			'Elendev\RoxyFilemanBundle\ElendevRoxyFilemanBundle',
+			'Yectep\PhpSpreadsheetBundle\PhpSpreadsheetBundle',
 
 			/**
 			 * Elcodi core bundles
@@ -216,8 +217,7 @@ class AppKernel extends Kernel {
 
 	public function getCacheDir() {
 		// Decommentare le righe sottostanti nel caso in cui si voglia usare vagrant
-		
-		 
+
 		// return '/dev/shm/project/cache/' .  $this->environment;
 		// if (in_array($this->environment, array('dev', 'test' /*, 'prod'*/))) {
 		//     return '/dev/shm/project/cache/' . $this->environment;
