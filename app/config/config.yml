@@ -241,6 +241,10 @@ fos_elastica:
                                 type: custom
                                 tokenizer: email_tokenizer
                                 filter: [lowercase, stop]
+                            autocomplete_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: [standard, lowercase, asciifolding, elision]
             types: 
                 products:
                     mappings:
