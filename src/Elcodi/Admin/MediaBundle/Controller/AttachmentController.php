@@ -187,12 +187,15 @@ class AttachmentController extends AbstractAdminController {
 		if ('ok' === $response['status']) {
 
 			$purchasableId = $this->getRequest()->get('purchasableId');
-
 			if ($purchasableId) {
 				$purchasable = $this->get('elcodi.repository.purchasable')->findOneById($purchasableId);
 
 				$attachmentId = $response['response']['id'];
 				$attachment = $this->get('elcodi.repository.attachment')->findOneById($attachmentId);
+
+				$attachment->setName(pathinfo($response['response']['filename'], PATHINFO_FILENAME));
+				$this->get('elcodi.object_manager.attachment')->persist($attachment);
+				$this->get('elcodi.object_manager.attachment')->flush();
 
 				$purchasable->addAttachment($attachment);
 

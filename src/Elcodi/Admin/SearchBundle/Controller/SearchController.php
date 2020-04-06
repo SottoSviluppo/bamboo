@@ -96,12 +96,7 @@ class SearchController extends AbstractAdminController {
 
 		// excel
 		if ($parameters['submit'] == 'Excel') {
-			// $searchParameters = $this->get('elcodi_admin.customer.admin_search')->getSearchParameters($request);
-			// $searchParameters = array();
-			// $searchParameters['query'] = $parameters['query'];
-			// $searchParameters['limit'] = 100000;
 			$customers = $this->get('elcodi_admin.admin_search')->searchCustomers($parameters['query'], 1, 10000);
-
 			return $this->get('elcodi.excel_manager.customer')->getExcelFromCustomers($customers);
 		}
 

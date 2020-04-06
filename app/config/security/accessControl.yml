@@ -21,8 +21,10 @@ security:
         public_area_register:
            path: ^/registrazione$
            roles: IS_AUTHENTICATED_ANONYMOUSLY
+        public_area_recover_password:
+            path: ^/password/
+            roles: IS_AUTHENTICATED_ANONYMOUSLY
         public_area:
             path: ^/.*
             roles: %store_access_role%
-
 

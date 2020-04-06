@@ -172,8 +172,11 @@ redirect_path: product.id
 
 {% include '@AdminMedia/Module/_attachment-form-field.html.twig' with {
 imageForm: form.attachments,
-image: product.attachments.0,
+images: product.attachments,
+purchasableId: product.id,
+redirect_path: product.id ? path('admin_product_edit', { id: product.id }): path('admin_product_new')
 } %}
+
 
 <div class="grid">
     <div class="col-1-3">
@@ -410,17 +413,17 @@ image: product.attachments.0,
     <div class="col-2-3">
         <div class="box mb-n pb-n">
             <ol class="grid pt-m">
-                <li class="col-1-2">
+                <li class="col-1-3">
                     {{ form_row(form.showInHome, { label: 'admin.product.field.in_home.title' })}}
+                </li>
+                <li class="col-1-3">
                     {{ form_row(form.enabled, { label: 'admin.product.field.enabled.title' })}}
+                </li>
+                <li class="col-1-3">
                     {{ form_row(form.private, { label: 'admin.product.field.private.title' })}}
                 </li>
                 <li class="col-1-2">
-                                {{
-                                form_row(form.position, {
-                                label: 'admin.product.field.position.title',
-                            })
-                        }}
+                    {{ form_row(form.position, { label: 'admin.product.field.position.title', }) }}
                 </li>
             </ol>
         </div>
