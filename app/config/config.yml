@@ -236,11 +236,20 @@ fos_elastica:
                         tokenizer:
                             email_tokenizer:
                                 type: uax_url_email
+                            autocomplete_tokenizer:
+                                type: edge_ngram
+                                min_gram: 3
+                                max_gram: 10
+                                token_chars: [letter, digit, symbol] 
                         analyzer:
                             email_analyzer:
                                 type: custom
                                 tokenizer: email_tokenizer
                                 filter: [lowercase, stop]
+                            autocomplete_analyzer:
+                                type: custom
+                                tokenizer: autocomplete_tokenizer
+                                filter: [standard, lowercase, asciifolding, elision]
             types: 
                 products:
                     mappings:
