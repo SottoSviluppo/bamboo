@@ -158,7 +158,7 @@ class StoreSearchService implements IStoreSearchService {
 			$productsQuery = new MultiMatch();
 			$productsQuery->setQuery($token);
 			$productsQuery->setFields([
-				'name', 'shortDescription', 'description', 'sku',
+				'name', 'shortDescription', 'description', 'sku', 'extraData.*',
 			]);
 			if ($this->searchProductsConnector == 'or') {
 				$totalProductsQuery->addShould($productsQuery);

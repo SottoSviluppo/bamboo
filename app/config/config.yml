@@ -283,6 +283,8 @@ fos_elastica:
                             type: "object"
                             properties:
                                 name: ~
+                        extraData:
+                            type: "object"
                     persistence:
                         driver: orm
                         model: %elcodi.entity.purchasable.class%
