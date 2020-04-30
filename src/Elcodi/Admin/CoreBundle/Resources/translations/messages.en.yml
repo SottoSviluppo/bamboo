@@ -212,6 +212,9 @@ admin:
             name:
                 placeholder: 'e.g. My Awesome Category'
                 title: 'Category name'
+            description:
+                placeholder: 'e.g. My Awesome Category'
+                title: 'Category descrption'
             parent:
                 title: Parent
             root:

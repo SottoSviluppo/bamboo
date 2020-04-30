@@ -71,6 +71,15 @@
                                             }}
                                         </div>
                                     </li>
+                                    <li class="pb-n">
+                                            {{ form_row(form.description["#{language}_description"], {
+                                                label: 'admin.category.field.description.title',
+                                                attr: {
+                                                    placeholder: 'admin.category.field.description.placeholder',
+                                                }
+                                            })
+                                        }}
+                                    </li>
                                 </ol>
                             </div>
                         </section>

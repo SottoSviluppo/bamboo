@@ -18,6 +18,7 @@ elcodi_entity_translator:
             alias: category
             fields:
                 name: ~
+                description: ~
                 slug: ~
                 metaTitle: ~
                 metaDescription: ~

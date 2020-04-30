@@ -286,6 +286,9 @@ admin:
             name:
                 placeholder: 'e.g. La mia fantastica categoria'
                 title: 'Nome della categoria'
+            description:
+                placeholder: 'e.g. La mia fantastica categoria'
+                title: 'Descrizione della categoria'
 
             parent:
                 title: Genitore
