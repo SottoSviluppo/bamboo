@@ -289,8 +289,10 @@ fos_elastica:
                                 name: ~
                                 enabled: ~
                         manufacturer:
-                            type: "object"
+                            type: "nested"
                             properties:
+                                id:
+                                    type: integer
                                 name: ~
                         extraData:
                             type: "object"
@@ -404,6 +406,8 @@ fos_elastica:
                         finder: ~
                 manufacturers:
                     mappings:
+                        id:
+                            type: integer
                         name: ~
                         description: ~
                     persistence:
