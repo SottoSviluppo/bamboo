@@ -6,8 +6,8 @@ use Elcodi\Store\PageBundle\EventListener\Abstracts\AbstractEmailSenderEventList
 
 class Mailer extends AbstractEmailSenderEventListener
 {
-    public function send($emailName, array $context, $receiverEmail, $bcc = false)
+    public function send($emailName, array $context, $receiverEmail, $bcc = false, $emailSender = null, $language = null)
     {
-        return $this->sendEmail($emailName, $context, $receiverEmail, $bcc);
+        return $this->sendEmail($emailName, $context, $receiverEmail, $bcc, $emailSender,$language);
     }
 }
