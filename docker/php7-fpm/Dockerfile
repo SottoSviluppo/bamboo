@@ -1,5 +1,5 @@
 # See https://github.com/docker-library/php/blob/4677ca134fe48d20c820a19becb99198824d78e3/7.0/fpm/Dockerfile
-FROM php:7.0-fpm
+FROM php:7.1-fpm
 
 MAINTAINER Maxence POUTORD <maxence.poutord@gmail.com>
 
@@ -29,7 +29,7 @@ RUN "date"
 
 # Type docker-php-ext-install to see available extensions
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include \
-&& docker-php-ext-install pdo pdo_mysql curl xml intl mcrypt gd bcmath mbstring zip
+&& docker-php-ext-install pdo pdo_mysql curl xml intl mcrypt gd bcmath mbstring zip soap
 
 #RUN pecl install -o -f redis \
 RUN printf "\n" | pecl install -o -f redis \

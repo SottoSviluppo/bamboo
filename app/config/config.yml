@@ -239,8 +239,8 @@ fos_elastica:
                             autocomplete_tokenizer:
                                 type: edge_ngram
                                 min_gram: 3
-                                max_gram: 10
-                                token_chars: [letter, digit, symbol] 
+                                max_gram: 50
+                                token_chars: [] 
                         analyzer:
                             email_analyzer:
                                 type: custom
@@ -289,8 +289,10 @@ fos_elastica:
                                 name: ~
                                 enabled: ~
                         manufacturer:
-                            type: "object"
+                            type: "nested"
                             properties:
+                                id:
+                                    type: integer
                                 name: ~
                         extraData:
                             type: "object"
@@ -404,6 +406,8 @@ fos_elastica:
                         finder: ~
                 manufacturers:
                     mappings:
+                        id:
+                            type: integer
                         name: ~
                         description: ~
                     persistence:

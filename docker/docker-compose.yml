@@ -45,23 +45,14 @@ services:
         image: redis:3
         networks:
             - net1
-
-    # elk:
-    #     image: willdurand/elk
-    #     ports:
-    #         - 81:80
-    #     volumes:
-    #         - ./elk/logstash:/etc/logstash
-    #         - ./elk/logstash/patterns:/opt/logstash/patterns
-    #     volumes_from:
-    #         - php
-    #         - nginx
-    mailcatcher:
-        image: schickling/mailcatcher
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        container_name: mailhog
         ports:
-            - 1080:1080
+            - '8025:8025'
+            - '1025:1025'                                                                               
         networks:
             - net1
-
+   
 networks:
     net1:
