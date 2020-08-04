@@ -214,4 +214,56 @@ class AttachmentController extends AbstractAdminController {
 
 		return $response;
 	}
+
+	/**
+	 * Nav for entity
+	 *
+	 * @return array Result
+	 *
+	 * @Route(
+	 *      path = "/upload_category",
+	 *      name = "admin_attachment_category_upload"
+	 * )
+	 *
+	 * @JsonResponse()
+	 */
+	public function uploadCategoryAction() {
+
+		$jsonResponse = $this
+			->forward('elcodi.controller.attachment_upload:uploadAction')
+			->getContent();
+
+		$response = json_decode($jsonResponse, true);
+		// \Doctrine\Common\Util\Debug::dump($response);die();
+
+		if ('ok' === $response['status']) {
+
+			$categoryId = $this->getRequest()->get('categoryId');
+			if ($categoryId) {
+				$category = $this->get('elcodi.repository.category')->findOneById($categoryId);
+
+				$attachmentId = $response['response']['id'];
+				$attachment = $this->get('elcodi.repository.attachment')->findOneById($attachmentId);
+
+				$attachment->setName(pathinfo($response['response']['filename'], PATHINFO_FILENAME));
+				$this->get('elcodi.object_manager.attachment')->persist($attachment);
+				$this->get('elcodi.object_manager.attachment')->flush();
+
+				$category->addAttachment($attachment);
+
+				$this->get('elcodi.object_manager.category')->persist($category);
+				$this->get('elcodi.object_manager.category')->flush();
+			}
+
+			$routes = $this
+				->get('router')
+				->getRouteCollection();
+
+			$response['response']['routes']['delete'] = $routes
+				->get('admin_attachment_delete')
+				->getPath();
+		}
+
+		return $response;
+	}
 }
