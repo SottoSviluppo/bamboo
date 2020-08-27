@@ -22,3 +22,4 @@ services:
             - "@elcodi_store.template_locator.page"
             - "@logger"
             - "%sender_email_notification%"
+            - "@elcodi.entity_translator"

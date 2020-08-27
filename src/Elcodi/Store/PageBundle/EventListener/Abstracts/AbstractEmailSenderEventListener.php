@@ -62,6 +62,7 @@ abstract class AbstractEmailSenderEventListener {
 	 */
 	protected $logger;
 	protected $notificationSenderEmail;
+	protected $entity_translator;
 
 	/**
 	 * Construct
@@ -79,7 +80,8 @@ abstract class AbstractEmailSenderEventListener {
 		StoreInterface $store,
 		TemplateLocator $templateLocator,
 		Logger $logger,
-		$notificationSenderEmail
+		$notificationSenderEmail,
+        $entity_translator
 	) {
 		$this->mailer = $mailer;
 		$this->twig = $twig;
@@ -88,6 +90,7 @@ abstract class AbstractEmailSenderEventListener {
 		$this->templateLocator = $templateLocator;
 		$this->logger = $logger;
 		$this->notificationSenderEmail = $notificationSenderEmail;
+		$this->entity_translator=$entity_translator;
 	}
 
 	/**
@@ -97,7 +100,7 @@ abstract class AbstractEmailSenderEventListener {
 	 * @param array  $context       Context
 	 * @param string $receiverEmail Receiver email
 	 */
-	protected function sendEmail($emailName, array $context, $receiverEmail, $bcc = false, $senderEmail = null) {
+	protected function sendEmail($emailName, array $context, $receiverEmail, $bcc = false, $senderEmail = null, $language=null) {
 		$page = $this
 			->pageRepository
 			->findOneBy([
@@ -105,6 +108,13 @@ abstract class AbstractEmailSenderEventListener {
 			]);
 
 		if ($page instanceof PageInterface) {
+
+		    if ($language){
+                $page = $this
+                    ->entity_translator
+                    ->translate($page, $language);
+            }
+
 			$template = $this
 				->templateLocator
 				->locate(':email.html.twig');
