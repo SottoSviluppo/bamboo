@@ -136,8 +136,8 @@ class PaymentBridge implements PaymentBridgeInterface
     public function findOrder($orderId)
     {
         $this->order = $this
-            ->orderRepository
-            ->find($orderId);
+        ->orderRepository
+        ->find($orderId);
 
         return $this->order;
     }
@@ -157,11 +157,11 @@ class PaymentBridge implements PaymentBridgeInterface
          */
         if (!$this->order instanceof OrderInterface) {
             return $this
-                ->cartWrapper
-                ->get()
-                ->getAmount()
-                ->getCurrency()
-                ->getIso();
+            ->cartWrapper
+            ->get()
+            ->getAmount()
+            ->getCurrency()
+            ->getIso();
         }
 
         $amount = $this->order->getAmount();
@@ -201,21 +201,21 @@ class PaymentBridge implements PaymentBridgeInterface
          */
         if (!$this->order instanceof OrderInterface) {
             return $this
-                ->cartWrapper
-                ->get()
-                ->getAmount()
-                ->getAmount();
+            ->cartWrapper
+            ->get()
+            ->getAmount()
+            ->getAmount();
         }
 
         $amount = $this
-            ->order
-            ->getAmount();
+        ->order
+        ->getAmount();
 
         if ($amount instanceof Money) {
             return $this
-                ->order
-                ->getAmount()
-                ->getAmount();
+            ->order
+            ->getAmount()
+            ->getAmount();
         }
 
         throw new LogicException(
@@ -245,9 +245,24 @@ class PaymentBridge implements PaymentBridgeInterface
 
         if ($this->order instanceof Order) {
             $currency = $this
-                ->order
-                ->getAmount()
-                ->getCurrency();
+            ->order
+            ->getAmount()
+            ->getCurrency();
+
+             $convertedAmount = $this
+                ->currencyConverter
+                ->convertMoney(
+                    $this->order->getAmount(),
+                    $currency
+                );
+
+
+             $extraData['items'][] = [
+                    'item_name'          => 'products',
+                    'item_currency_code' => $currency,
+                    'quantity'           => 1,
+                    'amount'             => $convertedAmount->getAmount(),
+                ];
 
             /**
              * @var OrderLine $orderLine
@@ -256,74 +271,76 @@ class PaymentBridge implements PaymentBridgeInterface
              * of the Cart when they are defined in another
              * currency
              */
-            foreach ($this->order->getOrderLines() as $orderLine) {
-                $orderLineArray = [];
+            // foreach ($this->order->getOrderLines() as $orderLine) {
+            //     $orderLineArray = [];
 
-                $purchasable = $orderLine->getPurchasable();
-                $orderLineName = $this
-                    ->purchasableNameResolver
-                    ->resolveName($purchasable);
+            //     $purchasable = $orderLine->getPurchasable();
+            //     $orderLineName = $this
+            //     ->purchasableNameResolver
+            //     ->resolveName($purchasable);
 
-                $orderLineArray['item_name'] = $orderLineName;
+            //     $orderLineArray['item_name'] = $orderLineName;
 
-                $lineAmount = $orderLine->getPurchasableAmount();
-                $tax = $orderLine->getTax();
-                if ($tax !== null) {
-                    if (!$this->store->getTaxIncluded()) {
-                        $percentage = (100 + $tax->getValue()) / 100;
-                        $lineAmount = $lineAmount->multiply($percentage);
-                    }
-                }
+            //     $lineAmount = $orderLine->getPurchasableAmount();
+            //     $tax = $orderLine->getTax();
+            //     if ($tax !== null) {
+            //         if (!$this->store->getTaxIncluded()) {
+            //             $percentage = (100 + $tax->getValue()) / 100;
+            //             $lineAmount = $lineAmount->multiply($percentage);
+            //         }
+            //     }
                 // $lineAmount = $orderLine->getAmount();
 
                 /*
                  * We need to convert any price to match
                  * current order currency
                  */
-                $convertedAmount = $this
-                    ->currencyConverter
-                    ->convertMoney(
-                        $lineAmount,
-                        $currency
-                    );
+                // $convertedAmount = $this
+                // ->currencyConverter
+                // ->convertMoney(
+                //     $lineAmount,
+                //     $currency
+                // );
 
-                $orderLineArray['amount'] = $convertedAmount
-                    ->getAmount();
+                // $orderLineArray['amount'] = $convertedAmount
+                // ->getAmount();
 
                 /**
                  * Line items currency should always match
                  * the one from the order
                  */
-                $orderLineArray['item_currency_code'] = $this->getCurrency();
+            //     $orderLineArray['item_currency_code'] = $this->getCurrency();
 
-                $orderDescription[] = $orderLineName;
-                $orderLineArray['quantity'] = $orderLine->getQuantity();
+            //     $orderDescription[] = $orderLineName;
+            //     $orderLineArray['quantity'] = $orderLine->getQuantity();
 
-                $extraData['items'][$orderLine->getId()] = $orderLineArray;
-            }
+            //     $extraData['items'][$orderLine->getId()] = $orderLineArray;
+            // }
 
             // We add the shipping costs as a new "shadow" line in the extraData structure.
-            $shippingAmount = $this
-                ->order
-                ->getShippingAmount();
+            // $shippingAmount = $this
+            // ->order
+            // ->getShippingAmount();
 
-            if ($shippingAmount->isGreaterThan(Money::create(0, $shippingAmount->getCurrency()))) {
-                $extraData['items'][] = [
-                    'item_name'          => 'shipping',
-                    'item_currency_code' => $shippingAmount->getCurrency(),
-                    'quantity'           => 1,
-                    'amount'             => $shippingAmount->getAmount(),
-                ];
-            }
+            // if ($shippingAmount->isGreaterThan(Money::create(0, $shippingAmount->getCurrency()))) {
+            //     $extraData['items'][] = [
+            //         'item_name'          => 'shipping',
+            //         'item_currency_code' => $shippingAmount->getCurrency(),
+            //         'quantity'           => 1,
+            //         'amount'             => $shippingAmount->getAmount(),
+            //     ];
+            // }
 
             // We add the coupon discounts as a new "shadow" line in the extraData structure.
-            $couponAmount = $this
-                ->order
-                ->getCouponAmount();
+            // $couponAmount = $this
+            // ->order
+            // ->getCouponAmount();
 
-            if ($couponAmount->isGreaterThan(Money::create(0, $couponAmount->getCurrency()))) {
-                $extraData['discount_amount_cart'] = $couponAmount->getAmount();
-            }
+
+            // if ($couponAmount->isGreaterThan(Money::create(0, $couponAmount->getCurrency()))) {
+            //     $extraData['discount_amount_cart'] = $couponAmount->getAmount();
+            // }
+
 
             $extraData['order_description'] = implode(" - ", $orderDescription);
         }
@@ -339,11 +356,11 @@ class PaymentBridge implements PaymentBridgeInterface
     public function isOrderPaid()
     {
         return $this->order instanceof OrderInterface
-            ? $this
-                ->order
-                ->getPaymentStateLineStack()
-                ->getLastStateLine()
-                ->getName('paid')
-            : false;
+        ? $this
+        ->order
+        ->getPaymentStateLineStack()
+        ->getLastStateLine()
+        ->getName('paid')
+        : false;
     }
 }
