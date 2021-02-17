@@ -1,12 +1,11 @@
 FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../components/plupload/js/plupload.full.min.js','modal' ], function () {
 	var imageType = 'images';
-
 	return {
 		modal:  TinyCore.Module.instantiate( 'modal' ),
 		onStart: function () {
 			var aTargets =  FrontendTools.getDataModules('upload-attachment'),
 			self = this;
-
+			// console.log(aTargets);
 			$(aTargets).each(function () {
 				self.autoBind(this);
 			});
@@ -36,7 +35,7 @@ FrontendCore.define('upload-attachment', [ oGlobalSettings.sPathJs + '../compone
 
 
 		},
-		addImageToGallery : function( oContainer, nId) {
+		addImageToGallery: function( oContainer, nId) {
 			var formType = oContainer.getAttribute('formType');
 			if (!formType)
 				formType = 'elcodi_admin_product_form_type_manufacturer';

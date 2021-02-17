@@ -148,9 +148,21 @@
             formType: 'elcodi_admin_product_form_type_category'
         } %}
 
-        {% include '@AdminMedia/Module/_attachment-form-field.html.twig' with {
+{#         {% include '@AdminMedia/Module/_attachment-form-field.html.twig' with {
+imageForm: form.attachments,
+images: category.attachments.0,
+purchasableId: category.id,
+redirect_path: category.id ? path('admin_category_edit', { id: category.id }): path('admin_category_new'),
+formType: 'elcodi_admin_product_form_type_category'
+} %} #}
+
+
+        {% include '@AdminMedia/Module/_attachment-category-form-field.html.twig' with {
             imageForm: form.attachments,
-            image: category.attachments.0,
+            images: category.attachments,
+            categoryId: category.id,
+            redirect_path: category.id ? path('admin_category_edit', { id: category.id }): path('admin_category_new'),
+            formType: 'elcodi_admin_product_form_type_category'
         } %}
 
         <div class="ph-n pt-m mb-n">
