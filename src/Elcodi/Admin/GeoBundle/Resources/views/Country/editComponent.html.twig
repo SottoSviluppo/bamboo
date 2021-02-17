@@ -47,21 +47,45 @@
                                     </li>
                                     <li>
                                         {{
-                                            form_row(form.enabled, {
-                                                label: 'admin.category.field.enabled.title',
+                                            form_row(form.dicituraFattura["#{language}_dicituraFattura"], {
+                                                label: 'admin.country.field.dicitura_fattura.title',
                                             })
                                         }}
                                     </li>
+                                    
+                                      
                                 </ol>
                             </div>
                         </section>
 						{% endfor %}
                     </div>
+                    <div class="col-2-3">
+                        <ol>
+                            <li>
+                                {{
+                                    form_row(form.isUe, {
+                                        label: 'admin.country.field.is_ue.title',
+                                    })
+                                }}
+                            </li>
+                            <li>
+                                {{
+                                    form_row(form.assoggetatoIVA, {
+                                        label: 'admin.country.field.assoggetato_iva.title',
+                                    })
+                                }}
+                            </li>
+                            <li>
+                                {{
+                                    form_row(form.enabled, {
+                                        label: 'admin.category.field.enabled.title',
+                                    })
+                                }}
+                            </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
-
-
-
         </fieldset>
 
         <div class="grid fixed-bottom animated fade-in-up">
@@ -74,32 +98,5 @@
             </div>
         </div>
     {{ form_end(form) }}
-
-
-{# {% if country.id > 0 %}
-<div class="box-background">
-    <h3 class="fw-n">{{ 'admin.province.list'|trans }}</h3>
-    <a href="{{ path('admin_province_new') }}?country={{country.id}}" class="button-primary">
-        <i class="icon-plus"></i>
-        <span>Nuovo</span>
-    </a>
-    <table class="table">
-        <thead>
-            <tr>
-    			{% include 'AdminGeoBundle::AdminProvince/tableHead.html.twig' %}
-            </tr>
-        </thead>
-        <tbody>
-			{% for province in country.provinces %}
-        	<tr>
-            	{% include 'AdminGeoBundle::AdminProvince/tableRow.html.twig' with {'entity': province} %}
-            </tr>
-			{% endfor %}
-        </tbody>
-    </table>
-</div>
-{% endif %}
-
- #}
 
 {% endblock content %}
