@@ -125,7 +125,7 @@ class ManufacturerController extends Controller {
 		 * @var ManufacturerRepository $manufacturerRepository
 		 * @var PurchasableRepository $purchasableRepository
 		 */
-		$manufacturerRepository = $this->get('elcodi.repository.manufacturer');
+		// $manufacturerRepository = $this->get('elcodi.repository.manufacturer');
 		$purchasableRepository = $this->get('elcodi.repository.purchasable');
 
 		// $manufacturers = array_merge(
