@@ -60,9 +60,10 @@
                     Spedizione
                     <select name="shippingState" class="filter" >
                         <option value="">Tutti</option>
-                        <option value="preparing" {% if shippingState == 'preparing' %} selected{% endif %}>Nuovo</option>
-                        <option value="processed" {% if shippingState == 'processed' %} selected{% endif %}>In elaborazione</option>
-                        <option value="in delivery" {% if shippingState == 'in delivery' %} selected{% endif %}>Spedito</option>
+                        <option value="preparing" {% if shippingState == 'preparing' %} selected{% endif %}>{{ "common.order.states.preparing"|trans }}</option>
+                        <option value="processed" {% if shippingState == 'processed' %} selected{% endif %}>{{ "common.order.states.processed"|trans }}</option>
+                        <option value="in delivery" {% if shippingState == 'in delivery' %} selected{% endif %}>{{ "common.order.states.in delivery"|trans }}</option>
+                        <option value="delivered" {% if shippingState == 'delivered' %} selected{% endif %}>{{ "common.order.states.delivered"|trans }}</option>
                     </select>
                     </div>
                 </li>

@@ -71,9 +71,17 @@ class CountryType extends AbstractType
             ->add('name', 'text', [
                 'required' => true,
             ])
+            ->add('isUe', 'checkbox', [
+                'required' => false,
+            ])
+            ->add('assoggetatoIVA', 'checkbox', [
+                'required' => false,
+            ])
+            ->add('dicituraFattura', 'text', [
+                'required' => false,
+            ])
             ->add('enabled', 'checkbox', [
                 'required' => false,
-                'data' => true,
             ])
         ;
 
