@@ -17,7 +17,8 @@ class Version20210419085235 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE country ADD assoggetato_IVA TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE country ADD assoggetato_IVA TINYINT(1) DEFAULT \'0\'');
+        $this->addSql('ALTER TABLE country ADD dicitura_fattura VARCHAR(255)');
     }
 
     /**
@@ -28,5 +29,6 @@ class Version20210419085235 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE image DROP assoggetato_IVA');
+        $this->addSql('ALTER TABLE image DROP dicitura_fattura');
     }
 }
