@@ -515,6 +515,12 @@ admin:
                 title: Nome
             enabled:
                 title: Abilitato
+            is_ue:
+                title: "UE"
+            assoggetato_iva:
+                title: "assoggetato IVA"
+            dicitura_fattura:
+                title: "dicitura in fattura per assoggetamento IVA"
         section:
             translatable:
                 title: 'Nazione'

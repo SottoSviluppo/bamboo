@@ -5,8 +5,7 @@
         </div>
     </div>
     <div class="col-2-3">
-        <div class="box" data-fc-modules="image-delete">
-       
+        <div class="box" data-fc-modules="attachment-delete">
             <div id="thumb-gallery-select" class="d-n">
                 {{ form_row(form.attachments, { attr: { class: 'js-attachments-select', formType: formType } }) }}
             </div>
@@ -25,7 +24,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            <a href="{{ path('admin_attachment_upload', {'purchasableId': purchasableId}) }}" id="upload-attachment" class="button" image-type="attachment" data-fc-modules="upload-attachment">
+            <a href="{{ path('admin_attachment_category_upload', {'categoryId': categoryId}) }}" id="upload-attachment" class="button" image-type="attachment" data-fc-modules="upload-attachment">
                 <i class="icon-file-image-o mr-s"></i> Upload allegato
             </a>
             <progress id="upload-attachment-progress" value="0" max="100" style="display: none"></progress>

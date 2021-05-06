@@ -76,6 +76,7 @@ class ShippingCollectEventListener
             ->shippingRangesProvider
             ->getAllShippingRangesSatisfiedWithCart($cart);
 
+
         foreach ($carrierRanges as $carrierRange) {
             $event
                 ->addShippingMethod(new ShippingMethod(

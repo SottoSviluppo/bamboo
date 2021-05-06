@@ -122,7 +122,7 @@ class CategoryController extends Controller {
 		}
 
 		if ($category->getSubCategories()->count() > 0) {
-			return $this->redirectToRoute('store_subcategories_list', array('id' => $category->getId()));
+			return $this->redirectToRoute('store_subcategories_list', array('id' => $category->getId(), 'slug'=>$category->getSlug()));
 		}
 
 		/**
@@ -161,7 +161,7 @@ class CategoryController extends Controller {
 	/**
 	 * Fa il render del template che mostra le sottocategorie di una categoria padre paginandole
 	 * @Route(
-	 *      path = "categories/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
+	 *      path = "categories/{slug}/{id}/{page}/{limit}/{orderByField}/{orderByDirection}",
 	 *      name = "store_subcategories_list",
 	 *      requirements = {
 	 *          "page" = "\d*",
@@ -184,7 +184,7 @@ class CategoryController extends Controller {
 	 *      }
 	 * )
 	 */
-	public function subcategoriesView(CategoryInterface $category, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
+	public function subcategoriesView(CategoryInterface $category, $slug, $id, $page, $limit, $orderByField, $orderByDirection, Request $request) {
 		$categoryRepository = $this->get('elcodi.repository.category');
 		return $this->renderTemplate(
 			'Pages:subcategories-view.html.twig',
