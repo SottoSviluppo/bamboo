@@ -64,22 +64,23 @@ class MoneyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('amount', 'number', [
-                // 'scale'  => 2,
-            ])
-            ->add('currency', 'entity', [
-                'class' => $this->currencyNamespace,
-                'query_builder' => function (EntityRepository $repository) {
-                    return $repository
-                        ->createQueryBuilder('c')
-                        ->where('c.enabled = :enabled')
-                        ->setParameter('enabled', true);
-                },
-                'required' => true,
-                'multiple' => false,
-                'property' => 'symbol',
-            ])
-            ->setDataMapper(new MoneyDataMapper());
+        ->add('amount', 'number')
+        ->add('currency', 'entity', [
+            'class' => $this->currencyNamespace,
+            'query_builder' => function (EntityRepository $repository) {
+                return $repository
+                ->createQueryBuilder('c')
+                ->where('c.enabled = :enabled')
+                ->setParameter('enabled', true);
+            },
+            'required' => true,
+            'multiple' => false,
+            'property' => 'symbol',
+            'choice_label' => function ($currency) {
+                return $currency->getSymbol() . ' - '. $currency->getName();
+            }
+        ])
+        ->setDataMapper(new MoneyDataMapper());
     }
 
     /**
@@ -94,8 +95,8 @@ class MoneyType extends AbstractType
             'empty_data' => Money::create(
                 0,
                 $this
-                    ->defaultCurrencyWrapper
-                    ->get()
+                ->defaultCurrencyWrapper
+                ->get()
             ),
         ]);
     }

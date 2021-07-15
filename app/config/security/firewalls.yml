@@ -27,7 +27,7 @@ security:
             logout:
                 path:   admin_logout
                 target: admin_login
-                invalidate_session: false
+                invalidate_session: true
 
         store_area:
             provider: customer
@@ -45,7 +45,7 @@ security:
                 path:   store_logout
                 # target: store_homepage
                 success_handler: elcodi.security.logout_success_handler
-                invalidate_session: false
+                invalidate_session: true
             oauth:
                 login_path: store_login
                 use_forward: false
