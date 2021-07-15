@@ -263,6 +263,10 @@
     </fieldset>
 
     {{ form_end(form) }}
+
+     {{ elcodi_hook("admin.customer_form_out", {
+            'customer': customer
+        }) }}
 </div>
 
 {% endblock content %}
