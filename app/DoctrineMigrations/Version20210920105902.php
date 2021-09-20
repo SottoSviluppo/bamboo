@@ -30,3 +30,4 @@ class Version20210920105902 extends AbstractMigration
         $this->addSql('ALTER TABLE store DROP extra_data');
     }
 }
+    
