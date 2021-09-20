@@ -65,7 +65,7 @@ class AdminOrderSearchService
         $q = new \Elastica\Query($this->orderQuery);
         $sortParam = ['paymentLastStateLine.id' => ['order' => 'desc']];
         $q->setSort(array($sortParam))
-            ->setMinScore(1);
+        ->setMinScore(1);
 
         $finder = $this->createFinderFor('orders');
         return $finder->find($q, $this->limit);
@@ -333,6 +333,20 @@ class AdminOrderSearchService
 
         $stateQuery = new BoolQuery();
         $stateQuery->addShould(new Match($name, $value));
+        $this->orderQuery->addMust($stateQuery);
+    }
+
+    public function addExacMultipletMatch($name, $valueArray)
+    {
+        if (empty($valueArray)) {
+            return;
+        }
+
+        $stateQuery = new BoolQuery();
+        foreach ($valueArray as $value) {
+            $stateQuery->addShould(new Match($name, $value));
+        }
+
         $this->orderQuery->addMust($stateQuery);
     }
 
