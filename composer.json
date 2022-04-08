@@ -76,10 +76,10 @@
         "cocur/slugify": "^2.3",
         "knplabs/knp-paginator-bundle": "^2.5",
         "phpoffice/phpexcel": "~1.8.1",
-        "tecnickcom/TCPDF": "6.3.5",
+        "tecnickcom/tcpdf": "6.3.5",
         "egeloen/ckeditor-bundle" : "~5.0",
         "elendev/roxyfileman-bundle": "1.2.0",
-        "wikimedia/composer-merge-plugin": "^1.4",
+        "wikimedia/composer-merge-plugin": "2",
         "yectep/phpspreadsheet-bundle" : "0.0.4"
     },
     "replace": {
@@ -181,7 +181,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "allow-plugins": {
+            "wikimedia/composer-merge-plugin": false
+        }
     },
     "extra": {
         "symfony-app-dir": "app",

@@ -1,7 +1,9 @@
 # See https://github.com/docker-library/php/blob/4677ca134fe48d20c820a19becb99198824d78e3/7.0/fpm/Dockerfile
-FROM php:7.1-fpm
+FROM php:7.2-fpm
 
 MAINTAINER Maxence POUTORD <maxence.poutord@gmail.com>
+
+
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -29,12 +31,16 @@ RUN "date"
 
 # Type docker-php-ext-install to see available extensions
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include \
-&& docker-php-ext-install pdo pdo_mysql curl xml intl mcrypt gd bcmath mbstring zip soap
+#&& docker-php-ext-install pdo pdo_mysql curl xml intl mcrypt gd bcmath mbstring zip soap
+&& docker-php-ext-install pdo pdo_mysql curl xml intl gd bcmath mbstring zip soap
 
 #RUN pecl install -o -f redis \
 RUN printf "\n" | pecl install -o -f redis \
 &&  rm -rf /tmp/pear \
 &&  docker-php-ext-enable redis
+
+RUN pecl install mcrypt-1.0.4
+RUN docker-php-ext-enable mcrypt
 
 RUN echo "memory_limit = -1" >> /usr/local/etc/php/php.ini
 RUN echo "upload_max_filesize = 10M;" >> /usr/local/etc/php/php.ini
