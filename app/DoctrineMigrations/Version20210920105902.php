@@ -18,6 +18,7 @@ class Version20210920105902 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE store ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
+        $this->addSql('ALTER TABLE admin_user ADD extra_data LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:json_array)\'');
     }
 
     /**
@@ -28,6 +29,7 @@ class Version20210920105902 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE store DROP extra_data');
+        $this->addSql('ALTER TABLE admin_user DROP extra_data');
     }
 }
     
