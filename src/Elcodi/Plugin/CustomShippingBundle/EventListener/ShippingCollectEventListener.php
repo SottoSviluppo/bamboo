@@ -44,13 +44,14 @@ class ShippingCollectEventListener
     /**
      * Construct method
      *
-     * @param Plugin                 $plugin                 Plugin
+     * @param Plugin $plugin Plugin
      * @param ShippingRangesProvider $shippingRangesProvider ShippingRanges provider
      */
     public function __construct(
-        Plugin $plugin,
+        Plugin                 $plugin,
         ShippingRangesProvider $shippingRangesProvider
-    ) {
+    )
+    {
         $this->plugin = $plugin;
         $this->shippingRangesProvider = $shippingRangesProvider;
     }
