@@ -34,4 +34,5 @@ parameters:
         Elcodi\Admin\UserBundle\Controller\CustomerController: ['customer']
         Elcodi\Admin\PermissionsBundle\Controller\PermissionsController: ['permissions']
         Elcodi\Admin\UserBundle\Controller\CustomerCategoryController: ['customerCategory']
+        Elcodi\Admin\SocialBundle\Controller\AdminSocialController: ['social']
     permissions_custom: ~

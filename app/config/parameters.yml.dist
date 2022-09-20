@@ -82,6 +82,7 @@ parameters:
         user: 'Users'
         permissions: Permissions
         customerCategory: 'Customer Categories'
+        social: Social
     store_access_role: IS_AUTHENTICATED_ANONYMOUSLY
 
     #search
