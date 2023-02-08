@@ -164,7 +164,7 @@ class AppKernel extends Kernel {
 			'Elcodi\Plugin\DisqusBundle\ElcodiDisqusBundle',
 			'Elcodi\Plugin\TwitterBundle\ElcodiTwitterBundle',
 			'Elcodi\Plugin\FacebookBundle\ElcodiFacebookBundle',
-			'Elcodi\Plugin\StoreTemplateBundle\StoreTemplateBundle',
+            'Elcodi\Plugin\StoreTemplateBundle\StoreTemplateBundle',
 			'Elcodi\Plugin\PaypalWebCheckoutBundle\ElcodiPaypalWebCheckoutBundle',
 			'Elcodi\Plugin\FreePaymentBundle\ElcodiFreePaymentBundle',
 			'Elcodi\Plugin\StripeBundle\ElcodiStripeBundle',
