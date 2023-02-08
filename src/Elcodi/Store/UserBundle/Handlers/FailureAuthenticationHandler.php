@@ -40,21 +40,21 @@ class FailureAuthenticationHandler implements AuthenticationFailureHandlerInterf
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         // if AJAX login
-        if ($request->isXmlHttpRequest()) {
-
-            $array = array('success' => false, 'message' => $exception->getMessage()); // data to return via JSON
-            $response = new Response(json_encode($array));
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-
-            // if form login
-        } else {
+//        if ($request->isXmlHttpRequest()) {
+//
+//            $array = array('success' => false, 'message' => $exception->getMessage()); // data to return via JSON
+//            $response = new Response(json_encode($array));
+//            $response->headers->set('Content-Type', 'application/json');
+//
+//            return $response;
+//
+//            // if form login
+//        } else {
 
             // set authentication exception to session
             $request->getSession()->set(SecurityContextInterface::AUTHENTICATION_ERROR, $exception);
 
             return new RedirectResponse($this->router->generate('store_login'));
-        }
+//        }
     }
 }
