@@ -2,15 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/ATuttoShopTemplateBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/ATuttoShopTemplateBundle/magni-bundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/AttachmentArchiveBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/CashOnDeliveryBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/ComplementarProductBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/CustomerFeedbackBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/EmbeddedVideoBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/PromotionsWithTimerBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/RTIBundle" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/SliderBundle" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/ImpersonificationBundle" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/LoyaltyBundle" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/Elcodi/Plugin/VegeSportTemplateBundle" vcs="Git" />
   </component>
 </project>
