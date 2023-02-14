@@ -191,7 +191,7 @@ class ImageController extends AbstractAdminController
      *      path = "/upload",
      *      name = "admin_image_upload"
      * )
-     * @Method({"POST"})
+     * @Method({"GET","POST"})
      *
      * @JsonResponse()
      */

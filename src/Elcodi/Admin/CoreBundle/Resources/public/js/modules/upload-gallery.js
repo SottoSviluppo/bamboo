@@ -101,6 +101,7 @@ FrontendCore.define('upload-gallery', [ oGlobalSettings.sPathJs + '../components
 				oOption,
 				oActions = '<ul class="thumbnail-actions"><li><a href="' + sUrlDelete + '" class="icon-trash-o" data-fc-modules="ajax-link" data-fc-delete="'+ nId +'"></a></li></ul>';
 
+
 				if ($('#' + oContainer.id + '_' + nId , oContainer).length === 0) {
 					oOption = document.createElement('input');
 					oOption.type = 'checkbox';

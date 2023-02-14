@@ -217,10 +217,13 @@ class EmailController extends AbstractAdminController {
 		PageInterface $email
 	) {
 
+        $context = [];
 		if ($email->getName() == "order_confirmation" || $email->getName() == "order_shipped") {
 			$order = $this->get('elcodi.repository.order')->findBy(array(), array('id' => 'desc'), 1);
-			$customer = $order[0]->getCustomer();
-			$context = ['order' => $order[0], 'customer' => $customer];
+            if (count($order)>0) {
+                $customer = $order[0]->getCustomer();
+                $context = ['order' => $order[0], 'customer' => $customer];
+            }
 		} else {
 			$customer = new Customer();
 			$customer->setFirstname('Customer');
@@ -228,12 +231,14 @@ class EmailController extends AbstractAdminController {
 			$context = ['customer' => $customer];
 		}
 
-		$this->get('elcodi_store.mailer.sender')->send(
-			$email->getName(),
-			$context,
-			'info@sottosviluppo.com',
-			false
-		);
+        if (!empty($context)) {
+            $this->get('elcodi_store.mailer.sender')->send(
+                $email->getName(),
+                $context,
+                'info@sottosviluppo.com',
+                false
+            );
+        }
 
 		return $this->redirectToRoute('admin_email_list');
 	}

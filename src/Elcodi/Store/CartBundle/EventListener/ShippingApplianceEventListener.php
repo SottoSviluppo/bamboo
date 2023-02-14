@@ -112,6 +112,7 @@ class ShippingApplianceEventListener
         $cart = $event->getCart();
         $cartShippingMethodId = $cart->getShippingMethod();
 
+
         /**
          * We don't have the need to find the cheapest one if the real one is
          * already defined
@@ -126,7 +127,6 @@ class ShippingApplianceEventListener
         if (!($cart->getCustomer() instanceof CustomerInterface)) {
             return $this;
         }
-
         $address = ($cart->getDeliveryAddress() instanceof AddressInterface)
             ? $cart->getDeliveryAddress()
             : $cart
@@ -154,6 +154,7 @@ class ShippingApplianceEventListener
                 ->getCheapestShippingMethod($validShippingMethods);
 
             $cart->setCheapestShippingMethod($cheapestShippingMethod->getId());
+            $cart->setShippingMethod($cheapestShippingMethod->getId());
         }
 
         return $this;
