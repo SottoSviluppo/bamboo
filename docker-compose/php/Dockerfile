@@ -12,7 +12,12 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         libonig-dev \
         libzip-dev \
+    && docker-php-ext-configure \
+               gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql intl mbstring curl xml zip bcmath soap
+
+#RUN docker-php/-ext-configure \
+ #       gd --with-gd --with-png-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer --version
