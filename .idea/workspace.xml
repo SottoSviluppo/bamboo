@@ -1,334 +1,729 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="02c62b6a-b32b-440b-a52a-9abc3b1dad27" name="Changes" comment="bugfix">
-      <change beforePath="$PROJECT_DIR$/.idea/atuttoshop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/atuttoshop.iml" afterDir="false" />
+    <list default="true" id="79efc912-4f42-4ca4-9484-1d8078a02a02" name="Changes" comment="immagine pagina chi siamo task #3867">
+      <change afterPath="$PROJECT_DIR$/web/favicon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/atuttoshop.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php-test-framework.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/routing/routing.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/routing/routing.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/security/accessControl.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/security/accessControl.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config/security/firewalls.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config/security/firewalls.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/public/css/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/public/css/admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/public/css/tonki.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/public/css/tonki.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/translations/messages.it.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/translations/messages.it.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Layout/_layout.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Layout/_layout.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order/confirm_order_body_email_de.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order/confirm_order_body_email_de.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order/confirm_order_body_email_en.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order/confirm_order_body_email_en.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order_body_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Mail/confirm_order_body_email.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_braintree-scripts.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_braintree-scripts.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_cart-scripts.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_cart-scripts.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_configuration-scripts.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_configuration-scripts.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_cookie-banner.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_cookie-banner.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_form-modal-login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_form-modal-login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_google-login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_google-login.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_home-head-mobile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_home-head-mobile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_shipping-item.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_shipping-item.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_tonki_cart_row_new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Modules/_tonki_cart_row_new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/checkout-new-mobile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/checkout-new-mobile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/checkout-new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/checkout-new.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/configuration-mobile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/configuration-mobile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/configuration.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/configuration.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/giftcard-form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/giftcard-form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/home-view-mobile.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/home-view-mobile.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/home-view.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/home-view.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/user-home.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Pages/user-home.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Subpages/cart-summary.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Subpages/cart-summary.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Subpages/coupon-add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/Subpages/coupon-add.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/editComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/editComponent.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/listComponent.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiTemplateBundle/Resources/views/TonkiOrderAdmin/listComponent.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/web/favicon.ico" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="DONT_SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaTemplateBundle" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/app/config/config.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/config_dev.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/config_ignored.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/enabled_bundles.yml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/app/config/parameters.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/app/config/parameters_dev.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/docker/.env" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/CurrencyDependentPriceBundle/Services/CartGiftcardPricesLoader.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/GiftcardBundle/Services/CartGiftcardPricesLoader.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Command/ExportOrderMulinoBiancoCommand.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/CompilerPass/MappingCompilerPass.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/DependencyInjection/Configuration.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/EventListener/SendOrderShippedEmailEventListener.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Resources/config/commands.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Resources/config/services.yml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Services/DownloadUtility.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Services/TonkiManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Services/TonkiOrderManager.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/vendor/sottosviluppo/elcodi/src/Elcodi/Bundle/CartCouponBundle/Resources/config/eventListeners.yml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/vendor/sottosviluppo/elcodi/src/Elcodi/Bundle/GeoBundle/Resources/config/doctrine/Country.orm.yml" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/vendor/sottosviluppo/elcodi/src/Elcodi/Component/CartCoupon/Services/PurchasableAmountCouponService.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/vendor/sottosviluppo/elcodi/src/Elcodi/Component/Geo/Entity/Country.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/streams" />
-      <path value="$PROJECT_DIR$/vendor/ircmaxell/password-compat" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/ringphp" />
-      <path value="$PROJECT_DIR$/vendor/wikimedia/composer-merge-plugin" />
-      <path value="$PROJECT_DIR$/vendor/instaclick/php-webdriver" />
-      <path value="$PROJECT_DIR$/vendor/acasademont/i18n-routing-bundle" />
-      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/vendor/mathiasverraes/money" />
-      <path value="$PROJECT_DIR$/vendor/jms/serializer" />
-      <path value="$PROJECT_DIR$/vendor/jms/serializer-bundle" />
-      <path value="$PROJECT_DIR$/vendor/jms/parser-lib" />
-      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
-      <path value="$PROJECT_DIR$/vendor/jms/aop-bundle" />
-      <path value="$PROJECT_DIR$/vendor/jms/cg" />
-      <path value="$PROJECT_DIR$/vendor/egeloen/ckeditor-bundle" />
-      <path value="$PROJECT_DIR$/vendor/elendev/roxyfileman-bundle" />
-      <path value="$PROJECT_DIR$/vendor/egeloen/json-builder" />
-      <path value="$PROJECT_DIR$/vendor/yectep/phpspreadsheet-bundle" />
-      <path value="$PROJECT_DIR$/vendor/kriswallsmith/assetic" />
-      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
-      <path value="$PROJECT_DIR$/vendor/kriswallsmith/buzz" />
+      <path value="$PROJECT_DIR$/vendor/visithor/visithor" />
+      <path value="$PROJECT_DIR$/vendor/visithor/visithor-bundle" />
+      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/elastica-bundle" />
       <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
-      <path value="$PROJECT_DIR$/vendor/predis/predis" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
-      <path value="$PROJECT_DIR$/vendor/behat/gherkin" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/vendor/behat/transliterator" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
-      <path value="$PROJECT_DIR$/vendor/behat/mink-browserkit-driver" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
-      <path value="$PROJECT_DIR$/vendor/behat/mink" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/behat/mink-selenium2-driver" />
-      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
-      <path value="$PROJECT_DIR$/vendor/behat/mink-extension" />
-      <path value="$PROJECT_DIR$/vendor/react/promise" />
-      <path value="$PROJECT_DIR$/vendor/behat/symfony2-extension" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
-      <path value="$PROJECT_DIR$/vendor/hwi/oauth-bundle" />
-      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
-      <path value="$PROJECT_DIR$/vendor/phpcollection/phpcollection" />
-      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
-      <path value="$PROJECT_DIR$/vendor/mmoreram/php-formatter" />
-      <path value="$PROJECT_DIR$/vendor/tecnickcom/tcpdf" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
-      <path value="$PROJECT_DIR$/vendor/phpoffice/phpexcel" />
-      <path value="$PROJECT_DIR$/vendor/friendsofphp/php-cs-fixer" />
-      <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
-      <path value="$PROJECT_DIR$/vendor/visithor/visithor" />
-      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
-      <path value="$PROJECT_DIR$/vendor/twig/twig" />
-      <path value="$PROJECT_DIR$/vendor/twig/extensions" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
-      <path value="$PROJECT_DIR$/vendor/goodby/csv" />
-      <path value="$PROJECT_DIR$/vendor/ocramius/proxy-manager" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/behat/behat" />
-      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
-      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
-      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
-      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
-      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/visithor/visithor-bundle" />
-      <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
-      <path value="$PROJECT_DIR$/vendor/sottosviluppo/paymentsuite" />
-      <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
-      <path value="$PROJECT_DIR$/vendor/sottosviluppo/elcodi" />
-      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
-      <path value="$PROJECT_DIR$/vendor/cocur/slugify" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-acl" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
-      <path value="$PROJECT_DIR$/vendor/ornicar/gravatar-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/assetic-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
-      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/gaufrette" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-gaufrette-bundle" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
-      <path value="$PROJECT_DIR$/vendor/mmoreram/http-headers-bundle" />
-      <path value="$PROJECT_DIR$/vendor/friendsofsymfony/elastica-bundle" />
-      <path value="$PROJECT_DIR$/vendor/mmoreram/extractor" />
-      <path value="$PROJECT_DIR$/vendor/mmoreram/controller-extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
-      <path value="$PROJECT_DIR$/vendor/snc/redis-bundle" />
       <path value="$PROJECT_DIR$/vendor/mmoreram/simple-doctrine-mapping" />
       <path value="$PROJECT_DIR$/vendor/mmoreram/symfony-bundle-dependencies" />
+      <path value="$PROJECT_DIR$/vendor/sottosviluppo/paymentsuite" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/mmoreram/extractor" />
+      <path value="$PROJECT_DIR$/vendor/mmoreram/php-formatter" />
+      <path value="$PROJECT_DIR$/vendor/mmoreram/controller-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/mmoreram/http-headers-bundle" />
+      <path value="$PROJECT_DIR$/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/vendor/sottosviluppo/elcodi" />
+      <path value="$PROJECT_DIR$/vendor/jms/cg" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/jms/metadata" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/vendor/behat/gherkin" />
+      <path value="$PROJECT_DIR$/vendor/behat/mink" />
+      <path value="$PROJECT_DIR$/vendor/behat/mink-selenium2-driver" />
+      <path value="$PROJECT_DIR$/vendor/behat/transliterator" />
+      <path value="$PROJECT_DIR$/vendor/jms/parser-lib" />
+      <path value="$PROJECT_DIR$/vendor/behat/mink-browserkit-driver" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer" />
+      <path value="$PROJECT_DIR$/vendor/behat/mink-extension" />
+      <path value="$PROJECT_DIR$/vendor/yectep/phpspreadsheet-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/jms/serializer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/behat/symfony2-extension" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/jms/aop-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/behat/behat" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/vendor/elendev/roxyfileman-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/snc/redis-bundle" />
+      <path value="$PROJECT_DIR$/vendor/egeloen/json-builder" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/egeloen/ckeditor-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-code" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/vendor/zendframework/zend-eventmanager" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/migrations" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/vendor/ornicar/gravatar-bundle" />
+      <path value="$PROJECT_DIR$/vendor/tecnickcom/tcpdf" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpexcel" />
+      <path value="$PROJECT_DIR$/vendor/incenteev/composer-parameter-handler" />
+      <path value="$PROJECT_DIR$/vendor/ocramius/proxy-manager" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phpcollection/phpcollection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/symfony" />
       <path value="$PROJECT_DIR$/vendor/ruflin/elastica" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/vendor/symfony/assetic-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-acl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/kriswallsmith/assetic" />
+      <path value="$PROJECT_DIR$/vendor/kriswallsmith/buzz" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/goodby/csv" />
+      <path value="$PROJECT_DIR$/vendor/stripe/stripe-php" />
+      <path value="$PROJECT_DIR$/vendor/cocur/slugify" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/vendor/wikimedia/composer-merge-plugin" />
+      <path value="$PROJECT_DIR$/vendor/twig/extensions" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/mathiasverraes/money" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-gaufrette-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/streams" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/ringphp" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
-      <path value="$PROJECT_DIR$/vendor/evenement/evenement" />
-      <path value="$PROJECT_DIR$/vendor/ratchet/rfc6455" />
-      <path value="$PROJECT_DIR$/vendor/braintree/braintree_php" />
-      <path value="$PROJECT_DIR$/vendor/ratchet/pawl" />
-      <path value="$PROJECT_DIR$/vendor/iio/libmergepdf" />
-      <path value="$PROJECT_DIR$/vendor/grpc/grpc" />
-      <path value="$PROJECT_DIR$/vendor/maxmind/geoip" />
-      <path value="$PROJECT_DIR$/vendor/google/gax" />
-      <path value="$PROJECT_DIR$/vendor/google/auth" />
-      <path value="$PROJECT_DIR$/vendor/google/cloud-vision" />
-      <path value="$PROJECT_DIR$/vendor/google/protobuf" />
-      <path value="$PROJECT_DIR$/vendor/google/cloud-core" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/constant_time_encoding" />
-      <path value="$PROJECT_DIR$/vendor/google/apiclient-services" />
-      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
-      <path value="$PROJECT_DIR$/vendor/google/apiclient" />
-      <path value="$PROJECT_DIR$/vendor/google/proto-client" />
-      <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
-      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
-      <path value="$PROJECT_DIR$/vendor/rize/uri-template" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdf" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdi-fpdf" />
-      <path value="$PROJECT_DIR$/vendor/setasign/fpdi" />
-      <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
-      <path value="$PROJECT_DIR$/vendor/gregwar/captcha" />
-      <path value="$PROJECT_DIR$/vendor/gregwar/captcha-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/friendsofphp/php-cs-fixer" />
+      <path value="$PROJECT_DIR$/vendor/acasademont/i18n-routing-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/gaufrette" />
+      <path value="$PROJECT_DIR$/vendor/ircmaxell/password-compat" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/hwi/oauth-bundle" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/instaclick/php-webdriver" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
       <path value="$PROJECT_DIR$/vendor/facebook/graph-sdk" />
-      <path value="$PROJECT_DIR$/vendor/react/event-loop" />
-      <path value="$PROJECT_DIR$/vendor/react/promise-timer" />
-      <path value="$PROJECT_DIR$/vendor/react/socket" />
-      <path value="$PROJECT_DIR$/vendor/react/stream" />
-      <path value="$PROJECT_DIR$/vendor/react/dns" />
-      <path value="$PROJECT_DIR$/vendor/react/cache" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2Bpi12qR2VzShrMMXJgkkIv868n" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2Gyyej6MNrpJYctdE5CbvnP3UM7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/emanuela/Development/tonki/src/Elcodi/Plugin/TonkiBundle/Command",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/emanuela/Development/elcodi&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/TonkiBundle/Command" />
-      <recent name="$PROJECT_DIR$/app/config" />
-      <recent name="$PROJECT_DIR$/docker" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaTemplateBundle/Resources/views/Order" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaBundle/Controller" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaTemplateBundle/Resources/public/js/cloudzoom" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaBundle/Resources/config" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaBundle/Resources/views" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/ParoleInPosaBundle/Resources/views" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/SupportoBundle/DependencyInjection" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/AuthorBundle/Resources/views/AdminAuthor" />
+      <recent name="$PROJECT_DIR$/src/Elcodi/Plugin/AuthorBundle/Entity" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="ComposerRunConfigurationType" factoryName="Composer Script">
-      <option name="pathToComposerJson" value="$PROJECT_DIR$/composer.json" />
+  <component name="RunManager" selected="Behat.behat.yml.dist">
+    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+    <configuration name="behat.yml.dist" type="PhpBehatConfigurationType">
+      <BehatRunner scope="Yml" />
       <method v="2" />
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="02c62b6a-b32b-440b-a52a-9abc3b1dad27" name="Changes" comment="" />
-      <created>1657609216169</created>
+      <changelist id="79efc912-4f42-4ca4-9484-1d8078a02a02" name="Changes" comment="" />
+      <created>1667375215907</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1657609216169</updated>
-      <workItem from="1657609229522" duration="24586000" />
+      <updated>1667375215907</updated>
+      <workItem from="1667375217609" duration="2340000" />
+      <workItem from="1667377697434" duration="5550000" />
+      <workItem from="1667398492481" duration="6218000" />
+      <workItem from="1667463683854" duration="2415000" />
+      <workItem from="1667468439440" duration="585000" />
+      <workItem from="1667469037181" duration="11712000" />
+      <workItem from="1667552367377" duration="607000" />
+      <workItem from="1667989947518" duration="5528000" />
+      <workItem from="1668068741087" duration="260000" />
+      <workItem from="1668076657664" duration="217000" />
+      <workItem from="1668162594971" duration="599000" />
+      <workItem from="1668414142110" duration="3931000" />
+      <workItem from="1668435774593" duration="602000" />
+      <workItem from="1668503334480" duration="615000" />
+      <workItem from="1668504720513" duration="9769000" />
+      <workItem from="1668587769253" duration="618000" />
+      <workItem from="1668591521321" duration="6268000" />
+      <workItem from="1668674158075" duration="18281000" />
+      <workItem from="1668762216995" duration="6063000" />
+      <workItem from="1668778700616" duration="9776000" />
+      <workItem from="1669017981705" duration="1210000" />
+      <workItem from="1669027109574" duration="4485000" />
+      <workItem from="1669105689362" duration="2590000" />
+      <workItem from="1669110183199" duration="1495000" />
+      <workItem from="1669369257543" duration="8222000" />
+      <workItem from="1669710424123" duration="188000" />
+      <workItem from="1669819825746" duration="3358000" />
+      <workItem from="1669884006499" duration="15766000" />
+      <workItem from="1669969384418" duration="6883000" />
+      <workItem from="1669985014159" duration="13483000" />
+      <workItem from="1670228564073" duration="11092000" />
+      <workItem from="1670314818041" duration="1299000" />
+      <workItem from="1670320036966" duration="19430000" />
+      <workItem from="1670345034673" duration="1408000" />
+      <workItem from="1670400275096" duration="1217000" />
+      <workItem from="1670421622067" duration="6958000" />
+      <workItem from="1670833569625" duration="718000" />
+      <workItem from="1670844168046" duration="4779000" />
+      <workItem from="1670864059835" duration="772000" />
+      <workItem from="1670919949501" duration="6727000" />
+      <workItem from="1670932961190" duration="9221000" />
+      <workItem from="1671006322151" duration="22166000" />
+      <workItem from="1671091766907" duration="27417000" />
+      <workItem from="1671174235833" duration="19012000" />
+      <workItem from="1671440046752" duration="626000" />
+      <workItem from="1671455745517" duration="437000" />
+      <workItem from="1671457140058" duration="649000" />
+      <workItem from="1671458547034" duration="6158000" />
+      <workItem from="1671524673415" duration="1970000" />
+      <workItem from="1671530057915" duration="2424000" />
+      <workItem from="1671621191543" duration="7145000" />
+      <workItem from="1671697565359" duration="9002000" />
+      <workItem from="1671725816971" duration="853000" />
+      <workItem from="1671798658910" duration="1557000" />
+      <workItem from="1672732838422" duration="47000" />
+      <workItem from="1673340556956" duration="17900000" />
+      <workItem from="1673425520495" duration="3202000" />
+      <workItem from="1673451256834" duration="3086000" />
+      <workItem from="1673511622548" duration="5656000" />
+      <workItem from="1673537402260" duration="5670000" />
+      <workItem from="1673597570694" duration="11464000" />
+      <workItem from="1673625345107" duration="1208000" />
+      <workItem from="1673679680409" duration="254000" />
+      <workItem from="1673861757840" duration="10212000" />
+      <workItem from="1673883335010" duration="21000" />
+      <workItem from="1673944055797" duration="7062000" />
+      <workItem from="1673971302329" duration="5369000" />
+      <workItem from="1674030215103" duration="14380000" />
+      <workItem from="1674116316061" duration="5471000" />
+      <workItem from="1674127255065" duration="1322000" />
+      <workItem from="1674199567092" duration="9533000" />
+      <workItem from="1674213740794" duration="1381000" />
+      <workItem from="1674230279110" duration="1909000" />
+      <workItem from="1674462240023" duration="805000" />
+      <workItem from="1674463059715" duration="14647000" />
+      <workItem from="1674547946876" duration="218000" />
+      <workItem from="1674550511096" duration="17988000" />
+      <workItem from="1674636645465" duration="11015000" />
+      <workItem from="1674731381733" duration="897000" />
+      <workItem from="1674807249497" duration="1140000" />
+      <workItem from="1674809457063" duration="4138000" />
+      <workItem from="1674825529693" duration="2538000" />
+      <workItem from="1675074676517" duration="13655000" />
+      <workItem from="1675149738300" duration="1303000" />
+      <workItem from="1675153154108" duration="1951000" />
+      <workItem from="1675172511846" duration="5062000" />
+      <workItem from="1675237534221" duration="538000" />
+      <workItem from="1675239980568" duration="2880000" />
+      <workItem from="1675243985829" duration="11120000" />
+      <workItem from="1675324501793" duration="5760000" />
+      <workItem from="1675352683398" duration="1272000" />
+      <workItem from="1675411759842" duration="1206000" />
+      <workItem from="1675417262058" duration="608000" />
+      <workItem from="1675421939729" duration="14653000" />
+      <workItem from="1675675840126" duration="117000" />
+      <workItem from="1675864396580" duration="10177000" />
+      <workItem from="1675931858614" duration="9000" />
+      <workItem from="1675950175036" duration="7334000" />
+      <workItem from="1676016316132" duration="16823000" />
+      <workItem from="1676363001787" duration="15257000" />
+      <workItem from="1676387490447" duration="131000" />
+      <workItem from="1676391564396" duration="3120000" />
+      <workItem from="1676535654634" duration="70000" />
+      <workItem from="1676545790343" duration="2039000" />
+      <workItem from="1676557828741" duration="2855000" />
+      <workItem from="1676623499532" duration="3032000" />
+      <workItem from="1676628454343" duration="4543000" />
+      <workItem from="1676969805761" duration="1940000" />
+      <workItem from="1676985659455" duration="5047000" />
+      <workItem from="1676992372210" duration="780000" />
+      <workItem from="1677054420461" duration="4658000" />
+      <workItem from="1677064610022" duration="622000" />
+      <workItem from="1677139730045" duration="6879000" />
+      <workItem from="1677151126829" duration="81000" />
+      <workItem from="1677153704695" duration="3047000" />
+      <workItem from="1677248530468" duration="1674000" />
+      <workItem from="1677261043423" duration="51000" />
+      <workItem from="1677486530755" duration="1941000" />
+      <workItem from="1677496946587" duration="3840000" />
+      <workItem from="1677506184973" duration="7626000" />
+      <workItem from="1677571928284" duration="2733000" />
+      <workItem from="1677576445610" duration="1846000" />
+      <workItem from="1677579315067" duration="2200000" />
+      <workItem from="1677582576109" duration="2714000" />
+      <workItem from="1677667537576" duration="13284000" />
+      <workItem from="1677754726600" duration="77000" />
+      <workItem from="1677754828521" duration="717000" />
+      <workItem from="1677858374062" duration="2247000" />
+      <workItem from="1678092523951" duration="305000" />
+      <workItem from="1678784847328" duration="6643000" />
+      <workItem from="1678877409091" duration="654000" />
+      <workItem from="1678878861096" duration="59000" />
+      <workItem from="1679997243313" duration="1829000" />
+      <workItem from="1680005516493" duration="2997000" />
+      <workItem from="1680077199555" duration="1625000" />
+      <workItem from="1680081891844" duration="377000" />
+      <workItem from="1680082315121" duration="1525000" />
+      <workItem from="1680159833423" duration="1345000" />
+      <workItem from="1680264470681" duration="4391000" />
+      <workItem from="1680506460420" duration="611000" />
     </task>
-    <task id="LOCAL-00001" summary="bugfix">
-      <created>1657618665324</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
+    <task id="LOCAL-00113" summary="lista attesa">
+      <created>1675175544579</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
       <option name="project" value="LOCAL" />
-      <updated>1657618665324</updated>
+      <updated>1675175544579</updated>
     </task>
-    <task id="LOCAL-00002" summary="bugfix">
-      <created>1657618684896</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
+    <task id="LOCAL-00114" summary="immagine supporti homepage">
+      <created>1675180381960</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
       <option name="project" value="LOCAL" />
-      <updated>1657618684896</updated>
+      <updated>1675180381960</updated>
     </task>
-    <task id="LOCAL-00003" summary="bugfix">
-      <created>1657618703937</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
+    <task id="LOCAL-00115" summary="bugfix chiusura ordine">
+      <created>1675258314972</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
       <option name="project" value="LOCAL" />
-      <updated>1657618703937</updated>
+      <updated>1675258314972</updated>
     </task>
-    <task id="LOCAL-00004" summary="bugfix">
-      <created>1657627352109</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
+    <task id="LOCAL-00116" summary="bugfix">
+      <created>1675260014423</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
       <option name="project" value="LOCAL" />
-      <updated>1657627352109</updated>
+      <updated>1675260014423</updated>
     </task>
-    <task id="LOCAL-00005" summary="export ordini mulino bianco">
-      <created>1657639661455</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
+    <task id="LOCAL-00117" summary="svuota carrello">
+      <created>1675261093680</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
       <option name="project" value="LOCAL" />
-      <updated>1657639661455</updated>
+      <updated>1675261093680</updated>
     </task>
-    <task id="LOCAL-00006" summary="bugfix">
-      <created>1657639704594</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
+    <task id="LOCAL-00118" summary="immagini homepage">
+      <created>1675325371063</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
       <option name="project" value="LOCAL" />
-      <updated>1657639704594</updated>
+      <updated>1675325371065</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00119" summary="modifica testo">
+      <created>1675326608059</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1675326608059</updated>
+    </task>
+    <task id="LOCAL-00120" summary="bugfix percorso ordine">
+      <created>1675327566105</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1675327566106</updated>
+    </task>
+    <task id="LOCAL-00121" summary="bugfix data nascita indirizzo">
+      <created>1675425455801</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1675425455801</updated>
+    </task>
+    <task id="LOCAL-00122" summary="bugfix breadcrumb">
+      <created>1675438823412</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1675438823412</updated>
+    </task>
+    <task id="LOCAL-00123" summary="bugfix">
+      <created>1675866320879</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1675866320880</updated>
+    </task>
+    <task id="LOCAL-00124" summary="data nascita nei dati personali e non fatturazione">
+      <created>1675867104694</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1675867104695</updated>
+    </task>
+    <task id="LOCAL-00125" summary="bugfix">
+      <created>1675962790456</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1675962790457</updated>
+    </task>
+    <task id="LOCAL-00126" summary="bugfix">
+      <created>1676035671638</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1676035671639</updated>
+    </task>
+    <task id="LOCAL-00127" summary="bugfix">
+      <created>1676048071033</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1676048071033</updated>
+    </task>
+    <task id="LOCAL-00128" summary="bugfix">
+      <created>1676363859797</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1676363859798</updated>
+    </task>
+    <task id="LOCAL-00129" summary="bugfix pre messa online">
+      <created>1676365540503</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1676365540503</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Google Analytics">
+      <created>1676367626060</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1676367626060</updated>
+    </task>
+    <task id="LOCAL-00131" summary="controllo occasioni destinatario">
+      <created>1676370460259</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1676370460259</updated>
+    </task>
+    <task id="LOCAL-00132" summary="nascosti dati fatturazione">
+      <created>1676370971327</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1676370971328</updated>
+    </task>
+    <task id="LOCAL-00133" summary="rotte post login">
+      <created>1676371579756</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1676371579756</updated>
+    </task>
+    <task id="LOCAL-00134" summary="zoom">
+      <created>1676384832993</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1676384832993</updated>
+    </task>
+    <task id="LOCAL-00135" summary="bugfix">
+      <created>1676545821953</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1676545821954</updated>
+    </task>
+    <task id="LOCAL-00136" summary="facebook pixel">
+      <created>1676631679373</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1676631679374</updated>
+    </task>
+    <task id="LOCAL-00137" summary="scelta supporto">
+      <created>1676985691368</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1676985691369</updated>
+    </task>
+    <task id="LOCAL-00138" summary="scelta supporto">
+      <created>1676985709063</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1676985709064</updated>
+    </task>
+    <task id="LOCAL-00139" summary="scelta supporto">
+      <created>1676985875687</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1676985875687</updated>
+    </task>
+    <task id="LOCAL-00140" summary="flag privacy nella pagina di registrazione">
+      <created>1676989185295</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1676989185296</updated>
+    </task>
+    <task id="LOCAL-00141" summary="flag privacy nella pagina di registrazione">
+      <created>1676989200718</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1676989200718</updated>
+    </task>
+    <task id="LOCAL-00142" summary="header fisso">
+      <created>1676990842441</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1676990842441</updated>
+    </task>
+    <task id="LOCAL-00143" summary="rimozione header fisso">
+      <created>1676993165619</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1676993165619</updated>
+    </task>
+    <task id="LOCAL-00144" summary="prezzi in offerta">
+      <created>1677140438853</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1677140438854</updated>
+    </task>
+    <task id="LOCAL-00145" summary="backend ordini">
+      <created>1677145068902</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1677145068902</updated>
+    </task>
+    <task id="LOCAL-00146" summary="css popup">
+      <created>1677148072991</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1677148072991</updated>
+    </task>
+    <task id="LOCAL-00147" summary="scelta supporto">
+      <created>1677157990059</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1677157990059</updated>
+    </task>
+    <task id="LOCAL-00148" summary="scelta supporto">
+      <created>1677248565160</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1677248565161</updated>
+    </task>
+    <task id="LOCAL-00149" summary="pixel tik tok">
+      <created>1677261089984</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1677261089984</updated>
+    </task>
+    <task id="LOCAL-00150" summary="google tag">
+      <created>1677487194957</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1677487194958</updated>
+    </task>
+    <task id="LOCAL-00151" summary="facebook pixel">
+      <created>1677493724417</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1677493724417</updated>
+    </task>
+    <task id="LOCAL-00152" summary="codice fiscale">
+      <created>1677578715788</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1677578715788</updated>
+    </task>
+    <task id="LOCAL-00153" summary="numero ordine dashboard utente">
+      <created>1677584402018</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1677584402018</updated>
+    </task>
+    <task id="LOCAL-00154" summary="recaptcha">
+      <created>1677755528620</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1677755528621</updated>
+    </task>
+    <task id="LOCAL-00155" summary="bugfix">
+      <created>1677860021432</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1677860021433</updated>
+    </task>
+    <task id="LOCAL-00156" summary="bugfix task #3838">
+      <created>1678786647419</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1678786647419</updated>
+    </task>
+    <task id="LOCAL-00157" summary="modifiche grafiche task #3835">
+      <created>1678801392780</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1678801392781</updated>
+    </task>
+    <task id="LOCAL-00158" summary="slider a scorrimento automatico task #3854">
+      <created>1679998032791</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1679998032792</updated>
+    </task>
+    <task id="LOCAL-00159" summary="favicon task #3856">
+      <created>1680007994287</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1680007994287</updated>
+    </task>
+    <task id="LOCAL-00160" summary="bottone whatsapp task #3860">
+      <created>1680099540185</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1680099540186</updated>
+    </task>
+    <task id="LOCAL-00161" summary="immagine pagina chi siamo task #3867">
+      <created>1680273885571</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1680273885571</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,20 +741,32 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/ATuttoShopTemplateBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/ATuttoShopTemplateBundle/magni-bundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/AttachmentArchiveBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/CashOnDeliveryBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/ComplementarProductBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/CustomerFeedbackBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/EmbeddedVideoBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/PromotionsWithTimerBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/RTIBundle" />
-      <path value="$PROJECT_DIR$/src/Elcodi/Plugin/SliderBundle" />
-    </ignored-roots>
-    <MESSAGE value="export ordini mulino bianco" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Google Analytics" />
+    <MESSAGE value="controllo occasioni destinatario" />
+    <MESSAGE value="nascosti dati fatturazione" />
+    <MESSAGE value="rotte post login" />
+    <MESSAGE value="zoom" />
+    <MESSAGE value="flag privacy nella pagina di registrazione" />
+    <MESSAGE value="header fisso" />
+    <MESSAGE value="rimozione header fisso" />
+    <MESSAGE value="prezzi in offerta" />
+    <MESSAGE value="backend ordini" />
+    <MESSAGE value="css popup" />
+    <MESSAGE value="scelta supporto" />
+    <MESSAGE value="pixel tik tok" />
+    <MESSAGE value="google tag" />
+    <MESSAGE value="facebook pixel" />
+    <MESSAGE value="codice fiscale" />
+    <MESSAGE value="numero ordine dashboard utente" />
+    <MESSAGE value="recaptcha" />
     <MESSAGE value="bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix" />
+    <MESSAGE value="bugfix task #3838" />
+    <MESSAGE value="modifiche grafiche task #3835" />
+    <MESSAGE value="slider a scorrimento automatico task #3854" />
+    <MESSAGE value="favicon task #3856" />
+    <MESSAGE value="bottone whatsapp task #3860" />
+    <MESSAGE value="immagine pagina chi siamo task #3867" />
+    <option name="LAST_COMMIT_MESSAGE" value="immagine pagina chi siamo task #3867" />
   </component>
 </project>
