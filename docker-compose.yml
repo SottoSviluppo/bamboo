@@ -3,7 +3,7 @@ version: '3.3'
 services:
   db:
     image: mysql:5.7
-    container_name: "bamboo_db"
+#    container_name: "tuttiunitiscuola_db"
     ports:
       - "3307:3306"
     command:
@@ -18,7 +18,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   php:
-    container_name: "bamboo_web_server"
+#    container_name: "tuttiunitiscuola_web_server"
     build:
       context: .
       dockerfile: ./docker-compose/php/Dockerfile
@@ -39,7 +39,7 @@ services:
   
   
   mailer:
-    container_name: "bamboo_mailer"
+#    container_name: "tuttiunitiscuola_mailer"
     image: mailhog/mailhog
     ports:
       - "1025:1025"

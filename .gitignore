@@ -23,6 +23,7 @@
 composer_custom.json
 /scripts/updatePlugin.sh
 /docker-compose/.data/
+/.idea
 
 src/Elcodi/Plugin/*
 !src/Elcodi/Plugin/BankwireBundle/
