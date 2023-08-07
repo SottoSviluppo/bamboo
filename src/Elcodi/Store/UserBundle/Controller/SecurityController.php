@@ -87,9 +87,9 @@ class SecurityController extends Controller
     /**
      * Register page
      *
-     * @param CustomerInterface $customer         empty customer
-     * @param FormView          $registerFormView Register form type
-     * @param boolean           $isValid          Form submition is valid
+     * @param CustomerInterface $customer empty customer
+     * @param FormView $registerFormView Register form type
+     * @param boolean $isValid Form submition is valid
      *
      * @return Response Response
      *
@@ -116,18 +116,19 @@ class SecurityController extends Controller
      */
     public function registerAction(
         CustomerInterface $customer,
-        FormView $registerFormView,
-        $isValid
-    ) {
+        FormView          $registerFormView,
+                          $isValid
+    )
+    {
         return $this->register($customer, $registerFormView, $isValid, 'Pages:user-register.html.twig');
     }
 
     /**
      * Register page
      *
-     * @param CustomerInterface $customer         empty customer
-     * @param FormView          $registerFormView Register form type
-     * @param boolean           $isValid          Form submition is valid
+     * @param CustomerInterface $customer empty customer
+     * @param FormView $registerFormView Register form type
+     * @param boolean $isValid Form submition is valid
      *
      * @return Response Response
      *
@@ -154,9 +155,10 @@ class SecurityController extends Controller
      */
     public function registerBlockAction(
         CustomerInterface $customer,
-        FormView $registerFormView,
-        $isValid
-    ) {
+        FormView          $registerFormView,
+                          $isValid
+    )
+    {
         /**
          * If user is already logged, go to redirect url
          */
@@ -209,9 +211,9 @@ class SecurityController extends Controller
     /**
      * Register page full
      *
-     * @param CustomerInterface $customer         empty customer
-     * @param FormView          $registerFormView Register form type
-     * @param boolean           $isValid          Form submition is valid
+     * @param CustomerInterface $customer empty customer
+     * @param FormView $registerFormView Register form type
+     * @param boolean $isValid Form submition is valid
      *
      * @return Response Response
      *
@@ -238,16 +240,18 @@ class SecurityController extends Controller
      */
     public function registerFullAction(
         CustomerInterface $customer,
-        FormView $registerFormView,
-        $isValid
-    ) {
+        FormView          $registerFormView,
+                          $isValid
+    )
+    {
         return $this->register($customer, $registerFormView, $isValid, 'Pages:user-register-full.html.twig');
     }
 
     private function register(CustomerInterface $customer,
-        FormView $registerFormView,
-        $isValid,
-        $template) {
+                              FormView          $registerFormView,
+                                                $isValid,
+                                                $template)
+    {
 
         /**
          * If user is already logged, go to redirect url
@@ -258,6 +262,17 @@ class SecurityController extends Controller
         }
 
         if ($isValid) {
+            // superfluous checks just to make sure
+            if ($this->isExistCustomer($customer->getEmail())) {
+                $this->addFlash('error', 'Indirizzo email già presente');
+                return $this->renderTemplate(
+                    $template,
+                    [
+                        'form' => $registerFormView,
+                    ]
+                );
+            }
+
             // superfluous checks just to make sure
             if (!$this->isCustomerValid($customer)) {
                 return $this->renderTemplate(
@@ -309,5 +324,19 @@ class SecurityController extends Controller
             return false;
         }
         return true;
+    }
+
+    /**
+     * Ritorna TRUE se esiste già un Customer con l'indirizzo email inserito
+     * @param string $email
+     * @return bool
+     */
+    private function isExistCustomer(string $email)
+    {
+        $existCustomer = $this->get('elcodi.repository.customer')->findOneBy(['email' => $email]);
+        if ($existCustomer) {
+            return true;
+        }
+        return false;
     }
 }

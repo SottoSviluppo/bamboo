@@ -138,7 +138,7 @@ class CategoryController extends Controller {
 		);
 
 		$purchasablesQuery = $purchasableRepository->getAllFromCategories($categories, $orderByField, $orderByDirection);
-		$paginator = new Paginator($purchasablesQuery);
+        $paginator = new Paginator($purchasablesQuery);
 
 		$paginator->getQuery()
 			->setFirstResult($limit * ($request->get('page') - 1)) // Offset
