@@ -81,7 +81,8 @@
         "elendev/roxyfileman-bundle": "1.2.0",
         "wikimedia/composer-merge-plugin": "2",
         "yectep/phpspreadsheet-bundle" : "0.0.4",
-      "ext-dom": "*"
+      "ext-dom": "*",
+      "ext-json": "*"
     },
     "replace": {
         "elcodi-templates/template": "self.version",

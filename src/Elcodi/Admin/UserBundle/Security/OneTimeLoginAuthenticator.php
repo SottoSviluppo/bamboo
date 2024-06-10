@@ -106,7 +106,7 @@ class OneTimeLoginAuthenticator implements SimplePreAuthenticatorInterface
         $user = $this
             ->adminUserRepository
             ->findOneBy([
-                'oneTimeLoginHash' => $loginKey,
+                'oneTimeLoginHash' => $loginKey
             ]);
 
         if (!$user) {

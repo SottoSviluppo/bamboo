@@ -27,6 +27,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * Class Controller for Coupon
@@ -43,10 +45,10 @@ class CouponController extends AbstractAdminController
      * This action is just a wrapper, so should never get any data,
      * as this is component responsibility
      *
-     * @param integer $page             Page
-     * @param integer $limit            Limit of items per page
-     * @param string  $orderByField     Field to order by
-     * @param string  $orderByDirection Direction to order by
+     * @param integer $page Page
+     * @param integer $limit Limit of items per page
+     * @param string $orderByField Field to order by
+     * @param string $orderByDirection Direction to order by
      *
      * @return array Result
      *
@@ -73,7 +75,8 @@ class CouponController extends AbstractAdminController
         $limit,
         $orderByField,
         $orderByDirection
-    ) {
+    )
+    {
         if (!$this->canRead()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
@@ -90,9 +93,9 @@ class CouponController extends AbstractAdminController
     /**
      * Edit and Saves page
      *
-     * @param FormInterface   $form    Form
-     * @param CouponInterface $coupon  Coupon
-     * @param boolean         $isValid Request handle is valid
+     * @param FormInterface $form Form
+     * @param CouponInterface $coupon Coupon
+     * @param boolean $isValid Request handle is valid
      *
      * @return RedirectResponse Redirect response
      *
@@ -146,10 +149,11 @@ class CouponController extends AbstractAdminController
      * @Template
      */
     public function editAction(
-        FormInterface $form,
+        FormInterface   $form,
         CouponInterface $coupon,
-        $isValid
-    ) {
+                        $isValid
+    )
+    {
         if ($coupon->getId()) {
             if (!$this->canUpdate()) {
                 $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
@@ -171,6 +175,15 @@ class CouponController extends AbstractAdminController
             }
         }
 
+
+        $request = $this->getRequest();
+        $formArray = $request->request->get('elcodi_admin_coupon_form_type_coupon');
+        if ($formArray['validTo']['time'] == '' && $formArray['validTo']['date'] != '') {
+            $this->addFlash('error', "Nell'intervallo di validità temporale del coupon inserire anche l'ora");
+            $isValid = false;
+        }
+
+
         if ($isValid) {
             $this->manageExtraFields($coupon);
             $this->flush($coupon);
@@ -188,8 +201,8 @@ class CouponController extends AbstractAdminController
     /**
      * Enable entity
      *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to enable
+     * @param Request $request Request
+     * @param EnabledInterface $entity Entity to enable
      *
      * @return array Result
      *
@@ -207,9 +220,10 @@ class CouponController extends AbstractAdminController
      * )
      */
     public function enableAction(
-        Request $request,
+        Request          $request,
         EnabledInterface $entity
-    ) {
+    )
+    {
         if (!$this->canUpdate()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
@@ -224,8 +238,8 @@ class CouponController extends AbstractAdminController
     /**
      * Disable entity
      *
-     * @param Request          $request Request
-     * @param EnabledInterface $entity  Entity to disable
+     * @param Request $request Request
+     * @param EnabledInterface $entity Entity to disable
      *
      * @return array Result
      *
@@ -243,9 +257,10 @@ class CouponController extends AbstractAdminController
      * )
      */
     public function disableAction(
-        Request $request,
+        Request          $request,
         EnabledInterface $entity
-    ) {
+    )
+    {
         if (!$this->canUpdate()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
@@ -260,9 +275,9 @@ class CouponController extends AbstractAdminController
     /**
      * Delete entity
      *
-     * @param Request $request      Request
-     * @param mixed   $entity       Entity to delete
-     * @param string  $redirectPath Redirect path
+     * @param Request $request Request
+     * @param mixed $entity Entity to delete
+     * @param string $redirectPath Redirect path
      *
      * @return RedirectResponse Redirect response
      *
@@ -281,9 +296,10 @@ class CouponController extends AbstractAdminController
      */
     public function deleteAction(
         Request $request,
-        $entity,
-        $redirectPath = null
-    ) {
+                $entity,
+                $redirectPath = null
+    )
+    {
         if (!$this->canDelete()) {
             $this->addFlash('error', $this->get('translator')->trans('admin.permissions.error'));
             return $this->redirect($this->generateUrl('admin_homepage'));
